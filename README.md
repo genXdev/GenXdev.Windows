@@ -1,23 +1,32 @@
 ﻿<hr/>
 
-![](powershell.jpg)
+<img src="powershell.jpg" alt="drawing" width="50%"/>
 
 <hr/>
 
-## NAME
+### NAME
     GenXdev.Windows
 
-## SYNOPSIS
-    Provides a collection of cmdlets and .Net classes that help with some UI-manipulation/automation of windows, and other windows specific features
+### SYNOPSIS
+    A Windows PowerShell module that provides ui Windows manipulation helpers
 
-## TYPE
-    PowerShell Module
-## INSTALLATION
-````Powershell
+[![GenXdev.Windows](https://img.shields.io/powershellgallery/v/GenXdev.Windows.svg?style=flat-square&label=GenXdev.Windows)](https://www.powershellgallery.com/packages/GenXdev.Windows/) [![License](https://img.shields.io/github/license/renevaessen/GenXdev.Windows?style=flat-square)](./LICENSE)
 
-    Install-Module "GenXdev.Windows" -Force
-    Import-Module "GenXdev.Windows"
+### FEATURES
 
+    * ✅ Allow resizing/repositioning/closing of Windows
+    * ✅ Read/write access to Windows special folder locations
+
+### DEPENDENCIES
+[![GenXdev.Helpers](https://img.shields.io/powershellgallery/v/GenXdev.Helpers.svg?style=flat-square&label=GenXdev.Helpers)](https://www.powershellgallery.com/packages/GenXdev.Helpers/)
+### INSTALLATION
+````PowerShell
+Install-Module "GenXdev.Windows" -Force
+Import-Module "GenXdev.Windows"
+````
+### UPDATE
+````PowerShell
+Update-Module
 ````
 
 <br/><hr/><hr/><hr/><hr/><br/>
