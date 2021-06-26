@@ -6,7 +6,7 @@
     RootModule = 'GenXdev.Windows.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.6.0'
+    ModuleVersion     = '1.7.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -45,7 +45,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion = '1.6.0'});
+    RequiredModules = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion = '1.7.0'});
 
     # Assemblies that must be loaded prior to importing this module
     RequiredAssemblies = @("System.Windows.Forms")
@@ -81,7 +81,7 @@
     ModuleList        = @("GenXdev.Windows")
 
     # List of all files packaged with this module
-    FileList          = @("GenXdev.Windows.psd1", "GenXdev.Windows.psm1", "LICENSE", "license.txt", "README.md")
+    FileList          = @("GenXdev.Windows.psd1", "GenXdev.Windows.psm1", "LICENSE", "license.txt", "powershell.jpg", "README.md")
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{
