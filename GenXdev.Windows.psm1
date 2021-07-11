@@ -1,4 +1,15 @@
-﻿function Get-Window {
+﻿
+<#
+.SYNOPSIS
+Returns a window helper for the main window of the specified process
+
+.DESCRIPTION
+Returns a window helper for the main window of the specified process
+
+.PARAMETER ProcessName
+The process to get the window helper for
+#>
+function Get-Window {
     [CmdletBinding()]
     [Alias()]
 
@@ -18,22 +29,6 @@
 
 ##############################################################################################################
 ##############################################################################################################
-<#
-.SYNOPSIS
-    Provides Get and Set functions for KnownFolders
-.EXAMPLE
-    PS> Set-KnownFolderPath Desktop $ENV:USERPROFILE/Desktop
-.EXAMPLE
-    PS> $Path=""
-    PS> Get-KnownFolderPath Desktop ([ref]$Path)
-.LINK
-    https://docs.microsoft.com/en-us/windows/win32/shell/known-folders
-.LINK
-    https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
-.LINK
-    https://gist.github.com/YoraiLevi/0f333d520f502fdb1244cdf0524db6d2
-#>
-
 # Define known folder GUIDs
 $KnownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
@@ -126,30 +121,43 @@ $KnownFolders = @{
     'Windows'               = 'F38BF404-1D43-42F2-9305-67DE0B28FC23';
 }
 
+<#
+.SYNOPSIS
+Sets a known folder's path using SHSetKnownFolderPath.
+
+.DESCRIPTION
+Sets a known folder's path using SHSetKnownFolderPath.
+
+.PARAMETER KnownFolder
+The known folder whose path to set.
+
+.PARAMETER Path
+The path.
+
+.INPUTS
+None. You cannot pipe objects to Set-KnownFolderPath.
+
+.OUTPUTS
+Int. Set-KnownFolderPath returns an int with the return code of SHSetKnownFolderPath
+
+.EXAMPLE
+PS> Set-KnownFolderPath Desktop $ENV:USERPROFILE/Desktop
+
+0
+.EXAMPLE
+
+PS> Set-KnownFolderPath -KnownFolder Desktop -Path $ENV:USERPROFILE/Desktop
+0
+
+.LINK
+https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath
+
+.LINK
+https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
+
+#>
 function Set-KnownFolderPath {
     [CmdletBinding(ConfirmImpact = "high")]
-    <#
-    .SYNOPSIS
-        Sets a known folder's path using SHSetKnownFolderPath.
-    .PARAMETER KnownFolder
-        The known folder whose path to set.
-    .PARAMETER Path
-        The path.
-    .INPUTS
-        None. You cannot pipe objects to Set-KnownFolderPath.
-    .OUTPUTS
-        Int. Set-KnownFolderPath returns an int with the return code of SHSetKnownFolderPath
-    .EXAMPLE
-        PS> Set-KnownFolderPath Desktop $ENV:USERPROFILE/Desktop
-        0
-    .EXAMPLE
-        PS> Set-KnownFolderPath -KnownFolder Desktop -Path $ENV:USERPROFILE/Desktop
-        0
-    .LINK
-        https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath
-    .LINK
-        https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
-    #>
     Param (
         [Parameter(Mandatory = $true)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
@@ -179,21 +187,30 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags, Int
         throw New-Object System.IO.DirectoryNotFoundException "Could not find part of the path $Path."
     }
 }
+<#
+.SYNOPSIS
+Gets a known folder's path using SHGetKnownFolderPath.
+
+.DESCRIPTION
+Gets a known folder's path using SHGetKnownFolderPath.
+
+.PARAMETER KnownFolder
+The known folder whose path to get.
+
+.INPUTS
+None. You cannot pipe objects to Get-KnownFolderPath.
+
+.OUTPUTS
+Int. Get-KnownFolderPath returns an int with the return code of SHGetKnownFolderPath
+
+.LINK
+https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath
+
+.LINK
+https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
+
+#>
 function Get-KnownFolderPath {
-    <#
-    .SYNOPSIS
-        Gets a known folder's path using SHGetKnownFolderPath.
-    .PARAMETER KnownFolder
-        The known folder whose path to get.
-    .INPUTS
-        None. You cannot pipe objects to Get-KnownFolderPath.
-    .OUTPUTS
-        Int. Get-KnownFolderPath returns an int with the return code of SHGetKnownFolderPath
-    .LINK
-        https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath
-    .LINK
-        https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
-    #>
     Param (
         [Parameter(Mandatory = $true)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
@@ -218,6 +235,16 @@ public extern static int SHGetKnownFolderPath(ref Guid folderId, uint flags, Int
     return $null
 }
 
+<#
+.SYNOPSIS
+Returns the scaling factor that is configured for a monitor
+
+.DESCRIPTION
+Returns the scaling factor that is configured for a monitor
+
+.PARAMETER monitor
+The monitor to return the scaling factor for, or if not supplied the primary monitor is used
+#>
 function Get-DesktopScalingFactor {
 
     param(
@@ -231,6 +258,16 @@ function Get-DesktopScalingFactor {
 ##############################################################################################################
 ##############################################################################################################
 
+<#
+.SYNOPSIS
+Sets the alignment for the Windows 11+ Taskbar
+
+.DESCRIPTION
+Sets the alignment for the Windows 11+ Taskbar
+
+.PARAMETER Justify
+The new alignment
+#>
 function Set-TaskbarAlignment() {
     Param(
         [Parameter(Mandatory = $True)]
@@ -254,6 +291,13 @@ function Set-TaskbarAlignment() {
 
 ##############################################################################################################
 
+<#
+.SYNOPSIS
+Returns the process of the window responsible for hosting the Powershell terminal
+
+.DESCRIPTION
+Returns the process of the window responsible for hosting the Powershell terminal
+#>
 function Get-PowershellMainWindowProcess {
 
     $PowershellProcess = [System.Diagnostics.Process]::GetCurrentProcess();
@@ -266,6 +310,13 @@ function Get-PowershellMainWindowProcess {
 
 ##############################################################################################################
 
+<#
+.SYNOPSIS
+Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+
+.DESCRIPTION
+Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+#>
 function Get-PowershellMainWindow {
 
     [GenXdev.Helpers.WindowObj]::GetMainWindow((Get-PowershellMainWindowProcess))[0];
@@ -329,8 +380,6 @@ Don't re-use existing window, instead, create a new one -> nw
 
 .PARAMETER PassThrough
 Returns a [System.Diagnostics.Process] object of the browserprocess
-
-.EXAMPLE
 
 #>
 function Set-WindowPosition {
@@ -537,26 +586,26 @@ function Set-WindowPosition {
 
                         Write-Verbose "Setting NoBorders"
 
-                        # do some magic
+                        $window[0].RemoveBorder();
                     }
                 }
             }
             finally {
 
-                # if needed, restore the focus to the PowerShell terminal
+                # if needed, restore the focus to the PowerShell terminal
                 refocusTab $process $window
             }
         }
 
         ###############################################################################################
-        # start processing the Urls that we need to open
+        # start processing the Urls that we need to open
         foreach ($currentProcess in $Process) {
 
-            # get window handle
+            # get window handle
             $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess);
             if ($window.Count -eq 0) { continue }
 
-            # reference the main monitor
+            # reference the main monitor
             $Screen = [System.Windows.Forms.Screen]::PrimaryScreen;
 
             # reference the requested monitor
@@ -660,6 +709,66 @@ function Set-WindowPosition {
 
 ##############################################################################################################
 
+<#
+.SYNOPSIS
+Positions a window and positions it by default on the secondairy monitor
+
+.DESCRIPTION
+Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor
+
+.PARAMETER Process
+The process of the window to position
+
+.PARAMETER Monitor
+The monitor to use, 0 = default, 1 = secondary, -1 is discard
+.PARAMETER NoBorders
+Open in NoBorders mode --> -fs
+
+.PARAMETER Width
+The initial width of the window
+
+.PARAMETER Height
+The initial height of the window
+
+.PARAMETER X
+The initial X position of the window
+
+.PARAMETER Y
+The initial Y position of the window
+
+.PARAMETER Left
+Place window on the left side of the screen
+
+.PARAMETER Right
+Place window on the right side of the screen
+
+.PARAMETER Top
+Place window on the top side of the screen
+
+.PARAMETER Bottom
+Place window on the bottom side of the screen
+
+.PARAMETER Centered
+Place window in the center of the screen
+
+.PARAMETER ApplicationMode
+Hide the browser controls --> -a, -app, -appmode
+
+.PARAMETER NoBrowserExtensions
+Prevent loading of browser extensions --> -de, -ne
+
+.PARAMETER RestoreFocus
+Restore PowerShell window focus --> -bg
+
+.PARAMETER NewWindow
+Don't re-use existing window, instead, create a new one -> nw
+
+.PARAMETER PassThrough
+Returns a [System.Diagnostics.Process] object of the browserprocess
+
+.EXAMPLE
+
+#>
 function Set-WindowPositionForSecondary {
 
     [CmdletBinding()]
@@ -720,26 +829,6 @@ function Copy-SetWindowPositionParameters {
     return (Copy-CommandParameters -CommandName "Set-WindowPosition" -ParametersToSkip  $ParametersToSkip)
 }
 
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
