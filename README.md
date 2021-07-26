@@ -50,7 +50,7 @@ Update-Module
 
 # Cmdlets
 
-## Copy-SetWindowPositionParameters
+##	Copy-SetWindowPositionParameters
 ````PowerShell
 Copy-SetWindowPositionParameters
 ````
@@ -84,7 +84,7 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>]
 
 <br/><hr/><hr/><br/>
 
-## Get-DesktopScalingFactor
+##	Get-DesktopScalingFactor
 ````PowerShell
 Get-DesktopScalingFactor
 ````
@@ -118,7 +118,7 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Get-KnownFolderPath
+##	Get-KnownFolderPath
 ````PowerShell
 Get-KnownFolderPath
 ````
@@ -151,7 +151,7 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Get-PowershellMainWindow
+##	Get-PowershellMainWindow
 ````PowerShell
 Get-PowershellMainWindow
 ````
@@ -179,7 +179,7 @@ Get-PowershellMainWindow [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Get-PowershellMainWindowProcess
+##	Get-PowershellMainWindowProcess
 ````PowerShell
 Get-PowershellMainWindowProcess
 ````
@@ -207,7 +207,7 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Get-Window
+##	Get-Window
 ````PowerShell
 Get-Window
 ````
@@ -240,7 +240,7 @@ Get-Window [-ProcessName] <String> [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Set-KnownFolderPath
+##	Set-KnownFolderPath
 ````PowerShell
 Set-KnownFolderPath
 ````
@@ -281,7 +281,7 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
 
 <br/><hr/><hr/><br/>
 
-## Set-TaskbarAlignment
+##	Set-TaskbarAlignment
 ````PowerShell
 Set-TaskbarAlignment
 ````
@@ -314,7 +314,7 @@ Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-## Set-WindowPosition
+##	Set-WindowPosition
 ````PowerShell
 Set-WindowPosition                   --> wp
 ````
@@ -441,7 +441,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>]
 
 <br/><hr/><hr/><br/>
 
-## Set-WindowPositionForSecondary
+##	Set-WindowPositionForSecondary
 ````PowerShell
 Set-WindowPositionForSecondary       --> wps
 ````
