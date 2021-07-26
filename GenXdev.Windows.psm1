@@ -10,7 +10,7 @@ Returns a window helper for the main window of the specified process
 The process to get the window helper for
 #>
 function Get-Window {
-    [CmdletBinding()]
+
     [Alias()]
 
     param (
@@ -18,17 +18,17 @@ function Get-Window {
         [string] $ProcessName
     )
 
-    ################################################################################
-    ################################################################################
+    ###############################################################################
 
+    ###############################################################################
     Get-Process "*$ProcessName*" -ErrorAction SilentlyContinue | Where-Object -Property MainWindowHandle -NE 0 | ForEach-Object -Process {
 
         [GenXdev.Helpers.WindowObj]::GetMainWindow($PSItem)
     }
 }
 
-##############################################################################################################
-##############################################################################################################
+###############################################################################
+
 # Define known folder GUIDs
 $KnownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
@@ -157,7 +157,9 @@ https://stackoverflow.com/questions/25709398/set-location-of-special-folders-wit
 
 #>
 function Set-KnownFolderPath {
+
     [CmdletBinding(ConfirmImpact = "high")]
+
     Param (
         [Parameter(Mandatory = $true)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
@@ -211,7 +213,10 @@ https://stackoverflow.com/questions/25709398/set-location-of-special-folders-wit
 
 #>
 function Get-KnownFolderPath {
-    Param (
+
+    [CmdletBinding()]
+
+    param (
         [Parameter(Mandatory = $true)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
         [string]$KnownFolder
@@ -247,6 +252,8 @@ The monitor to return the scaling factor for, or if not supplied the primary mon
 #>
 function Get-DesktopScalingFactor {
 
+    [CmdletBinding()]
+
     param(
         [parameter(Mandatory = $false, Position = 0)]
         [int] $monitor = 0
@@ -255,8 +262,7 @@ function Get-DesktopScalingFactor {
     [GenXdev.Helpers.DesktopInfo]::getScalingFactor($monitor)
 }
 
-##############################################################################################################
-##############################################################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -269,7 +275,10 @@ Sets the alignment for the Windows 11+ Taskbar
 The new alignment
 #>
 function Set-TaskbarAlignment() {
-    Param(
+
+    [CmdletBinding()]
+
+    param(
         [Parameter(Mandatory = $True)]
         [ValidateSet(
             "Center",
@@ -288,8 +297,7 @@ function Set-TaskbarAlignment() {
     }
 }
 
-
-##############################################################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -300,15 +308,41 @@ Returns the process of the window responsible for hosting the Powershell termina
 #>
 function Get-PowershellMainWindowProcess {
 
+    [CmdletBinding()]
+    param()
+
     $PowershellProcess = [System.Diagnostics.Process]::GetCurrentProcess();
-    if ($null -ne $PowershellProcess.Parent -and [GenXdev.Helpers.WindowObj]::GetMainWindow($PowershellProcess.Parent).Count -gt 0) {
-        $PowershellProcess = $PowershellProcess.Parent;
+
+    if (($PowershellProcess.MainWindowHandle -eq 0) -and ($null -ne $PowershellProcess.Parent)) {
+
+        if ($PowershellProcess.Parent.MainWindowHandle -ne 0) {
+
+            Write-Verbose "Parent has mainwindow"
+
+            $PowershellProcess = $PowershellProcess.Parent;
+        }
+        else {
+
+            $PProcess = Get-Process -Name $PowershellProcess.Parent.ProcessName | Where-Object { 0 -ne $PSItem.MainWindowHandle } | Select-Object -First 1;
+
+            if ($null -ne $PProcess) {
+
+                Write-Verbose "Found simular process that has mainwindow"
+                $PowershellProcess = $PProcess
+            }
+            else {
+                Write-Verbose "No simular parent process found with main window"
+            }
+        }
+    }
+    else {
+        Write-Verbose "No parent found, no main window"
     }
 
     $PowershellProcess
 }
 
-##############################################################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -319,10 +353,14 @@ Returns a window helper object for the mainwindow of the process responsible for
 #>
 function Get-PowershellMainWindow {
 
+    [CmdletBinding()]
+
+    param()
+
     [GenXdev.Helpers.WindowObj]::GetMainWindow((Get-PowershellMainWindowProcess))[0];
 }
 
-##############################################################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -336,8 +374,9 @@ The process of the window to position
 
 .PARAMETER Monitor
 The monitor to use, 0 = default, 1 = secondary, -1 is discard
+
 .PARAMETER NoBorders
-Open in NoBorders mode --> -fs
+Open in NoBorders mode --> -nb
 
 .PARAMETER Width
 The initial width of the window
@@ -388,7 +427,8 @@ function Set-WindowPosition {
     [Alias("wp")]
 
     param(
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             Position = 0,
@@ -398,82 +438,95 @@ function Set-WindowPosition {
             ValueFromRemainingArguments = $false
         )]
         [System.Diagnostics.Process[]] $Process,
-        ####################################################################################################
+        ###############################################################################
+
         [Alias("m", "mon")]
         [parameter(
             Mandatory = $false,
             HelpMessage = "The monitor to use, 0 = default, -1 is discard"
         )]
         [int] $Monitor = -1,
-        ####################################################################################################
-        [Alias("nb", "f")]
+        ###############################################################################
+
+        [Alias("nb")]
         [parameter(
             Mandatory = $false,
             HelpMessage = "Removes the borders of the window"
         )]
         [switch] $NoBorders,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "The initial width of the window"
         )]
         [int] $Width = -1,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "The initial height of the window"
         )]
         [int] $Height = -1,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "The initial X position of the window"
         )]
         [int] $X = -1,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "The initial Y position of the window"
         )]
         [int] $Y = -1,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Place window on the left side of the screen"
         )]
         [switch] $Left,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Place window on the right side of the screen"
         )]
         [switch] $Right,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Place window on the top side of the screen"
         )]
         [switch] $Top,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Place window on the bottom side of the screen"
         )]
         [switch] $Bottom,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Place window in the center of the screen"
         )]
         [switch] $Centered,
-        ####################################################################################################
+        ###############################################################################
+
         [Alias("bg")]
         [parameter(
             Mandatory = $false,
             HelpMessage = "Restore PowerShell window focus"
         )]
         [switch] $RestoreFocus,
-        ####################################################################################################
+        ###############################################################################
+
         [parameter(
             Mandatory = $false,
             HelpMessage = "Returns the [System.Diagnostics.Process] object of the browserprocess"
@@ -482,7 +535,6 @@ function Set-WindowPosition {
     )
 
     Begin {
-
 
         # reference powershell main window
         $PowerShellWindow = Get-PowershellMainWindow
@@ -506,7 +558,6 @@ function Set-WindowPosition {
 
                 # Is it different then the one at the start of this command?
                 if (($null -ne $PowerShellWindow) -and ($PowerShellWindow.Handle -ne $CurrentActiveWindow.Handle)) {
-
 
                     # restore it
                     $PowershellWindow.SetForeground();
@@ -597,7 +648,8 @@ function Set-WindowPosition {
             }
         }
 
-        ###############################################################################################
+        ###############################################################################
+
         # start processing the Urls that we need to open
         foreach ($currentProcess in $Process) {
 
@@ -696,7 +748,6 @@ function Set-WindowPosition {
                 }
             }
 
-
             position $currentProcess $window
 
             if ($PassThrough -eq $true) {
@@ -707,7 +758,7 @@ function Set-WindowPosition {
     }
 }
 
-##############################################################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -774,8 +825,9 @@ function Set-WindowPositionForSecondary {
     [CmdletBinding()]
     [Alias("wps")]
 
-    Param(
-        ####################################################################################################
+    param(
+        ###############################################################################
+
         [Alias("m", "mon")]
         [parameter(
             Mandatory = $false,
@@ -810,12 +862,13 @@ function Set-WindowPositionForSecondary {
     }
 }
 
-##############################################################################################################
+###############################################################################
+
 <#
 .SYNOPSIS
     Proxy function dynamic parameter block for the Set-WindowPosition cmdlet
 .DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters, regardless of changes from version to version.
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters .
 #>
 function Copy-SetWindowPositionParameters {
 
@@ -826,10 +879,9 @@ function Copy-SetWindowPositionParameters {
         [string[]] $ParametersToSkip = @()
     )
 
-    return (Copy-CommandParameters -CommandName "Set-WindowPosition" -ParametersToSkip  $ParametersToSkip)
+    return (Copy-CommandParameters -CommandName "Set-WindowPosition" -ParametersToSkip $ParametersToSkip)
 }
 
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
+##############################################################################################################################################################
+
+###############################################################################

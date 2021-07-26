@@ -34,7 +34,7 @@ Update-Module
 # Cmdlet Index
 | Command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | aliases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- | --- |
-| [Copy-SetWindowPositionParameters](#Copy-SetWindowPositionParameters) |  | The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters, regardless of changes from version to version. |
+| [Copy-SetWindowPositionParameters](#Copy-SetWindowPositionParameters) |  | The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters . |
 | [Get-DesktopScalingFactor](#Get-DesktopScalingFactor) |  | Returns the scaling factor that is configured for a monitor |
 | [Get-KnownFolderPath](#Get-KnownFolderPath) |  | Gets a known folder's path using SHGetKnownFolderPath. |
 | [Get-PowershellMainWindow](#Get-PowershellMainWindow) |  | Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal |
@@ -46,19 +46,28 @@ Update-Module
 | [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor |
 
 <br/><hr/><hr/><br/>
+
+
 # Cmdlets
-## Copy-SetWindowPositionParameters
+
+## Copy-SetWindowPositionParameters
 ````PowerShell
 Copy-SetWindowPositionParameters
 ````
+
 ### SYNOPSIS
     Proxy function dynamic parameter block for the Set-WindowPosition cmdlet
+
 ### SYNTAX
 ````PowerShell
-Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParameters>]
+Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] 
+[<CommonParameters>]
 ````
+
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters, regardless of changes from version to version.
+    The dynamic parameter block of a proxy function. This block can be used to 
+    copy a proxy function target's parameters .
+
 ### PARAMETERS
     -ParametersToSkip <String[]>
         Required?                    false
@@ -70,23 +79,31 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Get-DesktopScalingFactor
+
+## Get-DesktopScalingFactor
 ````PowerShell
 Get-DesktopScalingFactor
 ````
+
 ### SYNOPSIS
     Returns the scaling factor that is configured for a monitor
+
 ### SYNTAX
 ````PowerShell
 Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Returns the scaling factor that is configured for a monitor
+
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is used
+        The monitor to return the scaling factor for, or if not supplied the 
+        primary monitor is used
         Required?                    false
         Position?                    1
         Default value                0
@@ -96,20 +113,27 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Get-KnownFolderPath
+
+## Get-KnownFolderPath
 ````PowerShell
 Get-KnownFolderPath
 ````
+
 ### SYNOPSIS
     Gets a known folder's path using SHGetKnownFolderPath.
+
 ### SYNTAX
 ````PowerShell
 Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Gets a known folder's path using SHGetKnownFolderPath.
+
 ### PARAMETERS
     -KnownFolder <String>
         The known folder whose path to get.
@@ -122,58 +146,83 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Get-PowershellMainWindow
+
+## Get-PowershellMainWindow
 ````PowerShell
 Get-PowershellMainWindow
 ````
+
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process 
+    responsible for hosting the Powershell terminal
+
 ### SYNTAX
 ````PowerShell
 Get-PowershellMainWindow [<CommonParameters>]
 ````
+
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process 
+    responsible for hosting the Powershell terminal
+
 ### PARAMETERS
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Get-PowershellMainWindowProcess
+
+## Get-PowershellMainWindowProcess
 ````PowerShell
 Get-PowershellMainWindowProcess
 ````
+
 ### SYNOPSIS
-    Returns the process of the window responsible for hosting the Powershell terminal
+    Returns the process of the window responsible for hosting the Powershell 
+    terminal
+
 ### SYNTAX
 ````PowerShell
 Get-PowershellMainWindowProcess [<CommonParameters>]
 ````
+
 ### DESCRIPTION
-    Returns the process of the window responsible for hosting the Powershell terminal
+    Returns the process of the window responsible for hosting the Powershell 
+    terminal
+
 ### PARAMETERS
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Get-Window
+
+## Get-Window
 ````PowerShell
 Get-Window
 ````
+
 ### SYNOPSIS
     Returns a window helper for the main window of the specified process
+
 ### SYNTAX
 ````PowerShell
 Get-Window [-ProcessName] <String> [<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Returns a window helper for the main window of the specified process
+
 ### PARAMETERS
     -ProcessName <String>
         The process to get the window helper for
@@ -186,20 +235,28 @@ Get-Window [-ProcessName] <String> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Set-KnownFolderPath
+
+## Set-KnownFolderPath
 ````PowerShell
 Set-KnownFolderPath
 ````
+
 ### SYNOPSIS
     Sets a known folder's path using SHSetKnownFolderPath.
+
 ### SYNTAX
 ````PowerShell
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>]
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> 
+[<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Sets a known folder's path using SHSetKnownFolderPath.
+
 ### PARAMETERS
     -KnownFolder <String>
         The known folder whose path to set.
@@ -219,20 +276,27 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Set-TaskbarAlignment
+
+## Set-TaskbarAlignment
 ````PowerShell
 Set-TaskbarAlignment
 ````
+
 ### SYNOPSIS
     Sets the alignment for the Windows 11+ Taskbar
+
 ### SYNTAX
 ````PowerShell
 Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Sets the alignment for the Windows 11+ Taskbar
+
 ### PARAMETERS
     -Justify <Object>
         The new alignment
@@ -245,21 +309,30 @@ Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Set-WindowPosition
+
+## Set-WindowPosition
 ````PowerShell
 Set-WindowPosition                   --> wp
 ````
+
 ### SYNOPSIS
     Positions a window
+
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] 
-[-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] 
+[-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] 
+[-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] 
+[-PassThrough] [<CommonParameters>]
 ````
+
 ### DESCRIPTION
     Positions a window in a configurable manner, using commandline switches
+
 ### PARAMETERS
     -Process <Process[]>
         The process of the window to position
@@ -276,7 +349,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Accept pipeline input?       false
         Accept wildcard characters?  false
     -NoBorders [<SwitchParameter>]
-        Open in NoBorders mode --> -fs
+        Open in NoBorders mode --> -nb
         Required?                    false
         Position?                    named
         Default value                False
@@ -363,20 +436,28 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
-## Set-WindowPositionForSecondary
+
+## Set-WindowPositionForSecondary
 ````PowerShell
 Set-WindowPositionForSecondary       --> wps
 ````
+
 ### SYNOPSIS
     Positions a window and positions it by default on the secondairy monitor
+
 ### SYNTAX
 ````PowerShell
 Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
+
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the 
+    configured secondairy monitor
+
 ### PARAMETERS
     -Monitor <Int32>
         The monitor to use, 0 = default, 1 = secondary, -1 is discard
@@ -389,5 +470,7 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters 
+        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
 <br/><hr/><hr/><br/>
