@@ -82,8 +82,7 @@ Get-Window [-ProcessName] <String> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -97,8 +96,7 @@ Set-KnownFolderPath
 
 ### SYNTAX
 ````PowerShell
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> 
-[<CommonParameters>]
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -123,8 +121,7 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -156,8 +153,7 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -179,8 +175,7 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the 
-        primary monitor is used
+        The monitor to return the scaling factor for, or if not supplied the primary monitor is used
         Required?                    false
         Position?                    1
         Default value                0
@@ -190,8 +185,7 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -223,8 +217,7 @@ Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -234,8 +227,7 @@ Get-PowershellMainWindow
 ````
 
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process 
-    responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
 
 ### SYNTAX
 ````PowerShell
@@ -243,16 +235,14 @@ Get-PowershellMainWindow [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process 
-    responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
 
 ### PARAMETERS
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -262,8 +252,7 @@ Get-PowershellMainWindowProcess
 ````
 
 ### SYNOPSIS
-    Returns the process of the window responsible for hosting the Powershell 
-    terminal
+    Returns the process of the window responsible for hosting the Powershell terminal
 
 ### SYNTAX
 ````PowerShell
@@ -271,16 +260,14 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns the process of the window responsible for hosting the Powershell 
-    terminal
+    Returns the process of the window responsible for hosting the Powershell terminal
 
 ### PARAMETERS
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -294,10 +281,9 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] 
-[-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] 
-[-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] 
-[-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
+<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -406,8 +392,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -425,8 +410,7 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the 
-    configured secondairy monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor
 
 ### PARAMETERS
     -Monitor <Int32>
@@ -440,8 +424,7 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -455,13 +438,12 @@ Copy-SetWindowPositionParameters
 
 ### SYNTAX
 ````PowerShell
-Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] 
-[<CommonParameters>]
+Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to 
-    copy a proxy function target's parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's 
+    parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>
@@ -474,7 +456,6 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters 
-        (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
