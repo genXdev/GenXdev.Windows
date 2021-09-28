@@ -281,9 +281,8 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
-<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] 
-[<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] 
+[-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -442,8 +441,7 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's 
-    parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>

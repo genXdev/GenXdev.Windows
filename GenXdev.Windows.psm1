@@ -873,9 +873,11 @@ function Set-WindowPositionForSecondary {
 
         if ($Monitor -lt -1) {
 
-            if ($Global:DefaultSecondaryMonitor -is [int]) {
+            [int] $defaultMonitor = 1;
 
-                $Monitor = $Global:DefaultSecondaryMonitor % [System.Windows.Forms.Screen]::AllScreens.Length;
+            if ([int]::TryParse($Global:DefaultSecondaryMonitor, [ref] $defaultMonitor)) {
+
+                $Monitor = $defaultMonitor % [System.Windows.Forms.Screen]::AllScreens.Length;
             }
             else {
 
