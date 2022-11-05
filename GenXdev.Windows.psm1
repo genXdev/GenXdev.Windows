@@ -29,7 +29,7 @@ function Get-Window {
 
 ###############################################################################
 
-# Define known folder GUIDs
+# Define known folder GUIDs
 $KnownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
     'AddNewPrograms'        = 'de61d971-5ebc-4f02-a3a9-6c82895e5c04';
@@ -169,7 +169,7 @@ function Set-KnownFolderPath {
         [string]$Path
     )
 
-    # Define SHSetKnownFolderPath if it hasn't been defined already
+    # Define SHSetKnownFolderPath if it hasn't been defined already
     $Type = ([System.Management.Automation.PSTypeName]'KnownFolders.SHSetKnownFolderPathPS').Type
     if (-not $Type) {
         # http://www.pinvoke.net/default.aspx/shell32/SHSetKnownFolderPath.html
@@ -180,9 +180,9 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags, Int
         $Type = Add-Type -MemberDefinition $Signature -Namespace 'KnownFolders' -Name 'SHSetKnownFolderPathPS' -PassThru
     }
 
-    # Validate the path
+    # Validate the path
     if (Test-Path $Path -PathType Container) {
-        # Call SHSetKnownFolderPath
+        # Call SHSetKnownFolderPath
         return $Type::SHSetKnownFolderPath([ref]$KnownFolders[$KnownFolder], 0, 0, $Path)
     }
     else {
@@ -221,7 +221,7 @@ function Get-KnownFolderPath {
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
         [string]$KnownFolder
     )
-    # Define SHGetKnownFolderPathif it hasn't been defined already
+    # Define SHGetKnownFolderPathif it hasn't been defined already
     $Type = ([System.Management.Automation.PSTypeName]'KnownFolders.SHGetKnownFolderPathPS').Type
     if (-not $Type) {
         # http://www.pinvoke.net/default.aspx/shell32/SHGetKnownFolderPath.html
@@ -536,10 +536,10 @@ function Set-WindowPosition {
 
     Begin {
 
-        # reference powershell main window
+        # reference powershell main window
         $PowerShellWindow = Get-PowershellMainWindow
 
-        # what if no process is specified?
+        # what if no process is specified?
         if (($null -eq $Process) -or ($Process.Length -lt 1)) {
 
             $Process = @((Get-PowershellMainWindowProcess))
@@ -550,32 +550,32 @@ function Set-WindowPosition {
 
         function refocusTab() {
 
-            # '-RestoreFocus' parameter supplied'?
+            # '-RestoreFocus' parameter supplied'?
             if ($RestoreFocus -eq $true) {
 
-                # Get handle to current foreground window
+                # Get handle to current foreground window
                 $CurrentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow();
 
-                # Is it different then the one at the start of this command?
+                # Is it different then the one at the start of this command?
                 if (($null -ne $PowerShellWindow) -and ($PowerShellWindow.Handle -ne $CurrentActiveWindow.Handle)) {
 
-                    # restore it
+                    # restore it
                     $PowershellWindow.SetForeground();
 
                     # wait
                     [System.Threading.Thread]::Sleep(250);
 
-                    # did it not work?
+                    # did it not work?
                     $CurrentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow();
                     if ($PowershellWindow.Handle -ne $CurrentActiveWindow.Handle) {
 
                         try {
-                            # Sending Alt-Tab
+                            # Sending Alt-Tab
                             $helper = New-Object -ComObject WScript.Shell;
                             $helper.sendKeys("%{TAB}");
                             Write-Verbose "Sending Alt-Tab"
 
-                            # wait
+                            # wait
                             [System.Threading.Thread]::Sleep(500);
                         }
                         catch {
@@ -586,53 +586,62 @@ function Set-WindowPosition {
             }
         }
 
-        function position($process, $window) {
+        function position($process, $window, $X, $Y, $Width, $Height) {
             try {
-                # have a handle to the mainwindow of the browser?
+                # have a handle to the mainwindow of the browser?
                 if ($window.Length -eq 1) {
 
                     Write-Verbose "Restoring and positioning window"
 
-                    # if maximized, restore window style
-                    1..3 | ForEach-Object {
-                        $window[0].Show() | Out-Null
+                    $window.Move($X, $Y, $Width, $Height) | Out-Null;
+                    $window.Move($X, $Y, $Width, $Height) | Out-Null;
 
-                        if (($Width -is [int]) -and ($Width -gt 0) -and ($Height -is [int]) -and ($Height -gt 0)) {
+                    # # if maximized, restore window style
+                    # 1..3 | ForEach-Object {
+                    #     $window[0].Show() | Out-Null
 
-                            $window[0].Resize($Width, $Height)  | Out-Null
-                        }
-                        else {
-                            if (($Width -is [int]) -and ($Width -gt 0)) {
+                    #     if (($X -is [int]) -and ($X -gt -999999) -and ($Y -is [int]) -and ($Y -gt -999999)) {
 
-                                $window[0].Width = $Width;
-                            }
-                            else {
-                                if (($Height -is [int]) -and ($Height -gt 0)) {
+                    #         Write-Verbose "Moving to $X x $Y"
+                    #         $window[0].Move($X, $Y)  | Out-Null
+                    #     }
+                    #     else {
+                    #         if (($X -is [int]) -and ($X -gt -999999)) {
 
-                                    $window[0].Height = $Height;
-                                }
-                            }
-                        }
+                    #             Write-Verbose "Moving X to $X"
+                    #             $window[0].Left = $X;
+                    #         }
+                    #         else {
+                    #             if (($Y -is [int]) -and ($Y -gt -999999)) {
 
-                        if (($X -is [int]) -and ($X -gt 0) -and ($Y -is [int]) -and ($Y -gt 0)) {
+                    #                 Write-Verbose "Moving Y to $Y"
+                    #                 $window[0].Top = $Y;
+                    #             }
+                    #         }
+                    #     }
+                    #     if (($Width -is [int]) -and ($Width -gt 0) -and ($Height -is [int]) -and ($Height -gt 0)) {
 
-                            $window[0].Move($X, $Y)  | Out-Null
-                        }
-                        else {
-                            if (($X -is [int]) -and ($X -gt 0)) {
+                    #         Write-Verbose "Resizing to $Width x $Height"
+                    #         $window[0].Resize($Width, $Height)  | Out-Null
+                    #     }
+                    #     else {
+                    #         if (($Width -is [int]) -and ($Width -gt 0)) {
 
-                                $window[0].Left = $X;
-                            }
-                            else {
-                                if (($Y -is [int]) -and ($Y -gt 0)) {
+                    #             Write-Verbose "Resizing width to $Width"
+                    #             $window[0].Width = $Width;
+                    #         }
+                    #         else {
+                    #             if (($Height -is [int]) -and ($Height -gt 0)) {
 
-                                    $window[0].Top = $Y;
-                                }
-                            }
-                        }
-                    }
+                    #                 Write-Verbose "Resizing height to $Height"
+                    #                 $window[0].Height = $Height;
+                    #             }
+                    #         }
+                    #     }
 
-                    # needs to be set NoBorders manually?
+                    # }
+
+                    # needs to be set NoBorders manually?
                     if ($NoBorders -eq $true) {
 
                         Write-Verbose "Setting NoBorders"
@@ -643,32 +652,41 @@ function Set-WindowPosition {
             }
             finally {
 
-                # if needed, restore the focus to the PowerShell terminal
+                # if needed, restore the focus to the PowerShell terminal
                 refocusTab $process $window
             }
         }
 
         ###############################################################################
 
-        # start processing the Urls that we need to open
+        # start processing the Urls that we need to open
         foreach ($currentProcess in $Process) {
 
-            # get window handle
+            # get window handle
             $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess);
             if ($window.Count -eq 0) { continue }
 
-            # reference the main monitor
-            $Screen = [System.Windows.Forms.Screen]::PrimaryScreen;
-
             # reference the requested monitor
-            if (($Monitor -ge 0) -and ($Monitor -lt [System.Windows.Forms.Screen]::AllScreens.Length)) {
+            if ($Monitor -eq 0) {
 
-                $Screen = [System.Windows.Forms.Screen]::AllScreens[$Monitor]
+                Write-Verbose "Chosen primary screen"
+                $Screen = [System.Windows.Forms.Screen]::PrimaryScreen;
             }
             else {
+                if (($Monitor -ge 1) -and ($Monitor -le [System.Windows.Forms.Screen]::AllScreens.Length)) {
 
-                $Screen = [System.Windows.Forms.Screen]::FromPoint($window[0].Position());
+                    Write-Verbose "Chosen screen $($monitor-1)"
+
+                    $Screen = [System.Windows.Forms.Screen]::AllScreens[$Monitor - 1]
+                }
+                else {
+
+                    $Screen = [System.Windows.Forms.Screen]::FromPoint($window[0].Position());
+                    Write-Verbose "Chosen screen $([System.Windows.Forms.Screen]::AllScreens.indexOf($Screen))"
+                }
             }
+
+            Write-Verbose $Screen
 
             # remember
             [bool] $HavePositioning = ($Monitor -ge 0) -or ($Left -or $Right -or $Top -or $Bottom -or $Centered -or (($X -is [int]) -and ($X -ge 0)) -or (($Y -is [int]) -and ($Y -ge 0)));
@@ -686,6 +704,7 @@ function Set-WindowPosition {
                     $X = $Screen.WorkingArea.X + $X;
                 }
             }
+            Write-Verbose "X determined to be $X"
 
             # '-Y' parameter not supplied?
             if (($Y -le 0) -or ($Y -isnot [int])) {
@@ -699,8 +718,11 @@ function Set-WindowPosition {
                     $Y = $Screen.WorkingArea.Y + $Y;
                 }
             }
+            Write-Verbose "Y determined to be $Y"
 
             if ($HavePositioning) {
+
+                Write-Verbose "Have positioning parameters set"
 
                 $WidthProvided = ($Width -ge 0) -and ($Width -is [int]);
                 $heightProvided = ($Height -ge 0) -and ($Height -is [int]);
@@ -709,12 +731,16 @@ function Set-WindowPosition {
                 if ($WidthProvided -eq $false) {
 
                     $Width = $Screen.WorkingArea.Width;
+
+                    Write-Verbose "Width not provided resetted to $Width"
                 }
 
                 # '-Height' parameter not supplied?
                 if ($heightProvided -eq $false) {
 
                     $Height = $Screen.WorkingArea.Height;
+
+                    Write-Verbose "Height not provided resetted to $Height"
                 }
 
                 # setup exact window position and size
@@ -726,6 +752,8 @@ function Set-WindowPosition {
 
                         $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
                     }
+
+                    Write-Verbose "Left chosen, X = $X, Width = $Width"
                 }
                 else {
                     if ($Right -eq $true) {
@@ -736,6 +764,8 @@ function Set-WindowPosition {
                         }
 
                         $X = $Screen.WorkingArea.X + $Screen.WorkingArea.Width - $Width;
+
+                        Write-Verbose "Right chosen, X = $X, Width = $Width"
                     }
                 }
 
@@ -747,6 +777,8 @@ function Set-WindowPosition {
 
                         $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
                     }
+
+                    Write-Verbose "Top chosen, Y = $Y, Height = $Height"
                 }
                 else {
                     if ($Bottom -eq $true) {
@@ -756,6 +788,8 @@ function Set-WindowPosition {
                             $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
                         }
                         $Y = $Screen.WorkingArea.Y + $Screen.WorkingArea.Height - $Height;
+
+                        Write-Verbose "Bottom chosen, Y = $Y, Height = $Height"
                     }
                 }
 
@@ -773,10 +807,12 @@ function Set-WindowPosition {
 
                     $X = $Screen.WorkingArea.X + [Math]::Round(($screen.WorkingArea.Width - $Width) / 2, 0);
                     $Y = $Screen.WorkingArea.Y + [Math]::Round(($screen.WorkingArea.Height - $Height) / 2, 0);
+
+                    Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
                 }
             }
 
-            position $currentProcess $window
+            position $currentProcess $window $X $Y $Width $Height
 
             if ($PassThrough -eq $true) {
 
