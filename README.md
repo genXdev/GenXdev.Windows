@@ -10,7 +10,7 @@
 ### SYNOPSIS
     A Windows PowerShell module that provides ui Windows manipulation helpers
 
-[![GenXdev.Windows](https://img.shields.io/powershellgallery/v/GenXdev.Windows.svg?style=flat-square&label=GenXdev.Windows)](https://www.powershellgallery.com/packages/GenXdev.Windows/) [![License](https://img.shields.io/github/license/renevaessen/GenXdev.Windows?style=flat-square)](./LICENSE)
+[![GenXdev.Windows](https://img.shields.io/powershellgallery/v/GenXdev.Windows.svg?style=flat-square&label=GenXdev.Windows)](https://www.powershellgallery.com/packages/GenXdev.Windows/) [![License](https://img.shields.io/github/license/genXdev/GenXdev.Windows?style=flat-square)](./LICENSE)
 
 ### FEATURES
 
@@ -227,8 +227,7 @@ Get-PowershellMainWindow
 ````
 
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell 
-    terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
 
 ### SYNTAX
 ````PowerShell
@@ -236,8 +235,7 @@ Get-PowershellMainWindow [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell 
-    terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
 
 ### PARAMETERS
     <CommonParameters>
@@ -283,9 +281,9 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height 
-<Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] 
-[-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
+<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -444,8 +442,8 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's 
-    parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters 
+    .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>

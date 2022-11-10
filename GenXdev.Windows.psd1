@@ -6,7 +6,7 @@
     RootModule             = 'GenXdev.Windows.psm1'
 
     # Version number of this module.
-    ModuleVersion          = '1.34.2022'
+    ModuleVersion          = '1.35.2022'
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
@@ -44,7 +44,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules        = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion  = '1.34.2022'});
+    RequiredModules        = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion  = '1.35.2022'});
 
     # Assemblies that must be loaded prior to importing this module
     RequiredAssemblies     = @("System.Windows.Forms")
@@ -91,10 +91,10 @@
             Tags                     = 'Console', 'Shell', 'GenXdev'
 
             # A URL to the license for this module.
-            LicenseUri               = 'https://raw.githubusercontent.com/renevaessen/GenXdev.Windows/main/LICENSE'
+            LicenseUri               = 'https://raw.githubusercontent.com/genXdev/GenXdev.Windows/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri               = 'https://github.com/renevaessen/GenXdev.Windows'
+            ProjectUri               = 'https://github.com/genXdev/GenXdev.Windows'
 
             # A URL to an icon representing this module.
             IconUri                  = 'https://genxdev.net/favicon.ico'
@@ -116,7 +116,7 @@
     } # End of PrivateData hashtable
 
     # HelpInfo URI of this module
-    HelpInfoURI            = 'https://github.com/renevaessen/GenXdev.Windows/blob/master/README.md#cmdlet-index'
+    HelpInfoURI            = 'https://github.com/genXdev/GenXdev.Windows/blob/main/README.md#cmdlet-index'
 
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''
