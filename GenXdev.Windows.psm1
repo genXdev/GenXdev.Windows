@@ -948,6 +948,208 @@ function Copy-SetWindowPositionParameters {
     return (Copy-CommandParameters -CommandName "Set-WindowPosition" -ParametersToSkip $ParametersToSkip)
 }
 
-##############################################################################################################################################################
+###############################################################################
+
+function Start-ProcessWithPriority {
+
+    [CmdletBinding()]
+    [Alias("nice")]
+
+    param (
+
+        [parameter(
+            Mandatory = $true
+        )]
+        [string]$FilePath,
+
+        [parameter(
+            Mandatory = $false
+        )]
+
+        [string[]]$ArgumentList = "",
+
+        [ValidateSet("Idle", "BelowNormal", "Low", "Normal", "AboveNormal", "High", "RealTime")]
+
+        [parameter(
+            Mandatory = $false
+        )]
+        [string] $Priority = "BelowNormal",
+
+        [parameter(
+            Mandatory = $false
+        )]
+        [switch] $noWait
+    )
+
+    $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -PassThru -NoNewWindow
+
+    $process.PriorityClass = $Priority
+
+    if ($noWait -eq $true) { return; }
+
+    $process.WaitForExit();
+}
 
 ###############################################################################
+<#
+.SYNOPSIS
+Creates daily and hourly PowerShell scripts and their corresponding scheduled tasks
+
+.DESCRIPTION
+Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run
+as current-user and it's PowerShell profile
+
+.PARAMETER FilePath
+Optionally the path of the directory where the scripts will reside
+Defaults to [ProfileDir]\ScheduledTasks
+
+.PARAMETER Prefix
+Optionally a unique prefix for the Scheduled-Task names
+Defaults to 'PS'
+
+#>
+function Initialize-ScheduledTaskScripts {
+
+    param(
+
+        [parameter(
+            Mandatory = $false
+        )]
+        [string] $FilePath = "",
+
+
+        [parameter(
+            Mandatory = $false
+        )]
+        [string] $Prefix = "PS"
+    )
+
+    # check parameters
+    if ([string]::IsNullOrWhiteSpace($FilePath)) {
+
+        $FilePath = Expand-Path -FilePath "$PSScriptRoot\..\..\..\ScheduledTasks"
+    }
+    else {
+
+        $FilePath = Expand-Path -FilePath $FilePath
+    }
+
+    # Define an array with the names of the days of the week
+    $DaysOfWeek = @("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+    $Now = [DateTime]::UtcNow;
+
+    $Credential = Get-Credential
+
+    # define function
+    function CheckTask {
+
+        param([string]$TaskName, [string] $Description, $Trigger)
+
+        # Define the path to the PowerShell script for this task
+        $ScriptPath = Expand-Path -CreateDirectory -FilePath "$FilePath\$TaskName.ps1"
+
+        # Create the PowerShell script file if it doesn't already exist
+        if (-not (Test-Path $ScriptPath -ErrorAction SilentlyContinue)) {
+
+            Write-Verbose "Creating task script file for  \$Prefix\ '$Description'"
+
+            "# $Description`r`n`r`n" | Out-File -FilePath $ScriptPath -Force
+        }
+
+        # Check if the task already exists
+        if (-not (Get-ScheduledTask -TaskName $TaskName -TaskPath "\$Prefix\" -ErrorAction SilentlyContinue)) {
+
+            Write-Verbose "Creating task \$Prefix\ '$Description'"
+
+            # Define the arguments for the New-ScheduledTaskAction cmdlet
+            $ActionArguments = "-ExecutionPolicy Bypass -File `"$ScriptPath`""
+
+            # Create the scheduled task action
+            $Action = New-ScheduledTaskAction -Execute "pwsh.exe" -Argument $ActionArguments
+
+            # Create the scheduled task settings
+            $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -Hidden -StartWhenAvailable
+            $Settings.AllowHardTerminate = $True
+            $Settings.ExecutionTimeLimit = 'PT1H'
+
+            $Settings.volatile = $False
+
+            # $Trigger.StartBoundary = $Now.ToString("yyyy-MM-dd'T'HH:mm:ss")
+            $Trigger.EndBoundary = $Now.AddYears(99).ToString("yyyy-MM-dd'T'HH:mm:ss")
+
+            # Combine all parameters
+            $Parameters = @{
+                "TaskName"    = $TaskName
+                "User"        = $Credential.UserName
+                "Password"    = $Credential.GetNetworkCredential().Password
+                "RunLevel"    = "Highest"
+                "Action"      = $Action
+                "Description"	= $Description
+                "Settings"    = $Settings
+                "Trigger"     = $Trigger
+                "TaskPath"    = $Prefix
+            }
+            Register-ScheduledTask @Parameters -Force | Out-Null
+        }
+    }
+
+    # Construct task descriptor
+    $TaskName = $Prefix + "_at_startup"
+    $Description = "Scheduled-task executed at startup";
+    # Create the scheduled task trigger
+    $Trigger = New-ScheduledTaskTrigger -AtStartup
+    # Create the task if necessary
+    CheckTask $TaskName $Description $Trigger
+    #-------------------------------------------------------
+    # Construct task descriptor
+    $TaskName = $Prefix + "_at_logon"
+    $Description = "Scheduled-task executed at logon";
+    # Create the scheduled task trigger
+    $Trigger = New-ScheduledTaskTrigger -AtLogOn
+    # Create the task if necessary
+    CheckTask $TaskName $Description $Trigger
+    #-------------------------------------------------------
+
+    # Loop through each day of the week
+    foreach ($Day in $DaysOfWeek) {
+
+        # Loop through each hour of the day (0-23)
+        for ($Hour = 0; $Hour -lt 24; $Hour++) {
+
+            # Define the name of the scheduled task for this hour on this day
+            $TaskName = "$Prefix" + "_" + $Day.ToLower() + "_" + $Hour.ToString("D2") + "00h_utc"
+            $Description = "Scheduled-task for $Day at $($Hour.ToString('D2')):00h";
+
+            # Create the scheduled task trigger
+            $DayDiff = ([int]$Now.DayOfWeek) - $DaysOfWeek.IndexOf($Day);
+            $At = $Now.Date.AddDays($DayDiff).AddHours($Hour);
+            if ($At -lt $Now) { $At = $At.AddDays(7) }
+            $Trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Day -At $At
+
+            # Create the task if necessary
+            CheckTask $TaskName $Description $Trigger
+        }
+    }
+
+    # Loop through each hour of the day (0-23)
+    for ($Hour = 0; $Hour -lt 24; $Hour++) {
+
+        # Construct task descriptor
+        $TaskName = $Prefix + "_daily_" + $Hour.ToString("D2") + "00h_utc"
+        $Description = "Scheduled-task executed Daily at $($Hour.ToString('D2')):00h";
+
+        # Create the scheduled task trigger
+        $DayDiff = 0;
+        $At = $Now.Date.AddDays($DayDiff).AddHours($Hour);
+        if ($At -lt $Now) { $At = $At.AddDays(1) }
+        $Trigger = New-ScheduledTaskTrigger -Daily -At $At
+
+        # Create the task if necessary
+        CheckTask $TaskName $Description $Trigger
+    }
+}
+
+###############################################################################
+
+###############################################################################
+

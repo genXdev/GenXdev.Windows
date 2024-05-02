@@ -45,6 +45,8 @@ Update-Module
 | [Set-WindowPosition](#Set-WindowPosition) | wp | Positions a window in a configurable manner, using commandline switches |
 | [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor |
 | [Copy-SetWindowPositionParameters](#Copy-SetWindowPositionParameters) |  | The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters . |
+| [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice |  |
+| [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will runas current-user and it's PowerShell profile |
 
 <br/><hr/><hr/><br/>
 
@@ -281,9 +283,8 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
-<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] 
-[<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] 
+[-RestoreFocus] [-PassThrough] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -442,14 +443,106 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters 
-    .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>
         Required?                    false
         Position?                    1
         Default value                @()
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
+<br/><hr/><hr/><br/>
+
+##	Start-ProcessWithPriority
+````PowerShell
+Start-ProcessWithPriority            --> nice
+````
+
+### SYNTAX
+````PowerShell
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-noWait] [<CommonParameters>]
+````
+
+### PARAMETERS
+    -ArgumentList <string[]>
+        Required?                    false
+        Position?                    1
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+    -FilePath <string>
+        Required?                    true
+        Position?                    0
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+    -Priority <string>
+        Required?                    false
+        Position?                    2
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+    -noWait
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
+<br/><hr/><hr/><br/>
+
+##	Initialize-ScheduledTaskScripts
+````PowerShell
+Initialize-ScheduledTaskScripts
+````
+
+### SYNOPSIS
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled tasks
+
+### SYNTAX
+````PowerShell
+Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [<CommonParameters>]
+````
+
+### DESCRIPTION
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run
+    as current-user and it's PowerShell profile
+
+### PARAMETERS
+    -FilePath <String>
+        Optionally the path of the directory where the scripts will reside
+        Defaults to [ProfileDir]\ScheduledTasks
+        Required?                    false
+        Position?                    1
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+    -Prefix <String>
+        Optionally a unique prefix for the Scheduled-Task names
+        Defaults to 'PS'
+        Required?                    false
+        Position?                    2
+        Default value                PS
         Accept pipeline input?       false
         Accept wildcard characters?  false
     <CommonParameters>

@@ -1,4 +1,4 @@
-﻿#
+#
 # Module manifest for module 'GenXdev.Windows'
 @{
 
@@ -6,12 +6,12 @@
     RootModule             = 'GenXdev.Windows.psm1'
 
     # Version number of this module.
-    ModuleVersion          = '1.35.2022'
+    ModuleVersion          = '1.36.2024'
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
     # ID used to uniquely identify this module
-    GUID                   = '2f62080f-0483-4421-8497-b3d433b65176'
+    GUID                   = '2f62080f-0483-4421-8497-b3d433b65175'
 
     # Author of this module
     Author                 = 'René Vaessen'
@@ -44,7 +44,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules        = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion  = '1.35.2022'});
+    RequiredModules        = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion  = '1.36.2024'},@{ModuleName = 'GenXdev.FileSystem'; ModuleVersion  = '1.36.2024'});
 
     # Assemblies that must be loaded prior to importing this module
     RequiredAssemblies     = @("System.Windows.Forms")
