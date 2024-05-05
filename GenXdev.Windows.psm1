@@ -988,6 +988,8 @@ function Start-ProcessWithPriority {
     if ($noWait -eq $true) { return; }
 
     $process.WaitForExit();
+
+    return $process.ExitCode;
 }
 
 ###############################################################################
