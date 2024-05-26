@@ -299,8 +299,8 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] 
-[-RestoreFocus] [-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] 
+[-Centered] [-RestoreFocus] [-PassThrough] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
