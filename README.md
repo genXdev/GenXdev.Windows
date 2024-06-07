@@ -81,7 +81,6 @@ Get-Window -WindowHandle <Int64> [<CommonParameters>]
         Position?                    named
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -WindowHandle <Int64>
         The window handle to get the window helper for
@@ -89,7 +88,6 @@ Get-Window -WindowHandle <Int64> [<CommonParameters>]
         Position?                    named
         Default value                0
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -122,7 +120,6 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
         Position?                    1
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Path <String>
         The path.
@@ -130,7 +127,6 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
         Position?                    2
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -163,7 +159,6 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         Position?                    1
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -196,7 +191,6 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
         Position?                    1
         Default value                0
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -229,7 +223,6 @@ Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
         Position?                    1
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -299,8 +292,9 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] 
-[-Centered] [-RestoreFocus] [-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
+<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-RestoreFocus] [-PassThrough] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -313,7 +307,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    1
         Default value                
         Accept pipeline input?       true (ByValue, ByPropertyName)
-        Aliases                      
         Accept wildcard characters?  false
     -Monitor <Int32>
         The monitor to use, 0 = default, 1 = secondary, -1 is discard
@@ -321,7 +314,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -NoBorders [<SwitchParameter>]
         Open in NoBorders mode --> -nb
@@ -329,7 +321,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Width <Int32>
         The initial width of the window
@@ -337,7 +328,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Height <Int32>
         The initial height of the window
@@ -345,7 +335,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -X <Int32>
         The initial X position of the window
@@ -353,7 +342,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Y <Int32>
         The initial Y position of the window
@@ -361,7 +349,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Left [<SwitchParameter>]
         Place window on the left side of the screen
@@ -369,7 +356,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Right [<SwitchParameter>]
         Place window on the right side of the screen
@@ -377,7 +363,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Top [<SwitchParameter>]
         Place window on the top side of the screen
@@ -385,7 +370,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Bottom [<SwitchParameter>]
         Place window on the bottom side of the screen
@@ -393,7 +377,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Centered [<SwitchParameter>]
         Place window in the center of the screen
@@ -401,7 +384,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -RestoreFocus [<SwitchParameter>]
         Restore PowerShell window focus --> -bg
@@ -409,7 +391,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -PassThrough [<SwitchParameter>]
         Returns a [System.Diagnostics.Process] object of the browserprocess
@@ -417,7 +398,6 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -450,7 +430,6 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
         Position?                    1
         Default value                -2
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -474,7 +453,8 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's 
+    parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>
@@ -482,7 +462,6 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
         Position?                    1
         Default value                @()
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -499,8 +478,8 @@ Start-ProcessWithPriority            --> nice
 
 ### SYNTAX
 ````PowerShell
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-noWait] 
-[<CommonParameters>]
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low 
+| Normal | AboveNormal | High | RealTime}] [-noWait] [<CommonParameters>]
 ````
 
 ### PARAMETERS
@@ -569,7 +548,6 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [<Co
         Position?                    1
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     -Prefix <String>
         Optionally a unique prefix for the Scheduled-Task names
@@ -578,7 +556,6 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [<Co
         Position?                    2
         Default value                PS
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -611,7 +588,6 @@ New-SystemRestorePoint [-Description] <String> [<CommonParameters>]
         Position?                    1
         Default value                
         Accept pipeline input?       false
-        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
