@@ -14,14 +14,14 @@ The window handle to get the window helper for
 #>
 function Get-Window {
 
-    [CmdletBinding(DefaultParameterSetName="byprocessname")]
+    [CmdletBinding(DefaultParameterSetName = "byprocessname")]
     [Alias()]
 
     param (
-        [parameter(Mandatory = $true, ParameterSetName="byprocessname")]
+        [parameter(Mandatory = $true, ParameterSetName = "byprocessname")]
         [string] $ProcessName,
 
-        [parameter(Mandatory = $true, ParameterSetName="bywindowhandle")]
+        [parameter(Mandatory = $true, ParameterSetName = "bywindowhandle")]
         [long] $WindowHandle
     )
 
@@ -1006,21 +1006,158 @@ function Start-ProcessWithPriority {
 }
 
 ###############################################################################
+
+function Get-MpCmdRunPath {
+
+    # Construct the path to MpCmdRun.exe
+    $mpCmdRunPath = "$($Env:ProgramFiles)\Windows Defender\MpCmdRun.exe"
+
+    # Check if the file exists
+    if (Test-Path -Path $mpCmdRunPath) {
+
+        return $mpCmdRunPath
+
+    }
+    else {
+
+        Write-Error "MpCmdRun.exe not found at the expected location: $mpCmdRunPath"
+    }
+}
+
+###############################################################################
 <#
 .SYNOPSIS
-Creates daily and hourly PowerShell scripts and their corresponding scheduled tasks
+Executes a Windows Defender virusscan on a specified file or directory.
 
 .DESCRIPTION
-Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run
-as current-user and it's PowerShell profile
+Executes a Windows Defender virusscan on a specified file or directory using the MpCmdRun.exe command-line utility.
+The function returns a boolean success result, when $true it indicates no threats where find in the file.
 
 .PARAMETER FilePath
-Optionally the path of the directory where the scripts will reside
-Defaults to [ProfileDir]\ScheduledTasks
+The path to the file or directory to be scanned.
+
+.PARAMETER EnableRemediation
+Instructs Windows Defender to take action when the provided FilePath contains a threat.
+
+.EXAMPLE
+Test-PathUsingWindowsDefender -FilePath "C:\Path\to\File.txt" -Verbose
+#>
+
+function Test-PathUsingWindowsDefender {
+
+    [Alias("virusscan")]
+    [Alias("HasNoVirus")]
+
+    [CmdletBinding()]
+    param (
+        [parameter(
+            Mandatory = $true,
+            Position = 0,
+            HelpMessage = "The path to the file or directory to be scanned."
+        )]
+        [string] $FilePath,
+
+        [parameter(
+            Mandatory = $false,
+            HelpMessage = "Instructs Windows Defender to take action when the provided FilePath contains a threat."
+        )]
+        [switch] $EnableRemediation
+    )
+
+    $FilePath = Expand-Path $FilePath
+    $MpCmdRunPath = Get-MpCmdRunPath
+
+    if (-not [IO.File]::Exists($filePath)) {
+
+        throw "The file '$FilePath' was not found";
+    }
+
+    if ($null -eq $MpCmdRunPath) {
+
+        throw "Windows defender CLI not found";
+    }
+
+    $scriptBlock = $EnableRemediation ? {
+
+        & "$MpCmdrunPath" -Scan -ScanType 3 -File "$FilePath" |
+        ForEach-Object {
+
+            Write-Verbose $_
+        }
+    } : {
+
+        & "$MpCmdrunPath" -Scan -ScanType 3 -File "$FilePath" -DisableRemediation |
+        ForEach-Object {
+
+            Write-Verbose $_
+        }
+    }
+
+    Invoke-Command -ScriptBlock $scriptBlock
+
+    return ($LASTEXITCODE -eq 0)
+}
+
+###############################################################################
+<#
+.SYNOPSIS
+Retrieves the [Process] object of the window that has keyboard focus on Windows.
+
+.DESCRIPTION
+    This function retrieves the [Process] object of the window that currently has keyboard focus on Windows.
+
+.EXAMPLE
+    Get-CurrentFocusedProcess
+#>
+
+function Get-CurrentFocusedProcess {
+    [CmdletBinding()]
+    param()
+
+    Add-Type -TypeDefinition @"
+    using System;
+    using System.Runtime.InteropServices;
+
+    public class User32 {
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int processId);
+    }
+"@
+
+    $foregroundWindow = [User32]::GetForegroundWindow()
+    $processId = 0
+    [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
+
+    if ($processId -ne 0) {
+        $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
+        if ($process) {
+            return $process
+        }
+    }
+
+    Write-Warning "Failed to retrieve the process of the current focused window."
+}
+
+###############################################################################
+
+
+
+###############################################################################
+<#
+.SYNOPSIS
+Creates daily and hourly PowerShell scripts and their corresponding scheduled task
+
+.DESCRIPTION
+Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run as system
+
+.PARAMETER FilePath
+The path of the directory where the scripts will reside
 
 .PARAMETER Prefix
-Optionally a unique prefix for the Scheduled-Task names
-Defaults to 'PS'
+A Prefix for the Scheduled-Task names
 
 #>
 function Initialize-ScheduledTaskScripts {
@@ -1053,7 +1190,9 @@ function Initialize-ScheduledTaskScripts {
     $DaysOfWeek = @("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
     $Now = [DateTime]::UtcNow;
 
-    $Credential = Get-Credential
+    # $Principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -RunLevel Highest
+    $Credential = Get-Credential -UserName ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)
+    # $Credential = Get-Credential
 
     # define function
     function CheckTask {
@@ -1065,10 +1204,11 @@ function Initialize-ScheduledTaskScripts {
 
         # Create the PowerShell script file if it doesn't already exist
         if (-not (Test-Path $ScriptPath -ErrorAction SilentlyContinue)) {
+            # "# $Description`r`n`r`n" | Out-File -FilePath $ScriptPath -Force
+            "# $Description`r`n`r`n$($Description | ConvertTo-Json) | Out-File '$Global:WorkspaceFolder\scheduledtasks.log.txt' -Append`r`n" | Out-File -FilePath $ScriptPath -Force
 
-            Write-Verbose "Creating task script file for  \$Prefix\ '$Description'"
-
-            "# $Description`r`n`r`n" | Out-File -FilePath $ScriptPath -Force
+            # "Invoke-Command -Credential (`r`n`tGet-Credential -UserName `"$([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)`"`r`n) -ScriptBlock {`r`n`r`n`t# Scripts in this block are using the profile of $([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)`r`n`r`n}" | Out-File -FilePath $ScriptPath -Append
+            # "Invoke-Command -Credential (`r`n`tGet-Credential -UserName `"$([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)`"`r`n) -ScriptBlock {`r`n`r`n`t# Scripts in this block are using the profile of $([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)`r`n`r`n`tSendAutomateCloudMessage `"$($Description.Replace('"', '``"'))`"`r`n}" | Out-File -FilePath $ScriptPath -Append
         }
 
         # Check if the task already exists
@@ -1077,51 +1217,58 @@ function Initialize-ScheduledTaskScripts {
             Write-Verbose "Creating task \$Prefix\ '$Description'"
 
             # Define the arguments for the New-ScheduledTaskAction cmdlet
-            $ActionArguments = "-ExecutionPolicy Bypass -File `"$ScriptPath`""
+            $ActionArguments = "-ExecutionPolicy Bypass -NoLogo -Command & `"'$ScriptPath'`"";
 
             # Create the scheduled task action
-            $Action = New-ScheduledTaskAction -Execute "pwsh.exe" -Argument $ActionArguments
+            $Action = New-ScheduledTaskAction -Execute ((Get-Command "pwsh.exe").source) -Argument $ActionArguments -Id "Exec $TaskName".Replace(" ", "_") -WorkingDirectory $Global:WorkspaceFolder
 
             # Create the scheduled task settings
             $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -Hidden -StartWhenAvailable
             $Settings.AllowHardTerminate = $True
+            # $Settings.DeleteExpiredTaskAfter = 'PT0S'
             $Settings.ExecutionTimeLimit = 'PT1H'
-
-            $Settings.volatile = $False
+            $Settings.Volatile = $False
 
             # $Trigger.StartBoundary = $Now.ToString("yyyy-MM-dd'T'HH:mm:ss")
             $Trigger.EndBoundary = $Now.AddYears(99).ToString("yyyy-MM-dd'T'HH:mm:ss")
 
+            $Ptr = [System.Runtime.InteropServices.Marshal]::SecureStringToGlobalAllocUnicode($Credential.Password)
+            $PlainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringUni($Ptr)
+            [System.Runtime.InteropServices.Marshal]::ZeroFreeGlobalAllocUnicode($Ptr)
+
             # Combine all parameters
             $Parameters = @{
                 "TaskName"    = $TaskName
+                # "Principal"   = $Principal
                 "User"        = $Credential.UserName
-                "Password"    = $Credential.GetNetworkCredential().Password
+                "Password"    = $PlainPassword
                 "RunLevel"    = "Highest"
                 "Action"      = $Action
                 "Description"	= $Description
                 "Settings"    = $Settings
                 "Trigger"     = $Trigger
                 "TaskPath"    = $Prefix
+                "Force"       = $true
             }
-            Register-ScheduledTask @Parameters -Force | Out-Null
+
+            Register-ScheduledTask @Parameters -Force
         }
     }
 
-    # Construct task descriptor
+    # Define the name of the scheduled task for daily execution at this time
     $TaskName = $Prefix + "_at_startup"
     $Description = "Scheduled-task executed at startup";
     # Create the scheduled task trigger
     $Trigger = New-ScheduledTaskTrigger -AtStartup
-    # Create the task if necessary
+    # delegate
     CheckTask $TaskName $Description $Trigger
     #-------------------------------------------------------
-    # Construct task descriptor
+    # Define the name of the scheduled task for daily execution at this time
     $TaskName = $Prefix + "_at_logon"
     $Description = "Scheduled-task executed at logon";
     # Create the scheduled task trigger
     $Trigger = New-ScheduledTaskTrigger -AtLogOn
-    # Create the task if necessary
+    # delegate
     CheckTask $TaskName $Description $Trigger
     #-------------------------------------------------------
 
@@ -1141,7 +1288,7 @@ function Initialize-ScheduledTaskScripts {
             if ($At -lt $Now) { $At = $At.AddDays(7) }
             $Trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Day -At $At
 
-            # Create the task if necessary
+            # delegate
             CheckTask $TaskName $Description $Trigger
         }
     }
@@ -1149,96 +1296,21 @@ function Initialize-ScheduledTaskScripts {
     # Loop through each hour of the day (0-23)
     for ($Hour = 0; $Hour -lt 24; $Hour++) {
 
-        # Construct task descriptor
+        # Define the name of the scheduled task for daily execution at this time
         $TaskName = $Prefix + "_daily_" + $Hour.ToString("D2") + "00h_utc"
         $Description = "Scheduled-task executed Daily at $($Hour.ToString('D2')):00h";
 
         # Create the scheduled task trigger
-        $DayDiff = 0;
+        $DayDiff = ([int]$Now.DayOfWeek) - $DaysOfWeek.IndexOf($Day);
         $At = $Now.Date.AddDays($DayDiff).AddHours($Hour);
-        if ($At -lt $Now) { $At = $At.AddDays(1) }
+        if ($At -lt $Now) { $At = $At.AddDays(7) }
         $Trigger = New-ScheduledTaskTrigger -Daily -At $At
 
-        # Create the task if necessary
+        # delegate
         CheckTask $TaskName $Description $Trigger
     }
 }
 
 ###############################################################################
-<#
-.SYNOPSIS
- Creates a system restore point
 
-.DESCRIPTION
-Creates a system restore point with a description that includes the current date in ISO format
-
-.PARAMETER Description
-The description for the system restore point
-
-.EXAMPLE
-New-SystemRestorePoint "My Restore Point"
-#>
-function New-SystemRestorePoint {
-    [Alias("crp")]
-
-    param (
-        [parameter(
-            Mandatory = $true,
-            Position = 0,
-            HelpMessage = "The description for the system restore point",
-            ValueFromPipeline = $false
-        )]
-        [string] $Description
-    )
-
-    # Add the current date in ISO format to the description
-    $Description += " - " + (Get-Date -Format "o")
-
-    $RestorePointType = 0
-    $EventType = 100
-
-    # Load the necessary function
-    Add-Type -TypeDefinition @"
-    using System;
-    using System.Runtime.InteropServices;
-
-    public class SR {
-        [DllImport("Srclient.dll")]
-        public static extern int SRSetRestorePointW(ref RESTOREPOINTINFO pRestorePtSpec, out STATEMGRSTATUS pSMgrStatus);
-
-        public struct RESTOREPOINTINFO {
-            public int dwEventType;
-            public int dwRestorePtType;
-            public Int64 llSequenceNumber;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-            public string szDescription;
-        }
-
-        public struct STATEMGRSTATUS {
-            public int nStatus;
-            public Int64 llSequenceNumber;
-        }
-    }
-"@;
-
-    # Create the restore point
-    $RestorePoint = New-Object SR+RESTOREPOINTINFO
-    $RestorePoint.dwEventType = $EventType
-    $RestorePoint.dwRestorePtType = $RestorePointType
-    $RestorePoint.szDescription = $Description
-
-    $StateMgrStatus = New-Object SR+STATEMGRSTATUS
-
-    $Result = [SR]::SRSetRestorePointW([ref]$RestorePoint, [ref]$StateMgrStatus)
-
-    if ($Result -eq 0) {
-        Write-Host "System restore point created successfully."
-    } else {
-        Write-Host "Failed to create system restore point. Error code: $Result"
-    }
-}
-
-################################################################################
-################################################################################
-################################################################################
-
+###############################################################################
