@@ -46,8 +46,10 @@ Update-Module
 | [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor |
 | [Copy-SetWindowPositionParameters](#Copy-SetWindowPositionParameters) |  | The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters . |
 | [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice |  |
-| [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will runas current-user and it's PowerShell profile |
-| [New-SystemRestorePoint](#New-SystemRestorePoint) | crp | Creates a system restore point with a description that includes the current date in ISO format |
+| [Get-MpCmdRunPath](#Get-MpCmdRunPath) |  |  |
+| [Test-PathUsingWindowsDefender](#Test-PathUsingWindowsDefender) | HasNoVirus, virusscan | Executes a Windows Defender virusscan on a specified file or directory using the MpCmdRun.exe command-line utility.The function returns a boolean success result, when $true it indicates no threats where find in the file. |
+| [Get-CurrentFocusedProcess](#Get-CurrentFocusedProcess) |  | This function retrieves the [Process] object of the window that currently has keyboard focus on Windows. |
+| [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run as system |
 
 <br/><hr/><hr/><br/>
 
@@ -528,40 +530,53 @@ Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-P
 
 <br/><hr/><hr/><br/>
 
-##	Initialize-ScheduledTaskScripts
+##	Get-MpCmdRunPath
 ````PowerShell
-Initialize-ScheduledTaskScripts
+Get-MpCmdRunPath
 ````
-
-### SYNOPSIS
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled tasks
 
 ### SYNTAX
 ````PowerShell
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] 
-[<CommonParameters>]
+Get-MpCmdRunPath 
+````
+
+### PARAMETERS
+    None
+
+<br/><hr/><hr/><br/>
+
+##	Test-PathUsingWindowsDefender
+````PowerShell
+Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan
+````
+
+### SYNOPSIS
+    Executes a Windows Defender virusscan on a specified file or directory.
+
+### SYNTAX
+````PowerShell
+Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that 
-    will run
-    as current-user and it's PowerShell profile
+    Executes a Windows Defender virusscan on a specified file or directory using the 
+    MpCmdRun.exe command-line utility.
+    The function returns a boolean success result, when $true it indicates no threats where 
+    find in the file.
 
 ### PARAMETERS
     -FilePath <String>
-        Optionally the path of the directory where the scripts will reside
-        Defaults to [ProfileDir]\ScheduledTasks
-        Required?                    false
+        The path to the file or directory to be scanned.
+        Required?                    true
         Position?                    1
         Default value                
         Accept pipeline input?       false
         Accept wildcard characters?  false
-    -Prefix <String>
-        Optionally a unique prefix for the Scheduled-Task names
-        Defaults to 'PS'
+    -EnableRemediation [<SwitchParameter>]
+        Instructs Windows Defender to take action when the provided FilePath contains a threat.
         Required?                    false
-        Position?                    2
-        Default value                PS
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
     <CommonParameters>
@@ -572,29 +587,63 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
 
 <br/><hr/><hr/><br/>
 
-##	New-SystemRestorePoint
+##	Get-CurrentFocusedProcess
 ````PowerShell
-New-SystemRestorePoint               --> crp
+Get-CurrentFocusedProcess
 ````
 
 ### SYNOPSIS
-    Creates a system restore point
+    Retrieves the [Process] object of the window that has keyboard focus on Windows.
 
 ### SYNTAX
 ````PowerShell
-New-SystemRestorePoint [-Description] <String> [<CommonParameters>]
+Get-CurrentFocusedProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Creates a system restore point with a description that includes the current date in ISO 
-    format
+    This function retrieves the [Process] object of the window that currently has keyboard 
+    focus on Windows.
 
 ### PARAMETERS
-    -Description <String>
-        The description for the system restore point
-        Required?                    true
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+
+<br/><hr/><hr/><br/>
+
+##	Initialize-ScheduledTaskScripts
+````PowerShell
+Initialize-ScheduledTaskScripts
+````
+
+### SYNOPSIS
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task
+
+### SYNTAX
+````PowerShell
+Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] 
+[<CommonParameters>]
+````
+
+### DESCRIPTION
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that 
+    will run as system
+
+### PARAMETERS
+    -FilePath <String>
+        The path of the directory where the scripts will reside
+        Required?                    false
         Position?                    1
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+    -Prefix <String>
+        A Prefix for the Scheduled-Task names
+        Required?                    false
+        Position?                    2
+        Default value                PS
         Accept pipeline input?       false
         Accept wildcard characters?  false
     <CommonParameters>
