@@ -188,7 +188,8 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is used
+        The monitor to return the scaling factor for, or if not supplied the primary monitor 
+        is used
         Required?                    false
         Position?                    1
         Default value                0
@@ -240,7 +241,8 @@ Get-PowershellMainWindow
 ````
 
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting 
+    the Powershell terminal
 
 ### SYNTAX
 ````PowerShell
@@ -248,7 +250,8 @@ Get-PowershellMainWindow [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting 
+    the Powershell terminal
 
 ### PARAMETERS
     <CommonParameters>
@@ -294,8 +297,9 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] 
-[-RestoreFocus] [-PassThrough] [<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width 
+<Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] 
+[-Centered] [-RestoreFocus] [-PassThrough] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -422,7 +426,8 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy 
+    monitor
 
 ### PARAMETERS
     -Monitor <Int32>
@@ -454,7 +459,8 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy 
+    function target's parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>
@@ -478,7 +484,9 @@ Start-ProcessWithPriority            --> nice
 
 ### SYNTAX
 ````PowerShell
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-noWait] [<CommonParameters>]
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] 
+{Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-noWait] 
+[<CommonParameters>]
 ````
 
 ### PARAMETERS
@@ -547,12 +555,15 @@ Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan
 
 ### SYNTAX
 ````PowerShell
-Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>]
+Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Executes a Windows Defender virusscan on a specified file or directory using the MpCmdRun.exe command-line utility.
-    The function returns a boolean success result, when $true it indicates no threats where find in the file.
+    Executes a Windows Defender virusscan on a specified file or directory using the 
+    MpCmdRun.exe command-line utility.
+    The function returns a boolean success result, when $true it indicates no threats where 
+    find in the file.
 
 ### PARAMETERS
     -FilePath <String>
@@ -591,7 +602,8 @@ Get-CurrentFocusedProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    This function retrieves the [Process] object of the window that currently has keyboard focus on Windows.
+    This function retrieves the [Process] object of the window that currently has keyboard 
+    focus on Windows.
 
 ### PARAMETERS
     <CommonParameters>
@@ -612,11 +624,13 @@ Initialize-ScheduledTaskScripts
 
 ### SYNTAX
 ````PowerShell
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [<CommonParameters>]
+Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run as system
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that 
+    will run as system
 
 ### PARAMETERS
     -FilePath <String>
