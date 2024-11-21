@@ -561,6 +561,8 @@ function Set-WindowPosition {
 
     Process {
 
+        $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | % { $_ });
+
         function refocusTab() {
 
             # '-RestoreFocus' parameter supplied'?
@@ -683,19 +685,16 @@ function Set-WindowPosition {
             if ($Monitor -eq 0) {
 
                 Write-Verbose "Chosen primary screen"
-                $Screen = [System.Windows.Forms.Screen]::PrimaryScreen;
+                $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
             }
             else {
-                if (($Monitor -ge 1) -and ($Monitor -le [System.Windows.Forms.Screen]::AllScreens.Length)) {
+                if (($Monitor -ge 1) -and ($Monitor -le $AllScreens.Length)) {
 
-                    Write-Verbose "Chosen screen $($monitor-1)"
-
-                    $Screen = [System.Windows.Forms.Screen]::AllScreens[$Monitor - 1]
+                    $Screen = $AllScreens[$Monitor - 1]
                 }
                 else {
 
-                    $Screen = [System.Windows.Forms.Screen]::FromPoint($window[0].Position());
-                    Write-Verbose "Chosen screen $([System.Windows.Forms.Screen]::AllScreens.indexOf($Screen))"
+                    $Screen = [WpfScreenHelper.Screen]::FromPoint($window[0].Position());                    
                 }
             }
 
@@ -924,13 +923,15 @@ function Set-WindowPositionForSecondary {
 
             [int] $defaultMonitor = 1;
 
+            $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | % { $_ });
+
             if ([int]::TryParse($Global:DefaultSecondaryMonitor, [ref] $defaultMonitor)) {
 
-                $Monitor = $defaultMonitor % [System.Windows.Forms.Screen]::AllScreens.Length;
+                $Monitor = $defaultMonitor % $AllScreens.Length;
             }
             else {
 
-                $Monitor = 1 % [System.Windows.Forms.Screen]::AllScreens.Length;
+                $Monitor = 1 % $AllScreens.Length;
             }
         }
     }
