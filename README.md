@@ -188,8 +188,8 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is 
-        used
+        The monitor to return the scaling factor for, or if not supplied the primary monitor 
+        is used
         Required?                    false
         Position?                    1
         Default value                0
@@ -555,7 +555,8 @@ Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan
 
 ### SYNTAX
 ````PowerShell
-Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>]
+Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION

@@ -694,7 +694,7 @@ function Set-WindowPosition {
                 }
                 else {
 
-                    $Screen = [WpfScreenHelper.Screen]::FromPoint($window[0].Position());                    
+                    $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window[0].Position().X; Y=$window[0].Position().Y});
                 }
             }
 
