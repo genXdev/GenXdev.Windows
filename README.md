@@ -188,8 +188,8 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is 
-        used
+        The monitor to return the scaling factor for, or if not supplied the primary monitor 
+        is used
         Required?                    false
         Position?                    1
         Default value                0
@@ -426,8 +426,8 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy 
-    monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the configured 
+    secondairy monitor
 
 ### PARAMETERS
     -Monitor <Int32>
@@ -555,7 +555,8 @@ Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan
 
 ### SYNTAX
 ````PowerShell
-Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>]
+Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -573,7 +574,8 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         Accept pipeline input?       false
         Accept wildcard characters?  false
     -EnableRemediation [<SwitchParameter>]
-        Instructs Windows Defender to take action when the provided FilePath contains a threat.
+        Instructs Windows Defender to take action when the provided FilePath contains a 
+        threat.
         Required?                    false
         Position?                    named
         Default value                False
