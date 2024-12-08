@@ -426,8 +426,8 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured 
-    secondairy monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy 
+    monitor
 
 ### PARAMETERS
     -Monitor <Int32>
@@ -574,8 +574,7 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation]
         Accept pipeline input?       false
         Accept wildcard characters?  false
     -EnableRemediation [<SwitchParameter>]
-        Instructs Windows Defender to take action when the provided FilePath contains a 
-        threat.
+        Instructs Windows Defender to take action when the provided FilePath contains a threat.
         Required?                    false
         Position?                    named
         Default value                False
