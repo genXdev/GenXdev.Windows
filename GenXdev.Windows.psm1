@@ -1,4 +1,3 @@
-
 <#
 .SYNOPSIS
 Returns a window helper for the main window of the specified process
@@ -18,10 +17,10 @@ function Get-Window {
     [Alias()]
 
     param (
-        [parameter(Mandatory = $true, ParameterSetName = "byprocessname")]
+        [parameter(Mandatory, ParameterSetName = "byprocessname")]
         [string] $ProcessName,
 
-        [parameter(Mandatory = $true, ParameterSetName = "bywindowhandle")]
+        [parameter(Mandatory, ParameterSetName = "bywindowhandle")]
         [long] $WindowHandle
     )
 
@@ -174,11 +173,11 @@ function Set-KnownFolderPath {
     [CmdletBinding(ConfirmImpact = "high")]
 
     Param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
         [string]$KnownFolder,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [string]$Path
     )
 
@@ -230,7 +229,7 @@ function Get-KnownFolderPath {
     [CmdletBinding()]
 
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
         [string]$KnownFolder
     )
@@ -292,7 +291,7 @@ function Set-TaskbarAlignment() {
     [CmdletBinding()]
 
     param(
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory)]
         [ValidateSet(
             "Center",
             "Left"
@@ -325,31 +324,32 @@ function Get-PowershellMainWindowProcess {
     param()
 
     $PowershellProcess = [System.Diagnostics.Process]::GetCurrentProcess();
+    $PProcess = $PowershellProcess;
 
-    if (($PowershellProcess.MainWindowHandle -eq 0) -and ($null -ne $PowershellProcess.Parent)) {
+    while (($PProcess.MainWindowHandle -eq 0) -and ($null -ne $PProcess.Parent)) {
 
-        if ($PowershellProcess.Parent.MainWindowHandle -ne 0) {
+        $PProcess = $PProcess.Parent;
+    }
 
-            Write-Verbose "Parent has mainwindow"
+    if ($PProcess.MainWindowHandle -ne 0) {
 
-            $PowershellProcess = $PowershellProcess.Parent;
+        Write-Verbose "Parent has mainwindow"
+
+        $PowershellProcess = $PProcess;
+    }
+
+    else {
+
+        $PProcess = Get-Process -Name $PowershellProcess.Parent.ProcessName | Where-Object { 0 -ne $PSItem.MainWindowHandle } | Select-Object -First 1;
+
+        if ($null -ne $PProcess) {
+
+            Write-Verbose "Found simular process that has mainwindow"
+            $PowershellProcess = $PProcess
         }
         else {
-
-            $PProcess = Get-Process -Name $PowershellProcess.Parent.ProcessName | Where-Object { 0 -ne $PSItem.MainWindowHandle } | Select-Object -First 1;
-
-            if ($null -ne $PProcess) {
-
-                Write-Verbose "Found simular process that has mainwindow"
-                $PowershellProcess = $PProcess
-            }
-            else {
-                Write-Verbose "No simular parent process found with main window"
-            }
+            Write-Verbose "No simular parent process found with main window"
         }
-    }
-    else {
-        Write-Verbose "No parent found, no main window"
     }
 
     $PowershellProcess
@@ -418,19 +418,13 @@ Place window on the bottom side of the screen
 .PARAMETER Centered
 Place window in the center of the screen
 
-.PARAMETER ApplicationMode
-Hide the browser controls --> -a, -app, -appmode
-
-.PARAMETER NoBrowserExtensions
-Prevent loading of browser extensions --> -de, -ne
-
 .PARAMETER RestoreFocus
 Restore PowerShell window focus --> -bg
 
 .PARAMETER NewWindow
 Don't re-use existing window, instead, create a new one -> nw
 
-.PARAMETER PassThrough
+.PARAMETER PassThru
 Returns a [System.Diagnostics.Process] object of the browserprocess
 
 #>
@@ -446,8 +440,8 @@ function Set-WindowPosition {
             Mandatory = $false,
             Position = 0,
             HelpMessage = "The process of the window to position",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ValueFromRemainingArguments = $false
         )]
         [System.Diagnostics.Process[]] $Process,
@@ -532,6 +526,13 @@ function Set-WindowPosition {
         [switch] $Centered,
         ###############################################################################
 
+        [parameter(
+            Mandatory = $false,
+            HelpMessage = "Maximize the window"
+        )]
+        [switch] $Fullscreen,
+        ###############################################################################
+
         [Alias("bg")]
         [parameter(
             Mandatory = $false,
@@ -544,7 +545,8 @@ function Set-WindowPosition {
             Mandatory = $false,
             HelpMessage = "Returns the [System.Diagnostics.Process] object of the browserprocess"
         )]
-        [switch] $PassThrough
+        [switch] $PassThru
+
     )
 
     Begin {
@@ -561,8 +563,8 @@ function Set-WindowPosition {
 
     Process {
 
-        $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | % { $_ });
-
+        $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
+        $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | ForEach-Object { $PSItem });
         function refocusTab() {
 
             # '-RestoreFocus' parameter supplied'?
@@ -602,74 +604,24 @@ function Set-WindowPosition {
         }
 
         function position($process, $window, $X, $Y, $Width, $Height) {
-            try {
-                # have a handle to the mainwindow of the browser?
-                if ($window.Length -eq 1) {
 
-                    Write-Verbose "Restoring and positioning window"
+            # have a handle to the mainwindow of the browser?
+            if ($window.Length -eq 1) {
 
-                    $window.Move($X, $Y, $Width, $Height) | Out-Null;
-                    $window.Move($X, $Y, $Width, $Height) | Out-Null;
+                Write-Verbose "Restoring and positioning window"
 
-                    # # if maximized, restore window style
-                    # 1..3 | ForEach-Object {
-                    #     $window[0].Show() | Out-Null
+                $window.Move($X, $Y, $Width, $Height) | Out-Null;
+                $window.Move($X, $Y, $Width, $Height) | Out-Null;
 
-                    #     if (($X -is [int]) -and ($X -gt -999999) -and ($Y -is [int]) -and ($Y -gt -999999)) {
+                # needs to be set NoBorders manually?
+                if ($NoBorders -eq $true) {
 
-                    #         Write-Verbose "Moving to $X x $Y"
-                    #         $window[0].Move($X, $Y)  | Out-Null
-                    #     }
-                    #     else {
-                    #         if (($X -is [int]) -and ($X -gt -999999)) {
+                    Write-Verbose "Setting NoBorders"
 
-                    #             Write-Verbose "Moving X to $X"
-                    #             $window[0].Left = $X;
-                    #         }
-                    #         else {
-                    #             if (($Y -is [int]) -and ($Y -gt -999999)) {
-
-                    #                 Write-Verbose "Moving Y to $Y"
-                    #                 $window[0].Top = $Y;
-                    #             }
-                    #         }
-                    #     }
-                    #     if (($Width -is [int]) -and ($Width -gt 0) -and ($Height -is [int]) -and ($Height -gt 0)) {
-
-                    #         Write-Verbose "Resizing to $Width x $Height"
-                    #         $window[0].Resize($Width, $Height)  | Out-Null
-                    #     }
-                    #     else {
-                    #         if (($Width -is [int]) -and ($Width -gt 0)) {
-
-                    #             Write-Verbose "Resizing width to $Width"
-                    #             $window[0].Width = $Width;
-                    #         }
-                    #         else {
-                    #             if (($Height -is [int]) -and ($Height -gt 0)) {
-
-                    #                 Write-Verbose "Resizing height to $Height"
-                    #                 $window[0].Height = $Height;
-                    #             }
-                    #         }
-                    #     }
-
-                    # }
-
-                    # needs to be set NoBorders manually?
-                    if ($NoBorders -eq $true) {
-
-                        Write-Verbose "Setting NoBorders"
-
-                        $window[0].RemoveBorder();
-                    }
+                    $window[0].RemoveBorder();
                 }
             }
-            finally {
 
-                # if needed, restore the focus to the PowerShell terminal
-                refocusTab $process $window
-            }
         }
 
         ###############################################################################
@@ -684,24 +636,30 @@ function Set-WindowPosition {
             # reference the requested monitor
             if ($Monitor -eq 0) {
 
-                Write-Verbose "Chosen primary screen"
-                $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
+                Write-Verbose "Choosing primary monitor, because default monitor requested using -Monitor 0"
             }
             else {
-                if (($Monitor -ge 1) -and ($Monitor -le $AllScreens.Length)) {
+                if ($Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0) {
 
-                    $Screen = $AllScreens[$Monitor - 1]
+                    Write-Verbose "Picking monitor #$((($Global:DefaultSecondaryMonitor-1) % $AllScreens.Length)) as secondary (requested with -monitor -2) set by `$Global:DefaultSecondaryMonitor"
+                    $Screen = $AllScreens[($Global:DefaultSecondaryMonitor - 1) % $AllScreens.Length];
                 }
-                else {
+                elseif ($Monitor -eq -2 -and (-not ($Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0)) -and ((Get-MonitorCount) -gt 1)) {
 
-                    $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window[0].Position().X; Y=$window[0].Position().Y});
+                    Write-Verbose "Picking monitor #1 as default secondary (requested with -monitor -2), because `$Global:DefaultSecondaryMonitor not set"
+                    $Screen = $AllScreens[1];
+                }
+                elseif ($Monitor -ge 1) {
+
+                    Write-Verbose "Picking monitor #$(($Monitor - 1) % $AllScreens.Length) as requested by the -Monitor parameter"
+                    $Screen = $AllScreens[($Monitor - 1) % $AllScreens.Length]
+                }
+                elseif ($Monitor -eq 0) {
+
+                    Write-Verbose "Picking monitor #1 (same as PowerShell), because no monitor specified"
+                    $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window[0].Position().X; Y = $window[0].Position().Y });
                 }
             }
-
-            Write-Verbose $Screen
-
-            # remember
-            [bool] $HavePositioning = ($Monitor -ge 0) -or ($Left -or $Right -or $Top -or $Bottom -or $Centered -or (($X -is [int]) -and ($X -ge 0)) -or (($Y -is [int]) -and ($Y -ge 0)));
 
             # init window position
             # '-X' parameter not supplied?
@@ -732,104 +690,107 @@ function Set-WindowPosition {
             }
             Write-Verbose "Y determined to be $Y"
 
-            if ($HavePositioning) {
+            if ($Fullscreen -eq $true) {
 
-                Write-Verbose "Have positioning parameters set"
+                $Width = $Screen.WorkingArea.Width;
+                $Height = $Screen.WorkingArea.Height;
+            }
 
-                $WidthProvided = ($Width -ge 0) -and ($Width -is [int]);
-                $heightProvided = ($Height -ge 0) -and ($Height -is [int]);
+            Write-Verbose "Have positioning parameters set"
 
-                # '-Width' parameter not supplied?
+            $WidthProvided = ($Width -ge 0) -and ($Width -is [int]);
+            $heightProvided = ($Height -ge 0) -and ($Height -is [int]);
+
+            # '-Width' parameter not supplied?
+            if ($WidthProvided -eq $false) {
+
+                $Width = $Screen.WorkingArea.Width;
+
+                Write-Verbose "Width not provided resetted to $Width"
+            }
+
+            # '-Height' parameter not supplied?
+            if ($heightProvided -eq $false) {
+
+                $Height = $Screen.WorkingArea.Height;
+
+                Write-Verbose "Height not provided resetted to $Height"
+            }
+
+            # setup exact window position and size
+            if ($Left -eq $true) {
+
+                $X = $Screen.WorkingArea.X;
+
                 if ($WidthProvided -eq $false) {
 
-                    $Width = $Screen.WorkingArea.Width;
-
-                    Write-Verbose "Width not provided resetted to $Width"
+                    $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
                 }
 
-                # '-Height' parameter not supplied?
-                if ($heightProvided -eq $false) {
-
-                    $Height = $Screen.WorkingArea.Height;
-
-                    Write-Verbose "Height not provided resetted to $Height"
-                }
-
-                # setup exact window position and size
-                if ($Left -eq $true) {
-
-                    $X = $Screen.WorkingArea.X;
+                Write-Verbose "Left chosen, X = $X, Width = $Width"
+            }
+            else {
+                if ($Right -eq $true) {
 
                     if ($WidthProvided -eq $false) {
 
                         $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
                     }
 
-                    Write-Verbose "Left chosen, X = $X, Width = $Width"
+                    $X = $Screen.WorkingArea.X + $Screen.WorkingArea.Width - $Width;
+
+                    Write-Verbose "Right chosen, X = $X, Width = $Width"
                 }
-                else {
-                    if ($Right -eq $true) {
+            }
 
-                        if ($WidthProvided -eq $false) {
+            if ($Top -eq $true) {
 
-                            $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
-                        }
+                $Y = $Screen.WorkingArea.Y;
 
-                        $X = $Screen.WorkingArea.X + $Screen.WorkingArea.Width - $Width;
+                if ($HeightProvided -eq $false) {
 
-                        Write-Verbose "Right chosen, X = $X, Width = $Width"
-                    }
+                    $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
                 }
 
-                if ($Top -eq $true) {
-
-                    $Y = $Screen.WorkingArea.Y;
+                Write-Verbose "Top chosen, Y = $Y, Height = $Height"
+            }
+            else {
+                if ($Bottom -eq $true) {
 
                     if ($HeightProvided -eq $false) {
 
                         $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
                     }
+                    $Y = $Screen.WorkingArea.Y + $Screen.WorkingArea.Height - $Height;
 
-                    Write-Verbose "Top chosen, Y = $Y, Height = $Height"
-                }
-                else {
-                    if ($Bottom -eq $true) {
-
-                        if ($HeightProvided -eq $false) {
-
-                            $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
-                        }
-                        $Y = $Screen.WorkingArea.Y + $Screen.WorkingArea.Height - $Height;
-
-                        Write-Verbose "Bottom chosen, Y = $Y, Height = $Height"
-                    }
-                }
-
-                if ($Centered -eq $true) {
-
-                    if ($HeightProvided -eq $false) {
-
-                        $Height = [Math]::Round([Math]::Min($Screen.WorkingArea.Height * 0.8, $Height), 0);
-                    }
-
-                    if ($WidthProvided -eq $false) {
-
-                        $Width = [Math]::Round([Math]::Min($Screen.WorkingArea.Width * 0.8, $Width), 0);
-                    }
-
-                    $X = $Screen.WorkingArea.X + [Math]::Round(($screen.WorkingArea.Width - $Width) / 2, 0);
-                    $Y = $Screen.WorkingArea.Y + [Math]::Round(($screen.WorkingArea.Height - $Height) / 2, 0);
-
-                    Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
+                    Write-Verbose "Bottom chosen, Y = $Y, Height = $Height"
                 }
             }
 
-            position $currentProcess $window $X $Y $Width $Height
+            if ($Centered -eq $true) {
 
-            if ($PassThrough -eq $true) {
+                if ($HeightProvided -eq $false) {
 
-                $currentProcess
+                    $Height = [Math]::Round([Math]::Min($Screen.WorkingArea.Height * 0.8, $Height), 0);
+                }
+
+                if ($WidthProvided -eq $false) {
+
+                    $Width = [Math]::Round([Math]::Min($Screen.WorkingArea.Width * 0.8, $Width), 0);
+                }
+
+                $X = $Screen.WorkingArea.X + [Math]::Round(($screen.WorkingArea.Width - $Width) / 2, 0);
+                $Y = $Screen.WorkingArea.Y + [Math]::Round(($screen.WorkingArea.Height - $Height) / 2, 0);
+
+                Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
             }
+        }
+
+        position $currentProcess $window $X $Y $Width $Height
+
+        if ($PassThru -eq $true) {
+
+            $currentProcess
         }
     }
 }
@@ -878,19 +839,13 @@ Place window on the bottom side of the screen
 .PARAMETER Centered
 Place window in the center of the screen
 
-.PARAMETER ApplicationMode
-Hide the browser controls --> -a, -app, -appmode
-
-.PARAMETER NoBrowserExtensions
-Prevent loading of browser extensions --> -de, -ne
-
 .PARAMETER RestoreFocus
 Restore PowerShell window focus --> -bg
 
 .PARAMETER NewWindow
 Don't re-use existing window, instead, create a new one -> nw
 
-.PARAMETER PassThrough
+.PARAMETER PassThru
 Returns a [System.Diagnostics.Process] object of the browserprocess
 
 .EXAMPLE
@@ -923,7 +878,7 @@ function Set-WindowPositionForSecondary {
 
             [int] $defaultMonitor = 1;
 
-            $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | % { $_ });
+            $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | ForEach-Object { $PSItem });
 
             if ([int]::TryParse($Global:DefaultSecondaryMonitor, [ref] $defaultMonitor)) {
 
@@ -972,7 +927,7 @@ function Start-ProcessWithPriority {
     param (
 
         [parameter(
-            Mandatory = $true
+            Mandatory
         )]
         [string]$FilePath,
 
@@ -992,18 +947,24 @@ function Start-ProcessWithPriority {
         [parameter(
             Mandatory = $false
         )]
-        [switch] $noWait
+        [switch] $NoWait,
+
+        [parameter(
+            Mandatory = $false
+        )]
+        [switch] $PassThru
     )
 
     $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -PassThru -NoNewWindow
+    if ($null -eq $process) { return; }
 
     $process.PriorityClass = $Priority
 
-    if ($noWait -eq $true) { return; }
+    if ($NoWait -eq $true) { return; }
 
     $process.WaitForExit();
 
-    return $process.ExitCode;
+    if ($PassThru -eq $true) { return $process; }
 }
 
 ###############################################################################
@@ -1052,7 +1013,7 @@ function Test-PathUsingWindowsDefender {
     [CmdletBinding()]
     param (
         [parameter(
-            Mandatory = $true,
+            Mandatory,
             Position = 0,
             HelpMessage = "The path to the file or directory to be scanned."
         )]
@@ -1083,14 +1044,14 @@ function Test-PathUsingWindowsDefender {
         & "$MpCmdrunPath" -Scan -ScanType 3 -File "$FilePath" |
         ForEach-Object {
 
-            Write-Verbose $_
+            Write-Verbose $PSItem
         }
     } : {
 
         & "$MpCmdrunPath" -Scan -ScanType 3 -File "$FilePath" -DisableRemediation |
         ForEach-Object {
 
-            Write-Verbose $_
+            Write-Verbose $PSItem
         }
     }
 
@@ -1144,7 +1105,29 @@ function Get-CurrentFocusedProcess {
 
 ###############################################################################
 
+function Set-ForegroundWindow {
 
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [IntPtr] $WindowHandle
+    )
+
+    try {
+
+        [void] [GenXdev.Helpers.WindowObj]::SwitchToThisWindow($WindowHandle, $false);
+    }
+    catch {
+
+    }
+    try {
+
+        [void] [GenXdev.Helpers.WindowObj]::SetForegroundWindow($WindowHandle)
+    }
+    catch {
+
+    }
+}
 
 ###############################################################################
 <#
@@ -1314,4 +1297,223 @@ function Initialize-ScheduledTaskScripts {
 
 ###############################################################################
 
+function Get-MonitorCount {
+
+    @([WpfScreenHelper.Screen]::AllScreens).Count
+}
+
 ###############################################################################
+
+<#
+.SYNOPSIS
+Retrieves child processes whose parent chain includes the current PowerShell process.
+
+.DESCRIPTION
+Returns processes that are children of the current PowerShell process by examining their parent process chain.
+
+#>
+function Get-ChildProcesses {
+    $currentPID = $PID
+    $processes = Get-Process;
+    $processes | Where-Object {
+        $process = $PSItem
+        while ($null -ne $process.Parent) {
+
+            if ($process.Parent.Id -eq $currentPID) {
+
+                return $true
+            }
+
+            $process = $process.Parent
+        }
+        return $false
+    }
+}
+
+################################################################################
+function CurrentUserHasElivatedRights() {
+
+    $id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+    $p = New-Object System.Security.Principal.WindowsPrincipal($id)
+
+    if ($p.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator) -or
+        $p.IsInRole([System.Security.Principal.WindowsBuiltInRole]::BackupOperator)) {
+
+        return $true;
+    }
+
+    return $false;
+}
+
+################################################################################
+<#
+.SYNOPSIS
+    Sends keys to a window as if typed by user
+
+.DESCRIPTION
+    Sends keys to the active window or to the window of a specified process
+    as if typed by the user.
+
+    The text strings can contain control characters like {F11} or {ENTER}
+    they will press the corresponding keys, unless -Escape is specified.
+
+    Line feeds will automatically be converted to {ENTER} control codes.
+    and Tabs to {TAB}.
+
+.PARAMETER Keys
+    The text to send
+
+.PARAMETER Escape
+    Escape control characters like {F11} or {ENTER} or modifiers like +(meaning shift), ^(meaning control), %(meaning alt)
+
+.PARAMETER Process
+    The process to send the keys to
+
+.PARAMETER HoldKeyboardFocus
+    Hold the keyboard focus to the target process main window when complete
+
+.EXAMPLE
+    Send-Keys -Keys "Hello World" -Escape
+
+.EXAMPLE
+    Send-Keys -Keys "Hello World" -Process (Get-Process code | Select -First 1)
+#>
+function Send-Keys {
+
+    [CmdletBinding()]
+    param (
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            ValueFromRemainingArguments,
+            HelpMessage = "The text to send"
+        )]
+        [Alias("q", "Value", "Name", "Text", "Query", "Queries")]
+        [string[]] $Keys,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Escape control characters like {F11} or {ENTER} or modifiers like +(meaning shift), ^(meaning control), %(meaning alt)"
+        )]
+        [switch] $Escape,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "The process to send the keys to"
+        )]
+        [System.Diagnostics.Process] $Process,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Hold the keyboard focus to the target process main window when complete"
+        )]
+        [switch] $HoldKeyboardFocus,
+
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Convert line feeds into Shift-Enter instead of just Enter"
+        )]
+        [switch] $ShiftEnter
+    )
+
+    begin {
+
+        $windowProcess = $Process;
+        $helper = New-Object -ComObject WScript.Shell;
+
+        if ($null -ne $Process) {
+
+            if ($windowProcess.MainWindowHandle -eq 0) {
+
+                Start-Sleep 2 | Out-Null
+            }
+
+            while (($null -ne $windowProcess) -and ($windowProcess.MainWindowHandle -eq 0)) {
+
+                $windowProcess = $windowProcess.Parent
+            }
+
+            if ($null -eq $windowProcess) {
+
+                $windowProcess = (
+                    Get-Process "$([IO.Path]::GetFileNameWithoutExtension($process.Path))" |
+                    Where-Object {
+                        ($PSItem.Id -ne $Process.Id) -and ($PSItem.MainWindowHandle -ne 0)
+                    } |
+                    Sort-Object -Property StartTime -Descending |
+                    Select-Object -First 1
+                );
+
+                if ($null -eq $windowProcess) {
+
+                    throw "could not find a window process to send the keys to"
+                    return;
+                }
+            }
+
+            try {
+                $w = [GenXdev.Helpers.WindowObj]::new($windowProcess, $windowProcess.MainWindowTitle);
+                $w.Show() | Out-Null;
+                $w.SetForeground() | Out-Null
+            }
+            catch {
+
+            }
+
+            Set-ForegroundWindow -WindowHandle ($windowProcess.MainWindowHandle) | Out-Null
+
+            [System.Threading.Thread]::Sleep(500);
+        }
+    }
+
+    process {
+
+        try {
+            foreach ($key in $Keys) {
+
+                $escapedQuery = $key -join " "
+
+                if ($Escape -eq $true) {
+
+                    $escapedQuery = $escapedQuery -replace '(\{)', '{{}'
+                    $escapedQuery = $escapedQuery -replace '(\})', '{}}'
+                }
+
+                $escapedQuery = $escapedQuery -replace '`r', '`n'
+                $escapedQuery = $escapedQuery -replace '`n`n', '`n'
+
+                if ($ShiftEnter -eq $true) {
+
+                    $escapedQuery = $escapedQuery -replace '`n', '+{ENTER}'
+                }
+                else {
+
+                    $escapedQuery = $escapedQuery -replace '`n', '{ENTER}'
+                }
+
+                Write-Verbose "Sending keys: $escapedQuery"
+
+                $helper.sendKeys($escapedQuery) | Out-Null
+            }
+        }
+        finally {
+            if ($null -ne $windowProcess) {
+
+                [System.Threading.Thread]::Sleep(1500);
+
+                if (-not $HoldKeyboardFocus) {
+
+                    try {
+                        $psw = Get-PowershellMainWindow
+                        $psw.SetForeground() | Out-Null
+                        Set-ForegroundWindow -WindowHandle ($psw.Handle)
+                    }
+                    catch {}
+                }
+            }
+        }
+    }
+
+}
