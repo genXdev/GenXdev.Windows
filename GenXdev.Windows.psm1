@@ -227,6 +227,7 @@ https://stackoverflow.com/questions/25709398/set-location-of-special-folders-wit
 function Get-KnownFolderPath {
 
     [CmdletBinding()]
+    [Alias("folder")]
 
     param (
         [Parameter(Mandatory)]
