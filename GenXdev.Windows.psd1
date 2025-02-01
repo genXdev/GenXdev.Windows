@@ -6,7 +6,7 @@
   RootModule           = 'GenXdev.Windows.psm1'
 
   # Version number of this module.
-  ModuleVersion        = '1.90.2025'
+  ModuleVersion        = '1.94.2025'
   # Supported PSEditions
   # CompatiblePSEditions = @()
 
@@ -26,19 +26,19 @@
   Description          = 'A Windows PowerShell module that provides ui Windows manipulation helpers'
 
   # Minimum version of the PowerShell engine required by this module
-  PowerShellVersion    = '7.4.6'
+  PowerShellVersion    = '7.5.0'
 
   # # Intended for PowerShell Core
   CompatiblePSEditions = 'Core'
 
   # # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-  ClrVersion           = '8.0.10'
+  ClrVersion           = '9.0.1'
 
   # Processor architecture (None, X86, Amd64) required by this module
   # ProcessorArchitecture = ''
 
   # Modules that must be imported into the global environment prior to importing this module
-  RequiredModules      = @(@{ModuleName = 'GenXdev.Helpers'; ModuleVersion = '1.90.2025' }, @{ModuleName = 'GenXdev.FileSystem'; ModuleVersion = '1.90.2025' });
+  RequiredModules      = @(@{ModuleName = 'GenXdev.Data'; ModuleVersion = '1.94.2025' }, @{ModuleName = 'GenXdev.Helpers'; ModuleVersion = '1.94.2025' }, @{ModuleName = 'GenXdev.FileSystem'; ModuleVersion = '1.94.2025' });
 
   # Assemblies that must be loaded prior to importing this module
   RequiredAssemblies   = @()
@@ -77,6 +77,28 @@
   FileList             = @(
 
 
+  ".\\Functions\\GenXdev.Windows\\Copy-SetWindowPositionParameters.ps1",
+  ".\\Functions\\GenXdev.Windows\\CurrentUserHasElivatedRights.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-ActiveUsers.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-ChildProcesses.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-CurrentFocusedProcess.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-DesktopScalingFactor.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-KnownFolderPath.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-MonitorCount.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-MpCmdRunPath.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-PowershellMainWindow.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-PowershellMainWindowProcess.ps1",
+  ".\\Functions\\GenXdev.Windows\\Get-Window.ps1",
+  ".\\Functions\\GenXdev.Windows\\Initialize-ScheduledTaskScripts.ps1",
+  ".\\Functions\\GenXdev.Windows\\Send-Keys.ps1",
+  ".\\Functions\\GenXdev.Windows\\Set-ForegroundWindow.ps1",
+  ".\\Functions\\GenXdev.Windows\\Set-KnownFolderPath.ps1",
+  ".\\Functions\\GenXdev.Windows\\Set-TaskbarAlignment.ps1",
+  ".\\Functions\\GenXdev.Windows\\Set-WindowPosition.ps1",
+  ".\\Functions\\GenXdev.Windows\\Set-WindowPositionForSecondary.ps1",
+  ".\\Functions\\GenXdev.Windows\\Start-ProcessWithPriority.ps1",
+  ".\\Functions\\GenXdev.Windows\\Test-PathUsingWindowsDefender.ps1",
+  ".\\Tests\\TestResults.xml",
   ".\\GenXdev.Windows.psd1",
   ".\\GenXdev.Windows.psm1",
   ".\\LICENSE",

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="8" errors="0" failures="7" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2025-01-23" time="18:27:09">
+  <environment user="renev" clr-version="8.0.10" nunit-version="2.5.8.0" platform="Microsoft Windows 11 Pro|C:\WINDOWS|\Device\Harddisk0\Partition3" machine-name="ATMOSMAIN" user-domain="ATMOSMAIN" os-version="10.0.26100" cwd="C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025" />
+  <culture-info current-culture="en-150" current-uiculture="en-GB" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Failure" success="False" time="1.0904" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1" executed="True" result="Failure" success="False" time="1.0904" asserts="0" description="C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="Get-Window function tests" executed="True" result="Failure" success="False" time="0.5993" asserts="0" description="Get-Window function tests">
+            <results>
+              <test-suite type="TestFixture" name="Get-Window function tests.Parameter validation" executed="True" result="Failure" success="False" time="0.3477" asserts="0" description="Get-Window function tests.Parameter validation">
+                <results>
+                  <test-case description="Should accept ProcessId parameter" name="Get-Window function tests.Parameter validation.Should accept ProcessId parameter" time="0.1229" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>NullReferenceException: Object reference not set to an instance of an object.
+MethodInvocationException: Exception calling "GetMainWindow" with "1" argument(s): "Object reference not set to an instance of an object."</message>
+                      <stack-trace>at Get-Window&lt;Process&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Functions\GenXdev.Windows\Get-Window.ps1:85
+at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:27</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="Should accept WindowTitle parameter" name="Get-Window function tests.Parameter validation.Should accept WindowTitle parameter" time="0.0345" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>ParameterBindingException: A parameter cannot be found that matches parameter name 'WindowTitle'.</message>
+                      <stack-trace>at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:34</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="Should accept Handle parameter" name="Get-Window function tests.Parameter validation.Should accept Handle parameter" time="0.0336" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>ParameterBindingException: A parameter cannot be found that matches parameter name 'Handle'.</message>
+                      <stack-trace>at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:40</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="Should accept ProcessName parameter" name="Get-Window function tests.Parameter validation.Should accept ProcessName parameter" time="0.1268" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>Expected Get-Process to be called at least 1 times, but was called 0 times</message>
+                      <stack-trace>at Should -Invoke "Microsoft.PowerShell.Management\Get-Process" -ParameterFilter {, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:47
+at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:47</stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="Get-Window function tests.Parameter combinations" executed="True" result="Failure" success="False" time="0.389" asserts="0" description="Get-Window function tests.Parameter combinations">
+                <results>
+                  <test-case description="Should work with ProcessId and WindowTitle together" name="Get-Window function tests.Parameter combinations.Should work with ProcessId and WindowTitle together" time="0.0163" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>ParameterBindingException: A parameter cannot be found that matches parameter name 'WindowTitle'.</message>
+                      <stack-trace>at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:56</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="Should work with ProcessName and WindowTitle together" name="Get-Window function tests.Parameter combinations.Should work with ProcessName and WindowTitle together" time="0.0174" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>ParameterBindingException: A parameter cannot be found that matches parameter name 'WindowTitle'.</message>
+                      <stack-trace>at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:63</stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="Get-Window function tests.Error conditions" executed="True" result="Failure" success="False" time="0.4727" asserts="0" description="Get-Window function tests.Error conditions">
+                <results>
+                  <test-case description="Should handle non-existent process gracefully" name="Get-Window function tests.Error conditions.Should handle non-existent process gracefully" time="0.0547" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>Expected an exception with type [System.ArgumentException] to be thrown, but the exception type was [System.Management.Automation.MethodInvocationException]. from C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:77 char:15
+    +             { Get-Window -ProcessId 99999 } |
+    +               ~~~~~~~~~~~~~~~~~~~~~~~~~~~</message>
+                      <stack-trace>at Should -Throw -ExceptionType ([System.ArgumentException]), C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:78
+at &lt;ScriptBlock&gt;, C:\Users\renev\Documents\PowerShell\Modules\GenXdev.Windows\1.94.2025\Tests\GenXdev.Windows\Get-Window.Tests.ps1:77</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="Should handle null window title gracefully" name="Get-Window function tests.Error conditions.Should handle null window title gracefully" time="0.0211" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
