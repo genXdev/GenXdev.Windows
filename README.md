@@ -78,8 +78,8 @@ Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParame
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's 
-    parameters .
+    The dynamic parameter block of a proxy function. This block can be used to copy a proxy 
+    function target's parameters .
 
 ### PARAMETERS
     -ParametersToSkip <String[]>
@@ -111,7 +111,8 @@ Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor
+    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy 
+    monitor
 
 ### PARAMETERS
     -Monitor <Int32>
@@ -140,9 +141,9 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X 
-<Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] 
-[<CommonParameters>]
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width 
+<Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] 
+[-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -387,8 +388,8 @@ Send-Keys
 
 ### SYNTAX
 ````PowerShell
-Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus] [-ShiftEnter] [-DelayMilliSeconds 
-<Int32>] [<CommonParameters>]
+Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus] 
+[-ShiftEnter] [-DelayMilliSeconds <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
@@ -409,8 +410,8 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -Escape [<SwitchParameter>]
-        Escape control characters like {F11} or {ENTER} or modifiers like +(meaning shift), ^(meaning control), 
-        %(meaning alt)
+        Escape control characters like {F11} or {ENTER} or modifiers like +(meaning shift), 
+        ^(meaning control), %(meaning alt)
         Required?                    false
         Position?                    named
         Default value                False
@@ -465,11 +466,13 @@ Initialize-ScheduledTaskScripts
 
 ### SYNTAX
 ````PowerShell
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [<CommonParameters>]
+Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run as system
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that 
+    will run as system
 
 ### PARAMETERS
     -FilePath <String>
@@ -579,7 +582,8 @@ Get-PowershellMainWindow
 ````
 
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting 
+    the Powershell terminal
 
 ### SYNTAX
 ````PowerShell
@@ -587,7 +591,8 @@ Get-PowershellMainWindow [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal
+    Returns a window helper object for the mainwindow of the process responsible for hosting 
+    the Powershell terminal
 
 ### PARAMETERS
     <CommonParameters>
@@ -635,18 +640,21 @@ Get-KnownFolderPath                  --> folder
 
 ### SYNTAX
 ````PowerShell
-Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | CDBurning | 
-ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | CommonStartMenu | CommonStartup | 
-CommonTemplates | ComputerFolder | ConflictFolder | ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | 
-Desktop | Documents | Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | InternetFolder 
-| Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | NetHood | NetworkFolder | 
-OriginalImages | PhotoAlbums | Pictures | Playlists | PrintersFolder | PrintHood | Profile | ProgramData | 
-ProgramFiles | ProgramFilesX64 | ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | 
-ProgramFilesCommonX86 | Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | 
-PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | ResourceDir | 
-RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | SampleVideos | SavedGames | SavedSearches | 
-SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts | SidebarParts | StartMenu | Startup | 
-SyncManagerFolder | SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | 
+Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | 
+CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | 
+CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | 
+ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | 
+Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | 
+InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | 
+NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | 
+PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | 
+ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | 
+Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | 
+PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | 
+ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | 
+SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo 
+| SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | 
+SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | 
 UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>]
 ````
 
@@ -685,7 +693,8 @@ Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
 
 ### PARAMETERS
     -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is used
+        The monitor to return the scaling factor for, or if not supplied the primary monitor is 
+        used
         Required?                    false
         Position?                    1
         Default value                0
@@ -714,7 +723,8 @@ Get-CurrentFocusedProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    This function retrieves the [Process] object of the window that currently has keyboard focus on Windows.
+    This function retrieves the [Process] object of the window that currently has keyboard 
+    focus on Windows.
 
 ### PARAMETERS
     <CommonParameters>
@@ -739,7 +749,8 @@ Get-ChildProcesses [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns processes that are children of the current PowerShell process by examining their parent process chain.
+    Returns processes that are children of the current PowerShell process by examining their 
+    parent process chain.
 
 ### PARAMETERS
     <CommonParameters>
@@ -772,8 +783,9 @@ Start-ProcessWithPriority            --> nice
 
 ### SYNTAX
 ````PowerShell
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low 
-| Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] [<CommonParameters>]
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] 
+{Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] 
+[<CommonParameters>]
 ````
 
 ### PARAMETERS
@@ -839,8 +851,10 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
 ````
 
 ### DESCRIPTION
-    Executes a Windows Defender virusscan on a specified file or directory using the MpCmdRun.exe command-line utility.
-    The function returns a boolean success result, when $true it indicates no threats where find in the file.
+    Executes a Windows Defender virusscan on a specified file or directory using the 
+    MpCmdRun.exe command-line utility.
+    The function returns a boolean success result, when $true it indicates no threats where 
+    find in the file.
 
 ### PARAMETERS
     -FilePath <String>
