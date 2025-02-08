@@ -1,18 +1,45 @@
-###############################################################################
+################################################################################
+<#
+.SYNOPSIS
+Gets the path to the Windows Defender MpCmdRun.exe executable.
 
+.DESCRIPTION
+This function locates and returns the path to MpCmdRun.exe, which is the Windows
+Defender command-line utility. It checks the standard installation location and
+provides appropriate error handling.
+
+.EXAMPLE
+$defenderPath = Get-MpCmdRunPath
+#>
 function Get-MpCmdRunPath {
 
-    # Construct the path to MpCmdRun.exe
-    $mpCmdRunPath = "$($Env:ProgramFiles)\Windows Defender\MpCmdRun.exe"
+    [CmdletBinding()]
+    param()
 
-    # Check if the file exists
-    if (Test-Path -Path $mpCmdRunPath) {
+    begin {
 
-        return $mpCmdRunPath
+        # define the expected path for MpCmdRun.exe
+        $mpCmdRunPath = Join-Path -Path $env:ProgramFiles `
+                                 -ChildPath "Windows Defender\MpCmdRun.exe"
 
+        Write-Verbose "Looking for MpCmdRun.exe at: $mpCmdRunPath"
     }
-    else {
 
-        Write-Error "MpCmdRun.exe not found at the expected location: $mpCmdRunPath"
+    process {
+
+        # verify the existence of MpCmdRun.exe using faster IO.File method
+        if ([IO.File]::Exists($mpCmdRunPath)) {
+
+            Write-Verbose "MpCmdRun.exe found successfully"
+            return $mpCmdRunPath
+        }
+
+        # if the file is not found, throw an error
+        $errorMsg = "MpCmdRun.exe not found at: $mpCmdRunPath"
+        Write-Error -Message $errorMsg -Category ObjectNotFound
+    }
+
+    end {
     }
 }
+################################################################################

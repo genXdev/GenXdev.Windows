@@ -94,69 +94,87 @@ $KnownFolders = @{
 
 <#
 .SYNOPSIS
-Sets a known folder's path using SHSetKnownFolderPath.
+Sets a known folder's path using Windows Shell API.
 
 .DESCRIPTION
-Sets a known folder's path using SHSetKnownFolderPath.
+Uses the Windows Shell32 API to set the physical path of a known folder like
+Documents, Downloads etc.
 
 .PARAMETER KnownFolder
-The known folder whose path to set.
+The known folder whose path to set. Must be one of the predefined folder names.
 
 .PARAMETER Path
-The path.
-
-.INPUTS
-None. You cannot pipe objects to Set-KnownFolderPath.
-
-.OUTPUTS
-Int. Set-KnownFolderPath returns an int with the return code of SHSetKnownFolderPath
+The new physical path for the known folder.
 
 .EXAMPLE
-PS> Set-KnownFolderPath Desktop $ENV:USERPROFILE/Desktop
+Set-KnownFolderPath -KnownFolder 'Desktop' -Path 'D:\Desktop'
 
-0
-.EXAMPLE
-
-PS> Set-KnownFolderPath -KnownFolder Desktop -Path $ENV:USERPROFILE/Desktop
-0
-
-.LINK
-https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath
-
-.LINK
-https://stackoverflow.com/questions/25709398/set-location-of-special-folders-with-powershell
-
+.NOTES
+Requires elevation for system folders.
 #>
 function Set-KnownFolderPath {
 
-    [CmdletBinding(ConfirmImpact = "high")]
-
-    Param (
-        [Parameter(Mandatory)]
-        [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates', 'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms', 'CommonStartMenu', 'CommonStartup', 'CommonTemplates', 'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder', 'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop', 'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games', 'GameTasks', 'History', 'InternetCache', 'InternetFolder', 'Links', 'LocalAppData', 'LocalAppDataLow', 'LocalizedResourcesDir', 'Music', 'NetHood', 'NetworkFolder', 'OriginalImages', 'PhotoAlbums', 'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood', 'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64', 'ProgramFilesX86', 'ProgramFilesCommon', 'ProgramFilesCommonX64', 'ProgramFilesCommonX86', 'Programs', 'Public', 'PublicDesktop', 'PublicDocuments', 'PublicDownloads', 'PublicGameTasks', 'PublicMusic', 'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent', 'RecycleBinFolder', 'ResourceDir', 'RoamingAppData', 'SampleMusic', 'SamplePictures', 'SamplePlaylists', 'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC', 'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts', 'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder', 'SyncResultsFolder', 'SyncSetupFolder', 'System', 'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles', 'UsersFiles', 'Videos', 'Windows')]
-        [string]$KnownFolder,
-
-        [Parameter(Mandatory)]
-        [string]$Path
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
+    param(
+        ########################################################################
+        [Parameter(
+            Mandatory = $true,
+            Position = 0,
+            HelpMessage = "Known folder to modify"
+        )]
+        [ValidateSet('3DObjects', 'Desktop', 'Documents', 'Downloads',
+            'Pictures', 'Videos')]
+        [string] $KnownFolder,
+        ########################################################################
+        [Parameter(
+            Mandatory = $true,
+            Position = 1,
+            HelpMessage = "New path for the known folder"
+        )]
+        [ValidateNotNullOrEmpty()]
+        [string] $Path
+        ########################################################################
     )
 
-    # Define SHSetKnownFolderPath if it hasn't been defined already
-    $Type = ([System.Management.Automation.PSTypeName]'KnownFolders.SHSetKnownFolderPathPS').Type
-    if (-not $Type) {
-        # http://www.pinvoke.net/default.aspx/shell32/SHSetKnownFolderPath.html
-        $Signature = @'
+    begin {
+        # initialize type for shell32 api call if not already defined
+        $type = ([System.Management.Automation.PSTypeName]`
+            'KnownFolders.SHSetKnownFolderPathPS').Type
+
+        if (-not $type) {
+            # define signature for shell32 api call with proper DllImport
+            $signature = @'
 [DllImport("shell32.dll")]
-public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags, IntPtr token, [MarshalAs(UnmanagedType.LPWStr)] string path);
+public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags, IntPtr token,
+    [MarshalAs(UnmanagedType.LPWStr)] string path);
 '@
-        $Type = Add-Type -MemberDefinition $Signature -Namespace 'KnownFolders' -Name 'SHSetKnownFolderPathPS' -PassThru
+            $type = Add-Type -MemberDefinition $signature -Namespace 'KnownFolders' `
+                -Name 'SHSetKnownFolderPathPS' -PassThru
+        }
+
+        Write-Verbose "Attempting to set $KnownFolder folder to: $Path"
     }
 
-    # Validate the path
-    if (Test-Path $Path -PathType Container) {
-        # Call SHSetKnownFolderPath
-        return $Type::SHSetKnownFolderPath([ref]$KnownFolders[$KnownFolder], 0, 0, $Path)
-    }
-    else {
-        throw New-Object System.IO.DirectoryNotFoundException "Could not find part of the path $Path."
+    process {
+
+        # verify the target path exists
+        if (-not (Test-Path -Path $Path -PathType Container)) {
+            $msg = "Could not find folder path: $Path"
+            Write-Error -Message $msg
+            throw [System.IO.DirectoryNotFoundException] $msg
+        }
+
+        # get the known folder guid
+        $knownFolderId = $KnownFolders[$KnownFolder]
+        Write-Verbose "Known folder ID: $knownFolderId"
+
+        if ($PSCmdlet.ShouldProcess($Path, "Set $KnownFolder location")) {
+            # call the shell32 api to update the folder path
+            $result = $type::SHSetKnownFolderPath([ref]$knownFolderId, 0, 0, $Path)
+            Write-Verbose "SHSetKnownFolderPath returned: $result"
+            return $result
+        }
     }
 }
+
+################################################################################

@@ -1,23 +1,51 @@
-###############################################################################
-
+################################################################################
 <#
 .SYNOPSIS
-Returns the scaling factor that is configured for a monitor
+Returns the scaling factor configured for a monitor.
 
 .DESCRIPTION
-Returns the scaling factor that is configured for a monitor
+Returns the Windows display scaling factor (DPI setting) that is configured for
+the specified monitor. If no monitor is specified, returns the scaling factor for
+the primary monitor.
 
-.PARAMETER monitor
-The monitor to return the scaling factor for, or if not supplied the primary monitor is used
+.PARAMETER Monitor
+The index of the monitor to check (0-based). The primary monitor is 0.
+
+.EXAMPLE
+Get-DesktopScalingFactor -Monitor 0
+Returns the scaling factor for the primary monitor
+
+.EXAMPLE
+Get-DesktopScalingFactor 1
+Returns the scaling factor for the second monitor
 #>
 function Get-DesktopScalingFactor {
 
     [CmdletBinding()]
-
     param(
-        [parameter(Mandatory = $false, Position = 0)]
-        [int] $monitor = 0
+        ########################################################################
+        [Parameter(
+            Position = 0,
+            Mandatory = $false,
+            HelpMessage = "The monitor index to check (0 = primary monitor)"
+        )]
+        [ValidateRange(0, 32)]
+        [int] $Monitor = 0
+        ########################################################################
     )
 
-    [GenXdev.Helpers.DesktopInfo]::getScalingFactor($monitor)
+    begin {
+
+        Write-Verbose "Getting scaling factor for monitor index: $Monitor"
+    }
+
+    process {
+
+        # call the native method to get the scaling factor
+        [GenXdev.Helpers.DesktopInfo]::getScalingFactor($Monitor)
+    }
+
+    end {
+    }
 }
+################################################################################

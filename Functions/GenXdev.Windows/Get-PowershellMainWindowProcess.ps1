@@ -1,45 +1,71 @@
-###############################################################################
-
+################################################################################
 <#
 .SYNOPSIS
-Returns the process of the window responsible for hosting the Powershell terminal
+Returns the process of the window responsible for hosting the PowerShell terminal.
 
 .DESCRIPTION
-Returns the process of the window responsible for hosting the Powershell terminal
+Traverses up the process tree from the current PowerShell process to find the
+parent window that hosts the terminal. If the immediate parent has no main
+window, it looks for similar processes with main windows.
+
+.EXAMPLE
+Get-PowershellMainWindowProcess
+
+Returns the process object for the window hosting the current PowerShell session.
 #>
 function Get-PowershellMainWindowProcess {
 
     [CmdletBinding()]
     param()
 
-    $PowershellProcess = [System.Diagnostics.Process]::GetCurrentProcess();
-    $PProcess = $PowershellProcess;
+    begin {
 
-    while (($PProcess.MainWindowHandle -eq 0) -and ($null -ne $PProcess.Parent)) {
+        # get the current powershell process
+        $currentProcess = [System.Diagnostics.Process]::GetCurrentProcess()
 
-        $PProcess = $PProcess.Parent;
+        # initialize parent process tracking
+        $parentProcess = $currentProcess
+
+        Write-Verbose "Starting from process: $($currentProcess.ProcessName)"
     }
 
-    if ($PProcess.MainWindowHandle -ne 0) {
+    process {
 
-        Write-Verbose "Parent has mainwindow"
+        # traverse up the process tree until we find a window or hit the top
+        while (($parentProcess.MainWindowHandle -eq 0) -and
+            ($null -ne $parentProcess.Parent)) {
 
-        $PowershellProcess = $PProcess;
-    }
+            $parentProcess = $parentProcess.Parent
+            Write-Verbose "Checking parent process: $($parentProcess.ProcessName)"
+        }
 
-    else {
+        # if we found a process with a main window, use it
+        if ($parentProcess.MainWindowHandle -ne 0) {
 
-        $PProcess = Get-Process -Name $PowershellProcess.Parent.ProcessName | Where-Object { 0 -ne $PSItem.MainWindowHandle } | Select-Object -First 1;
-
-        if ($null -ne $PProcess) {
-
-            Write-Verbose "Found simular process that has mainwindow"
-            $PowershellProcess = $PProcess
+            Write-Verbose "Found parent with main window: $($parentProcess.ProcessName)"
+            $currentProcess = $parentProcess
         }
         else {
-            Write-Verbose "No simular parent process found with main window"
+            # look for similar processes that have main windows
+            $similarProcess = Get-Process -Name $currentProcess.Parent.ProcessName |
+                Where-Object { 0 -ne $PSItem.MainWindowHandle } |
+                Select-Object -First 1
+
+            if ($null -ne $similarProcess) {
+
+                Write-Verbose "Found similar process with main window: $($similarProcess.ProcessName)"
+                $currentProcess = $similarProcess
+            }
+            else {
+                Write-Verbose "No similar parent process found with main window"
+            }
         }
     }
 
-    $PowershellProcess
+    end {
+
+        # return the found process
+        $currentProcess
+    }
 }
+################################################################################

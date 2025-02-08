@@ -1,4 +1,3 @@
-. "$PSScriptRoot\Functions\GenXdev.Windows\Copy-SetWindowPositionParameters.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\CurrentUserHasElivatedRights.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-ActiveUsers.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-ChildProcesses.ps1"

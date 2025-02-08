@@ -35,26 +35,26 @@ Update-Module
 ### GenXdev.Windows<hr/>
 | Command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | aliases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- | --- |
-| [Copy-SetWindowPositionParameters](#Copy-SetWindowPositionParameters) |  | The dynamic parameter block of a proxy function. This block can be used to copy a proxy function target's parameters . |
-| [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy monitor |
+| [CurrentUserHasElevatedRights](#CurrentUserHasElevatedRights) |  | Determines whether the current Windows user has administrative or backup operatorprivileges by checking their security principal roles. |
+| [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window using Set-WindowPosition but defaults to the configuredsecondary monitor. Supports various positioning options like left/right/top/bottomalignment and border settings. |
 | [Set-WindowPosition](#Set-WindowPosition) | wp | Positions a window in a configurable manner, using commandline switches |
-| [Set-TaskbarAlignment](#Set-TaskbarAlignment) |  | Sets the alignment for the Windows 11+ Taskbar |
-| [Set-KnownFolderPath](#Set-KnownFolderPath) |  | Sets a known folder's path using SHSetKnownFolderPath. |
-| [Set-ForegroundWindow](#Set-ForegroundWindow) |  |  |
-| [Send-Keys](#Send-Keys) |  | Sends keys to the active window or to the window of a specified processas if typed by the user.The text strings can contain control characters like {F11} or {ENTER}they will press the corresponding keys, unless -Escape is specified.Line feeds will automatically be converted to {ENTER} control codes.and Tabs to {TAB}. |
-| [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates daily and hourly PowerShell scripts and their corresponding scheduled task that will run as system |
-| [Get-Window](#Get-Window) |  | Retrieves window information either by process id, name or window handle. Returnsa WindowObj containing details about the main window of the specified process(es). |
-| [Get-PowershellMainWindowProcess](#Get-PowershellMainWindowProcess) |  | Returns the process of the window responsible for hosting the Powershell terminal |
-| [Get-PowershellMainWindow](#Get-PowershellMainWindow) |  | Returns a window helper object for the mainwindow of the process responsible for hosting the Powershell terminal |
-| [Get-MpCmdRunPath](#Get-MpCmdRunPath) |  |  |
-| [Get-MonitorCount](#Get-MonitorCount) |  |  |
-| [Get-KnownFolderPath](#Get-KnownFolderPath) | folder |  |
-| [Get-DesktopScalingFactor](#Get-DesktopScalingFactor) |  | Returns the scaling factor that is configured for a monitor |
-| [Get-CurrentFocusedProcess](#Get-CurrentFocusedProcess) |  | This function retrieves the [Process] object of the window that currently has keyboard focus on Windows. |
-| [Get-ChildProcesses](#Get-ChildProcesses) |  | Returns processes that are children of the current PowerShell process by examining their parent process chain. |
-| [CurrentUserHasElivatedRights](#CurrentUserHasElivatedRights) |  |  |
-| [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice |  |
-| [Test-PathUsingWindowsDefender](#Test-PathUsingWindowsDefender) | HasNoVirus, virusscan | Executes a Windows Defender virusscan on a specified file or directory using the MpCmdRun.exe command-line utility.The function returns a boolean success result, when $true it indicates no threats where find in the file. |
+| [Set-TaskbarAlignment](#Set-TaskbarAlignment) | Set-TaskAlign | Modifies the Windows Registry to change the taskbar alignment in Windows 11 andnewer versions between center and left positions. |
+| [Set-KnownFolderPath](#Set-KnownFolderPath) |  | Uses the Windows Shell32 API to set the physical path of a known folder likeDocuments, Downloads etc. |
+| [Set-ForegroundWindow](#Set-ForegroundWindow) |  | Attempts to bring the specified window to the foreground using multiple Win32 APIcalls for maximum compatibility. |
+| [Send-Keys](#Send-Keys) |  | Sends keystrokes to either the active window or a specified process window as iftyped by a user. Supports special keys and modifiers through control sequences. |
+| [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates daily and hourly PowerShell scripts and their corresponding scheduled tasksthat will run as the current user with elevated privileges. Tasks are created for:- Every hour of every day of the week- Every hour daily- At system startup- At user logon |
+| [Get-Window](#Get-Window) | gwin, window | Retrieves window information either by process id, name or window handle. Returnsa WindowObj containing details about the main window of the specifiedprocess(es). |
+| [Get-PowershellMainWindowProcess](#Get-PowershellMainWindowProcess) |  | Traverses up the process tree from the current PowerShell process to find theparent window that hosts the terminal. If the immediate parent has no mainwindow, it looks for similar processes with main windows. |
+| [Get-PowershellMainWindow](#Get-PowershellMainWindow) |  | Retrieves and returns a window helper object that represents the main window ofthe process hosting the current PowerShell terminal session. |
+| [Get-MpCmdRunPath](#Get-MpCmdRunPath) |  | This function locates and returns the path to MpCmdRun.exe, which is the WindowsDefender command-line utility. It checks the standard installation location andprovides appropriate error handling. |
+| [Get-MonitorCount](#Get-MonitorCount) |  | Uses WPF Screen Helper to determine the number of connected display monitors. |
+| [Get-KnownFolderPath](#Get-KnownFolderPath) | folder | Uses the Windows Shell32 API to retrieve the path of a specified known folder.This is more reliable than using environment variables as it works acrossdifferent Windows versions and language settings. |
+| [Get-DesktopScalingFactor](#Get-DesktopScalingFactor) |  | Returns the Windows display scaling factor (DPI setting) that is configured forthe specified monitor. If no monitor is specified, returns the scaling factor forthe primary monitor. |
+| [Get-CurrentFocusedProcess](#Get-CurrentFocusedProcess) |  | Uses Windows API calls to identify and return the Process object associated withthe currently focused window in the Windows operating system. |
+| [Get-ChildProcesses](#Get-ChildProcesses) |  | Returns processes that are children of the current PowerShell process by examiningtheir parent process chain. This includes both direct children and descendants. |
+| [Get-ActiveUsers](#Get-ActiveUsers) | gusers | Retrieves all processes with their associated usernames and returns a unique listof users who have active processes running on the system. |
+| [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice | Launches an executable with a customizable priority level and provides options forwaiting and process handling. |
+| [Test-PathUsingWindowsDefender](#Test-PathUsingWindowsDefender) | HasNoVirus, virusscan | Executes a Windows Defender virusscan on a specified file or directory using theMpCmdRun.exe command-line utility. Returns true if no threats were found. |
 
 <br/><hr/><hr/><br/>
 
@@ -64,31 +64,24 @@ Update-Module
 &nbsp;<hr/>
 ###	GenXdev.Windows<hr/>
 
-##	Copy-SetWindowPositionParameters
+##	CurrentUserHasElevatedRights
 ````PowerShell
-Copy-SetWindowPositionParameters
+CurrentUserHasElevatedRights
 ````
 
 ### SYNOPSIS
-    Proxy function dynamic parameter block for the Set-WindowPosition cmdlet
+    Checks if the current user has elevated rights.
 
 ### SYNTAX
 ````PowerShell
-Copy-SetWindowPositionParameters [[-ParametersToSkip] <String[]>] [<CommonParameters>]
+CurrentUserHasElevatedRights [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    The dynamic parameter block of a proxy function. This block can be used to copy a proxy 
-    function target's parameters .
+    Determines whether the current Windows user has administrative or backup operator
+    privileges by checking their security principal roles.
 
 ### PARAMETERS
-    -ParametersToSkip <String[]>
-        Required?                    false
-        Position?                    1
-        Default value                @()
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
@@ -103,23 +96,138 @@ Set-WindowPositionForSecondary       --> wps
 ````
 
 ### SYNOPSIS
-    Positions a window and positions it by default on the secondairy monitor
+    Positions a window on the secondary monitor with specified layout options.
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPositionForSecondary [[-Monitor] <Int32>] [<CommonParameters>]
+Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders] 
+[-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] 
+[-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Positions a window like Set-WindowPosition -> wp but defaults to the configured secondairy 
-    monitor
+    Positions a window using Set-WindowPosition but defaults to the configured
+    secondary monitor. Supports various positioning options like left/right/top/bottom
+    alignment and border settings.
 
 ### PARAMETERS
+    -Process <Process[]>
+        The process of the window to position
+        Required?                    false
+        Position?                    1
+        Default value                
+        Accept pipeline input?       true (ByValue, ByPropertyName)
+        Aliases                      
+        Accept wildcard characters?  false
     -Monitor <Int32>
-        The monitor to use, 0 = default, 1 = secondary, -1 is discard
+        The monitor to use, 0 = default, 1 = secondary, -1 is discard, -2 = configured
+        secondary monitor
         Required?                    false
         Position?                    1
         Default value                -2
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -NoBorders [<SwitchParameter>]
+        Open in NoBorders mode
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Width <Int32>
+        The initial width of the window
+        Required?                    false
+        Position?                    named
+        Default value                -1
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Height <Int32>
+        The initial height of the window
+        Required?                    false
+        Position?                    named
+        Default value                -1
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -X <Int32>
+        The initial X position of the window
+        Required?                    false
+        Position?                    named
+        Default value                -1
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Y <Int32>
+        The initial Y position of the window
+        Required?                    false
+        Position?                    named
+        Default value                -1
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Left [<SwitchParameter>]
+        Place window on the left side of the screen
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Right [<SwitchParameter>]
+        Place window on the right side of the screen
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Top [<SwitchParameter>]
+        Place window on the top side of the screen
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Bottom [<SwitchParameter>]
+        Place window on the bottom side of the screen
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Centered [<SwitchParameter>]
+        Place window in the center of the screen
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Fullscreen [<SwitchParameter>]
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -RestoreFocus [<SwitchParameter>]
+        Restore PowerShell window focus
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -PassThru [<SwitchParameter>]
+        Returns a [System.Diagnostics.Process] object of the browser process
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -279,23 +387,24 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
 
 ##	Set-TaskbarAlignment
 ````PowerShell
-Set-TaskbarAlignment
+Set-TaskbarAlignment                 --> Set-TaskAlign
 ````
 
 ### SYNOPSIS
-    Sets the alignment for the Windows 11+ Taskbar
+    Sets the alignment for the Windows 11+ Taskbar.
 
 ### SYNTAX
 ````PowerShell
-Set-TaskbarAlignment [-Justify] <Object> [<CommonParameters>]
+Set-TaskbarAlignment [-Justify] <String> [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Sets the alignment for the Windows 11+ Taskbar
+    Modifies the Windows Registry to change the taskbar alignment in Windows 11 and
+    newer versions between center and left positions.
 
 ### PARAMETERS
-    -Justify <Object>
-        The new alignment
+    -Justify <String>
+        Specifies the taskbar alignment. Valid values are 'Center' or 'Left'.
         Required?                    true
         Position?                    1
         Default value                
@@ -316,19 +425,21 @@ Set-KnownFolderPath
 ````
 
 ### SYNOPSIS
-    Sets a known folder's path using SHSetKnownFolderPath.
+    Sets a known folder's path using Windows Shell API.
 
 ### SYNTAX
 ````PowerShell
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>]
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] 
+[<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Sets a known folder's path using SHSetKnownFolderPath.
+    Uses the Windows Shell32 API to set the physical path of a known folder like
+    Documents, Downloads etc.
 
 ### PARAMETERS
     -KnownFolder <String>
-        The known folder whose path to set.
+        The known folder whose path to set. Must be one of the predefined folder names.
         Required?                    true
         Position?                    1
         Default value                
@@ -336,9 +447,23 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
         Aliases                      
         Accept wildcard characters?  false
     -Path <String>
-        The path.
+        The new physical path for the known folder.
         Required?                    true
         Position?                    2
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -WhatIf [<SwitchParameter>]
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Confirm [<SwitchParameter>]
+        Required?                    false
+        Position?                    named
         Default value                
         Accept pipeline input?       false
         Aliases                      
@@ -349,6 +474,13 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
+### NOTES
+````PowerShell
+    Requires elevation for system folders.
+-------------------------- EXAMPLE 1 --------------------------
+PS C:\> Set-KnownFolderPath -KnownFolder 'Desktop' -Path 'D:\Desktop'
+````
+
 <br/><hr/><hr/><br/>
 
 ##	Set-ForegroundWindow
@@ -356,19 +488,26 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [<CommonParameters>
 Set-ForegroundWindow
 ````
 
+### SYNOPSIS
+    Sets the specified window as the foreground window.
+
 ### SYNTAX
 ````PowerShell
 Set-ForegroundWindow [-WindowHandle] <IntPtr> [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    Attempts to bring the specified window to the foreground using multiple Win32 API
+    calls for maximum compatibility.
+
 ### PARAMETERS
     -WindowHandle <IntPtr>
+        The handle to the window that should be brought to the foreground.
         Required?                    true
-        Position?                    0
+        Position?                    1
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -384,7 +523,7 @@ Send-Keys
 ````
 
 ### SYNOPSIS
-    Sends keys to a window as if typed by user
+    Sends simulated keystrokes to a window.
 
 ### SYNTAX
 ````PowerShell
@@ -393,16 +532,13 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
 ````
 
 ### DESCRIPTION
-    Sends keys to the active window or to the window of a specified process
-    as if typed by the user.
-    The text strings can contain control characters like {F11} or {ENTER}
-    they will press the corresponding keys, unless -Escape is specified.
-    Line feeds will automatically be converted to {ENTER} control codes.
-    and Tabs to {TAB}.
+    Sends keystrokes to either the active window or a specified process window as if
+    typed by a user. Supports special keys and modifiers through control sequences.
 
 ### PARAMETERS
     -Keys <String[]>
-        The text to send
+        The text or key sequences to send. Control sequences like {F11} or {ENTER} are
+        supported.
         Required?                    true
         Position?                    1
         Default value                
@@ -410,8 +546,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -Escape [<SwitchParameter>]
-        Escape control characters like {F11} or {ENTER} or modifiers like +(meaning shift), 
-        ^(meaning control), %(meaning alt)
+        When specified, escapes control sequences so they are sent as literal text.
         Required?                    false
         Position?                    named
         Default value                False
@@ -419,7 +554,8 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -Process <Process>
-        The process to send the keys to
+        Target process to receive the keystrokes. If not specified, sends to active
+        window.
         Required?                    false
         Position?                    named
         Default value                
@@ -427,7 +563,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -HoldKeyboardFocus [<SwitchParameter>]
-        Hold the keyboard focus to the target process main window when complete
+        Maintains keyboard focus on the target window after sending keys.
         Required?                    false
         Position?                    named
         Default value                False
@@ -435,6 +571,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -ShiftEnter [<SwitchParameter>]
+        Converts line feeds to Shift+Enter instead of plain Enter.
         Required?                    false
         Position?                    named
         Default value                False
@@ -442,6 +579,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Aliases                      
         Accept wildcard characters?  false
     -DelayMilliSeconds <Int32>
+        Optional delay between sending keys in milliseconds.
         Required?                    false
         Position?                    named
         Default value                0
@@ -462,7 +600,7 @@ Initialize-ScheduledTaskScripts
 ````
 
 ### SYNOPSIS
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled task
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled task.
 
 ### SYNTAX
 ````PowerShell
@@ -471,12 +609,17 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
 ````
 
 ### DESCRIPTION
-    Creates daily and hourly PowerShell scripts and their corresponding scheduled task that 
-    will run as system
+    Creates daily and hourly PowerShell scripts and their corresponding scheduled tasks
+    that will run as the current user with elevated privileges. Tasks are created for:
+    - Every hour of every day of the week
+    - Every hour daily
+    - At system startup
+    - At user logon
 
 ### PARAMETERS
     -FilePath <String>
-        The path of the directory where the scripts will reside
+        The directory path where the task scripts will be created. If not specified,
+        defaults to a ScheduledTasks folder in the parent directory.
         Required?                    false
         Position?                    1
         Default value                
@@ -484,7 +627,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
         Aliases                      
         Accept wildcard characters?  false
     -Prefix <String>
-        A Prefix for the Scheduled-Task names
+        A prefix for the scheduled task names. Default is "PS".
         Required?                    false
         Position?                    2
         Default value                PS
@@ -501,7 +644,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
 
 ##	Get-Window
 ````PowerShell
-Get-Window
+Get-Window                           --> gwin, window
 ````
 
 ### SYNOPSIS
@@ -516,15 +659,16 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
 
 ### DESCRIPTION
     Retrieves window information either by process id, name or window handle. Returns
-    a WindowObj containing details about the main window of the specified process(es).
+    a WindowObj containing details about the main window of the specified
+    process(es).
 
 ### PARAMETERS
     -ProcessName <String>
-        The name of the process(es) to get window information for. Supports wildcards.
+        Name of the process(es) to get window information for. Supports wildcards.
         Required?                    true
         Position?                    1
         Default value                
-        Accept pipeline input?       false
+        Accept pipeline input?       true (ByPropertyName)
         Aliases                      
         Accept wildcard characters?  false
     -ProcessId <Int32>
@@ -532,7 +676,7 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
         Required?                    true
         Position?                    1
         Default value                0
-        Accept pipeline input?       false
+        Accept pipeline input?       true (ByPropertyName)
         Aliases                      
         Accept wildcard characters?  false
     -WindowHandle <Int64>
@@ -540,7 +684,7 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
         Required?                    true
         Position?                    1
         Default value                0
-        Accept pipeline input?       false
+        Accept pipeline input?       true (ByPropertyName)
         Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
@@ -557,7 +701,7 @@ Get-PowershellMainWindowProcess
 ````
 
 ### SYNOPSIS
-    Returns the process of the window responsible for hosting the Powershell terminal
+    Returns the process of the window responsible for hosting the PowerShell terminal.
 
 ### SYNTAX
 ````PowerShell
@@ -565,7 +709,9 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns the process of the window responsible for hosting the Powershell terminal
+    Traverses up the process tree from the current PowerShell process to find the
+    parent window that hosts the terminal. If the immediate parent has no main
+    window, it looks for similar processes with main windows.
 
 ### PARAMETERS
     <CommonParameters>
@@ -582,8 +728,7 @@ Get-PowershellMainWindow
 ````
 
 ### SYNOPSIS
-    Returns a window helper object for the mainwindow of the process responsible for hosting 
-    the Powershell terminal
+    Returns a window helper object for the PowerShell terminal's main window.
 
 ### SYNTAX
 ````PowerShell
@@ -591,8 +736,8 @@ Get-PowershellMainWindow [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns a window helper object for the mainwindow of the process responsible for hosting 
-    the Powershell terminal
+    Retrieves and returns a window helper object that represents the main window of
+    the process hosting the current PowerShell terminal session.
 
 ### PARAMETERS
     <CommonParameters>
@@ -608,13 +753,25 @@ Get-PowershellMainWindow [<CommonParameters>]
 Get-MpCmdRunPath
 ````
 
+### SYNOPSIS
+    Gets the path to the Windows Defender MpCmdRun.exe executable.
+
 ### SYNTAX
 ````PowerShell
-Get-MpCmdRunPath 
+Get-MpCmdRunPath [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    This function locates and returns the path to MpCmdRun.exe, which is the Windows
+    Defender command-line utility. It checks the standard installation location and
+    provides appropriate error handling.
+
 ### PARAMETERS
-    None
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -623,13 +780,23 @@ Get-MpCmdRunPath
 Get-MonitorCount
 ````
 
+### SYNOPSIS
+    Gets the number of monitors connected to the system.
+
 ### SYNTAX
 ````PowerShell
-Get-MonitorCount 
+Get-MonitorCount [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    Uses WPF Screen Helper to determine the number of connected display monitors.
+
 ### PARAMETERS
-    None
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -638,34 +805,27 @@ Get-MonitorCount
 Get-KnownFolderPath                  --> folder
 ````
 
+### SYNOPSIS
+    Gets the path of a known Windows folder using its name.
+
 ### SYNTAX
 ````PowerShell
-Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | 
-CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | 
-CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | 
-ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | 
-Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | 
-InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | 
-NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | 
-PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | 
-ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | 
-Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | 
-PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | 
-ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | 
-SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo 
-| SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | 
-SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | 
-UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>]
+Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    Uses the Windows Shell32 API to retrieve the path of a specified known folder.
+    This is more reliable than using environment variables as it works across
+    different Windows versions and language settings.
+
 ### PARAMETERS
-    -KnownFolder <string>
+    -KnownFolder <String>
+        The name of the known folder to retrieve the path for.
         Required?                    true
-        Position?                    0
+        Position?                    1
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -681,20 +841,21 @@ Get-DesktopScalingFactor
 ````
 
 ### SYNOPSIS
-    Returns the scaling factor that is configured for a monitor
+    Returns the scaling factor configured for a monitor.
 
 ### SYNTAX
 ````PowerShell
-Get-DesktopScalingFactor [[-monitor] <Int32>] [<CommonParameters>]
+Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns the scaling factor that is configured for a monitor
+    Returns the Windows display scaling factor (DPI setting) that is configured for
+    the specified monitor. If no monitor is specified, returns the scaling factor for
+    the primary monitor.
 
 ### PARAMETERS
-    -monitor <Int32>
-        The monitor to return the scaling factor for, or if not supplied the primary monitor is 
-        used
+    -Monitor <Int32>
+        The index of the monitor to check (0-based). The primary monitor is 0.
         Required?                    false
         Position?                    1
         Default value                0
@@ -715,7 +876,7 @@ Get-CurrentFocusedProcess
 ````
 
 ### SYNOPSIS
-    Retrieves the [Process] object of the window that has keyboard focus on Windows.
+    Retrieves the process object of the window that has keyboard focus on Windows.
 
 ### SYNTAX
 ````PowerShell
@@ -723,8 +884,8 @@ Get-CurrentFocusedProcess [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    This function retrieves the [Process] object of the window that currently has keyboard 
-    focus on Windows.
+    Uses Windows API calls to identify and return the Process object associated with
+    the currently focused window in the Windows operating system.
 
 ### PARAMETERS
     <CommonParameters>
@@ -749,8 +910,8 @@ Get-ChildProcesses [<CommonParameters>]
 ````
 
 ### DESCRIPTION
-    Returns processes that are children of the current PowerShell process by examining their 
-    parent process chain.
+    Returns processes that are children of the current PowerShell process by examining
+    their parent process chain. This includes both direct children and descendants.
 
 ### PARAMETERS
     <CommonParameters>
@@ -761,18 +922,29 @@ Get-ChildProcesses [<CommonParameters>]
 
 <br/><hr/><hr/><br/>
 
-##	CurrentUserHasElivatedRights
+##	Get-ActiveUsers
 ````PowerShell
-CurrentUserHasElivatedRights
+Get-ActiveUsers                      --> gusers
 ````
+
+### SYNOPSIS
+    Gets a list of unique usernames for currently active processes.
 
 ### SYNTAX
 ````PowerShell
-CurrentUserHasElivatedRights 
+Get-ActiveUsers [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    Retrieves all processes with their associated usernames and returns a unique list
+    of users who have active processes running on the system.
+
 ### PARAMETERS
-    None
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
 
 <br/><hr/><hr/><br/>
 
@@ -781,53 +953,60 @@ CurrentUserHasElivatedRights
 Start-ProcessWithPriority            --> nice
 ````
 
+### SYNOPSIS
+    Starts a process with a specified priority level.
+
 ### SYNTAX
 ````PowerShell
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] 
-{Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] 
-[<CommonParameters>]
+Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] 
+<String>] [-NoWait] [-PassThru] [<CommonParameters>]
 ````
 
+### DESCRIPTION
+    Launches an executable with a customizable priority level and provides options for
+    waiting and process handling.
+
 ### PARAMETERS
-    -ArgumentList <string[]>
-        Required?                    false
-        Position?                    1
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        Accept wildcard characters?  false
-    -FilePath <string>
+    -FilePath <String>
+        The path to the executable file to run.
         Required?                    true
-        Position?                    0
+        Position?                    1
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Aliases                      
         Accept wildcard characters?  false
-    -NoWait
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        Accept wildcard characters?  false
-    -PassThru
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        Accept wildcard characters?  false
-    -Priority <string>
+    -ArgumentList <String[]>
+        Optional arguments to pass to the executable.
         Required?                    false
         Position?                    2
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Aliases                      
+        Accept wildcard characters?  false
+    -Priority <String>
+        The priority level for the process. Valid values are: Idle, BelowNormal, Low,
+        Normal, AboveNormal, High, RealTime. Defaults to BelowNormal.
+        Required?                    false
+        Position?                    3
+        Default value                BelowNormal
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -NoWait [<SwitchParameter>]
+        If specified, doesn't wait for the process to complete.
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+    -PassThru [<SwitchParameter>]
+        If specified, returns the process object.
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -851,10 +1030,8 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
 ````
 
 ### DESCRIPTION
-    Executes a Windows Defender virusscan on a specified file or directory using the 
-    MpCmdRun.exe command-line utility.
-    The function returns a boolean success result, when $true it indicates no threats where 
-    find in the file.
+    Executes a Windows Defender virusscan on a specified file or directory using the
+    MpCmdRun.exe command-line utility. Returns true if no threats were found.
 
 ### PARAMETERS
     -FilePath <String>
@@ -862,11 +1039,11 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         Required?                    true
         Position?                    1
         Default value                
-        Accept pipeline input?       false
+        Accept pipeline input?       true (ByValue, ByPropertyName)
         Aliases                      
         Accept wildcard characters?  false
     -EnableRemediation [<SwitchParameter>]
-        Instructs Windows Defender to take action when the provided FilePath contains a threat.
+        When specified, instructs Windows Defender to take action on found threats.
         Required?                    false
         Position?                    named
         Default value                False

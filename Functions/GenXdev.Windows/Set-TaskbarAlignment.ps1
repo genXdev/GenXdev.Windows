@@ -1,34 +1,59 @@
-###############################################################################
+################################################################################
 
 <#
 .SYNOPSIS
-Sets the alignment for the Windows 11+ Taskbar
+Sets the alignment for the Windows 11+ Taskbar.
 
 .DESCRIPTION
-Sets the alignment for the Windows 11+ Taskbar
+Modifies the Windows Registry to change the taskbar alignment in Windows 11 and
+newer versions between center and left positions.
 
 .PARAMETER Justify
-The new alignment
+Specifies the taskbar alignment. Valid values are 'Center' or 'Left'.
+
+.EXAMPLE
+Set-TaskbarAlignment -Justify Left
+
+.EXAMPLE
+Set-TaskbarAlignment Center
 #>
-function Set-TaskbarAlignment() {
+function Set-TaskbarAlignment {
 
     [CmdletBinding()]
+    [Alias("Set-TaskAlign")]
 
     param(
-        [Parameter(Mandatory)]
-        [ValidateSet(
-            "Center",
-            "Left"
+        ########################################################################
+        [Parameter(
+            Mandatory = $true,
+            Position = 0,
+            HelpMessage = "The taskbar alignment (Center or Left)"
         )]
-        $Justify
+        [ValidateSet("Center", "Left")]
+        [string] $Justify
     )
 
-    $RegPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    begin {
 
-    if ($Justify -eq "Left") {
-        Set-ItemProperty -Path $RegPath -Name TaskbarAl -Value 0
+        # define the registry path for taskbar settings
+        $regPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+
+        Write-Verbose "Setting taskbar alignment to: $Justify"
     }
-    elseif ($Justify -eq "Center") {
-        Set-ItemProperty -Path $RegPath -Name TaskbarAl -Value 1
+
+    process {
+
+        # set registry value: 0 for Left, 1 for Center alignment
+        $value = if ($Justify -eq "Left") { 0 } else { 1 }
+
+        # modify the registry to change taskbar alignment
+        $null = Set-ItemProperty -Path $regPath -Name "TaskbarAl" -Value $value
+
+        Write-Verbose "Registry value 'TaskbarAl' set to: $value"
+    }
+
+    end {
     }
 }
+
+################################################################################

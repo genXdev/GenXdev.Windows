@@ -1,42 +1,67 @@
-###############################################################################
+################################################################################
 <#
 .SYNOPSIS
-Retrieves the [Process] object of the window that has keyboard focus on Windows.
+Retrieves the process object of the window that has keyboard focus on Windows.
 
 .DESCRIPTION
-    This function retrieves the [Process] object of the window that currently has keyboard focus on Windows.
+Uses Windows API calls to identify and return the Process object associated with
+the currently focused window in the Windows operating system.
 
 .EXAMPLE
-    Get-CurrentFocusedProcess
-#>
+Get-CurrentFocusedProcess
 
+.EXAMPLE
+$process = Get-CurrentFocusedProcess
+Write-Host "Currently focused window belongs to: $($process.ProcessName)"
+#>
 function Get-CurrentFocusedProcess {
+
     [CmdletBinding()]
     param()
 
-    Add-Type -TypeDefinition @"
-    using System;
-    using System.Runtime.InteropServices;
+    begin {
 
-    public class User32 {
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
+        # define the required windows api functions
+        Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
 
-        [DllImport("user32.dll")]
-        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int processId);
-    }
-"@
+public class User32 {
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetForegroundWindow();
 
-    $foregroundWindow = [User32]::GetForegroundWindow()
-    $processId = 0
-    [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
-
-    if ($processId -ne 0) {
-        $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
-        if ($process) {
-            return $process
-        }
-    }
-
-    Write-Warning "Failed to retrieve the process of the current focused window."
+    [DllImport("user32.dll")]
+    public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int processId);
 }
+"@
+    }
+
+    process {
+
+        # get handle of the foreground window
+        Write-Verbose "Getting foreground window handle"
+        $foregroundWindow = [User32]::GetForegroundWindow()
+
+        # get the process id of the window
+        Write-Verbose "Retrieving process ID from window handle"
+        $processId = 0
+        $null = [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
+
+        if ($processId -ne 0) {
+
+            # attempt to get the process object
+            Write-Verbose "Getting process object for ID: $processId"
+            $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
+
+            if ($process) {
+                Write-Verbose "Found process: $($process.ProcessName)"
+                return $process
+            }
+        }
+
+        Write-Warning "Failed to retrieve the process of the current focused window."
+    }
+
+    end {}
+}
+################################################################################
