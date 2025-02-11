@@ -50,7 +50,7 @@ Restore PowerShell window focus --> -bg
 Don't re-use existing window, instead, create a new one -> nw
 
 .PARAMETER PassThru
-Returns a [System.Diagnostics.Process] object of the browserprocess
+Returns the window helper for each process
 
 #>
 function Set-WindowPosition {
@@ -168,7 +168,7 @@ function Set-WindowPosition {
 
         [parameter(
             Mandatory = $false,
-            HelpMessage = "Returns the [System.Diagnostics.Process] object of the browserprocess"
+            HelpMessage = "Returns the window helper for each process"
         )]
         [switch] $PassThru
 
@@ -202,7 +202,7 @@ function Set-WindowPosition {
                 if (($null -ne $PowerShellWindow) -and ($PowerShellWindow.Handle -ne $CurrentActiveWindow.Handle)) {
 
                     # restore it
-                    $PowershellWindow.SetForeground();
+                    $null = $PowershellWindow.SetForeground();
 
                     # wait
                     [System.Threading.Thread]::Sleep(250);
@@ -231,19 +231,26 @@ function Set-WindowPosition {
         function position($process, $window, $X, $Y, $Width, $Height) {
 
             # have a handle to the mainwindow of the browser?
-            if ($window.Length -eq 1) {
+            if ($null -ne $window) {
 
                 Write-Verbose "Restoring and positioning window"
 
-                $window.Move($X, $Y, $Width, $Height) | Out-Null;
-                $window.Move($X, $Y, $Width, $Height) | Out-Null;
+                $null = $window.Show()
+                $null = $window.Restore()
+                $null = $window.Move($X, $Y, $Width, $Height)
+                $null = $window.Move($X, $Y, $Width, $Height)
+
+                if ($Fullscreen) {
+
+                    $null = $window.Maximize()
+                }
 
                 # needs to be set NoBorders manually?
                 if ($NoBorders -eq $true) {
 
                     Write-Verbose "Setting NoBorders"
 
-                    $window[0].RemoveBorder();
+                    $null = $window.RemoveBorder();
                 }
             }
 
@@ -254,9 +261,13 @@ function Set-WindowPosition {
         # start processing the Urls that we need to open
         foreach ($currentProcess in $Process) {
 
+            $window = $PowerShellWindow;
+
             # get window handle
-            $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess);
-            if ($window.Count -eq 0) { continue }
+            if ($currentProcess.MainWindowHandle -ne $PowerShellWindow.Handle) {
+
+                $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess)[0];
+            }
 
             # reference the requested monitor
             if ($Monitor -eq 0) {
@@ -282,7 +293,7 @@ function Set-WindowPosition {
                 elseif ($Monitor -eq 0) {
 
                     Write-Verbose "Picking monitor #1 (same as PowerShell), because no monitor specified"
-                    $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window[0].Position().X; Y = $window[0].Position().Y });
+                    $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window.Position().X; Y = $window.Position().Y });
                 }
             }
 
@@ -409,13 +420,13 @@ function Set-WindowPosition {
 
                 Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
             }
-        }
 
-        position $currentProcess $window $X $Y $Width $Height
+            $null = position $currentProcess $window $X $Y $Width $Height
 
-        if ($PassThru -eq $true) {
+            if ($PassThru -eq $true) {
 
-            $currentProcess
+                $window
+            }
         }
     }
 }
