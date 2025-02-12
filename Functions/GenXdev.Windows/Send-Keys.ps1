@@ -43,7 +43,7 @@ function Send-Keys {
             Mandatory = $true,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            ValueFromRemainingArguments = $true,
+            ValueFromRemainingArguments = $false,
             HelpMessage = "The text to send"
         )]
         [Alias("q", "Value", "Name", "Text", "Query", "Queries")]
