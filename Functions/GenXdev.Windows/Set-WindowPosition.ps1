@@ -1,66 +1,72 @@
-###############################################################################
-
+################################################################################
 <#
 .SYNOPSIS
-Positions a window
+Positions and resizes windows on specified monitors with various layout options.
 
 .DESCRIPTION
-Positions a window in a configurable manner, using commandline switches
+Provides precise control over window positioning and sizing, supporting multiple
+monitors, border removal, and various preset positions like left/right split,
+top/bottom split, and center placement. Windows can be positioned by coordinates
+or using predefined layouts.
 
 .PARAMETER Process
-The process of the window to position
+Process or processes whose windows need positioning (defaults to PowerShell window)
 
 .PARAMETER Monitor
-The monitor to use, 0 = default, 1 = secondary, -1 is discard
+Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary
 
 .PARAMETER NoBorders
-Open in NoBorders mode --> -nb
+Removes window borders and title bar for a cleaner appearance
 
 .PARAMETER Width
-The initial width of the window
+Window width in pixels (-1 for automatic sizing)
 
 .PARAMETER Height
-The initial height of the window
+Window height in pixels (-1 for automatic sizing)
 
 .PARAMETER X
-The initial X position of the window
+Window horizontal position (-1 for automatic)
 
 .PARAMETER Y
-The initial Y position of the window
+Window vertical position (-1 for automatic)
 
 .PARAMETER Left
-Place window on the left side of the screen
+Places window on left half of screen
 
 .PARAMETER Right
-Place window on the right side of the screen
+Places window on right half of screen
 
 .PARAMETER Top
-Place window on the top side of the screen
+Places window on top half of screen
 
 .PARAMETER Bottom
-Place window on the bottom side of the screen
+Places window on bottom half of screen
 
 .PARAMETER Centered
-Place window in the center of the screen
+Centers window on screen
+
+.PARAMETER Fullscreen
+Maximizes window to fill entire screen
 
 .PARAMETER RestoreFocus
-Restore PowerShell window focus --> -bg
-
-.PARAMETER NewWindow
-Don't re-use existing window, instead, create a new one -> nw
+Returns focus to PowerShell window after positioning
 
 .PARAMETER PassThru
-Returns the window helper for each process
+Returns window helper object for further manipulation
 
+.EXAMPLE
+# Position PowerShell window centered on primary monitor with no borders
+Set-WindowPosition -Centered -Monitor 0 -NoBorders
+
+.EXAMPLE
+# Split notepad and calc side by side on second monitor using aliases
+Get-Process notepad,calc | wp -m 1 -l,-r
 #>
 function Set-WindowPosition {
-
     [CmdletBinding()]
     [Alias("wp")]
-
     param(
         ###############################################################################
-
         [parameter(
             Mandatory = $false,
             Position = 0,
@@ -176,58 +182,61 @@ function Set-WindowPosition {
 
     Begin {
 
-        # reference powershell main window
-        $PowerShellWindow = Get-PowershellMainWindow
+        # store reference to powershell window for focus restoration
+        $powerShellWindow = Get-PowershellMainWindow
 
-        # what if no process is specified?
+        # if no process specified, use current powershell window
         if (($null -eq $Process) -or ($Process.Length -lt 1)) {
-
             $Process = @((Get-PowershellMainWindowProcess))
         }
     }
 
     Process {
 
-        $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
-        $AllScreens = @([WpfScreenHelper.Screen]::AllScreens | ForEach-Object { $PSItem });
-        function refocusTab() {
+        # get primary screen and all available screens
+        $screen = [WpfScreenHelper.Screen]::PrimaryScreen
+        $allScreens = @([WpfScreenHelper.Screen]::AllScreens |
+            ForEach-Object { $PSItem })
 
-            # '-RestoreFocus' parameter supplied'?
+        # helper function to restore powershell window focus if requested
+        function refocusTab() {
+            # only proceed if restore focus was requested
             if ($RestoreFocus -eq $true) {
 
-                # Get handle to current foreground window
-                $CurrentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow();
+                # get current foreground window
+                $currentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow()
 
-                # Is it different then the one at the start of this command?
-                if (($null -ne $PowerShellWindow) -and ($PowerShellWindow.Handle -ne $CurrentActiveWindow.Handle)) {
+                # check if focus needs to be restored
+                if (($null -ne $powerShellWindow) -and
+                    ($powerShellWindow.Handle -ne $currentActiveWindow.Handle)) {
 
-                    # restore it
-                    $null = $PowershellWindow.SetForeground();
+                    # attempt to restore focus
+                    $null = $powerShellWindow.SetForeground()
 
-                    # wait
-                    [System.Threading.Thread]::Sleep(250);
+                    # wait for window manager
+                    [System.Threading.Thread]::Sleep(250)
 
-                    # did it not work?
-                    $CurrentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow();
-                    if ($PowershellWindow.Handle -ne $CurrentActiveWindow.Handle) {
+                    # verify focus restoration
+                    $currentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow()
+                    if ($powerShellWindow.Handle -ne $currentActiveWindow.Handle) {
 
                         try {
-                            # Sending Alt-Tab
-                            $helper = New-Object -ComObject WScript.Shell;
-                            $helper.sendKeys("%{TAB}");
-                            Write-Verbose "Sending Alt-Tab"
+                            # fallback to alt-tab if direct focus failed
+                            $helper = New-Object -ComObject WScript.Shell
+                            $helper.sendKeys("%{TAB}")
+                            Write-Verbose "Used Alt-Tab to restore focus"
 
-                            # wait
-                            [System.Threading.Thread]::Sleep(500);
+                            [System.Threading.Thread]::Sleep(500)
                         }
                         catch {
-
+                            # silently continue if focus restoration fails
                         }
                     }
                 }
             }
         }
 
+        # helper function to position and size a window
         function position($process, $window, $X, $Y, $Width, $Height) {
 
             # have a handle to the mainwindow of the browser?
@@ -258,20 +267,17 @@ function Set-WindowPosition {
 
         ###############################################################################
 
-        # start processing the Urls that we need to open
+        # process each window that needs positioning
         foreach ($currentProcess in $Process) {
 
-            $window = $PowerShellWindow;
-
-            # get window handle
+            # get window handle - use powershell window or process main window
+            $window = $PowerShellWindow
             if ($currentProcess.MainWindowHandle -ne $PowerShellWindow.Handle) {
-
-                $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess)[0];
+                $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess)[0]
             }
 
-            # reference the requested monitor
+            # determine which monitor to use based on parameters
             if ($Monitor -eq 0) {
-
                 Write-Verbose "Choosing primary monitor, because default monitor requested using -Monitor 0"
             }
             else {
@@ -297,8 +303,7 @@ function Set-WindowPosition {
                 }
             }
 
-            # init window position
-            # '-X' parameter not supplied?
+            # calculate final window coordinates and dimensions
             if (($X -le 0) -or ($X -isnot [int])) {
 
                 $X = $Screen.WorkingArea.X;
@@ -353,7 +358,7 @@ function Set-WindowPosition {
                 Write-Verbose "Height not provided resetted to $Height"
             }
 
-            # setup exact window position and size
+            # apply layout positioning (Left/Right/Top/Bottom/Centered)
             if ($Left -eq $true) {
 
                 $X = $Screen.WorkingArea.X;
@@ -421,12 +426,18 @@ function Set-WindowPosition {
                 Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
             }
 
+            # perform the actual window positioning
             $null = position $currentProcess $window $X $Y $Width $Height
 
+            # return window helper if PassThru specified
             if ($PassThru -eq $true) {
 
                 $window
             }
         }
     }
+
+    End {
+    }
 }
+################################################################################

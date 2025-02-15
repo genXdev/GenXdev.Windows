@@ -4,12 +4,17 @@
 Gets the path to the Windows Defender MpCmdRun.exe executable.
 
 .DESCRIPTION
-This function locates and returns the path to MpCmdRun.exe, which is the Windows
-Defender command-line utility. It checks the standard installation location and
-provides appropriate error handling.
+Locates and returns the full path to the Windows Defender command-line utility
+(MpCmdRun.exe). The function checks the standard installation location in
+Program Files and provides appropriate error handling if the file is not found.
+
+.OUTPUTS
+System.String
+Returns the full path to MpCmdRun.exe if found.
 
 .EXAMPLE
 $defenderPath = Get-MpCmdRunPath
+# Returns path like: "C:\Program Files\Windows Defender\MpCmdRun.exe"
 #>
 function Get-MpCmdRunPath {
 
@@ -18,24 +23,25 @@ function Get-MpCmdRunPath {
 
     begin {
 
-        # define the expected path for MpCmdRun.exe
+        # construct the expected path for the Windows Defender command-line tool
         $mpCmdRunPath = Join-Path -Path $env:ProgramFiles `
-                                 -ChildPath "Windows Defender\MpCmdRun.exe"
+            -ChildPath "Windows Defender\MpCmdRun.exe"
 
-        Write-Verbose "Looking for MpCmdRun.exe at: $mpCmdRunPath"
+        # log the path we're checking
+        Write-Verbose "Attempting to locate MpCmdRun.exe at: $mpCmdRunPath"
     }
 
     process {
 
-        # verify the existence of MpCmdRun.exe using faster IO.File method
+        # verify file existence using optimized IO.File method instead of Test-Path
         if ([IO.File]::Exists($mpCmdRunPath)) {
 
-            Write-Verbose "MpCmdRun.exe found successfully"
+            Write-Verbose "Successfully located MpCmdRun.exe"
             return $mpCmdRunPath
         }
 
-        # if the file is not found, throw an error
-        $errorMsg = "MpCmdRun.exe not found at: $mpCmdRunPath"
+        # if executable not found, throw descriptive error
+        $errorMsg = "Windows Defender executable not found at: $mpCmdRunPath"
         Write-Error -Message $errorMsg -Category ObjectNotFound
     }
 

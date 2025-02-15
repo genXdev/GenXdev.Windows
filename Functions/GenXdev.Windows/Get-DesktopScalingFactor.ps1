@@ -1,23 +1,26 @@
 ################################################################################
 <#
 .SYNOPSIS
-Returns the scaling factor configured for a monitor.
+Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.
 
 .DESCRIPTION
-Returns the Windows display scaling factor (DPI setting) that is configured for
-the specified monitor. If no monitor is specified, returns the scaling factor for
-the primary monitor.
+Gets the current Windows display scaling factor configured for a monitor in the
+system. The scaling factor is expressed as a percentage where 100 represents
+standard scaling (96 DPI). Common values are 100, 125, 150, and 200.
+If no monitor is specified, returns the scaling factor for the primary display.
 
 .PARAMETER Monitor
-The index of the monitor to check (0-based). The primary monitor is 0.
+Specifies the zero-based index of the monitor to check. The primary monitor is
+index 0, secondary monitor is 1, and so on. Valid values range from 0 to 32.
 
 .EXAMPLE
 Get-DesktopScalingFactor -Monitor 0
-Returns the scaling factor for the primary monitor
+Returns the scaling factor percentage for the primary monitor
 
 .EXAMPLE
 Get-DesktopScalingFactor 1
-Returns the scaling factor for the second monitor
+Returns the scaling factor percentage for the second monitor using positional
+parameter
 #>
 function Get-DesktopScalingFactor {
 
@@ -29,19 +32,21 @@ function Get-DesktopScalingFactor {
             Mandatory = $false,
             HelpMessage = "The monitor index to check (0 = primary monitor)"
         )]
-        [ValidateRange(0, 32)]
+        [ValidateRange(0, 99)]
         [int] $Monitor = 0
         ########################################################################
     )
 
     begin {
 
+        # log the requested monitor index for troubleshooting
         Write-Verbose "Getting scaling factor for monitor index: $Monitor"
     }
 
     process {
 
-        # call the native method to get the scaling factor
+        # invoke the native method to retrieve the current scaling factor
+        # uses the GenXdev.Helpers.DesktopInfo class's static method
         [GenXdev.Helpers.DesktopInfo]::getScalingFactor($Monitor)
     }
 

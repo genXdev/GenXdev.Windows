@@ -4,30 +4,30 @@
 Gets window information for specified processes or window handles.
 
 .DESCRIPTION
-Retrieves window information either by process id, name or window handle. Returns
-a WindowObj containing details about the main window of the specified
-process(es).
+Retrieves window information using process name, ID, or window handle. Returns
+WindowObj objects containing details about the main windows of matching processes.
+Supports wildcards when searching by process name.
 
 .PARAMETER ProcessName
 Name of the process(es) to get window information for. Supports wildcards.
 
 .PARAMETER ProcessId
-The ID of the process to get window information for.
+Process ID to get window information for. Must be a valid running process ID.
 
 .PARAMETER WindowHandle
-The specific window handle to get information for.
+Window handle to get information for. Must be a valid window handle number.
 
 .EXAMPLE
 Get-Window -ProcessName "notepad"
-Gets window information for all notepad processes.
+Gets window information for all running Notepad instances.
 
 .EXAMPLE
-Get-Window -ProcessId 1234
-Gets window information for process with ID 1234.
+gwin -Id 1234
+Gets window information for the process with ID 1234 using the alias.
 
 .EXAMPLE
-Get-Window -WindowHandle 12345
-Gets window information for specific window handle.
+window -Handle 45678
+Gets window information for specific window handle using the alias.
 #>
 function Get-Window {
 
@@ -79,7 +79,7 @@ function Get-Window {
 
     process {
 
-        # handle window handle parameter
+        # if window handle provided, get window info directly
         if ($WindowHandle -gt 0) {
 
             Write-Verbose "Getting window information for handle: $WindowHandle"
@@ -87,7 +87,7 @@ function Get-Window {
             return
         }
 
-        # handle process id parameter
+        # if process id provided, get window info for that specific process
         if ($ProcessId -gt 0) {
 
             Write-Verbose "Getting window information for process ID: $ProcessId"
@@ -99,13 +99,13 @@ function Get-Window {
             return
         }
 
-        # handle process name parameter
+        # get window info for all processes matching the name pattern
         Write-Verbose "Getting window information for process name: $ProcessName"
         Get-Process "*$ProcessName*" -ErrorAction SilentlyContinue |
-            Where-Object { $_.MainWindowHandle -ne 0 } |
-            ForEach-Object {
-                [GenXdev.Helpers.WindowObj]::GetMainWindow($_)
-            }
+        Where-Object { $_.MainWindowHandle -ne 0 } |
+        ForEach-Object {
+            [GenXdev.Helpers.WindowObj]::GetMainWindow($_)
+        }
     }
 
     end {

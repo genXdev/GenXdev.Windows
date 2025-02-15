@@ -5,26 +5,32 @@ Starts a process with a specified priority level.
 
 .DESCRIPTION
 Launches an executable with a customizable priority level and provides options for
-waiting and process handling.
+waiting and process handling. This function wraps Start-Process with additional
+functionality to control process priority and execution behavior.
 
 .PARAMETER FilePath
-The path to the executable file to run.
+The path to the executable file to run. This parameter is mandatory and must
+contain a valid path to an executable file.
 
 .PARAMETER ArgumentList
-Optional arguments to pass to the executable.
+Arguments to pass to the executable. Multiple arguments can be provided as an
+array of strings.
 
 .PARAMETER Priority
-The priority level for the process. Valid values are: Idle, BelowNormal, Low,
-Normal, AboveNormal, High, RealTime. Defaults to BelowNormal.
+Sets the process priority level. Valid values are: Idle, BelowNormal, Low,
+Normal, AboveNormal, High, RealTime. Defaults to BelowNormal. Higher priorities
+may impact system performance.
 
 .PARAMETER NoWait
-If specified, doesn't wait for the process to complete.
+Switch to determine if the function should wait for process completion. When
+specified, the function returns immediately after starting the process.
 
 .PARAMETER PassThru
-If specified, returns the process object.
+Switch to return the process object after creation. Useful when you need to
+manipulate the process after it starts.
 
 .EXAMPLE
-Start-ProcessWithPriority -FilePath "notepad.exe" -Priority "Low"
+Start-ProcessWithPriority -FilePath "notepad.exe" -Priority "Low" -NoWait
 
 .EXAMPLE
 nice notepad.exe -Priority High
@@ -82,38 +88,41 @@ function Start-ProcessWithPriority {
     )
 
     begin {
+
+        # log the start of process execution with priority level
         Write-Verbose "Starting process '$FilePath' with priority '$Priority'"
     }
 
     process {
-        # start the process and get its handle
+
+        # launch the process with specified parameters and capture its handle
         $process = Start-Process `
             -FilePath $FilePath `
             -ArgumentList $ArgumentList `
             -PassThru `
             -NoNewWindow
 
-        # verify process started successfully
+        # ensure the process started successfully
         if ($null -eq $process) {
             Write-Warning "Failed to start process '$FilePath'"
             return
         }
 
-        # set the process priority
+        # apply the requested priority level to the running process
         $process.PriorityClass = $Priority
         Write-Verbose "Process started with ID: $($process.Id)"
 
-        # return early if NoWait is specified
+        # return early if immediate execution is requested
         if ($NoWait) {
             Write-Verbose "Not waiting for process completion"
             return
         }
 
-        # wait for process to complete
+        # block execution until the process completes
         Write-Verbose "Waiting for process to complete"
         $process.WaitForExit()
 
-        # return process object if PassThru is specified
+        # return process information if requested
         if ($PassThru) {
             Write-Verbose "Returning process object"
             return $process

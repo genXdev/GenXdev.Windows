@@ -1,17 +1,20 @@
 ################################################################################
 <#
 .SYNOPSIS
-Gets a list of unique usernames for currently active processes.
+Retrieves a list of unique usernames from currently active system processes.
 
 .DESCRIPTION
-Retrieves all processes with their associated usernames and returns a unique list
-of users who have active processes running on the system.
+Queries all running processes on the system, extracts the associated username for
+each process, and returns a deduplicated list of users who have active processes.
+This is useful for system administration and security monitoring.
 
 .EXAMPLE
 Get-ActiveUsers
+Returns a list of all unique usernames with active processes.
 
 .EXAMPLE
 gusers
+Uses the alias to get the same results.
 #>
 function Get-ActiveUsers {
 
@@ -20,24 +23,30 @@ function Get-ActiveUsers {
     param()
 
     begin {
-        Write-Verbose "Retrieving all processes with username information..."
+
+        # inform about the start of process enumeration
+        Write-Verbose "Starting to enumerate all system processes..."
     }
 
     process {
-        # get all processes with their usernames
+
+        # get all processes with their associated usernames
+        # this requires administrative privileges
         $processes = Get-Process * -IncludeUserName
 
-        # extract unique usernames from the processes
+        # extract unique usernames from the process list and remove duplicates
         $users = $processes |
-            ForEach-Object UserName |
-            Select-Object -Unique
+        ForEach-Object UserName |
+        Select-Object -Unique
 
-        # output the unique usernames
+        # return the filtered list of usernames
         $users
     }
 
     end {
-        Write-Verbose "Found $($users.Count) unique active users."
+
+        # output completion status with user count
+        Write-Verbose "Process completed. Found $($users.Count) unique active users."
     }
 }
 ################################################################################

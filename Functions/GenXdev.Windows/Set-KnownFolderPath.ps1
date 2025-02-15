@@ -1,6 +1,6 @@
-###############################################################################
+################################################################################
 
-# Define known folder GUIDs
+# define known folder guids for windows shell api
 $KnownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
     'AddNewPrograms'        = 'de61d971-5ebc-4f02-a3a9-6c82895e5c04';
@@ -94,23 +94,32 @@ $KnownFolders = @{
 
 <#
 .SYNOPSIS
-Sets a known folder's path using Windows Shell API.
+Modifies the physical path of a Windows known folder.
 
 .DESCRIPTION
-Uses the Windows Shell32 API to set the physical path of a known folder like
-Documents, Downloads etc.
+Uses the Windows Shell32 API to relocate system folders like Documents, Downloads,
+or Desktop to a new location. The function validates the target path exists,
+looks up the folder's unique GUID, and uses the SHSetKnownFolderPath API to
+perform the relocation. Common use cases include moving user folders to a
+different drive for space management or organization.
 
 .PARAMETER KnownFolder
-The known folder whose path to set. Must be one of the predefined folder names.
+The name of the known folder to relocate. Only specific system folders can be
+moved to prevent system instability. Valid values are restricted to commonly
+moved user folders.
 
 .PARAMETER Path
-The new physical path for the known folder.
+The new physical file system path where the known folder should be located.
+The path must exist before attempting the move operation. The function will
+throw an error if the path is invalid or inaccessible.
 
 .EXAMPLE
-Set-KnownFolderPath -KnownFolder 'Desktop' -Path 'D:\Desktop'
+Set-KnownFolderPath -KnownFolder 'Documents' -Path 'D:\UserDocs'
+# Moves the Documents folder to D:\UserDocs using full parameter names
 
-.NOTES
-Requires elevation for system folders.
+.EXAMPLE
+Set-KnownFolderPath Downloads 'E:\Downloads'
+# Moves the Downloads folder using positional parameters
 #>
 function Set-KnownFolderPath {
 
@@ -137,41 +146,48 @@ function Set-KnownFolderPath {
     )
 
     begin {
-        # initialize type for shell32 api call if not already defined
+
+        # check if shell32 api type is already loaded to avoid redefining
         $type = ([System.Management.Automation.PSTypeName]`
-            'KnownFolders.SHSetKnownFolderPathPS').Type
+                'KnownFolders.SHSetKnownFolderPathPS').Type
 
         if (-not $type) {
-            # define signature for shell32 api call with proper DllImport
+            # define windows api function signature for shell32.dll import
             $signature = @'
 [DllImport("shell32.dll")]
-public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags, IntPtr token,
-    [MarshalAs(UnmanagedType.LPWStr)] string path);
+public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
+    IntPtr token, [MarshalAs(UnmanagedType.LPWStr)] string path);
 '@
-            $type = Add-Type -MemberDefinition $signature -Namespace 'KnownFolders' `
-                -Name 'SHSetKnownFolderPathPS' -PassThru
+            # load the shell32 api function into powershell runtime
+            $type = Add-Type -MemberDefinition $signature `
+                -Namespace 'KnownFolders' `
+                -Name 'SHSetKnownFolderPathPS' `
+                -PassThru
         }
 
-        Write-Verbose "Attempting to set $KnownFolder folder to: $Path"
+        Write-Verbose "Starting known folder path change operation"
+        Write-Verbose "Target folder: $KnownFolder"
+        Write-Verbose "New path: $Path"
     }
 
     process {
 
-        # verify the target path exists
+        # verify the destination path exists before attempting to move
         if (-not (Test-Path -Path $Path -PathType Container)) {
             $msg = "Could not find folder path: $Path"
             Write-Error -Message $msg
             throw [System.IO.DirectoryNotFoundException] $msg
         }
 
-        # get the known folder guid
+        # lookup the folder's unique guid from our hash table
         $knownFolderId = $KnownFolders[$KnownFolder]
-        Write-Verbose "Known folder ID: $knownFolderId"
+        Write-Verbose "Found folder GUID: $knownFolderId"
 
         if ($PSCmdlet.ShouldProcess($Path, "Set $KnownFolder location")) {
-            # call the shell32 api to update the folder path
+            # call shell32 api to perform the folder relocation
+            # parameters: folderId (ref), flags (0), token (0), new path
             $result = $type::SHSetKnownFolderPath([ref]$knownFolderId, 0, 0, $Path)
-            Write-Verbose "SHSetKnownFolderPath returned: $result"
+            Write-Verbose "Shell API call completed with result: $result"
             return $result
         }
     }

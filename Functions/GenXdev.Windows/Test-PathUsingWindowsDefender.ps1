@@ -1,23 +1,26 @@
 ################################################################################
 <#
 .SYNOPSIS
-Executes a Windows Defender virusscan on a specified file or directory.
+Scans files or directories for malware using Windows Defender.
 
 .DESCRIPTION
-Executes a Windows Defender virusscan on a specified file or directory using the
-MpCmdRun.exe command-line utility. Returns true if no threats were found.
+Performs a targeted scan of specified files or directories using Windows
+Defender's command-line interface (MpCmdRun.exe). The function can either scan
+in detection-only mode or with automatic threat remediation enabled.
 
 .PARAMETER FilePath
-The path to the file or directory to be scanned.
+The full or relative path to the file or directory to be scanned. The path will
+be expanded to its full form before scanning.
 
 .PARAMETER EnableRemediation
-When specified, instructs Windows Defender to take action on found threats.
+When specified, allows Windows Defender to automatically remove or quarantine any
+detected threats. If omitted, the scan will only detect and report threats.
 
 .EXAMPLE
-Test-PathUsingWindowsDefender -FilePath "C:\Path\To\File.txt" -Verbose
+Test-PathUsingWindowsDefender -FilePath "C:\Downloads\file.exe" -Verbose
 
 .EXAMPLE
-virusscan "C:\Path\To\File.txt"
+virusscan "C:\Downloads\file.exe" -EnableRemediation
 #>
 function Test-PathUsingWindowsDefender {
 
@@ -47,10 +50,10 @@ function Test-PathUsingWindowsDefender {
 
     begin {
 
-        # get the full path to the windows defender command line utility
+        # locate the windows defender command line utility
         $mpCmdRunPath = Get-MpCmdRunPath
 
-        # validate windows defender cli exists
+        # ensure the windows defender cli is available
         if ($null -eq $mpCmdRunPath) {
             throw "Windows Defender CLI (MpCmdRun.exe) not found"
         }
@@ -58,34 +61,37 @@ function Test-PathUsingWindowsDefender {
 
     process {
 
-        # expand the file path to full path
+        # convert relative or shortened paths to full filesystem paths
         $expandedPath = Expand-Path $FilePath
 
-        # validate file exists
+        # verify the target exists before attempting to scan
         if (-not [System.IO.File]::Exists($expandedPath)) {
             Write-Error "File or directory not found: $expandedPath"
             return $false
         }
 
-        Write-Verbose "Scanning file: $expandedPath"
+        Write-Verbose "Initiating Windows Defender scan of: $expandedPath"
 
-        # prepare scan command based on remediation flag
+        # construct the scan command parameters
         $scanParams = @(
             "-Scan",
             "-ScanType", "3",
             "-File", "`"$expandedPath`""
         )
 
+        # add remediation flag based on user preference
         if (-not $EnableRemediation) {
             $scanParams += "-DisableRemediation"
         }
 
-        # execute the scan and capture output
+        Write-Verbose "Executing scan with parameters: $($scanParams -join ' ')"
+
+        # execute the windows defender scan and capture output
         $null = & $mpCmdRunPath $scanParams | ForEach-Object {
             Write-Verbose $_
         }
 
-        # return true if scan completed successfully (no threats found)
+        # return scan result: true = no threats, false = threats found
         return ($LASTEXITCODE -eq 0)
     }
 

@@ -1,23 +1,30 @@
 ################################################################################
 <#
 .SYNOPSIS
-Gets the path of a known Windows folder using its name.
+Gets the path of a Windows known folder using the Windows Shell32 API.
 
 .DESCRIPTION
-Uses the Windows Shell32 API to retrieve the path of a specified known folder.
-This is more reliable than using environment variables as it works across
-different Windows versions and language settings.
+Retrieves the path of a specified Windows known folder using the Shell32 API's
+SHGetKnownFolderPath function. This method is more reliable than using
+environment variables as it works consistently across different Windows versions
+and language settings. Supports all standard Windows known folders like
+Documents, Downloads, AppData etc.
 
 .PARAMETER KnownFolder
-The name of the known folder to retrieve the path for.
+Specifies the name of the Windows known folder to retrieve. Must be one of the
+predefined folder names like 'Documents', 'Downloads', etc. The function will
+return the full path to this folder.
 
 .EXAMPLE
 Get-KnownFolderPath -KnownFolder 'Documents'
-# Returns the path to the user's Documents folder
+# Returns: C:\Users\Username\Documents
 
 .EXAMPLE
-folder Documents
-# Returns the same using the alias
+folder Downloads
+# Returns: C:\Users\Username\Downloads using the alias
+
+.EXAMPLE
+cd (folder Desktop)
 #>
 function Get-KnownFolderPath {
 
@@ -60,14 +67,14 @@ function Get-KnownFolderPath {
 
     begin {
 
-        # check if the type is already defined
+        # check if the windows api type is already defined in the current session
         $type = ([System.Management.Automation.PSTypeName]`
-            'KnownFolders.SHGetKnownFolderPathPS').Type
+                'KnownFolders.SHGetKnownFolderPath').Type
 
         if (-not $type) {
             Write-Verbose "Defining Windows Shell32 API function"
 
-            # define the signature for SHGetKnownFolderPath from shell32.dll
+            # define the p/invoke signature for SHGetKnownFolderPath
             $signature = @'
 [DllImport("shell32.dll")]
 public extern static int SHGetKnownFolderPath(
@@ -76,11 +83,11 @@ public extern static int SHGetKnownFolderPath(
     IntPtr token,
     [MarshalAs(UnmanagedType.LPWStr)] out string pszPath);
 '@
-            # add the type definition
+            # add the shell32 api function definition as a new .net type
             $type = Add-Type `
                 -MemberDefinition $signature `
                 -Namespace 'KnownFolders' `
-                -Name 'SHGetKnownFolderPathPS' `
+                -Name 'SHGetKnownFolderPath' `
                 -PassThru
         }
     }
@@ -89,17 +96,17 @@ public extern static int SHGetKnownFolderPath(
 
         Write-Verbose "Getting path for known folder: $KnownFolder"
 
-        # initialize the output path variable
+        # create a reference variable to store the output path
         $path = @{ value = $null }
 
-        # call the windows api to get the folder path
+        # call the windows api to retrieve the folder path
         $code = $type::SHGetKnownFolderPath(
             [ref]$KnownFolders[$KnownFolder],
             0,
             0,
             [ref]$path)
 
-        # return the path if successful, null otherwise
+        # check if the api call was successful and return the path
         if ($code -eq 0) {
             return $path.value
         }

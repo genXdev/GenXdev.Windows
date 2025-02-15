@@ -1,18 +1,21 @@
 ################################################################################
 <#
 .SYNOPSIS
-Retrieves the process object of the window that has keyboard focus on Windows.
+Retrieves the process object of the window that currently has keyboard focus.
 
 .DESCRIPTION
-Uses Windows API calls to identify and return the Process object associated with
-the currently focused window in the Windows operating system.
+This function uses Windows API calls through P/Invoke to identify and return the
+Process object associated with the currently focused window. It leverages the
+User32.dll functions GetForegroundWindow and GetWindowThreadProcessId to determine
+which window has focus and obtain its associated process ID.
 
 .EXAMPLE
-Get-CurrentFocusedProcess
+$focusedProcess = Get-CurrentFocusedProcess
+Write-Host "Active window process: $($focusedProcess.ProcessName)"
 
-.EXAMPLE
-$process = Get-CurrentFocusedProcess
-Write-Host "Currently focused window belongs to: $($process.ProcessName)"
+.NOTES
+Requires Windows operating system as it uses Windows-specific API calls.
+May return null if the process cannot be accessed due to permissions.
 #>
 function Get-CurrentFocusedProcess {
 
@@ -21,7 +24,10 @@ function Get-CurrentFocusedProcess {
 
     begin {
 
-        # define the required windows api functions
+        # define the windows api functions needed for window handling
+        # this adds two critical User32.dll methods via P/Invoke:
+        # - GetForegroundWindow: gets handle of active window
+        # - GetWindowThreadProcessId: gets process ID from window handle
         Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
@@ -38,30 +44,33 @@ public class User32 {
 
     process {
 
-        # get handle of the foreground window
-        Write-Verbose "Getting foreground window handle"
+        # get the handle to the currently active window
+        Write-Verbose "Attempting to get foreground window handle"
         $foregroundWindow = [User32]::GetForegroundWindow()
 
-        # get the process id of the window
-        Write-Verbose "Retrieving process ID from window handle"
+        # retrieve the process id associated with the window handle
+        Write-Verbose "Getting process ID from window handle"
         $processId = 0
         $null = [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
 
+        # verify we got a valid process id
         if ($processId -ne 0) {
 
-            # attempt to get the process object
-            Write-Verbose "Getting process object for ID: $processId"
+            # attempt to get the process object using the process id
+            Write-Verbose "Retrieving process object for ID: $processId"
             $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
 
+            # return the process if found
             if ($process) {
-                Write-Verbose "Found process: $($process.ProcessName)"
+                Write-Verbose "Successfully found process: $($process.ProcessName)"
                 return $process
             }
         }
 
-        Write-Warning "Failed to retrieve the process of the current focused window."
+        Write-Warning "Could not retrieve process for the focused window"
     }
 
-    end {}
+    end {
+    }
 }
 ################################################################################
