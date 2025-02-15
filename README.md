@@ -15,6 +15,7 @@
 ### FEATURES
 
     * ✅ Allow resizing/repositioning/closing of Windows
+    * ✅ Get-Window will return a windows helper that allows you to manipulate the window
     * ✅ Read/write access to Windows special folder locations
 
 ### DEPENDENCIES
@@ -86,7 +87,7 @@ CurrentUserHasElevatedRights [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -100,8 +101,8 @@ Set-WindowPositionForSecondary       --> wps
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders] 
-[-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] 
+Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders]
+[-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top]
 [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [<CommonParameters>]
 ````
 
@@ -115,9 +116,9 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         The process of the window to position
         Required?                    false
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       true (ByValue, ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Monitor <Int32>
         The monitor to use, 0 = default, 1 = secondary, -1 is discard, -2 = configured
@@ -126,7 +127,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    1
         Default value                -2
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -NoBorders [<SwitchParameter>]
         Open in NoBorders mode
@@ -134,7 +135,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Width <Int32>
         The initial width of the window
@@ -142,7 +143,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Height <Int32>
         The initial height of the window
@@ -150,7 +151,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -X <Int32>
         The initial X position of the window
@@ -158,7 +159,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Y <Int32>
         The initial Y position of the window
@@ -166,7 +167,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Left [<SwitchParameter>]
         Place window on the left side of the screen
@@ -174,7 +175,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Right [<SwitchParameter>]
         Place window on the right side of the screen
@@ -182,7 +183,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Top [<SwitchParameter>]
         Place window on the top side of the screen
@@ -190,7 +191,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Bottom [<SwitchParameter>]
         Place window on the bottom side of the screen
@@ -198,7 +199,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Centered [<SwitchParameter>]
         Place window in the center of the screen
@@ -206,14 +207,14 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Fullscreen [<SwitchParameter>]
         Required?                    false
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -RestoreFocus [<SwitchParameter>]
         Restore PowerShell window focus
@@ -221,7 +222,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -PassThru [<SwitchParameter>]
         Returns a [System.Diagnostics.Process] object of the browser process
@@ -229,13 +230,13 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-N
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -249,8 +250,8 @@ Set-WindowPosition                   --> wp
 
 ### SYNTAX
 ````PowerShell
-Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width 
-<Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] 
+Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width
+<Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom]
 [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [<CommonParameters>]
 ````
 
@@ -262,9 +263,9 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         The process of the window to position
         Required?                    false
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       true (ByValue, ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Monitor <Int32>
         The monitor to use, 0 = default, 1 = secondary, -1 is discard
@@ -272,7 +273,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -NoBorders [<SwitchParameter>]
         Open in NoBorders mode --> -nb
@@ -280,7 +281,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Width <Int32>
         The initial width of the window
@@ -288,7 +289,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Height <Int32>
         The initial height of the window
@@ -296,7 +297,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -X <Int32>
         The initial X position of the window
@@ -304,7 +305,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Y <Int32>
         The initial Y position of the window
@@ -312,7 +313,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                -1
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Left [<SwitchParameter>]
         Place window on the left side of the screen
@@ -320,7 +321,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Right [<SwitchParameter>]
         Place window on the right side of the screen
@@ -328,7 +329,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Top [<SwitchParameter>]
         Place window on the top side of the screen
@@ -336,7 +337,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Bottom [<SwitchParameter>]
         Place window on the bottom side of the screen
@@ -344,7 +345,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Centered [<SwitchParameter>]
         Place window in the center of the screen
@@ -352,14 +353,14 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Fullscreen [<SwitchParameter>]
         Required?                    false
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -RestoreFocus [<SwitchParameter>]
         Restore PowerShell window focus --> -bg
@@ -367,7 +368,7 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -PassThru [<SwitchParameter>]
         Returns a [System.Diagnostics.Process] object of the browserprocess
@@ -375,13 +376,13 @@ Set-WindowPosition [[-Process] <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Wi
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -407,15 +408,15 @@ Set-TaskbarAlignment [-Justify] <String> [<CommonParameters>]
         Specifies the taskbar alignment. Valid values are 'Center' or 'Left'.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -429,7 +430,7 @@ Set-KnownFolderPath
 
 ### SYNTAX
 ````PowerShell
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] 
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm]
 [<CommonParameters>]
 ````
 
@@ -442,37 +443,37 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
         The known folder whose path to set. Must be one of the predefined folder names.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Path <String>
         The new physical path for the known folder.
         Required?                    true
         Position?                    2
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -WhatIf [<SwitchParameter>]
         Required?                    false
         Position?                    named
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Confirm [<SwitchParameter>]
         Required?                    false
         Position?                    named
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ### NOTES
 ````PowerShell
@@ -505,15 +506,15 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [<CommonParameters>]
         The handle to the window that should be brought to the foreground.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -527,7 +528,7 @@ Send-Keys
 
 ### SYNTAX
 ````PowerShell
-Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus] 
+Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
 [-ShiftEnter] [-DelayMilliSeconds <Int32>] [<CommonParameters>]
 ````
 
@@ -541,9 +542,9 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         supported.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       true (ByValue, ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Escape [<SwitchParameter>]
         When specified, escapes control sequences so they are sent as literal text.
@@ -551,16 +552,16 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Process <Process>
         Target process to receive the keystrokes. If not specified, sends to active
         window.
         Required?                    false
         Position?                    named
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -HoldKeyboardFocus [<SwitchParameter>]
         Maintains keyboard focus on the target window after sending keys.
@@ -568,7 +569,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -ShiftEnter [<SwitchParameter>]
         Converts line feeds to Shift+Enter instead of plain Enter.
@@ -576,7 +577,7 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -DelayMilliSeconds <Int32>
         Optional delay between sending keys in milliseconds.
@@ -584,13 +585,13 @@ Send-Keys [-Keys] <String[]> [-Escape] [-Process <Process>] [-HoldKeyboardFocus]
         Position?                    named
         Default value                0
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -604,7 +605,7 @@ Initialize-ScheduledTaskScripts
 
 ### SYNTAX
 ````PowerShell
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] 
+Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
 [<CommonParameters>]
 ````
 
@@ -622,9 +623,9 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
         defaults to a ScheduledTasks folder in the parent directory.
         Required?                    false
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Prefix <String>
         A prefix for the scheduled task names. Default is "PS".
@@ -632,13 +633,13 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>]
         Position?                    2
         Default value                PS
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -667,9 +668,9 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
         Name of the process(es) to get window information for. Supports wildcards.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       true (ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -ProcessId <Int32>
         The ID of the process to get window information for.
@@ -677,7 +678,7 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
         Position?                    1
         Default value                0
         Accept pipeline input?       true (ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -WindowHandle <Int64>
         The specific window handle to get information for.
@@ -685,13 +686,13 @@ Get-Window [-WindowHandle] <Int64> [<CommonParameters>]
         Position?                    1
         Default value                0
         Accept pipeline input?       true (ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -718,7 +719,7 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -744,7 +745,7 @@ Get-PowershellMainWindow [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -771,7 +772,7 @@ Get-MpCmdRunPath [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -796,7 +797,7 @@ Get-MonitorCount [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -823,15 +824,15 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         The name of the known folder to retrieve the path for.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -860,13 +861,13 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
         Position?                    1
         Default value                0
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -892,7 +893,7 @@ Get-CurrentFocusedProcess [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -918,7 +919,7 @@ Get-ChildProcesses [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -944,7 +945,7 @@ Get-ActiveUsers [<CommonParameters>]
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -958,7 +959,7 @@ Start-ProcessWithPriority            --> nice
 
 ### SYNTAX
 ````PowerShell
-Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] 
+Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority]
 <String>] [-NoWait] [-PassThru] [<CommonParameters>]
 ````
 
@@ -971,17 +972,17 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         The path to the executable file to run.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -ArgumentList <String[]>
         Optional arguments to pass to the executable.
         Required?                    false
         Position?                    2
-        Default value                
+        Default value
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -Priority <String>
         The priority level for the process. Valid values are: Idle, BelowNormal, Low,
@@ -990,7 +991,7 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         Position?                    3
         Default value                BelowNormal
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -NoWait [<SwitchParameter>]
         If specified, doesn't wait for the process to complete.
@@ -998,7 +999,7 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -PassThru [<SwitchParameter>]
         If specified, returns the process object.
@@ -1006,13 +1007,13 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
 
@@ -1038,9 +1039,9 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         The path to the file or directory to be scanned.
         Required?                    true
         Position?                    1
-        Default value                
+        Default value
         Accept pipeline input?       true (ByValue, ByPropertyName)
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     -EnableRemediation [<SwitchParameter>]
         When specified, instructs Windows Defender to take action on found threats.
@@ -1048,12 +1049,12 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         Position?                    named
         Default value                False
         Accept pipeline input?       false
-        Aliases                      
+        Aliases
         Accept wildcard characters?  false
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,
         OutBuffer, PipelineVariable, and OutVariable. For more information, see
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216). 
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).
 
 <br/><hr/><hr/><br/>
