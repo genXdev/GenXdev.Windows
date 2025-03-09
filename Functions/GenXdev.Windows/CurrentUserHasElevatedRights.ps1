@@ -9,10 +9,15 @@ privileges by checking their security principal roles.
 
 .EXAMPLE
 $hasRights = CurrentUserHasElevatedRights
+
+.OUTPUTS
+System.Boolean
+True if the current user has administrative or backup operator rights, false otherwise.
 #>
 function CurrentUserHasElevatedRights {
 
     [CmdletBinding()]
+    [OutputType([System.Boolean])]
     param()
 
     begin {

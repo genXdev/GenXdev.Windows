@@ -21,6 +21,12 @@ directory.
 A prefix string added to all task names for grouping and identification.
 Default is "PS".
 
+.PARAMETER WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+.PARAMETER Confirm
+Prompts you for confirmation before running the cmdlet.
+
 .EXAMPLE
 Initialize-ScheduledTaskScripts -FilePath "C:\Tasks" -Prefix "MyTasks"
 
@@ -29,7 +35,8 @@ Initialize-ScheduledTaskScripts
 #>
 function Initialize-ScheduledTaskScripts {
 
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
     param(
         ###########################################################################
         [parameter(
@@ -49,7 +56,6 @@ function Initialize-ScheduledTaskScripts {
     )
 
     begin {
-
         # array of weekdays for creating weekly scheduled tasks
         $daysOfWeek = @(
             "Sunday", "Monday", "Tuesday", "Wednesday",
@@ -65,16 +71,16 @@ function Initialize-ScheduledTaskScripts {
 
         # set default path if none provided and ensure directory exists
         if ([string]::IsNullOrWhiteSpace($FilePath)) {
-            $FilePath = Expand-Path `
+            $FilePath = GenXdev.FileSystem\Expand-Path `
                 -FilePath "$PSScriptRoot\..\..\..\..\..\ScheduledTasks\" `
                 -CreateDirectory
         }
         else {
-            $FilePath = Expand-Path -FilePath $FilePath
+            $FilePath = GenXdev.FileSystem\Expand-Path -FilePath $FilePath
         }
 
         # set global workspace for task execution context
-        $Global:WorkspaceFolder = Expand-Path "$PSScriptRoot\..\..\..\..\..\"
+        $WorkspaceFolder = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\..\..\..\"
 
         Write-Verbose "Task scripts will be created in: $FilePath"
         Write-Verbose "Tasks will be prefixed with: $Prefix"
@@ -101,28 +107,31 @@ function Initialize-ScheduledTaskScripts {
         Scheduled task trigger object defining when the task runs.
         #>
         function New-TaskDefinition {
+            [CmdletBinding(SupportsShouldProcess = $true)]
             param([string]$TaskName, [string]$Description, $Trigger)
 
             # create full path for the task's PowerShell script
-            $scriptPath = Expand-Path -CreateDirectory `
+            $scriptPath = GenXdev.FileSystem\Expand-Path -CreateDirectory `
                 -FilePath "$FilePath\$TaskName.ps1"
 
             # create script file with logging if it doesn't exist
             if (-not (Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
-                $scriptContent = @"
+                if ($PSCmdlet.ShouldProcess($scriptPath, "Create task script file")) {
+                    $scriptContent = @"
 # $Description
 
-$($Description | ConvertTo-Json) | Out-File '$Global:WorkspaceFolder\scheduledtasks.log.txt' -Append
+$($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
 
 "@
-                $null = Set-Content -Path $scriptPath -Value $scriptContent
+                    $null = Set-Content -Path $scriptPath -Value $scriptContent
+                }
             }
 
             # create task only if it doesn't already exist
             if (-not (Get-ScheduledTask -TaskName $TaskName `
                         -TaskPath "\$Prefix\" -ErrorAction SilentlyContinue)) {
 
-                Write-Verbose "Creating scheduled task: \$Prefix\$TaskName"
+                Write-Verbose "Preparing scheduled task: \$Prefix\$TaskName"
                 Write-Verbose "Task description: $Description"
 
                 # configure the PowerShell execution command
@@ -132,7 +141,7 @@ $($Description | ConvertTo-Json) | Out-File '$Global:WorkspaceFolder\scheduledta
                     -Execute ((Get-Command "pwsh.exe").source) `
                     -Argument $actionArguments `
                     -Id "Exec $TaskName".Replace(" ", "_") `
-                    -WorkingDirectory $Global:WorkspaceFolder
+                    -WorkingDirectory $WorkspaceFolder
 
                 # configure task execution settings
                 $settings = New-ScheduledTaskSettingsSet `
@@ -167,7 +176,12 @@ $($Description | ConvertTo-Json) | Out-File '$Global:WorkspaceFolder\scheduledta
                     TaskPath    = $Prefix
                     Force       = $true
                 }
-                Register-ScheduledTask @taskParams
+                if ($PSCmdlet.ShouldProcess("$Prefix\$TaskName", "Create scheduled task")) {
+                    Register-ScheduledTask @taskParams
+                }
+            }
+            else {
+                Write-Verbose "Task already exists: \$Prefix\$TaskName"
             }
         }
 

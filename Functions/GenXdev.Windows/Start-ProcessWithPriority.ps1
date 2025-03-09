@@ -37,7 +37,7 @@ nice notepad.exe -Priority High
 #>
 function Start-ProcessWithPriority {
 
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     [Alias("nice")]
 
     param (
@@ -88,12 +88,16 @@ function Start-ProcessWithPriority {
     )
 
     begin {
-
         # log the start of process execution with priority level
         Write-Verbose "Starting process '$FilePath' with priority '$Priority'"
     }
 
     process {
+        # check if the user wants to proceed with starting the process
+        $processDescription = "Start process '$FilePath' with priority '$Priority'"
+        if (-not $PSCmdlet.ShouldProcess($processDescription)) {
+            return
+        }
 
         # launch the process with specified parameters and capture its handle
         $process = Start-Process `
@@ -115,6 +119,9 @@ function Start-ProcessWithPriority {
         # return early if immediate execution is requested
         if ($NoWait) {
             Write-Verbose "Not waiting for process completion"
+            if ($PassThru) {
+                return $process
+            }
             return
         }
 

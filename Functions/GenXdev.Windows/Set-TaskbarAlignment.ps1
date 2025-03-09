@@ -18,14 +18,13 @@ Set-TaskbarAlignment -Justify Left
 # Sets the Windows 11 taskbar to left alignment
 
 .EXAMPLE
-Set-TaskAlign Center
-# Uses alias to set taskbar to center alignment
+Set-TaskAlign Center -WhatIf
+# Shows what would happen if taskbar was set to center alignment
 #>
 function Set-TaskbarAlignment {
 
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     [Alias("Set-TaskAlign")]
-
     param(
         ########################################################################
         [Parameter(
@@ -52,13 +51,19 @@ function Set-TaskbarAlignment {
         # convert the alignment choice to its corresponding registry value
         $value = if ($Justify -eq "Left") { 0 } else { 1 }
 
-        # update the registry key, suppressing the output for cleaner execution
-        $null = Set-ItemProperty -Path $regPath `
-            -Name "TaskbarAl" `
-            -Value $value
+        # check if we should proceed with the registry modification
+        if ($PSCmdlet.ShouldProcess(
+                "Windows Taskbar Alignment",
+                "Set alignment to $Justify"
+            )) {
 
-        # log the registry update for verification
-        Write-Verbose "Registry value 'TaskbarAl' set to: $value"
+            # update the registry key
+            $null = Set-ItemProperty -Path $regPath `
+                -Name "TaskbarAl" `
+                -Value $value
+
+            Write-Verbose "Registry value 'TaskbarAl' set to: $value"
+        }
     }
 
     end {

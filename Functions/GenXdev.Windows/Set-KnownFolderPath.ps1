@@ -141,12 +141,12 @@ function Set-KnownFolderPath {
             HelpMessage = "New path for the known folder"
         )]
         [ValidateNotNullOrEmpty()]
+        [Alias("FullName")]
         [string] $Path
         ########################################################################
     )
 
     begin {
-
         # check if shell32 api type is already loaded to avoid redefining
         $type = ([System.Management.Automation.PSTypeName]`
                 'KnownFolders.SHSetKnownFolderPathPS').Type

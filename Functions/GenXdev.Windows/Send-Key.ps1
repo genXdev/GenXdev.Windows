@@ -9,7 +9,7 @@ typed by a user. Supports special keys and keyboard modifiers through control
 sequences like {F11}, {ENTER}, etc. Can target specific processes and maintain
 keyboard focus.
 
-.PARAMETER Keys
+.PARAMETER KeysToSend
 The text or key sequences to send. Supports control sequences like {F11} and
 keyboard modifiers (+, ^, %). Can be piped or provided as array.
 
@@ -31,16 +31,17 @@ Sends Shift+Enter instead of regular Enter for line breaks.
 Adds delay between sending different key sequences. Useful for slower apps.
 
 .EXAMPLE
-Send-Keys -Keys "Hello World{ENTER}" -Process (Get-Process notepad)
+Send-Key -KeysToSend "Hello World{ENTER}" -Process (Get-Process notepad)
 Sends text to Notepad followed by Enter key
 
 .EXAMPLE
-Send-Keys "Special {F11} key" -Escape
+Send-Key "Special {F11} key" -Escape
 Sends literal "{F11}" rather than F11 key
 #>
-function Send-Keys {
+function Send-Key {
 
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = "ByProcessName")]
+    [Alias("sendkeys", "invokekeys")]
     param (
         ########################################################################
         [Parameter(
@@ -53,7 +54,7 @@ function Send-Keys {
         )]
         [Alias("q", "Value", "Name", "Text", "Query", "Queries")]
         [ValidateNotNullOrEmpty()]
-        [string[]] $Keys,
+        [string[]] $KeysToSend,
 
         ########################################################################
         [Parameter(
@@ -64,10 +65,33 @@ function Send-Keys {
 
         ########################################################################
         [Parameter(
-            Mandatory = $false,
-            HelpMessage = "The process to send the keys to"
+            ParameterSetName = "ByProcessName",
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Name of the process to get window information for"
         )]
-        [System.Diagnostics.Process] $Process,
+        [ValidateNotNullOrEmpty()]
+        [SupportsWildcards()]
+        [string] $ProcessName,
+
+        ########################################################################
+        [Parameter(
+            ParameterSetName = "ByProcessId",
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "ID of the process to get window information for"
+        )]
+        [ValidateNotNull()]
+        [Alias("Id", "PID")]
+        [int] $ProcessId,
+
+        ########################################################################
+        [Parameter(
+            ParameterSetName = "ByWindowHandle",
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Window handle to get information for"
+        )]
+        [ValidateNotNull()]
+        [Alias("Handle", "hWnd")]
+        [long] $WindowHandle,
 
         ########################################################################
         [Parameter(
@@ -93,70 +117,40 @@ function Send-Keys {
     )
 
     begin {
+        # initialize window handling variables
+        $helper = New-Object -ComObject WScript.Shell
 
-        try {
-            # initialize window handling variables
-            $windowProcess = $Process
-            $helper = New-Object -ComObject WScript.Shell
+        # bring window to foreground
+        $window = $null;
+        if ($null -eq $window) {
+            try {
+                $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
+                    -FunctionName "Get-Window" `
+                    -BoundParameters $PSBoundParameters `
+                    -DefaultValues (Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
 
-            if ($null -ne $Process) {
-                Write-Verbose "Targeting process: $($Process.ProcessName)"
+                if ((-not [string]::IsNullOrWhiteSpace($ProcessName)) -or ($ProcessId -ne 0) -or ($WindowHandle -ne 0)) {
 
-                # wait briefly if window handle not immediately available
-                if ($windowProcess.MainWindowHandle -eq 0) {
-                    Write-Verbose "Waiting for window handle..."
-                    Start-Sleep -Seconds 2
+                    $window = Get-Window @invocationArguments -ErrorAction SilentlyContinue | Select-Object -First 1
                 }
-
-                # search up process tree for valid window handle
-                while (($null -ne $windowProcess) -and
-                    ($windowProcess.MainWindowHandle -eq 0)) {
-                    $windowProcess = $windowProcess.Parent
-                }
-
-                # try finding sibling process with window if no handle found
-                if ($null -eq $windowProcess) {
-                    $processName = [IO.Path]::GetFileNameWithoutExtension(
-                        $Process.Path)
-                    Write-Verbose "Looking for sibling process: $processName"
-
-                    $windowProcess = Get-Process $processName |
-                    Where-Object {
-                            ($_.Id -ne $Process.Id) -and
-                            ($_.MainWindowHandle -ne 0)
-                    } |
-                    Sort-Object -Property StartTime -Descending |
-                    Select-Object -First 1
-
-                    if ($null -eq $windowProcess) {
-                        throw "Could not find window process to send keys to"
-                    }
-                }
-
-                # bring window to foreground
-                try {
-                    Write-Verbose "Activating window: $($windowProcess.MainWindowTitle)"
-                    $window = [GenXdev.Helpers.WindowObj]::new(
-                        $windowProcess,
-                        $windowProcess.MainWindowTitle)
-                    $null = $window.Show()
-                    $null = $window.SetForeground()
-                }
-                catch { }
-
-                $null = Set-ForegroundWindow -WindowHandle $windowProcess.MainWindowHandle
-                Start-Sleep -Milliseconds 500
+            }
+            catch {
+                Write-Warning $_.Exception.Message
             }
         }
-        catch {
-            Write-Warning $_.Exception.Message
+        if ($null -ne $window) {
+
+            $window.Show();
+            $window.SetForeground()
+            $null = Set-ForegroundWindow -WindowHandle $window.Handle
+            Start-Sleep -Milliseconds 500
         }
     }
 
     process {
 
         try {
-            foreach ($key in $Keys) {
+            foreach ($key in $KeysToSend) {
                 Write-Verbose "Processing key sequence: $key"
 
                 try {
@@ -181,7 +175,7 @@ function Send-Keys {
                     }
 
                     Write-Verbose "Sending keys: $escapedQuery"
-                    $null = $helper.sendKeys($escapedQuery)
+                    $null = $helper.sendKeys($escapedQuery, $true)
 
                     if ($DelayMilliSeconds -gt 0) {
                         Start-Sleep -Milliseconds $DelayMilliSeconds
@@ -193,9 +187,8 @@ function Send-Keys {
             }
         }
         finally {
-            if ($null -ne $windowProcess) {
+            if ($null -ne $window) {
                 try {
-                    Start-Sleep -Milliseconds 1500
 
                     # restore PowerShell window focus if not holding focus
                     if (-not $HoldKeyboardFocus) {

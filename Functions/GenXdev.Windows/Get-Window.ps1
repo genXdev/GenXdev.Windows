@@ -31,26 +31,22 @@ Gets window information for specific window handle using the alias.
 #>
 function Get-Window {
 
-    [CmdletBinding(DefaultParameterSetName = "ByProcessName")]
+    [CmdletBinding()]
     [Alias("gwin", "window")]
     param (
         ########################################################################
         [Parameter(
-            Mandatory = $true,
             Position = 0,
-            ParameterSetName = "ByProcessName",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Name of the process to get window information for"
         )]
         [ValidateNotNullOrEmpty()]
         [Alias("Name")]
+        [SupportsWildcards()]
         [string] $ProcessName,
 
         ########################################################################
         [Parameter(
-            Mandatory = $true,
-            Position = 0,
-            ParameterSetName = "ByProcessId",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "ID of the process to get window information for"
         )]
@@ -60,9 +56,6 @@ function Get-Window {
 
         ########################################################################
         [Parameter(
-            Mandatory = $true,
-            Position = 0,
-            ParameterSetName = "ByWindowHandle",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Window handle to get information for"
         )]
@@ -73,14 +66,13 @@ function Get-Window {
     )
 
     begin {
-
         Write-Verbose "Starting Get-Window with ParameterSet: $($PSCmdlet.ParameterSetName)"
     }
 
     process {
 
         # if window handle provided, get window info directly
-        if ($WindowHandle -gt 0) {
+        if ($WindowHandle -ne 0) {
 
             Write-Verbose "Getting window information for handle: $WindowHandle"
             [GenXdev.Helpers.WindowObj]::GetMainWindow($WindowHandle)
@@ -88,7 +80,7 @@ function Get-Window {
         }
 
         # if process id provided, get window info for that specific process
-        if ($ProcessId -gt 0) {
+        if ($ProcessId -ne 0) {
 
             Write-Verbose "Getting window information for process ID: $ProcessId"
             $process = Get-Process -Id $ProcessId -ErrorAction SilentlyContinue
@@ -101,7 +93,11 @@ function Get-Window {
 
         # get window info for all processes matching the name pattern
         Write-Verbose "Getting window information for process name: $ProcessName"
-        Get-Process "*$ProcessName*" -ErrorAction SilentlyContinue |
+        if (-not ($ProcessName.Contains("*") -or $ProcessName.Contains("?"))) {
+
+            $ProcessName = "$ProcessName*"
+        }
+        Get-Process "$ProcessName" -ErrorAction SilentlyContinue |
         Where-Object { $_.MainWindowHandle -ne 0 } |
         ForEach-Object {
             [GenXdev.Helpers.WindowObj]::GetMainWindow($_)

@@ -17,7 +17,7 @@ MainWindowHandle.
 .EXAMPLE
 # Make Notepad the active window using full parameter name
 $hwnd = (Get-Process notepad).MainWindowHandle
-Set-ForegroundWindow -WindowHandle $hwnd
+Set-ForegroundWindow -WindowHandle $hwnd -WhatIf
 
 .EXAMPLE
 # Using positional parameter for simpler syntax
@@ -26,7 +26,7 @@ Set-ForegroundWindow $hwnd
 #>
 function Set-ForegroundWindow {
 
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         ########################################################################
         [Parameter(
@@ -39,31 +39,33 @@ function Set-ForegroundWindow {
     )
 
     begin {
-
         # log the activation attempt with the window handle
         Write-Verbose "Attempting to set foreground window for handle: $WindowHandle"
     }
 
     process {
 
-        try {
-            # try the preferred SwitchToThisWindow API first as it's more reliable
-            Write-Verbose "Attempting primary method: SwitchToThisWindow..."
-            $null = [GenXdev.Helpers.WindowObj]::SwitchToThisWindow($WindowHandle, $false)
-        }
-        catch {
-            # log failure of primary activation method
-            Write-Verbose "SwitchToThisWindow failed: $($_.Exception.Message)"
-        }
+        if ($PSCmdlet.ShouldProcess("Window $WindowHandle", "Set as foreground window")) {
 
-        try {
-            # attempt SetForegroundWindow as fallback if first method failed
-            Write-Verbose "Attempting fallback method: SetForegroundWindow..."
-            $null = [GenXdev.Helpers.WindowObj]::SetForegroundWindow($WindowHandle)
-        }
-        catch {
-            # log failure of backup activation method
-            Write-Verbose "SetForegroundWindow failed: $($_.Exception.Message)"
+            try {
+                # try the preferred SwitchToThisWindow API first as it's more reliable
+                Write-Verbose "Attempting primary method: SwitchToThisWindow..."
+                $null = [GenXdev.Helpers.WindowObj]::SwitchToThisWindow($WindowHandle, $false)
+            }
+            catch {
+                # log failure of primary activation method
+                Write-Verbose "SwitchToThisWindow failed: $($_.Exception.Message)"
+            }
+
+            try {
+                # attempt SetForegroundWindow as fallback if first method failed
+                Write-Verbose "Attempting fallback method: SetForegroundWindow..."
+                $null = [GenXdev.Helpers.WindowObj]::SetForegroundWindow($WindowHandle)
+            }
+            catch {
+                # log failure of backup activation method
+                Write-Verbose "SetForegroundWindow failed: $($_.Exception.Message)"
+            }
         }
     }
 

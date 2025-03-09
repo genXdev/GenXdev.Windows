@@ -14,7 +14,7 @@ Returns the full path to MpCmdRun.exe if found.
 
 .EXAMPLE
 $defenderPath = Get-MpCmdRunPath
-# Returns path like: "C:\Program Files\Windows Defender\MpCmdRun.exe"
+# Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
 #>
 function Get-MpCmdRunPath {
 
@@ -22,7 +22,6 @@ function Get-MpCmdRunPath {
     param()
 
     begin {
-
         # construct the expected path for the Windows Defender command-line tool
         $mpCmdRunPath = Join-Path -Path $env:ProgramFiles `
             -ChildPath "Windows Defender\MpCmdRun.exe"

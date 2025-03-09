@@ -63,11 +63,14 @@ Set-WindowPosition -Centered -Monitor 0 -NoBorders
 Get-Process notepad,calc | wp -m 1 -l,-r
 #>
 function Set-WindowPosition {
-    [CmdletBinding()]
+
+    [CmdletBinding(DefaultParameterSetName = 'ProcessName', SupportsShouldProcess = $true)]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
     [Alias("wp")]
     param(
         ###############################################################################
         [parameter(
+            ParameterSetName = 'ProcessName',
             Mandatory = $false,
             Position = 0,
             HelpMessage = "The process of the window to position",
@@ -75,7 +78,32 @@ function Set-WindowPosition {
             ValueFromPipelineByPropertyName,
             ValueFromRemainingArguments = $false
         )]
+        [SupportsWildcards()]
+        [Alias("Name")]
+        [ValidateNotNullOrEmpty()]
+        [string[]] $ProcessName,
+        ###############################################################################
+        [parameter(
+            ParameterSetName = 'Process',
+            Mandatory = $false,
+            HelpMessage = "The process of the window to position",
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            ValueFromRemainingArguments = $false
+        )]
+        [ValidateNotNull()]
         [System.Diagnostics.Process[]] $Process,
+        ###############################################################################
+        [parameter(
+            ParameterSetName = 'WindowHelper',
+            Mandatory = $false,
+            HelpMessage = "The process of the window to position",
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            ValueFromRemainingArguments = $false
+        )]
+        [ValidateNotNull()]
+        [GenXdev.Helpers.WindowObj[]] $WindowHelper,
         ###############################################################################
 
         [Alias("m", "mon")]
@@ -163,7 +191,6 @@ function Set-WindowPosition {
         )]
         [switch] $Fullscreen,
         ###############################################################################
-
         [Alias("bg")]
         [parameter(
             Mandatory = $false,
@@ -171,22 +198,53 @@ function Set-WindowPosition {
         )]
         [switch] $RestoreFocus,
         ###############################################################################
-
         [parameter(
             Mandatory = $false,
             HelpMessage = "Returns the window helper for each process"
         )]
-        [switch] $PassThru
-
+        [switch] $PassThru,
+        ###############################################################################
+        [parameter(
+            Mandatory = $false,
+            HelpMessage = "Will either set the window fullscreen on a different monitor than Powershell, or " +
+            "side by side with Powershell on the same monitor"
+        )]
+        [switch] $SideBySide
+        ###############################################################################
     )
 
-    Begin {
-
+    begin {
         # store reference to powershell window for focus restoration
         $powerShellWindow = Get-PowershellMainWindow
 
+        switch ($PSCmdlet.ParameterSetName) {
+            'ProcessName' {
+
+                if ($null -eq $ProcessName) {
+
+                    $Process = Get-PowershellMainWindowProcess
+                    break;
+                }
+
+                $Process = Get-Process -Name $ProcessName
+                break;
+            }
+
+            'Process' {
+
+                break;
+            }
+
+            'WindowHelper' {
+
+                $Process = Get-Process | Where-Object -Property MainWindowHandle -EQ $WindowHelper.Handle
+                break;
+            }
+        }
+
         # if no process specified, use current powershell window
         if (($null -eq $Process) -or ($Process.Length -lt 1)) {
+
             $Process = @((Get-PowershellMainWindowProcess))
         }
     }
@@ -223,7 +281,7 @@ function Set-WindowPosition {
                         try {
                             # fallback to alt-tab if direct focus failed
                             $helper = New-Object -ComObject WScript.Shell
-                            $helper.sendKeys("%{TAB}")
+                            $null = $helper.sendKeys("%{TAB}")
                             Write-Verbose "Used Alt-Tab to restore focus"
 
                             [System.Threading.Thread]::Sleep(500)
@@ -271,8 +329,10 @@ function Set-WindowPosition {
         foreach ($currentProcess in $Process) {
 
             # get window handle - use powershell window or process main window
-            $window = $PowerShellWindow
-            if ($currentProcess.MainWindowHandle -ne $PowerShellWindow.Handle) {
+            $window = $WindowHelper ? $WindowHelper : $PowerShellWindow
+
+            if ((-not $window) -and ($currentProcess.MainWindowHandle -ne $PowerShellWindow.Handle)) {
+
                 $window = [GenXdev.Helpers.WindowObj]::GetMainWindow($currentProcess)[0]
             }
 
@@ -298,8 +358,31 @@ function Set-WindowPosition {
                 }
                 elseif ($Monitor -eq 0) {
 
-                    Write-Verbose "Picking monitor #1 (same as PowerShell), because no monitor specified"
+                    Write-Verbose "Picking monitor #1"
                     $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window.Position().X; Y = $window.Position().Y });
+                }
+            }
+
+            if ($SideBySide -and ($powerShellWindow.Handle -ne $window.Handle)) {
+
+                if ($PowershellScreen -eq $Screen) {
+
+                    if ($PowershellScreen.WorkingArea.Width -gt $PowershellScreen.WorkingArea.Height) {
+
+                        Set-WindowPosition -Left -Monitor $Monitor
+                        $FullScreen = $false
+                        $right = $true;
+                    }
+                    else {
+
+                        Set-WindowPosition -Bottom -Monitor $Monitor
+                        $FullScreen = $false
+                        $Top = $true
+                    }
+                }
+                else {
+
+                    $Fullscreen = $true;
                 }
             }
 
@@ -426,13 +509,17 @@ function Set-WindowPosition {
                 Write-Verbose "Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height"
             }
 
-            # perform the actual window positioning
-            $null = position $currentProcess $window $X $Y $Width $Height
+            if ($PSCmdlet.ShouldProcess(
+                    "Window of process '$($currentProcess.ProcessName)'",
+                    "Set position/size to: X=$X Y=$Y W=$Width H=$Height")) {
 
-            # return window helper if PassThru specified
-            if ($PassThru -eq $true) {
+                # perform the actual window positioning
+                $null = position $currentProcess $window $X $Y $Width $Height
 
-                $window
+                # return window helper if PassThru specified
+                if ($PassThru -eq $true) {
+                    $window
+                }
             }
         }
     }

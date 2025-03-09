@@ -23,7 +23,6 @@ function Get-CurrentFocusedProcess {
     param()
 
     begin {
-
         # define the windows api functions needed for window handling
         # this adds two critical User32.dll methods via P/Invoke:
         # - GetForegroundWindow: gets handle of active window

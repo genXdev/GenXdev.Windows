@@ -65,8 +65,9 @@ wps notepad -w 800 -h 600 -c -nb
 #>
 function Set-WindowPositionForSecondary {
     ###############################################################################
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     [Alias("wps")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
     param(
         ###############################################################################
         [parameter(
@@ -169,7 +170,6 @@ function Set-WindowPositionForSecondary {
     )
 
     begin {
-
         Write-Verbose "Initializing window positioning for secondary monitor"
 
         if ($Monitor -lt -1) {
@@ -207,13 +207,19 @@ function Set-WindowPositionForSecondary {
     process {
 
         # copy matching parameters to pass to Set-WindowPosition
-        $invocationArguments = Copy-IdenticalParamValues `
+        $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
             -BoundParameters $PSBoundParameters `
             -FunctionName "GenXdev.Windows\Set-WindowPosition" `
             -DefaultValues (Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
 
-        Write-Verbose "Forwarding parameters to Set-WindowPosition"
-        Set-WindowPosition @invocationArguments
+        # Add ShouldProcess check
+        $target = if ($Process) { "Process: $($Process.Name)" } else { "Window" }
+        $action = "Position on monitor $Monitor"
+
+        if ($PSCmdlet.ShouldProcess($target, $action)) {
+            Write-Verbose "Forwarding parameters to Set-WindowPosition"
+            Set-WindowPosition @invocationArguments
+        }
     }
 }
 ################################################################################

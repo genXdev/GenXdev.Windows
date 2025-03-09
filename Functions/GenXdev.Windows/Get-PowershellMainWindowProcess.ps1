@@ -23,12 +23,11 @@ function Get-PowershellMainWindowProcess {
     param()
 
     begin {
-
         # get reference to the powershell process currently executing this code
         $currentProcess = [System.Diagnostics.Process]::GetCurrentProcess()
 
         # initialize parent tracking, starting with current process
-        $parentProcess = $currentProcess
+        $parentProcess = $currentProcess.Parent
 
         # log the starting point of our search
         Write-Verbose "Starting process tree traversal from: $($currentProcess.ProcessName)"
@@ -37,7 +36,7 @@ function Get-PowershellMainWindowProcess {
     process {
 
         # traverse up process tree until we find a window or hit the root
-        while (($parentProcess.MainWindowHandle -eq 0) -and
+        while ((($null -ne $parentProcess) -and ($parentProcess.MainWindowHandle -eq 0)) -and
             ($null -ne $parentProcess.Parent)) {
 
             $parentProcess = $parentProcess.Parent
@@ -45,7 +44,7 @@ function Get-PowershellMainWindowProcess {
         }
 
         # if parent has a main window, use that process
-        if ($parentProcess.MainWindowHandle -ne 0) {
+        if (($null -ne $parentProcess) -and ($parentProcess.MainWindowHandle -ne 0)) {
 
             Write-Verbose "Found parent with main window: $($parentProcess.ProcessName)"
             $currentProcess = $parentProcess

@@ -66,10 +66,16 @@ function Get-KnownFolderPath {
     )
 
     begin {
+        # Define known folder GUIDs
+        $KnownFolders = @{
+            'Desktop'   = '{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}'
+            'Documents' = '{FDD39AD0-238F-46AF-ADB4-6C85480369C7}'
+            'Downloads' = '{374DE290-123F-4565-9164-39C4925E467B}'
+            # Add more folder GUIDs as needed...
+        }
 
         # check if the windows api type is already defined in the current session
-        $type = ([System.Management.Automation.PSTypeName]`
-                'KnownFolders.SHGetKnownFolderPath').Type
+        $type = ([System.Management.Automation.PSTypeName]'Win32.Shell32API').Type
 
         if (-not $type) {
             Write-Verbose "Defining Windows Shell32 API function"
@@ -86,29 +92,27 @@ public extern static int SHGetKnownFolderPath(
             # add the shell32 api function definition as a new .net type
             $type = Add-Type `
                 -MemberDefinition $signature `
-                -Namespace 'KnownFolders' `
-                -Name 'SHGetKnownFolderPath' `
+                -Namespace 'Win32' `
+                -Name 'Shell32API' `
                 -PassThru
         }
     }
 
     process {
-
         Write-Verbose "Getting path for known folder: $KnownFolder"
 
+        # Convert the GUID string to a GUID object
+        $folderGuid = New-Object Guid $KnownFolders[$KnownFolder]
+
         # create a reference variable to store the output path
-        $path = @{ value = $null }
+        [string]$path = $null
 
         # call the windows api to retrieve the folder path
-        $code = $type::SHGetKnownFolderPath(
-            [ref]$KnownFolders[$KnownFolder],
-            0,
-            0,
-            [ref]$path)
+        $code = $type::SHGetKnownFolderPath([ref]$folderGuid, 0, 0, [ref]$path)
 
         # check if the api call was successful and return the path
         if ($code -eq 0) {
-            return $path.value
+            return $path
         }
 
         Write-Verbose "Failed to get path for: $KnownFolder (code: $code)"

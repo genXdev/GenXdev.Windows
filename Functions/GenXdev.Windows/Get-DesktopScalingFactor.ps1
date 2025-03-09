@@ -25,6 +25,7 @@ parameter
 function Get-DesktopScalingFactor {
 
     [CmdletBinding()]
+    [OutputType([System.Single])]
     param(
         ########################################################################
         [Parameter(

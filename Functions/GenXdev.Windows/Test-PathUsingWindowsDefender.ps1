@@ -49,7 +49,6 @@ function Test-PathUsingWindowsDefender {
     )
 
     begin {
-
         # locate the windows defender command line utility
         $mpCmdRunPath = Get-MpCmdRunPath
 
@@ -62,7 +61,7 @@ function Test-PathUsingWindowsDefender {
     process {
 
         # convert relative or shortened paths to full filesystem paths
-        $expandedPath = Expand-Path $FilePath
+        $expandedPath = GenXdev.FileSystem\Expand-Path $FilePath
 
         # verify the target exists before attempting to scan
         if (-not [System.IO.File]::Exists($expandedPath)) {

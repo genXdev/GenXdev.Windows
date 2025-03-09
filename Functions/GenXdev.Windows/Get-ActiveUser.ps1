@@ -9,14 +9,14 @@ each process, and returns a deduplicated list of users who have active processes
 This is useful for system administration and security monitoring.
 
 .EXAMPLE
-Get-ActiveUsers
+Get-ActiveUser
 Returns a list of all unique usernames with active processes.
 
 .EXAMPLE
 gusers
 Uses the alias to get the same results.
 #>
-function Get-ActiveUsers {
+function Get-ActiveUser {
 
     [CmdletBinding()]
     [Alias("gusers")]
@@ -30,22 +30,21 @@ function Get-ActiveUsers {
 
     process {
 
-        # get all processes with their associated usernames
-        # this requires administrative privileges
+        # get all processes with associated usernames (requires admin privileges)
         $processes = Get-Process * -IncludeUserName
 
-        # extract unique usernames from the process list and remove duplicates
+        # extract and deduplicate usernames from process list
         $users = $processes |
         ForEach-Object UserName |
         Select-Object -Unique
 
-        # return the filtered list of usernames
+        # return the filtered list
         $users
     }
 
     end {
 
-        # output completion status with user count
+        # output completion status
         Write-Verbose "Process completed. Found $($users.Count) unique active users."
     }
 }

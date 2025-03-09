@@ -10,7 +10,7 @@ terminal window itself.
 
 .EXAMPLE
 $mainWindow = Get-PowershellMainWindow
-$mainWindow.SetForeground()
+$null = $mainWindow.SetForeground()
 
 .OUTPUTS
 GenXdev.Helpers.WindowObj
@@ -24,7 +24,6 @@ function Get-PowershellMainWindow {
     param()
 
     begin {
-
         # log the start of the window retrieval process
         Write-Verbose "Starting to locate PowerShell main window..."
     }

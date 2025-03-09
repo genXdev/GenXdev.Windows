@@ -19,6 +19,7 @@ Get-ChildProcesses -Verbose
 function Get-ChildProcesses {
 
     [CmdletBinding()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
     param()
 
     begin {
@@ -46,8 +47,8 @@ function Get-ChildProcesses {
             while ($null -ne $processToCheck.Parent) {
 
                 if ($processToCheck.Parent.Id -eq $currentProcessId) {
-                    Write-Verbose "Found child process: $($processToCheck.Name) `
-                            (ID: $($processToCheck.Id))"
+                    Write-Verbose ("Found child process: $($processToCheck.Name) " + `
+                            "ID: $($processToCheck.Id)")
                     return $true
                 }
 

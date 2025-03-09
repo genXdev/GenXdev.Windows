@@ -22,7 +22,6 @@ function Get-MonitorCount {
     param()
 
     begin {
-
         Write-Verbose "Starting monitor detection using WpfScreenHelper.Screen"
     }
 
