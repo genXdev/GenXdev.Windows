@@ -806,12 +806,12 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Set-WindowPosition [[-ProcessName] <String[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right]   
-   [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right]   
-   [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left]   
-   [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [[-ProcessName] <String[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
+   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-Process <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
+   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
+   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -997,8 +997,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>]   
-   [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom]   
+   [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -1162,8 +1162,7 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm]   
-   [<CommonParameters>]  
+   Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 

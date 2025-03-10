@@ -2,7 +2,7 @@
 ################################################################################
 Describe "Get-ActiveUser" {
 
-    It "should pass PSScriptAnalyzer rules" {
+    It "Should pass PSScriptAnalyzer rules" {
 
         # get the script path for analysis
         $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Get-ActiveUser.ps1"

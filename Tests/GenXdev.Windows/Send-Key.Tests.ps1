@@ -1,7 +1,7 @@
 ################################################################################
 Describe "Send-Key" {
 
-    It "should pass PSScriptAnalyzer rules" {
+    It "Should pass PSScriptAnalyzer rules" {
 
         # get the script path for analysis
         $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Send-Key.ps1"
