@@ -412,7 +412,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>] [<CommonParameters>]  
+   Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>]   
+   [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -466,8 +467,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm]   
-   [<CommonParameters>]  
+   Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf]   
+   [-Confirm] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -536,12 +537,12 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Send-Key [-KeysToSend] <String[]> [-Escape] [-ProcessName <String>] [-HoldKeyboardFocus] [-ShiftEnter]   
-   [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-Escape] [-ProcessId <Int32>] [-HoldKeyboardFocus] [-ShiftEnter]   
-   [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-Escape] [-WindowHandle <Int64>] [-HoldKeyboardFocus] [-ShiftEnter]   
-   [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <String[]> [-Escape] [-ProcessName <String>] [-HoldKeyboardFocus]   
+   [-ShiftEnter] [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <String[]> [-Escape] [-ProcessId <Int32>] [-HoldKeyboardFocus]   
+   [-ShiftEnter] [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <String[]> [-Escape] [-WindowHandle <Int64>] [-HoldKeyboardFocus]   
+   [-ShiftEnter] [-DelayMilliSeconds <Int32>] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -690,7 +691,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm]   
+   [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -810,15 +812,18 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Set-WindowPosition [[-ProcessName] <String[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>]   
+   Set-WindowPosition [[-ProcessName] <String[]>] [-Monitor <Int32>] [-NoBorders] [-Width   
+   <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom]   
+   [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm]   
+   [<CommonParameters>]  
+   Set-WindowPosition [-Process <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>]   
    [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
-   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height   
-   <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen]   
-   [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>]   
-   [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
-   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm]   
+   [<CommonParameters>]  
+   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width   
+   <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom]   
+   [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-WhatIf] [-Confirm]   
+   [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -1004,9 +1009,10 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders] [-Width   
-   <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]   
-   [-Fullscreen] [-RestoreFocus] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPositionForSecondary [[-Process] <Process[]>] [[-Monitor] <Int32>] [-NoBorders]   
+   [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top]   
+   [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-WhatIf] [-Confirm]   
+   [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
@@ -1170,8 +1176,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>]   
-   [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority]   
+   <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
