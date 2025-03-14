@@ -1267,7 +1267,8 @@ Update-Module
 ### SYNTAX 
 ````PowerShell 
 
-   Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>]  
+   Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation]   
+   [<CommonParameters>]  
 ```` 
 
 ### DESCRIPTION 
