@@ -159,35 +159,35 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
     IntPtr token, [MarshalAs(UnmanagedType.LPWStr)] string path);
 '@
             # load the shell32 api function into powershell runtime
-            $type = Add-Type -MemberDefinition $signature `
+            $type = Microsoft.PowerShell.Utility\Add-Type -MemberDefinition $signature `
                 -Namespace 'KnownFolders' `
                 -Name 'SHSetKnownFolderPathPS' `
                 -PassThru
         }
 
-        Write-Verbose "Starting known folder path change operation"
-        Write-Verbose "Target folder: $KnownFolder"
-        Write-Verbose "New path: $Path"
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting known folder path change operation"
+        Microsoft.PowerShell.Utility\Write-Verbose "Target folder: $KnownFolder"
+        Microsoft.PowerShell.Utility\Write-Verbose "New path: $Path"
     }
 
     process {
 
         # verify the destination path exists before attempting to move
-        if (-not (Test-Path -Path $Path -PathType Container)) {
+        if (-not (Microsoft.PowerShell.Management\Test-Path -Path $Path -PathType Container)) {
             $msg = "Could not find folder path: $Path"
-            Write-Error -Message $msg
+            Microsoft.PowerShell.Utility\Write-Error -Message $msg
             throw [System.IO.DirectoryNotFoundException] $msg
         }
 
         # lookup the folder's unique guid from our hash table
         $knownFolderId = $KnownFolders[$KnownFolder]
-        Write-Verbose "Found folder GUID: $knownFolderId"
+        Microsoft.PowerShell.Utility\Write-Verbose "Found folder GUID: $knownFolderId"
 
         if ($PSCmdlet.ShouldProcess($Path, "Set $KnownFolder location")) {
             # call shell32 api to perform the folder relocation
             # parameters: folderId (ref), flags (0), token (0), new path
             $result = $type::SHSetKnownFolderPath([ref]$knownFolderId, 0, 0, $Path)
-            Write-Verbose "Shell API call completed with result: $result"
+            Microsoft.PowerShell.Utility\Write-Verbose "Shell API call completed with result: $result"
             return $result
         }
     }

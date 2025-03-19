@@ -27,7 +27,7 @@ function Get-CurrentFocusedProcess {
         # this adds two critical User32.dll methods via P/Invoke:
         # - GetForegroundWindow: gets handle of active window
         # - GetWindowThreadProcessId: gets process ID from window handle
-        Add-Type -TypeDefinition @"
+        Microsoft.PowerShell.Utility\Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
 
@@ -44,11 +44,11 @@ public class User32 {
     process {
 
         # get the handle to the currently active window
-        Write-Verbose "Attempting to get foreground window handle"
+        Microsoft.PowerShell.Utility\Write-Verbose "Attempting to get foreground window handle"
         $foregroundWindow = [User32]::GetForegroundWindow()
 
         # retrieve the process id associated with the window handle
-        Write-Verbose "Getting process ID from window handle"
+        Microsoft.PowerShell.Utility\Write-Verbose "Getting process ID from window handle"
         $processId = 0
         $null = [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
 
@@ -56,17 +56,17 @@ public class User32 {
         if ($processId -ne 0) {
 
             # attempt to get the process object using the process id
-            Write-Verbose "Retrieving process object for ID: $processId"
-            $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
+            Microsoft.PowerShell.Utility\Write-Verbose "Retrieving process object for ID: $processId"
+            $process = Microsoft.PowerShell.Management\Get-Process -Id $processId -ErrorAction SilentlyContinue
 
             # return the process if found
             if ($process) {
-                Write-Verbose "Successfully found process: $($process.ProcessName)"
+                Microsoft.PowerShell.Utility\Write-Verbose "Successfully found process: $($process.ProcessName)"
                 return $process
             }
         }
 
-        Write-Warning "Could not retrieve process for the focused window"
+        Microsoft.PowerShell.Utility\Write-Warning "Could not retrieve process for the focused window"
     }
 
     end {

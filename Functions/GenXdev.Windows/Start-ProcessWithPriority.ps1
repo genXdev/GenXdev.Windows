@@ -89,7 +89,7 @@ function Start-ProcessWithPriority {
 
     begin {
         # log the start of process execution with priority level
-        Write-Verbose "Starting process '$FilePath' with priority '$Priority'"
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting process '$FilePath' with priority '$Priority'"
     }
 
     process {
@@ -100,7 +100,7 @@ function Start-ProcessWithPriority {
         }
 
         # launch the process with specified parameters and capture its handle
-        $process = Start-Process `
+        $process = Microsoft.PowerShell.Management\Start-Process `
             -FilePath $FilePath `
             -ArgumentList $ArgumentList `
             -PassThru `
@@ -108,17 +108,17 @@ function Start-ProcessWithPriority {
 
         # ensure the process started successfully
         if ($null -eq $process) {
-            Write-Warning "Failed to start process '$FilePath'"
+            Microsoft.PowerShell.Utility\Write-Warning "Failed to start process '$FilePath'"
             return
         }
 
         # apply the requested priority level to the running process
         $process.PriorityClass = $Priority
-        Write-Verbose "Process started with ID: $($process.Id)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Process started with ID: $($process.Id)"
 
         # return early if immediate execution is requested
         if ($NoWait) {
-            Write-Verbose "Not waiting for process completion"
+            Microsoft.PowerShell.Utility\Write-Verbose "Not waiting for process completion"
             if ($PassThru) {
                 return $process
             }
@@ -126,12 +126,12 @@ function Start-ProcessWithPriority {
         }
 
         # block execution until the process completes
-        Write-Verbose "Waiting for process to complete"
+        Microsoft.PowerShell.Utility\Write-Verbose "Waiting for process to complete"
         $process.WaitForExit()
 
         # return process information if requested
         if ($PassThru) {
-            Write-Verbose "Returning process object"
+            Microsoft.PowerShell.Utility\Write-Verbose "Returning process object"
             return $process
         }
     }

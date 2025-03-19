@@ -170,7 +170,7 @@ function Set-WindowPositionForSecondary {
     )
 
     begin {
-        Write-Verbose "Initializing window positioning for secondary monitor"
+        Microsoft.PowerShell.Utility\Write-Verbose "Initializing window positioning for secondary monitor"
 
         if ($Monitor -lt -1) {
 
@@ -182,15 +182,15 @@ function Set-WindowPositionForSecondary {
 
             # try to use globally configured secondary monitor if available
             if ([int]::TryParse($Global:DefaultSecondaryMonitor, [ref] $defaultMonitor)) {
-                Write-Verbose "Using configured secondary monitor: $defaultMonitor"
+                Microsoft.PowerShell.Utility\Write-Verbose "Using configured secondary monitor: $defaultMonitor"
                 $Monitor = $defaultMonitor % $allScreens.Length
             }
             else {
-                Write-Verbose "Using default secondary monitor: 1"
+                Microsoft.PowerShell.Utility\Write-Verbose "Using default secondary monitor: 1"
                 $Monitor = 1 % $allScreens.Length
             }
 
-            Write-Verbose "Selected monitor index: $Monitor"
+            Microsoft.PowerShell.Utility\Write-Verbose "Selected monitor index: $Monitor"
         }
 
         # ensure monitor parameter is included in bound parameters
@@ -210,15 +210,15 @@ function Set-WindowPositionForSecondary {
         $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
             -BoundParameters $PSBoundParameters `
             -FunctionName "GenXdev.Windows\Set-WindowPosition" `
-            -DefaultValues (Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
+            -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
 
         # Add ShouldProcess check
         $target = if ($Process) { "Process: $($Process.Name)" } else { "Window" }
         $action = "Position on monitor $Monitor"
 
         if ($PSCmdlet.ShouldProcess($target, $action)) {
-            Write-Verbose "Forwarding parameters to Set-WindowPosition"
-            Set-WindowPosition @invocationArguments
+            Microsoft.PowerShell.Utility\Write-Verbose "Forwarding parameters to Set-WindowPosition"
+            GenXdev.Windows\Set-WindowPosition @invocationArguments
         }
     }
 }

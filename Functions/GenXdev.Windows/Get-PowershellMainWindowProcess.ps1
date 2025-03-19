@@ -30,7 +30,7 @@ function Get-PowershellMainWindowProcess {
         $parentProcess = $currentProcess.Parent
 
         # log the starting point of our search
-        Write-Verbose "Starting process tree traversal from: $($currentProcess.ProcessName)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting process tree traversal from: $($currentProcess.ProcessName)"
     }
 
     process {
@@ -40,28 +40,28 @@ function Get-PowershellMainWindowProcess {
             ($null -ne $parentProcess.Parent)) {
 
             $parentProcess = $parentProcess.Parent
-            Write-Verbose "Examining parent process: $($parentProcess.ProcessName)"
+            Microsoft.PowerShell.Utility\Write-Verbose "Examining parent process: $($parentProcess.ProcessName)"
         }
 
         # if parent has a main window, use that process
         if (($null -ne $parentProcess) -and ($parentProcess.MainWindowHandle -ne 0)) {
 
-            Write-Verbose "Found parent with main window: $($parentProcess.ProcessName)"
+            Microsoft.PowerShell.Utility\Write-Verbose "Found parent with main window: $($parentProcess.ProcessName)"
             $currentProcess = $parentProcess
         }
         else {
             # look for other instances of parent process that have main windows
-            $similarProcess = Get-Process -Name $currentProcess.Parent.ProcessName |
-            Where-Object { 0 -ne $PSItem.MainWindowHandle } |
-            Select-Object -First 1
+            $similarProcess = Microsoft.PowerShell.Management\Get-Process -Name $currentProcess.Parent.ProcessName |
+            Microsoft.PowerShell.Core\Where-Object { 0 -ne $PSItem.MainWindowHandle } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
 
             if ($null -ne $similarProcess) {
 
-                Write-Verbose "Found similar process with window: $($similarProcess.ProcessName)"
+                Microsoft.PowerShell.Utility\Write-Verbose "Found similar process with window: $($similarProcess.ProcessName)"
                 $currentProcess = $similarProcess
             }
             else {
-                Write-Verbose "No window-owning process found in hierarchy"
+                Microsoft.PowerShell.Utility\Write-Verbose "No window-owning process found in hierarchy"
             }
         }
     }

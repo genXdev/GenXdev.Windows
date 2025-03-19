@@ -66,7 +66,7 @@ function Initialize-ScheduledTaskScripts {
         $now = [DateTime]::UtcNow
 
         # get current user credentials for task execution context
-        $credential = Get-Credential -UserName `
+        $credential = Microsoft.PowerShell.Security\Get-Credential -UserName `
         ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)
 
         # set default path if none provided and ensure directory exists
@@ -82,8 +82,8 @@ function Initialize-ScheduledTaskScripts {
         # set global workspace for task execution context
         $WorkspaceFolder = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\..\..\..\"
 
-        Write-Verbose "Task scripts will be created in: $FilePath"
-        Write-Verbose "Tasks will be prefixed with: $Prefix"
+        Microsoft.PowerShell.Utility\Write-Verbose "Task scripts will be created in: $FilePath"
+        Microsoft.PowerShell.Utility\Write-Verbose "Tasks will be prefixed with: $Prefix"
     }
 
     process {
@@ -115,36 +115,36 @@ function Initialize-ScheduledTaskScripts {
                 -FilePath "$FilePath\$TaskName.ps1"
 
             # create script file with logging if it doesn't exist
-            if (-not (Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
+            if (-not (Microsoft.PowerShell.Management\Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
                 if ($PSCmdlet.ShouldProcess($scriptPath, "Create task script file")) {
                     $scriptContent = @"
 # $Description
 
-$($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
+$($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
 
 "@
-                    $null = Set-Content -Path $scriptPath -Value $scriptContent
+                    $null = Microsoft.PowerShell.Management\Set-Content -Path $scriptPath -Value $scriptContent
                 }
             }
 
             # create task only if it doesn't already exist
-            if (-not (Get-ScheduledTask -TaskName $TaskName `
+            if (-not (ScheduledTasks\Get-ScheduledTask -TaskName $TaskName `
                         -TaskPath "\$Prefix\" -ErrorAction SilentlyContinue)) {
 
-                Write-Verbose "Preparing scheduled task: \$Prefix\$TaskName"
-                Write-Verbose "Task description: $Description"
+                Microsoft.PowerShell.Utility\Write-Verbose "Preparing scheduled task: \$Prefix\$TaskName"
+                Microsoft.PowerShell.Utility\Write-Verbose "Task description: $Description"
 
                 # configure the PowerShell execution command
                 $actionArguments = "-ExecutionPolicy Bypass -NoLogo -Command & `
                     `"'$scriptPath'`""
-                $action = New-ScheduledTaskAction `
-                    -Execute ((Get-Command "pwsh.exe").source) `
+                $action = ScheduledTasks\New-ScheduledTaskAction `
+                    -Execute ((Microsoft.PowerShell.Core\Get-Command "pwsh.exe").source) `
                     -Argument $actionArguments `
                     -Id "Exec $TaskName".Replace(" ", "_") `
                     -WorkingDirectory $WorkspaceFolder
 
                 # configure task execution settings
-                $settings = New-ScheduledTaskSettingsSet `
+                $settings = ScheduledTasks\New-ScheduledTaskSettingsSet `
                     -AllowStartIfOnBatteries `
                     -DontStopIfGoingOnBatteries `
                     -Hidden `
@@ -177,11 +177,11 @@ $($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log
                     Force       = $true
                 }
                 if ($PSCmdlet.ShouldProcess("$Prefix\$TaskName", "Create scheduled task")) {
-                    Register-ScheduledTask @taskParams
+                    ScheduledTasks\Register-ScheduledTask @taskParams
                 }
             }
             else {
-                Write-Verbose "Task already exists: \$Prefix\$TaskName"
+                Microsoft.PowerShell.Utility\Write-Verbose "Task already exists: \$Prefix\$TaskName"
             }
         }
 
@@ -189,13 +189,13 @@ $($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log
         New-TaskDefinition `
             -TaskName "${Prefix}_at_startup" `
             -Description "Scheduled-task executed at startup" `
-            -Trigger (New-ScheduledTaskTrigger -AtStartup)
+            -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -AtStartup)
 
         # create user logon triggered task
         New-TaskDefinition `
             -TaskName "${Prefix}_at_logon" `
             -Description "Scheduled-task executed at logon" `
-            -Trigger (New-ScheduledTaskTrigger -AtLogOn)
+            -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -AtLogOn)
 
         # create weekly tasks for each day and hour combination
         foreach ($day in $daysOfWeek) {
@@ -211,7 +211,7 @@ $($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log
                 New-TaskDefinition `
                     -TaskName $taskName `
                     -Description $description `
-                    -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek $day -At $at)
+                    -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -Weekly -DaysOfWeek $day -At $at)
             }
         }
 
@@ -227,7 +227,7 @@ $($Description | ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log
             New-TaskDefinition `
                 -TaskName $taskName `
                 -Description $description `
-                -Trigger (New-ScheduledTaskTrigger -Daily -At $at)
+                -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -Daily -At $at)
         }
     }
 

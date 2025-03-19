@@ -118,32 +118,32 @@ function Send-Key {
 
     begin {
         # initialize window handling variables
-        $helper = New-Object -ComObject WScript.Shell
+        $helper = Microsoft.PowerShell.Utility\New-Object -ComObject WScript.Shell
 
         # bring window to foreground
         $window = $null;
         if ($null -eq $window) {
             try {
                 $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
-                    -FunctionName "Get-Window" `
+                    -FunctionName "GenXdev.Windows\Get-Window" `
                     -BoundParameters $PSBoundParameters `
-                    -DefaultValues (Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
+                    -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable -Scope Local -Name * -ErrorAction SilentlyContinue)
 
                 if ((-not [string]::IsNullOrWhiteSpace($ProcessName)) -or ($ProcessId -ne 0) -or ($WindowHandle -ne 0)) {
 
-                    $window = Get-Window @invocationArguments -ErrorAction SilentlyContinue | Select-Object -First 1
+                    $window = GenXdev.Windows\Get-Window @invocationArguments -ErrorAction SilentlyContinue | Microsoft.PowerShell.Utility\Select-Object -First 1
                 }
             }
             catch {
-                Write-Warning $_.Exception.Message
+                Microsoft.PowerShell.Utility\Write-Warning $_.Exception.Message
             }
         }
         if ($null -ne $window) {
 
             $window.Show();
             $window.SetForeground()
-            $null = Set-ForegroundWindow -WindowHandle $window.Handle
-            Start-Sleep -Milliseconds 500
+            $null = GenXdev.Windows\Set-ForegroundWindow -WindowHandle $window.Handle
+            Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500
         }
     }
 
@@ -151,7 +151,7 @@ function Send-Key {
 
         try {
             foreach ($key in $KeysToSend) {
-                Write-Verbose "Processing key sequence: $key"
+                Microsoft.PowerShell.Utility\Write-Verbose "Processing key sequence: $key"
 
                 try {
                     # prepare key sequence for sending
@@ -174,15 +174,15 @@ function Send-Key {
                         $escapedQuery = $escapedQuery -replace '`n', '{ENTER}'
                     }
 
-                    Write-Verbose "Sending keys: $escapedQuery"
+                    Microsoft.PowerShell.Utility\Write-Verbose "Sending keys: $escapedQuery"
                     $null = $helper.sendKeys($escapedQuery, $true)
 
                     if ($DelayMilliSeconds -gt 0) {
-                        Start-Sleep -Milliseconds $DelayMilliSeconds
+                        Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds $DelayMilliSeconds
                     }
                 }
                 catch {
-                    Write-Warning $_.Exception.Message
+                    Microsoft.PowerShell.Utility\Write-Warning $_.Exception.Message
                 }
             }
         }
@@ -193,18 +193,18 @@ function Send-Key {
                     # restore PowerShell window focus if not holding focus
                     if (-not $HoldKeyboardFocus) {
                         try {
-                            Write-Verbose "Restoring PowerShell window focus"
-                            $psWindow = Get-PowershellMainWindow
+                            Microsoft.PowerShell.Utility\Write-Verbose "Restoring PowerShell window focus"
+                            $psWindow = GenXdev.Windows\Get-PowershellMainWindow
                             $null = $psWindow.SetForeground()
-                            $null = Set-ForegroundWindow -WindowHandle $psWindow.Handle
+                            $null = GenXdev.Windows\Set-ForegroundWindow -WindowHandle $psWindow.Handle
                         }
                         catch {
-                            Write-Warning $_.Exception.Message
+                            Microsoft.PowerShell.Utility\Write-Warning $_.Exception.Message
                         }
                     }
                 }
                 catch {
-                    Write-Warning $_.Exception.Message
+                    Microsoft.PowerShell.Utility\Write-Warning $_.Exception.Message
                 }
             }
         }

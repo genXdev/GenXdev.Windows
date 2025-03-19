@@ -21,7 +21,7 @@ function CurrentUserHasElevatedRights {
     param()
 
     begin {
-        Write-Verbose "Checking current user's security privileges..."
+        Microsoft.PowerShell.Utility\Write-Verbose "Checking current user's security privileges..."
     }
 
     process {
@@ -29,17 +29,17 @@ function CurrentUserHasElevatedRights {
         $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 
         # create a new principal object from the identity
-        $principal = New-Object System.Security.Principal.WindowsPrincipal($identity)
+        $principal = Microsoft.PowerShell.Utility\New-Object System.Security.Principal.WindowsPrincipal($identity)
 
         # check if user has admin or backup operator rights
         if ($principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator) -or
             $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::BackupOperator)) {
 
-            Write-Verbose "User has elevated rights"
+            Microsoft.PowerShell.Utility\Write-Verbose "User has elevated rights"
             return $true
         }
 
-        Write-Verbose "User does not have elevated rights"
+        Microsoft.PowerShell.Utility\Write-Verbose "User does not have elevated rights"
         return $false
     }
 

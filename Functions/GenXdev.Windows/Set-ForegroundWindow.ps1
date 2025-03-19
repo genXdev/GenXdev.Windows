@@ -40,7 +40,7 @@ function Set-ForegroundWindow {
 
     begin {
         # log the activation attempt with the window handle
-        Write-Verbose "Attempting to set foreground window for handle: $WindowHandle"
+        Microsoft.PowerShell.Utility\Write-Verbose "Attempting to set foreground window for handle: $WindowHandle"
     }
 
     process {
@@ -49,22 +49,22 @@ function Set-ForegroundWindow {
 
             try {
                 # try the preferred SwitchToThisWindow API first as it's more reliable
-                Write-Verbose "Attempting primary method: SwitchToThisWindow..."
+                Microsoft.PowerShell.Utility\Write-Verbose "Attempting primary method: SwitchToThisWindow..."
                 $null = [GenXdev.Helpers.WindowObj]::SwitchToThisWindow($WindowHandle, $false)
             }
             catch {
                 # log failure of primary activation method
-                Write-Verbose "SwitchToThisWindow failed: $($_.Exception.Message)"
+                Microsoft.PowerShell.Utility\Write-Verbose "SwitchToThisWindow failed: $($_.Exception.Message)"
             }
 
             try {
                 # attempt SetForegroundWindow as fallback if first method failed
-                Write-Verbose "Attempting fallback method: SetForegroundWindow..."
+                Microsoft.PowerShell.Utility\Write-Verbose "Attempting fallback method: SetForegroundWindow..."
                 $null = [GenXdev.Helpers.WindowObj]::SetForegroundWindow($WindowHandle)
             }
             catch {
                 # log failure of backup activation method
-                Write-Verbose "SetForegroundWindow failed: $($_.Exception.Message)"
+                Microsoft.PowerShell.Utility\Write-Verbose "SetForegroundWindow failed: $($_.Exception.Message)"
             }
         }
     }

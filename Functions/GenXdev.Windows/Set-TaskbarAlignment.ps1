@@ -43,7 +43,7 @@ function Set-TaskbarAlignment {
         $regPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
         # log the requested alignment change for troubleshooting
-        Write-Verbose "Setting taskbar alignment to: $Justify"
+        Microsoft.PowerShell.Utility\Write-Verbose "Setting taskbar alignment to: $Justify"
     }
 
     process {
@@ -58,11 +58,11 @@ function Set-TaskbarAlignment {
             )) {
 
             # update the registry key
-            $null = Set-ItemProperty -Path $regPath `
+            $null = Microsoft.PowerShell.Management\Set-ItemProperty -Path $regPath `
                 -Name "TaskbarAl" `
                 -Value $value
 
-            Write-Verbose "Registry value 'TaskbarAl' set to: $value"
+            Microsoft.PowerShell.Utility\Write-Verbose "Registry value 'TaskbarAl' set to: $value"
         }
     }
 

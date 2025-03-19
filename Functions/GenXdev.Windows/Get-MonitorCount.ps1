@@ -22,7 +22,7 @@ function Get-MonitorCount {
     param()
 
     begin {
-        Write-Verbose "Starting monitor detection using WpfScreenHelper.Screen"
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting monitor detection using WpfScreenHelper.Screen"
     }
 
     process {
@@ -30,7 +30,7 @@ function Get-MonitorCount {
         # use wpf screen helper to get array of all connected display monitors
         $screenCount = @([WpfScreenHelper.Screen]::AllScreens).Count
 
-        Write-Verbose "Detected $screenCount physical monitor(s) connected"
+        Microsoft.PowerShell.Utility\Write-Verbose "Detected $screenCount physical monitor(s) connected"
 
         # return the total number of monitors found
         $screenCount

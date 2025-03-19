@@ -25,18 +25,18 @@ function Get-ActiveUser {
     begin {
 
         # inform about the start of process enumeration
-        Write-Verbose "Starting to enumerate all system processes..."
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting to enumerate all system processes..."
     }
 
     process {
 
         # get all processes with associated usernames (requires admin privileges)
-        $processes = Get-Process * -IncludeUserName
+        $processes = Microsoft.PowerShell.Management\Get-Process * -IncludeUserName
 
         # extract and deduplicate usernames from process list
         $users = $processes |
-        ForEach-Object UserName |
-        Select-Object -Unique
+        Microsoft.PowerShell.Core\ForEach-Object UserName |
+        Microsoft.PowerShell.Utility\Select-Object -Unique
 
         # return the filtered list
         $users
@@ -45,7 +45,7 @@ function Get-ActiveUser {
     end {
 
         # output completion status
-        Write-Verbose "Process completed. Found $($users.Count) unique active users."
+        Microsoft.PowerShell.Utility\Write-Verbose "Process completed. Found $($users.Count) unique active users."
     }
 }
 ################################################################################

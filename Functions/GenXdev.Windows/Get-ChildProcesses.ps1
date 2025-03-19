@@ -25,29 +25,29 @@ function Get-ChildProcesses {
     begin {
 
         # log start of process detection
-        Write-Verbose "Starting child process detection..."
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting child process detection..."
 
         # store current powershell process id for parent chain comparison
         $currentProcessId = $PID
-        Write-Verbose "Current process ID: $currentProcessId"
+        Microsoft.PowerShell.Utility\Write-Verbose "Current process ID: $currentProcessId"
     }
 
     process {
 
         # get all processes currently running on the system
-        $allProcesses = Get-Process
-        Write-Verbose "Retrieved $($allProcesses.Count) total processes"
+        $allProcesses = Microsoft.PowerShell.Management\Get-Process
+        Microsoft.PowerShell.Utility\Write-Verbose "Retrieved $($allProcesses.Count) total processes"
 
         # filter processes by checking if current process is in their parent chain
         $allProcesses |
-        Where-Object {
+        Microsoft.PowerShell.Core\Where-Object {
             $processToCheck = $_
 
             # traverse up the parent chain until we find our process or hit top
             while ($null -ne $processToCheck.Parent) {
 
                 if ($processToCheck.Parent.Id -eq $currentProcessId) {
-                    Write-Verbose ("Found child process: $($processToCheck.Name) " + `
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Found child process: $($processToCheck.Name) " + `
                             "ID: $($processToCheck.Id)")
                     return $true
                 }
@@ -61,7 +61,7 @@ function Get-ChildProcesses {
 
     end {
 
-        Write-Verbose "Completed child process detection"
+        Microsoft.PowerShell.Utility\Write-Verbose "Completed child process detection"
     }
 }
 ################################################################################

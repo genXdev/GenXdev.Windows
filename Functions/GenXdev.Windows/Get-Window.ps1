@@ -66,7 +66,7 @@ function Get-Window {
     )
 
     begin {
-        Write-Verbose "Starting Get-Window with ParameterSet: $($PSCmdlet.ParameterSetName)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting Get-Window with ParameterSet: $($PSCmdlet.ParameterSetName)"
     }
 
     process {
@@ -74,7 +74,7 @@ function Get-Window {
         # if window handle provided, get window info directly
         if ($WindowHandle -ne 0) {
 
-            Write-Verbose "Getting window information for handle: $WindowHandle"
+            Microsoft.PowerShell.Utility\Write-Verbose "Getting window information for handle: $WindowHandle"
             [GenXdev.Helpers.WindowObj]::GetMainWindow($WindowHandle)
             return
         }
@@ -82,8 +82,8 @@ function Get-Window {
         # if process id provided, get window info for that specific process
         if ($ProcessId -ne 0) {
 
-            Write-Verbose "Getting window information for process ID: $ProcessId"
-            $process = Get-Process -Id $ProcessId -ErrorAction SilentlyContinue
+            Microsoft.PowerShell.Utility\Write-Verbose "Getting window information for process ID: $ProcessId"
+            $process = Microsoft.PowerShell.Management\Get-Process -Id $ProcessId -ErrorAction SilentlyContinue
 
             if ($null -ne $process -and $process.MainWindowHandle -ne 0) {
                 [GenXdev.Helpers.WindowObj]::GetMainWindow($process)
@@ -92,14 +92,14 @@ function Get-Window {
         }
 
         # get window info for all processes matching the name pattern
-        Write-Verbose "Getting window information for process name: $ProcessName"
+        Microsoft.PowerShell.Utility\Write-Verbose "Getting window information for process name: $ProcessName"
         if (-not ($ProcessName.Contains("*") -or $ProcessName.Contains("?"))) {
 
             $ProcessName = "$ProcessName*"
         }
-        Get-Process "$ProcessName" -ErrorAction SilentlyContinue |
-        Where-Object { $_.MainWindowHandle -ne 0 } |
-        ForEach-Object {
+        Microsoft.PowerShell.Management\Get-Process "$ProcessName" -ErrorAction SilentlyContinue |
+        Microsoft.PowerShell.Core\Where-Object { $_.MainWindowHandle -ne 0 } |
+        Microsoft.PowerShell.Core\ForEach-Object {
             [GenXdev.Helpers.WindowObj]::GetMainWindow($_)
         }
     }

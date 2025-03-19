@@ -41,7 +41,7 @@ function Get-DesktopScalingFactor {
     begin {
 
         # log the requested monitor index for troubleshooting
-        Write-Verbose "Getting scaling factor for monitor index: $Monitor"
+        Microsoft.PowerShell.Utility\Write-Verbose "Getting scaling factor for monitor index: $Monitor"
     }
 
     process {

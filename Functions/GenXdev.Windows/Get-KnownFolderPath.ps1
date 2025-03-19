@@ -78,7 +78,7 @@ function Get-KnownFolderPath {
         $type = ([System.Management.Automation.PSTypeName]'Win32.Shell32API').Type
 
         if (-not $type) {
-            Write-Verbose "Defining Windows Shell32 API function"
+            Microsoft.PowerShell.Utility\Write-Verbose "Defining Windows Shell32 API function"
 
             # define the p/invoke signature for SHGetKnownFolderPath
             $signature = @'
@@ -90,7 +90,7 @@ public extern static int SHGetKnownFolderPath(
     [MarshalAs(UnmanagedType.LPWStr)] out string pszPath);
 '@
             # add the shell32 api function definition as a new .net type
-            $type = Add-Type `
+            $type = Microsoft.PowerShell.Utility\Add-Type `
                 -MemberDefinition $signature `
                 -Namespace 'Win32' `
                 -Name 'Shell32API' `
@@ -99,10 +99,10 @@ public extern static int SHGetKnownFolderPath(
     }
 
     process {
-        Write-Verbose "Getting path for known folder: $KnownFolder"
+        Microsoft.PowerShell.Utility\Write-Verbose "Getting path for known folder: $KnownFolder"
 
         # Convert the GUID string to a GUID object
-        $folderGuid = New-Object Guid $KnownFolders[$KnownFolder]
+        $folderGuid = Microsoft.PowerShell.Utility\New-Object Guid $KnownFolders[$KnownFolder]
 
         # create a reference variable to store the output path
         [string]$path = $null
@@ -115,7 +115,7 @@ public extern static int SHGetKnownFolderPath(
             return $path
         }
 
-        Write-Verbose "Failed to get path for: $KnownFolder (code: $code)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Failed to get path for: $KnownFolder (code: $code)"
         return $null
     }
 

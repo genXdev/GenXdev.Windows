@@ -25,34 +25,34 @@ function Get-PowershellMainWindow {
 
     begin {
         # log the start of the window retrieval process
-        Write-Verbose "Starting to locate PowerShell main window..."
+        Microsoft.PowerShell.Utility\Write-Verbose "Starting to locate PowerShell main window..."
     }
 
     process {
 
         # get the powershell host process using the helper function
-        Write-Verbose "Retrieving PowerShell host process..."
-        $process = Get-PowershellMainWindowProcess
+        Microsoft.PowerShell.Utility\Write-Verbose "Retrieving PowerShell host process..."
+        $process = GenXdev.Windows\Get-PowershellMainWindowProcess
 
         # verify we have a valid process before proceeding
         if ($null -eq $process) {
-            Write-Error "Failed to retrieve PowerShell host process"
+            Microsoft.PowerShell.Utility\Write-Error "Failed to retrieve PowerShell host process"
             return
         }
 
-        Write-Verbose "Found PowerShell process with ID: $($process.Id)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Found PowerShell process with ID: $($process.Id)"
 
         # attempt to get the main window handle from the process
-        Write-Verbose "Attempting to get main window handle..."
+        Microsoft.PowerShell.Utility\Write-Verbose "Attempting to get main window handle..."
         $mainWindow = [GenXdev.Helpers.WindowObj]::GetMainWindow($process)[0]
 
         # verify we have a valid window handle
         if ($null -eq $mainWindow) {
-            Write-Error "Failed to retrieve main window for PowerShell process"
+            Microsoft.PowerShell.Utility\Write-Error "Failed to retrieve main window for PowerShell process"
             return
         }
 
-        Write-Verbose "Successfully retrieved main window handle: $($mainWindow.Handle)"
+        Microsoft.PowerShell.Utility\Write-Verbose "Successfully retrieved main window handle: $($mainWindow.Handle)"
 
         # return the window object for manipulation
         $mainWindow

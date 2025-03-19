@@ -23,11 +23,11 @@ function Get-MpCmdRunPath {
 
     begin {
         # construct the expected path for the Windows Defender command-line tool
-        $mpCmdRunPath = Join-Path -Path $env:ProgramFiles `
+        $mpCmdRunPath = Microsoft.PowerShell.Management\Join-Path -Path $env:ProgramFiles `
             -ChildPath "Windows Defender\MpCmdRun.exe"
 
         # log the path we're checking
-        Write-Verbose "Attempting to locate MpCmdRun.exe at: $mpCmdRunPath"
+        Microsoft.PowerShell.Utility\Write-Verbose "Attempting to locate MpCmdRun.exe at: $mpCmdRunPath"
     }
 
     process {
@@ -35,13 +35,13 @@ function Get-MpCmdRunPath {
         # verify file existence using optimized IO.File method instead of Test-Path
         if ([IO.File]::Exists($mpCmdRunPath)) {
 
-            Write-Verbose "Successfully located MpCmdRun.exe"
+            Microsoft.PowerShell.Utility\Write-Verbose "Successfully located MpCmdRun.exe"
             return $mpCmdRunPath
         }
 
         # if executable not found, throw descriptive error
         $errorMsg = "Windows Defender executable not found at: $mpCmdRunPath"
-        Write-Error -Message $errorMsg -Category ObjectNotFound
+        Microsoft.PowerShell.Utility\Write-Error -Message $errorMsg -Category ObjectNotFound
     }
 
     end {

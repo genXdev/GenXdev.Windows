@@ -50,7 +50,7 @@ function Test-PathUsingWindowsDefender {
 
     begin {
         # locate the windows defender command line utility
-        $mpCmdRunPath = Get-MpCmdRunPath
+        $mpCmdRunPath = GenXdev.Windows\Get-MpCmdRunPath
 
         # ensure the windows defender cli is available
         if ($null -eq $mpCmdRunPath) {
@@ -65,11 +65,11 @@ function Test-PathUsingWindowsDefender {
 
         # verify the target exists before attempting to scan
         if (-not [System.IO.File]::Exists($expandedPath)) {
-            Write-Error "File or directory not found: $expandedPath"
+            Microsoft.PowerShell.Utility\Write-Error "File or directory not found: $expandedPath"
             return $false
         }
 
-        Write-Verbose "Initiating Windows Defender scan of: $expandedPath"
+        Microsoft.PowerShell.Utility\Write-Verbose "Initiating Windows Defender scan of: $expandedPath"
 
         # construct the scan command parameters
         $scanParams = @(
@@ -83,11 +83,11 @@ function Test-PathUsingWindowsDefender {
             $scanParams += "-DisableRemediation"
         }
 
-        Write-Verbose "Executing scan with parameters: $($scanParams -join ' ')"
+        Microsoft.PowerShell.Utility\Write-Verbose "Executing scan with parameters: $($scanParams -join ' ')"
 
         # execute the windows defender scan and capture output
-        $null = & $mpCmdRunPath $scanParams | ForEach-Object {
-            Write-Verbose $_
+        $null = & $mpCmdRunPath $scanParams | Microsoft.PowerShell.Core\ForEach-Object {
+            Microsoft.PowerShell.Utility\Write-Verbose $_
         }
 
         # return scan result: true = no threats, false = threats found
