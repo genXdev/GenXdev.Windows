@@ -98,7 +98,8 @@ public extern static int SHGetKnownFolderPath(
         }
     }
 
-    process {
+
+process {
         Microsoft.PowerShell.Utility\Write-Verbose "Getting path for known folder: $KnownFolder"
 
         # Convert the GUID string to a GUID object

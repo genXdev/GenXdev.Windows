@@ -41,7 +41,8 @@ public class User32 {
 "@
     }
 
-    process {
+
+process {
 
         # get the handle to the currently active window
         Microsoft.PowerShell.Utility\Write-Verbose "Attempting to get foreground window handle"

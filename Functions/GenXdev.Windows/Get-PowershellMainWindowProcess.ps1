@@ -33,7 +33,8 @@ function Get-PowershellMainWindowProcess {
         Microsoft.PowerShell.Utility\Write-Verbose "Starting process tree traversal from: $($currentProcess.ProcessName)"
     }
 
-    process {
+
+process {
 
         # traverse up process tree until we find a window or hit the root
         while ((($null -ne $parentProcess) -and ($parentProcess.MainWindowHandle -eq 0)) -and

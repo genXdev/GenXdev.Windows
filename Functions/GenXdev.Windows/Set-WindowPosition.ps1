@@ -249,7 +249,8 @@ function Set-WindowPosition {
         }
     }
 
-    Process {
+
+process {
 
         # get primary screen and all available screens
         $screen = [WpfScreenHelper.Screen]::PrimaryScreen

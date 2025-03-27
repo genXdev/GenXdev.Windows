@@ -69,7 +69,8 @@ function Get-Window {
         Microsoft.PowerShell.Utility\Write-Verbose "Starting Get-Window with ParameterSet: $($PSCmdlet.ParameterSetName)"
     }
 
-    process {
+
+process {
 
         # if window handle provided, get window info directly
         if ($WindowHandle -ne 0) {

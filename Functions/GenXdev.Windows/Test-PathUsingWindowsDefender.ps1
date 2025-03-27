@@ -58,7 +58,8 @@ function Test-PathUsingWindowsDefender {
         }
     }
 
-    process {
+
+process {
 
         # convert relative or shortened paths to full filesystem paths
         $expandedPath = GenXdev.FileSystem\Expand-Path $FilePath

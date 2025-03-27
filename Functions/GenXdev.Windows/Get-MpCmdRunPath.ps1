@@ -30,7 +30,8 @@ function Get-MpCmdRunPath {
         Microsoft.PowerShell.Utility\Write-Verbose "Attempting to locate MpCmdRun.exe at: $mpCmdRunPath"
     }
 
-    process {
+
+process {
 
         # verify file existence using optimized IO.File method instead of Test-Path
         if ([IO.File]::Exists($mpCmdRunPath)) {

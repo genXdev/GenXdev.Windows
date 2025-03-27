@@ -147,7 +147,8 @@ function Send-Key {
         }
     }
 
-    process {
+
+process {
 
         try {
             foreach ($key in $KeysToSend) {

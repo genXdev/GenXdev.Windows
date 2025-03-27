@@ -43,7 +43,8 @@ function Set-ForegroundWindow {
         Microsoft.PowerShell.Utility\Write-Verbose "Attempting to set foreground window for handle: $WindowHandle"
     }
 
-    process {
+
+process {
 
         if ($PSCmdlet.ShouldProcess("Window $WindowHandle", "Set as foreground window")) {
 

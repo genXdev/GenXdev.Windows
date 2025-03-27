@@ -28,7 +28,8 @@ function Get-PowershellMainWindow {
         Microsoft.PowerShell.Utility\Write-Verbose "Starting to locate PowerShell main window..."
     }
 
-    process {
+
+process {
 
         # get the powershell host process using the helper function
         Microsoft.PowerShell.Utility\Write-Verbose "Retrieving PowerShell host process..."

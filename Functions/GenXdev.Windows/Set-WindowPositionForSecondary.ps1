@@ -204,7 +204,8 @@ function Set-WindowPositionForSecondary {
         }
     }
 
-    process {
+
+process {
 
         # copy matching parameters to pass to Set-WindowPosition
         $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `

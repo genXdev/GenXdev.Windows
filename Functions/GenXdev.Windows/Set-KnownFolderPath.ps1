@@ -170,7 +170,8 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
         Microsoft.PowerShell.Utility\Write-Verbose "New path: $Path"
     }
 
-    process {
+
+process {
 
         # verify the destination path exists before attempting to move
         if (-not (Microsoft.PowerShell.Management\Test-Path -Path $Path -PathType Container)) {

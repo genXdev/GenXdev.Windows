@@ -32,7 +32,8 @@ function Get-ChildProcesses {
         Microsoft.PowerShell.Utility\Write-Verbose "Current process ID: $currentProcessId"
     }
 
-    process {
+
+process {
 
         # get all processes currently running on the system
         $allProcesses = Microsoft.PowerShell.Management\Get-Process

@@ -44,7 +44,8 @@ function Get-DesktopScalingFactor {
         Microsoft.PowerShell.Utility\Write-Verbose "Getting scaling factor for monitor index: $Monitor"
     }
 
-    process {
+
+process {
 
         # invoke the native method to retrieve the current scaling factor
         # uses the GenXdev.Helpers.DesktopInfo class's static method

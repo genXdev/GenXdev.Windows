@@ -92,7 +92,8 @@ function Start-ProcessWithPriority {
         Microsoft.PowerShell.Utility\Write-Verbose "Starting process '$FilePath' with priority '$Priority'"
     }
 
-    process {
+
+process {
         # check if the user wants to proceed with starting the process
         $processDescription = "Start process '$FilePath' with priority '$Priority'"
         if (-not $PSCmdlet.ShouldProcess($processDescription)) {

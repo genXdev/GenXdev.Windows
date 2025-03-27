@@ -86,7 +86,8 @@ function Initialize-ScheduledTaskScripts {
         Microsoft.PowerShell.Utility\Write-Verbose "Tasks will be prefixed with: $Prefix"
     }
 
-    process {
+
+process {
 
         ###########################################################################
         <#

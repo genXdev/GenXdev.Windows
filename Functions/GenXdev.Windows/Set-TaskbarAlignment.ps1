@@ -46,7 +46,8 @@ function Set-TaskbarAlignment {
         Microsoft.PowerShell.Utility\Write-Verbose "Setting taskbar alignment to: $Justify"
     }
 
-    process {
+
+process {
 
         # convert the alignment choice to its corresponding registry value
         $value = if ($Justify -eq "Left") { 0 } else { 1 }
