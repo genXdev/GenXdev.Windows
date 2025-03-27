@@ -10,6 +10,8 @@
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-PowershellMainWindowProcess.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-Window.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Initialize-ScheduledTaskScripts.ps1"
+. "$PSScriptRoot\Functions\GenXdev.Windows\Pop-Window.ps1"
+. "$PSScriptRoot\Functions\GenXdev.Windows\Push-Window.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Send-Key.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Set-ForegroundWindow.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Set-KnownFolderPath.ps1"

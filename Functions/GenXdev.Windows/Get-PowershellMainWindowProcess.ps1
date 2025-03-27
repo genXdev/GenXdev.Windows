@@ -65,6 +65,71 @@ process {
                 Microsoft.PowerShell.Utility\Write-Verbose "No window-owning process found in hierarchy"
             }
         }
+
+        # Additional check for environments like Visual Studio Code
+        if ($currentProcess.ProcessName -eq "Code") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected Visual Studio Code as the host. Adjusting logic..."
+            $vscodeProcess = Microsoft.PowerShell.Management\Get-Process -Name "Code" |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $vscodeProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using Visual Studio Code process as the host."
+                $currentProcess = $vscodeProcess
+            }
+        }
+
+        # Additional check for environments like Visual Studio
+        if ($currentProcess.ProcessName -eq "devenv") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected Visual Studio (devenv) as the host. Adjusting logic..."
+            $vsProcess = Microsoft.PowerShell.Management\Get-Process -Name "devenv" |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $vsProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using Visual Studio process as the host."
+                $currentProcess = $vsProcess
+            }
+        }
+
+        # Additional check for VSCodium (VSCode fork)
+        if ($currentProcess.ProcessName -eq "VSCodium") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected VSCodium as the host. Adjusting logic..."
+            $vscodiumProcess = Microsoft.PowerShell.Management\Get-Process -Name "VSCodium" |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $vscodiumProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using VSCodium process as the host."
+                $currentProcess = $vscodiumProcess
+            }
+        }
+
+        # Additional check for Code - OSS (open-source VSCode fork)
+        if ($currentProcess.ProcessName -eq "Code - OSS") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected Code - OSS as the host. Adjusting logic..."
+            $codeOssProcess = Microsoft.PowerShell.Management\Get-Process -Name "Code - OSS" |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $codeOssProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using Code - OSS process as the host."
+                $currentProcess = $codeOssProcess
+            }
+        }
+
+        # Additional check for JetBrains IDEs (e.g., IntelliJ IDEA, PyCharm, etc.)
+        if ($currentProcess.ProcessName -match "idea64|pycharm64|webstorm64|clion64|goland64|rider64") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected JetBrains IDE as the host. Adjusting logic..."
+            $jetbrainsProcess = Microsoft.PowerShell.Management\Get-Process -Name $currentProcess.ProcessName |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $jetbrainsProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using JetBrains IDE process as the host."
+                $currentProcess = $jetbrainsProcess
+            }
+        }
     }
 
     end {
