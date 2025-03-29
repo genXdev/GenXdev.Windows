@@ -430,7 +430,38 @@ function Push-Window {
         }
 
         # apply positioning parameters
-        if ($Left) {
+        # Check if both horizontal and vertical positioning are specified
+        $horizontalPos = $Left -or $Right
+        $verticalPos = $Top -or $Bottom
+        $cornerPositioning = $horizontalPos -and $verticalPos
+
+        if ($cornerPositioning) {
+            # Handle corner positioning (quarter screen)
+            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to corner (quarter screen)"
+
+            if ($Left) {
+                if ($Top) {
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-left corner"
+                    $null = $window.PositionTopLeft()
+                }
+                else { # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-left corner"
+                    $null = $window.PositionBottomLeft()
+                }
+            }
+            else { # Right
+                if ($Top) {
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-right corner"
+                    $null = $window.PositionTopRight()
+                }
+                else { # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-right corner"
+                    $null = $window.PositionBottomRight()
+                }
+            }
+        }
+        # Original half-screen positioning logic
+        elseif ($Left) {
             Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to left half"
             $null = $window.PositionLeft()
         }

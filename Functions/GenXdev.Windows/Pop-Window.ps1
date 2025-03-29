@@ -491,7 +491,42 @@ function Pop-Window {
         }
 
         # apply positioning parameters - with enhanced logging
-        if ($Left) {
+        # Check if both horizontal and vertical positioning are specified
+        $horizontalPos = $Left -or $Right
+        $verticalPos = $Top -or $Bottom
+        $cornerPositioning = $horizontalPos -and $verticalPos
+
+        if ($cornerPositioning) {
+            # Handle corner positioning (quarter screen)
+            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to corner (quarter screen)"
+
+            if ($Left) {
+                if ($Top) {
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-left corner"
+                    $result = $poppedWindow.PositionTopLeft()
+                    Microsoft.PowerShell.Utility\Write-Verbose "PositionTopLeft result: $result"
+                }
+                else { # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-left corner"
+                    $result = $poppedWindow.PositionBottomLeft()
+                    Microsoft.PowerShell.Utility\Write-Verbose "PositionBottomLeft result: $result"
+                }
+            }
+            else { # Right
+                if ($Top) {
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-right corner"
+                    $result = $poppedWindow.PositionTopRight()
+                    Microsoft.PowerShell.Utility\Write-Verbose "PositionTopRight result: $result"
+                }
+                else { # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-right corner"
+                    $result = $poppedWindow.PositionBottomRight()
+                    Microsoft.PowerShell.Utility\Write-Verbose "PositionBottomRight result: $result"
+                }
+            }
+        }
+        # Original half-screen positioning logic
+        elseif ($Left) {
             Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to left half of screen"
             $result = $poppedWindow.PositionLeft()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionLeft result: $result"
@@ -557,15 +592,12 @@ function Pop-Window {
             $null = $poppedWindow.SetForeground()
         }
 
-        # Force a UI refresh to ensure changes are visible
-        [System.Runtime.InteropServices.Marshal]::ReleaseComObject([System.Runtime.InteropServices.Marshal]::GetActiveObject("Shell.Application")) | Microsoft.PowerShell.Core\Out-Null
-
-        # return the window object for potential further manipulation
+        # return the window object for potential further manipulationanipulation
         return $poppedWindow
     }
 
-    ############################################################################
+    ################################################################################################################################
     end {
     }
 }
-################################################################################
+#######################################################################################################################################################

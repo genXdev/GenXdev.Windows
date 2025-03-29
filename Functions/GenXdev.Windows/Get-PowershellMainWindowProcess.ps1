@@ -79,6 +79,19 @@ process {
             }
         }
 
+        # Additional check for VS Code Insiders edition
+        if ($currentProcess.ProcessName -eq "Code - Insiders") {
+            Microsoft.PowerShell.Utility\Write-Verbose "Detected VS Code Insiders as the host. Adjusting logic..."
+            $vscodeInsidersProcess = Microsoft.PowerShell.Management\Get-Process -Name "Code - Insiders" |
+            Microsoft.PowerShell.Core\Where-Object { $_.Id -eq $currentProcess.Id } |
+            Microsoft.PowerShell.Utility\Select-Object -First 1
+
+            if ($null -ne $vscodeInsidersProcess) {
+                Microsoft.PowerShell.Utility\Write-Verbose "Using VS Code Insiders process as the host."
+                $currentProcess = $vscodeInsidersProcess
+            }
+        }
+
         # Additional check for environments like Visual Studio
         if ($currentProcess.ProcessName -eq "devenv") {
             Microsoft.PowerShell.Utility\Write-Verbose "Detected Visual Studio (devenv) as the host. Adjusting logic..."
