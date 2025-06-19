@@ -37,13 +37,16 @@ Update-Module
 | Command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | aliases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- | --- |
 | [CurrentUserHasElevatedRights](#CurrentUserHasElevatedRights) |  | Checks if the current user has elevated rights. |
+| [EnsurePSTools](#EnsurePSTools) |  | Ensures Sysinternals tools (PSTools) are installed and available. |
 | [Get-ActiveUser](#Get-ActiveUser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
 | [Get-ChildProcesses](#Get-ChildProcesses) |  | Retrieves all processes that are descendants of the current PowerShell process. |
 | [Get-CurrentFocusedProcess](#Get-CurrentFocusedProcess) |  | Retrieves the process object of the window that currently has keyboard focus. |
 | [Get-DesktopScalingFactor](#Get-DesktopScalingFactor) |  | Retrieves the Windows display scaling factor (DPI setting) for a specified monitor. |
+| [Get-ForegroundWindow](#Get-ForegroundWindow) |  |  |
 | [Get-KnownFolderPath](#Get-KnownFolderPath) | folder | Gets the path of a Windows known folder using the Windows Shell32 API. |
 | [Get-MonitorCount](#Get-MonitorCount) |  | Gets the total number of display monitors connected to the system. |
 | [Get-MpCmdRunPath](#Get-MpCmdRunPath) |  | Gets the path to the Windows Defender MpCmdRun.exe executable. |
+| [Get-OpenedFileHandleProcesses](#Get-OpenedFileHandleProcesses) |  | Retrieves processes that have open file handles to specified files. |
 | [Get-PowershellMainWindow](#Get-PowershellMainWindow) |  | Returns a window helper object for the PowerShell terminal's main window. |
 | [Get-PowershellMainWindowProcess](#Get-PowershellMainWindowProcess) |  | Returns the process object for the window hosting the PowerShell terminal. |
 | [Get-Window](#Get-Window) | gwin, window | Gets window information for specified processes or window handles. |
@@ -101,6 +104,82 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > $hasRights = CurrentUserHasElevatedRights
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    EnsurePSTools
+    
+SYNOPSIS
+    Ensures Sysinternals tools (PSTools) are installed and available.
+    
+    
+SYNTAX
+    EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Verifies if Sysinternals tools like handle.exe are installed and properly
+    configured on the system. If not found, installs the Sysinternals Suite
+    using WinGet and handles the complete installation process automatically.
+    
+
+PARAMETERS
+    -Force [<SwitchParameter>]
+        Switch to force reinstallation of Sysinternals tools even if they are already
+        installed.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PSExeName <String>
+        The executable name to check for verifying Sysinternals tools installation.
+        Default is 'handle.exe'.
+        
+        Required?                    false
+        Position?                    1
+        Default value                handle.exe
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > EnsurePSTools
+    Ensures Sysinternals tools are installed and properly configured.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > EnsurePSTools -Force -PSExeName 'procexp.exe'
+    Forces reinstallation of Sysinternals tools and uses procexp.exe to verify
+    installation.
     
     
     
@@ -337,6 +416,37 @@ RELATED LINKS
 <br/><hr/><hr/><br/>
  
 NAME
+    Get-ForegroundWindow
+    
+SYNTAX
+    Get-ForegroundWindow [<CommonParameters>]
+    
+    
+PARAMETERS
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+    
+INPUTS
+    None
+    
+    
+OUTPUTS
+    System.Object
+    
+ALIASES
+    None
+    
+
+REMARKS
+    None 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
     Get-KnownFolderPath
     
 SYNOPSIS
@@ -500,6 +610,75 @@ OUTPUTS
     
     PS > $defenderPath = Get-MpCmdRunPath
     # Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-OpenedFileHandleProcesses
+    
+SYNOPSIS
+    Retrieves processes that have open file handles to specified files.
+    
+    
+SYNTAX
+    Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Uses the Sysinternals handle.exe tool to identify processes that currently have
+    open handles to one or more specified files. This is useful for determining
+    which processes are preventing file operations like deletion or modification.
+    
+    The function requires handle.exe from the Sysinternals suite to be installed
+    and available in the system path. It parses the output from handle.exe to
+    identify processes with open handles to the specified files and returns
+    detailed information about those processes.
+    
+
+PARAMETERS
+    -FilePath <String[]>
+        The path to the file(s) to check for open handles. Supports pipeline input.
+        Multiple file paths can be provided to check multiple files at once.
+        
+        Required?                    true
+        Position?                    1
+        Default value                
+        Accept pipeline input?       true (ByValue, ByPropertyName)
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-OpenedFileHandleProcesses -FilePath "C:\temp\example.txt"
+    # Identifies all processes that have open handles to the specified file
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > "file1.txt", "file2.txt" | Get-OpenedFileHandleProcesses
+    # Checks multiple files via pipeline input for processes with open handles
     
     
     
@@ -2439,13 +2618,15 @@ SYNTAX
 DESCRIPTION
     Performs a targeted scan of specified files or directories using Windows
     Defender's command-line interface (MpCmdRun.exe). The function can either scan
-    in detection-only mode or with automatic threat remediation enabled.
+    in detection-only mode or with automatic threat remediation enabled. Returns
+    true if no threats are detected, false if threats are found or scan fails.
     
 
 PARAMETERS
     -FilePath <String>
         The full or relative path to the file or directory to be scanned. The path will
-        be expanded to its full form before scanning.
+        be expanded to its full form before scanning. Accepts pipeline input and
+        supports both individual files and directories.
         
         Required?                    true
         Position?                    1
@@ -2455,8 +2636,9 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -EnableRemediation [<SwitchParameter>]
-        When specified, allows Windows Defender to automatically remove or quarantine any
-        detected threats. If omitted, the scan will only detect and report threats.
+        When specified, allows Windows Defender to automatically remove or quarantine
+        any detected threats. If omitted, the scan will only detect and report threats
+        without taking any remediation action.
         
         Required?                    false
         Position?                    named
@@ -2489,6 +2671,15 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > virusscan "C:\Downloads\file.exe" -EnableRemediation
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > "C:\Downloads\file.exe" | HasNoVirus
     
     
     
