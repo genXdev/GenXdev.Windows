@@ -37,6 +37,7 @@ Update-Module
 | Command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | aliases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
 | --- | --- | --- |
 | [CurrentUserHasElevatedRights](#CurrentUserHasElevatedRights) |  | Checks if the current user has elevated rights. |
+| [EnsureDockerDesktop](#EnsureDockerDesktop) |  | Checks if the WinGet PowerShell module is installed. |
 | [EnsurePSTools](#EnsurePSTools) |  | Ensures Sysinternals tools (PSTools) are installed and available. |
 | [Get-ActiveUser](#Get-ActiveUser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
 | [Get-ChildProcesses](#Get-ChildProcesses) |  | Retrieves all processes that are descendants of the current PowerShell process. |
@@ -61,6 +62,20 @@ Update-Module
 | [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window on the secondary monitor with specified layout options. |
 | [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice | Starts a process with a specified priority level. |
 | [Test-PathUsingWindowsDefender](#Test-PathUsingWindowsDefender) | virusscan | Scans files or directories for malware using Windows Defender. |
+
+<hr/>
+&nbsp;
+
+### GenXdev.Windows.WireGuard</hr>
+| Command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | aliases&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Description |
+| --- | --- | --- |
+| [Add-WireGuardPeer](#Add-WireGuardPeer) |  | Adds a new WireGuard VPN peer (client) configuration to the server. |
+| [EnsureWireGuard](#EnsureWireGuard) |  | Ensures WireGuard VPN service is installed and running via Docker container. |
+| [Get-WireGuardPeerQRCode](#Get-WireGuardPeerQRCode) |  | Generates a QR code for a WireGuard VPN peer configuration. |
+| [Get-WireGuardPeers](#Get-WireGuardPeers) |  | Gets information about all WireGuard VPN peers configured on the system. |
+| [Get-WireGuardStatus](#Get-WireGuardStatus) |  | Gets detailed status information about the WireGuard VPN server. |
+| [Remove-WireGuardPeer](#Remove-WireGuardPeer) |  | Removes a WireGuard VPN peer configuration. |
+| [Reset-WireGuardConfiguration](#Reset-WireGuardConfiguration) |  | Resets the WireGuard VPN server configuration, removing all peers. |
 
 <br/><hr/><hr/><br/>
 
@@ -104,6 +119,76 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > $hasRights = CurrentUserHasElevatedRights
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    EnsureDockerDesktop
+    
+SYNOPSIS
+    Ensures Docker Desktop is installed and available for containerization
+    operations.
+    
+    
+SYNTAX
+    EnsureDockerDesktop [-ShowWindow] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Verifies if Docker Desktop is installed and properly configured on the system.
+    If not found, installs Docker Desktop using WinGet and handles the complete
+    installation process automatically. This function also manages Docker Desktop
+    service startup, daemon readiness verification, and handles authentication
+    requirements when necessary. The function includes comprehensive path
+    management for both system and user-level Docker installations.
+    
+
+PARAMETERS
+    -ShowWindow [<SwitchParameter>]
+        Shows the Docker Desktop window during initialization when specified. When
+        this switch is enabled, Docker Desktop will start with its window visible
+        instead of minimized to the system tray.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > EnsureDockerDesktop
+    Ensures Docker Desktop is installed and properly configured.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > EnsureDockerDesktop -ShowWindow
+    Ensures Docker Desktop is installed, properly configured, and shows its UI
+    window.
     
     
     
@@ -511,6 +596,7 @@ OUTPUTS
     -------------------------- EXAMPLE 3 --------------------------
     
     PS > cd (folder Desktop)
+    # Changes to the Desktop folder using the alias
     
     
     
@@ -1838,18 +1924,22 @@ SYNTAX
     
     
 DESCRIPTION
-    Uses the Windows Shell32 API to relocate system folders like Documents, Downloads,
-    or Desktop to a new location. The function validates the target path exists,
-    looks up the folder's unique GUID, and uses the SHSetKnownFolderPath API to
-    perform the relocation. Common use cases include moving user folders to a
-    different drive for space management or organization.
+    Uses the Windows Shell32 API to relocate system folders like Documents,
+    Downloads, Desktop, or other known Windows folders to a new location. The
+    function validates the target path exists, looks up the folder's unique GUID
+    from the comprehensive known folders registry, and uses the SHSetKnownFolderPath
+    API to perform the relocation. Common use cases include moving user folders to
+    a different drive for space management or organization. Exercise caution when
+    moving system-critical folders as this may affect system stability.
     
 
 PARAMETERS
     -KnownFolder <String>
-        The name of the known folder to relocate. Only specific system folders can be
-        moved to prevent system instability. Valid values are restricted to commonly
-        moved user folders.
+        The name of the known folder to relocate. Supports all Windows known folders
+        including user folders (Documents, Downloads, Desktop, Pictures, Videos,
+        Music), system folders (Windows, System, ProgramFiles), and special folders
+        (Recent, Favorites, SendTo, etc.). Use with caution as moving certain system
+        folders may cause instability.
         
         Required?                    true
         Position?                    1
@@ -1901,7 +1991,6 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Set-KnownFolderPath -KnownFolder 'Documents' -Path 'D:\UserDocs'
-    # Moves the Documents folder to D:\UserDocs using full parameter names
     
     
     
@@ -1911,7 +2000,6 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Set-KnownFolderPath Downloads 'E:\Downloads'
-    # Moves the Downloads folder using positional parameters
     
     
     
@@ -2682,6 +2770,1401 @@ OUTPUTS
     PS > "C:\Downloads\file.exe" | HasNoVirus
     
     
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+
+&nbsp;<hr/>
+###	GenXdev.Windows.WireGuard<hr/> 
+NAME
+    Add-WireGuardPeer
+    
+SYNTAX
+    Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>] [[-OutputPath] <string>] [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-SaveConfig] [-ShowQRCode] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+    
+    
+PARAMETERS
+    -AllowedIPs <string>
+        The IP ranges that will be routed through the VPN
+        
+        Required?                    false
+        Position?                    1
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -Confirm
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      cf
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -ContainerName <string>
+        The name for the Docker container
+        
+        Required?                    false
+        Position?                    4
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -DNS <string>
+        DNS servers to use for this peer
+        
+        Required?                    false
+        Position?                    2
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -Force
+        Force rebuild of Docker container and remove existing data
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      ForceRebuild
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <int>
+        Interval in seconds between health check attempts
+        
+        Required?                    false
+        Position?                    8
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <int>
+        Maximum time in seconds to wait for service health check
+        
+        Required?                    false
+        Position?                    7
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -ImageName <string>
+        Custom Docker image name to use
+        
+        Required?                    false
+        Position?                    9
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -NoDockerInitialize
+        Skip Docker initialization (used when already called by parent function)
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -OutputPath <string>
+        The path where the peer configuration file should be saved
+        
+        Required?                    false
+        Position?                    3
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -PGID <string>
+        Group ID for permissions in the container
+        
+        Required?                    false
+        Position?                    11
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -PUID <string>
+        User ID for permissions in the container
+        
+        Required?                    false
+        Position?                    10
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -PeerName <string>
+        A unique name for the peer
+        
+        Required?                    true
+        Position?                    0
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -SaveConfig
+        Save the peer configuration to a file
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -ServicePort <int>
+        The port number for the WireGuard service
+        
+        Required?                    false
+        Position?                    6
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -ShowQRCode
+        Show QR code in the console for easy mobile setup
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -TimeZone <string>
+        Timezone to use for the container
+        
+        Required?                    false
+        Position?                    12
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -VolumeName <string>
+        The name for the Docker volume for persistent storage
+        
+        Required?                    false
+        Position?                    5
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      None
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -WhatIf
+        
+        Required?                    false
+        Position?                    Named
+        Accept pipeline input?       false
+        Parameter set name           (All)
+        Aliases                      wi
+        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+    
+INPUTS
+    None
+    
+    
+OUTPUTS
+    System.Object
+    
+ALIASES
+    None
+    
+
+REMARKS
+    None 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    EnsureWireGuard
+    
+SYNOPSIS
+    Ensures WireGuard VPN service is installed and running via Docker container.
+    
+    
+SYNTAX
+    EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-Force] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function sets up and manages the WireGuard VPN service using Docker
+    Desktop. It automatically ensures Docker Desktop is running, pulls the latest
+    WireGuard Docker image, creates persistent storage volumes, and manages the
+    container lifecycle including health monitoring and restart capabilities.
+    
+    WireGuard is a simple, fast, and modern VPN that utilizes state-of-the-art
+    cryptography. It offers superior performance and simplicity compared to
+    traditional VPN solutions like OpenVPN, with minimal configuration overhead
+    and excellent cross-platform support.
+    
+
+PARAMETERS
+    -ContainerName <String>
+        The name for the Docker container. Default: "wireguard"
+        
+        Required?                    false
+        Position?                    1
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name for the Docker volume for persistent storage of configuration files
+        and client certificates. Default: "wireguard_data"
+        
+        Required?                    false
+        Position?                    2
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The UDP port number for the WireGuard service to listen on. Must be between
+        1-65535. Default: 51820
+        
+        Required?                    false
+        Position?                    3
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for service health check before timing out.
+        Must be between 10-300 seconds. Default: 60
+        
+        Required?                    false
+        Position?                    4
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between health check attempts during startup validation.
+        Must be between 1-10 seconds. Default: 3
+        
+        Required?                    false
+        Position?                    5
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use instead of the default. If not specified,
+        uses the official "linuxserver/wireguard" image from Docker Hub.
+        
+        Required?                    false
+        Position?                    6
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for file permissions inside the container. Should match your host
+        system user ID for proper file access. Default: "1000"
+        
+        Required?                    false
+        Position?                    7
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for file permissions inside the container. Should match your host
+        system group ID for proper file access. Default: "1000"
+        
+        Required?                    false
+        Position?                    8
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone identifier to use for container logging and timestamps. Uses standard
+        timezone database format. Default: "Etc/UTC"
+        
+        Required?                    false
+        Position?                    9
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        Forces complete rebuilding of Docker container and removes all existing data.
+        This will stop and remove existing containers and volumes, pull the latest
+        WireGuard image, and create a fresh container with clean configuration.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    System.Boolean
+    
+    
+NOTES
+    
+    
+        To generate client configurations after setup:
+        - Run: docker exec -it wireguard /app/show-peer 1
+        
+        For Android 10 and above:
+        - Install the official WireGuard app from Google Play Store
+        - Scan the QR code or import the config file to connect
+        
+        For more information, see: https://www.wireguard.com/
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > EnsureWireGuard
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > EnsureWireGuard -ContainerName "my_wireguard" -ServicePort 51821
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > EnsureWireGuard -VolumeName "custom_vpn_data" -HealthCheckTimeout 120
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 4 --------------------------
+    
+    PS > EnsureWireGuard -PUID 1001 -PGID 1001 -TimeZone "America/New_York"
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 5 --------------------------
+    
+    PS > EnsureWireGuard -Force
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-WireGuardPeerQRCode
+    
+SYNOPSIS
+    Generates a QR code for a WireGuard VPN peer configuration.
+    
+    
+SYNTAX
+    Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function generates a QR code for a WireGuard VPN peer configuration that
+    can be scanned by mobile devices for easy setup. The QR code is displayed in
+    the console and can be used to quickly configure WireGuard clients on
+    smartphones and tablets. The function interacts with the linuxserver/wireguard
+    Docker container to generate QR codes for peer configurations.
+    
+
+PARAMETERS
+    -PeerName <String>
+        The name of the peer to generate a QR code for.
+        
+        Required?                    true
+        Position?                    1
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -NoDockerInitialize [<SwitchParameter>]
+        Skip Docker initialization (used when already called by parent function).
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        Force rebuild of Docker container and remove existing data.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ContainerName <String>
+        The name for the Docker container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name for the Docker volume for persistent storage.
+        
+        Required?                    false
+        Position?                    named
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The port number for the WireGuard service.
+        
+        Required?                    false
+        Position?                    named
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for service health check.
+        
+        Required?                    false
+        Position?                    named
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between health check attempts.
+        
+        Required?                    false
+        Position?                    named
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use.
+        
+        Required?                    false
+        Position?                    named
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone to use for the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+NOTES
+    
+    
+        This function requires the container to be running (use EnsureWireGuard first)
+        and the peer to exist (use Add-WireGuardPeer to create peers).
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-WireGuardPeerQRCode -PeerName "MyPhone"
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-WireGuardPeers
+    
+SYNOPSIS
+    Gets information about all WireGuard VPN peers configured on the system.
+    
+    
+SYNTAX
+    Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function retrieves comprehensive information about all WireGuard VPN peers
+    configured on the server running in a Docker container. It provides detailed
+    information including peer names, public keys, allowed IP addresses, connection
+    endpoints, handshake status, data transfer statistics, and current connection
+    status. The function can operate in conjunction with parent functions or
+    independently manage Docker container initialization.
+    
+
+PARAMETERS
+    -NoDockerInitialize [<SwitchParameter>]
+        Skip Docker initialization process when this function is called by a parent
+        function that has already handled container setup.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        Force complete rebuild of the Docker container and remove all existing
+        persistent data before starting fresh.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ContainerName <String>
+        The name identifier for the Docker container running the WireGuard service.
+        Must be a valid Docker container name.
+        
+        Required?                    false
+        Position?                    1
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name identifier for the Docker volume used for persistent storage of
+        WireGuard configuration and peer data.
+        
+        Required?                    false
+        Position?                    2
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The UDP port number on which the WireGuard service listens for VPN connections.
+        Must be within valid port range.
+        
+        Required?                    false
+        Position?                    3
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for the WireGuard service to respond to health
+        check attempts before considering it failed.
+        
+        Required?                    false
+        Position?                    4
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between consecutive health check attempts when waiting for
+        the service to become ready.
+        
+        Required?                    false
+        Position?                    5
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use instead of the default linuxserver/wireguard
+        image for the container.
+        
+        Required?                    false
+        Position?                    6
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for file permissions and process ownership within the Docker container.
+        Used for security and permission management.
+        
+        Required?                    false
+        Position?                    7
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for file permissions and process ownership within the Docker container.
+        Used for security and permission management.
+        
+        Required?                    false
+        Position?                    8
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone setting to use for the container's system clock and log timestamps.
+        Should be a valid timezone identifier.
+        
+        Required?                    false
+        Position?                    9
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+NOTES
+    
+    
+        This function interacts with the linuxserver/wireguard Docker container to
+        retrieve information about configured WireGuard peers. The container must be
+        running and accessible. Use EnsureWireGuard function first if container setup
+        is required.
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-WireGuardPeers
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Get-WireGuardPeers -NoDockerInitialize -ContainerName "custom_wireguard" `
+                       -ServicePort 55555
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-WireGuardStatus
+    
+SYNOPSIS
+    Gets detailed status information about the WireGuard VPN server.
+    
+    
+SYNTAX
+    Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function retrieves detailed status information about the WireGuard VPN
+    server running in a Docker container, including interface details, listening
+    port, connected peers, and server health. It provides comprehensive information
+    about the WireGuard service including server status, peer counts, uptime, and
+    network configuration details.
+    
+
+PARAMETERS
+    -NoDockerInitialize [<SwitchParameter>]
+        Skip Docker initialization (used when already called by parent function).
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        Force rebuild of Docker container and remove existing data.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ContainerName <String>
+        The name for the Docker container.
+        
+        Required?                    false
+        Position?                    1
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name for the Docker volume for persistent storage.
+        
+        Required?                    false
+        Position?                    2
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The port number for the WireGuard service.
+        
+        Required?                    false
+        Position?                    3
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for service health check.
+        
+        Required?                    false
+        Position?                    4
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between health check attempts.
+        
+        Required?                    false
+        Position?                    5
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use.
+        
+        Required?                    false
+        Position?                    6
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    7
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    8
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone to use for the container.
+        
+        Required?                    false
+        Position?                    9
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+NOTES
+    
+    
+        This function interacts with the linuxserver/wireguard Docker container to
+        retrieve status information about the WireGuard server. It requires the
+        container to be running (use EnsureWireGuard first).
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-WireGuardStatus
+    
+    Returns the status of the WireGuard server with default settings.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Get-WireGuardStatus -NoDockerInitialize -ContainerName "custom_wireguard"
+    
+    Retrieves status for a custom container without initializing Docker.
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Remove-WireGuardPeer
+    
+SYNOPSIS
+    Removes a WireGuard VPN peer configuration.
+    
+    
+SYNTAX
+    Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-Force] [-NoDockerInitialize] [-WhatIf] [-Confirm] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function removes a WireGuard VPN peer configuration from the server running
+    in a Docker container. It deletes the peer's configuration files and updates the
+    WireGuard server to stop accepting connections from this peer. The function
+    validates peer existence before removal and provides confirmation prompts unless
+    the Force parameter is specified.
+    
+
+PARAMETERS
+    -PeerName <String>
+        The name of the peer to remove from the WireGuard configuration.
+        
+        Required?                    true
+        Position?                    1
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ContainerName <String>
+        The name for the Docker container running the WireGuard service.
+        
+        Required?                    false
+        Position?                    named
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name for the Docker volume used for persistent storage.
+        
+        Required?                    false
+        Position?                    named
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The port number for the WireGuard service.
+        
+        Required?                    false
+        Position?                    named
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for service health check.
+        
+        Required?                    false
+        Position?                    named
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between health check attempts.
+        
+        Required?                    false
+        Position?                    named
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use for the WireGuard container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for permissions in the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone to use for the container.
+        
+        Required?                    false
+        Position?                    named
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        If specified, bypasses confirmation prompts when removing the peer.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -NoDockerInitialize [<SwitchParameter>]
+        Skip Docker initialization when already called by parent function.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -WhatIf [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Confirm [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+NOTES
+    
+    
+        This function interacts with the linuxserver/wireguard Docker container to manage
+        WireGuard peers. It requires the container to be running (use EnsureWireGuard
+        first). The function will validate peer existence before attempting removal and
+        provides detailed error handling for failed operations.
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Remove-WireGuardPeer -PeerName "MyPhone"
+    
+    Removes the peer named "MyPhone" with confirmation prompt.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Remove-WireGuardPeer -PeerName "Tablet" -Force
+    
+    Removes the peer named "Tablet" without confirmation prompt.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > Remove-WireGuardPeer "WorkLaptop"
+    
+    Removes the peer using positional parameter syntax.
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Reset-WireGuardConfiguration
+    
+SYNOPSIS
+    Resets the WireGuard VPN server configuration, removing all peers.
+    
+    
+SYNTAX
+    Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function resets the WireGuard VPN server configuration running in a Docker
+    container by removing all peers and generating a fresh server configuration.
+    This is a destructive operation that cannot be undone and will permanently
+    remove all peer configurations. The function stops the WireGuard service,
+    removes all peer directories and configuration files, removes server keys,
+    restarts the container, and verifies that a new configuration is generated.
+    
+
+PARAMETERS
+    -ContainerName <String>
+        The name for the Docker container. Defaults to 'wireguard' if not specified.
+        Used to identify which container to operate on.
+        
+        Required?                    false
+        Position?                    1
+        Default value                wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -VolumeName <String>
+        The name for the Docker volume for persistent storage. Defaults to
+        'wireguard_data' if not specified. Used for data persistence across container
+        restarts.
+        
+        Required?                    false
+        Position?                    2
+        Default value                wireguard_data
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ServicePort <Int32>
+        The port number for the WireGuard service. Must be between 1 and 65535.
+        Defaults to 51820. This is the UDP port WireGuard will listen on.
+        
+        Required?                    false
+        Position?                    3
+        Default value                51820
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckTimeout <Int32>
+        Maximum time in seconds to wait for service health check. Must be between 10
+        and 300 seconds. Defaults to 60 seconds. Used when verifying service health.
+        
+        Required?                    false
+        Position?                    4
+        Default value                60
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -HealthCheckInterval <Int32>
+        Interval in seconds between health check attempts. Must be between 1 and 10
+        seconds. Defaults to 3 seconds. Controls how often health checks are performed.
+        
+        Required?                    false
+        Position?                    5
+        Default value                3
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -ImageName <String>
+        Custom Docker image name to use. Defaults to 'linuxserver/wireguard'. This
+        allows using alternative WireGuard Docker images if needed.
+        
+        Required?                    false
+        Position?                    6
+        Default value                linuxserver/wireguard
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PUID <String>
+        User ID for permissions in the container. Defaults to '1000'. This controls
+        file ownership and permissions within the container.
+        
+        Required?                    false
+        Position?                    7
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -PGID <String>
+        Group ID for permissions in the container. Defaults to '1000'. This controls
+        group ownership and permissions within the container.
+        
+        Required?                    false
+        Position?                    8
+        Default value                1000
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -TimeZone <String>
+        Timezone to use for the container. Defaults to 'Etc/UTC'. This sets the
+        container's timezone for logging and scheduling purposes.
+        
+        Required?                    false
+        Position?                    9
+        Default value                Etc/UTC
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -NoDockerInitialize [<SwitchParameter>]
+        Skip Docker initialization (used when already called by parent function).
+        When specified, assumes Docker and WireGuard are already initialized.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
+        If specified, bypasses confirmation prompts when removing all peer
+        configurations. Use with caution as this is a destructive operation.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -WhatIf [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Confirm [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+NOTES
+    
+    
+        This function interacts with the linuxserver/wireguard Docker container to reset
+        the WireGuard server configuration. It requires the container to be running
+        (use EnsureWireGuard first). This operation will remove all peer configurations
+        and cannot be undone. The function will restart the container to regenerate
+        a fresh configuration.
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Reset-WireGuardConfiguration
+    
+    Resets the WireGuard configuration with default settings and prompts for
+    confirmation before proceeding.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Reset-WireGuardConfiguration -Force -ContainerName "my-wireguard"
+    
+    Resets the WireGuard configuration for a custom container name without
+    confirmation prompts.
     
     
     

@@ -1,4 +1,5 @@
 . "$PSScriptRoot\Functions\GenXdev.Windows\CurrentUserHasElevatedRights.ps1"
+. "$PSScriptRoot\Functions\GenXdev.Windows\EnsureDockerDesktop.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\EnsurePSTools.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-ActiveUser.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-ChildProcesses.ps1"

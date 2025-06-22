@@ -1,7 +1,7 @@
 ################################################################################
 
 # define known folder guids for windows shell api
-$KnownFolders = @{
+$knownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
     'AddNewPrograms'        = 'de61d971-5ebc-4f02-a3a9-6c82895e5c04';
     'AdminTools'            = '724EF170-A42D-4FEF-9F26-B60E846FBA4F';
@@ -92,21 +92,27 @@ $KnownFolders = @{
     'Windows'               = 'F38BF404-1D43-42F2-9305-67DE0B28FC23';
 }
 
+###############################################################################
+
 <#
 .SYNOPSIS
 Modifies the physical path of a Windows known folder.
 
 .DESCRIPTION
-Uses the Windows Shell32 API to relocate system folders like Documents, Downloads,
-or Desktop to a new location. The function validates the target path exists,
-looks up the folder's unique GUID, and uses the SHSetKnownFolderPath API to
-perform the relocation. Common use cases include moving user folders to a
-different drive for space management or organization.
+Uses the Windows Shell32 API to relocate system folders like Documents,
+Downloads, Desktop, or other known Windows folders to a new location. The
+function validates the target path exists, looks up the folder's unique GUID
+from the comprehensive known folders registry, and uses the SHSetKnownFolderPath
+API to perform the relocation. Common use cases include moving user folders to
+a different drive for space management or organization. Exercise caution when
+moving system-critical folders as this may affect system stability.
 
 .PARAMETER KnownFolder
-The name of the known folder to relocate. Only specific system folders can be
-moved to prevent system instability. Valid values are restricted to commonly
-moved user folders.
+The name of the known folder to relocate. Supports all Windows known folders
+including user folders (Documents, Downloads, Desktop, Pictures, Videos,
+Music), system folders (Windows, System, ProgramFiles), and special folders
+(Recent, Favorites, SendTo, etc.). Use with caution as moving certain system
+folders may cause instability.
 
 .PARAMETER Path
 The new physical file system path where the known folder should be located.
@@ -115,83 +121,132 @@ throw an error if the path is invalid or inaccessible.
 
 .EXAMPLE
 Set-KnownFolderPath -KnownFolder 'Documents' -Path 'D:\UserDocs'
-# Moves the Documents folder to D:\UserDocs using full parameter names
 
 .EXAMPLE
 Set-KnownFolderPath Downloads 'E:\Downloads'
-# Moves the Downloads folder using positional parameters
 #>
 function Set-KnownFolderPath {
 
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     param(
-        ########################################################################
+        ###################################################################
         [Parameter(
-            Mandatory = $true,
             Position = 0,
+            Mandatory = $true,
             HelpMessage = "Known folder to modify"
         )]
-        [ValidateSet('3DObjects', 'Desktop', 'Documents', 'Downloads',
-            'Pictures', 'Videos')]
+        [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools',
+            'AppUpdates', 'CDBurning', 'ChangeRemovePrograms',
+            'CommonAdminTools', 'CommonOEMLinks', 'CommonPrograms',
+            'CommonStartMenu', 'CommonStartup', 'CommonTemplates',
+            'ComputerFolder', 'ConflictFolder', 'ConnectionsFolder',
+            'Contacts', 'ControlPanelFolder', 'Cookies', 'Desktop',
+            'Documents', 'Downloads', 'Favorites', 'Fonts', 'Games',
+            'GameTasks', 'History', 'InternetCache', 'InternetFolder',
+            'Links', 'LocalAppData', 'LocalAppDataLow',
+            'LocalizedResourcesDir', 'Music', 'NetHood',
+            'NetworkFolder', 'OriginalImages', 'PhotoAlbums',
+            'Pictures', 'Playlists', 'PrintersFolder', 'PrintHood',
+            'Profile', 'ProgramData', 'ProgramFiles', 'ProgramFilesX64',
+            'ProgramFilesX86', 'ProgramFilesCommon',
+            'ProgramFilesCommonX64', 'ProgramFilesCommonX86',
+            'Programs', 'Public', 'PublicDesktop', 'PublicDocuments',
+            'PublicDownloads', 'PublicGameTasks', 'PublicMusic',
+            'PublicPictures', 'PublicVideos', 'QuickLaunch', 'Recent',
+            'RecycleBinFolder', 'ResourceDir', 'RoamingAppData',
+            'SampleMusic', 'SamplePictures', 'SamplePlaylists',
+            'SampleVideos', 'SavedGames', 'SavedSearches', 'SEARCH_CSC',
+            'SEARCH_MAPI', 'SearchHome', 'SendTo', 'SidebarDefaultParts',
+            'SidebarParts', 'StartMenu', 'Startup', 'SyncManagerFolder',
+            'SyncResultsFolder', 'SyncSetupFolder', 'System',
+            'SystemX86', 'Templates', 'TreeProperties', 'UserProfiles',
+            'UsersFiles', 'Videos', 'Windows')]
         [string] $KnownFolder,
-        ########################################################################
+        ###################################################################
         [Parameter(
-            Mandatory = $true,
             Position = 1,
+            Mandatory = $true,
             HelpMessage = "New path for the known folder"
         )]
         [ValidateNotNullOrEmpty()]
         [Alias("FullName")]
         [string] $Path
-        ########################################################################
+        ###################################################################
     )
 
     begin {
+
         # check if shell32 api type is already loaded to avoid redefining
         $type = ([System.Management.Automation.PSTypeName]`
                 'KnownFolders.SHSetKnownFolderPathPS').Type
 
         if (-not $type) {
+
             # define windows api function signature for shell32.dll import
             $signature = @'
 [DllImport("shell32.dll")]
 public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
     IntPtr token, [MarshalAs(UnmanagedType.LPWStr)] string path);
 '@
+
             # load the shell32 api function into powershell runtime
-            $type = Microsoft.PowerShell.Utility\Add-Type -MemberDefinition $signature `
+            $type = Microsoft.PowerShell.Utility\Add-Type `
+                -MemberDefinition $signature `
                 -Namespace 'KnownFolders' `
                 -Name 'SHSetKnownFolderPathPS' `
                 -PassThru
         }
 
-        Microsoft.PowerShell.Utility\Write-Verbose "Starting known folder path change operation"
-        Microsoft.PowerShell.Utility\Write-Verbose "Target folder: $KnownFolder"
-        Microsoft.PowerShell.Utility\Write-Verbose "New path: $Path"
+        Microsoft.PowerShell.Utility\Write-Verbose (
+            "Starting known folder path change operation"
+        )
+
+        Microsoft.PowerShell.Utility\Write-Verbose (
+            "Target folder: $KnownFolder"
+        )
+
+        Microsoft.PowerShell.Utility\Write-Verbose (
+            "New path: $Path"
+        )
     }
 
-
-process {
+    process {
 
         # verify the destination path exists before attempting to move
-        if (-not (Microsoft.PowerShell.Management\Test-Path -Path $Path -PathType Container)) {
+        if (-not (Microsoft.PowerShell.Management\Test-Path `
+                -Path $Path `
+                -PathType Container)) {
+
             $msg = "Could not find folder path: $Path"
+
             Microsoft.PowerShell.Utility\Write-Error -Message $msg
+
             throw [System.IO.DirectoryNotFoundException] $msg
         }
 
         # lookup the folder's unique guid from our hash table
-        $knownFolderId = $KnownFolders[$KnownFolder]
-        Microsoft.PowerShell.Utility\Write-Verbose "Found folder GUID: $knownFolderId"
+        $knownFolderId = $knownFolders[$KnownFolder]
+
+        Microsoft.PowerShell.Utility\Write-Verbose (
+            "Found folder GUID: $knownFolderId"
+        )
 
         if ($PSCmdlet.ShouldProcess($Path, "Set $KnownFolder location")) {
+
             # call shell32 api to perform the folder relocation
             # parameters: folderId (ref), flags (0), token (0), new path
-            $result = $type::SHSetKnownFolderPath([ref]$knownFolderId, 0, 0, $Path)
-            Microsoft.PowerShell.Utility\Write-Verbose "Shell API call completed with result: $result"
+            $result = $type::SHSetKnownFolderPath([ref]$knownFolderId, 0, 0,
+                $Path)
+
+            Microsoft.PowerShell.Utility\Write-Verbose (
+                "Shell API call completed with result: $result"
+            )
+
             return $result
         }
     }
-}
 
+    end {
+    }
+}
 ################################################################################
