@@ -37,7 +37,9 @@ function EnsureDockerDesktop {
         )]
         [switch]$ShowWindow
         #######################################################################
-    )    begin {
+    )
+
+    begin {
 
         #######################################################################
         <#
@@ -100,7 +102,9 @@ function EnsureDockerDesktop {
             # load the newly installed module into current session
             Microsoft.PowerShell.Core\Import-Module "Microsoft.WinGet.Client"
         }
-    }    process {
+    }
+
+    process {
 
         # verify if docker desktop executable is available in current session
         if (@(Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
@@ -330,95 +334,86 @@ function EnsureDockerDesktop {
         }
 
         # wait for docker daemon to become ready for commands
-        Microsoft.PowerShell.Utility\Write-Verbose ("Waiting for Docker " +
-            "daemon to be ready...")
+        Microsoft.PowerShell.Utility\Write-Host ("Checking Docker Desktop " +
+            "status...") -ForegroundColor Cyan
 
-        # set timeout for waiting for docker daemon (60 seconds)
-        $timeout = 60
-
-        # initialize elapsed time counter
+        # set timeout for waiting for docker daemon (600 seconds)
+        $timeout = 600
         $elapsed = 0
+        $engineMessageShown = $false
+        $loginMessageShown = $false
 
-        # loop until docker daemon responds or timeout is reached
-        do {
+        # loop until docker daemon is ready or timeout is reached
+        while ($elapsed -lt $timeout) {
 
-            # wait 2 seconds between docker daemon checks
-            Microsoft.PowerShell.Utility\Start-Sleep -Seconds 2
+            # check if docker engine is running by trying a simple docker
+            # command
+            try {
 
-            # increment elapsed time counter
-            $elapsed += 2
+                # attempt to get docker server version to verify engine status
+                $null = docker.exe version --format '{{.Server.Version}}' 2>$null
 
-            # attempt to get docker info to verify daemon is responding
-            $dockerInfo = docker info 2>$null
+                # verify command executed successfully
+                if ($LASTEXITCODE -eq 0) {
 
-        } while (-not $dockerInfo -and $elapsed -lt $timeout)
+                    # engine is running, check if user needs to log in
+                    $dockerInfo = docker.exe info 2>&1
+
+                    # check if login is required based on docker info output
+                    if ($dockerInfo -match "not logged in" -or `
+                        $dockerInfo -match "Please log in") {
+
+                        # show login message only once
+                        if (-not $loginMessageShown) {
+                            Microsoft.PowerShell.Utility\Write-Host ("Docker " +
+                                "engine is running, but user is not logged " +
+                                "in. Please log in via Docker Desktop.") `
+                                -ForegroundColor Yellow
+                            $loginMessageShown = $true
+                        }
+
+                        # continue waiting or break - for many operations,
+                        # login isn't required
+                        Microsoft.PowerShell.Utility\Write-Host ("Docker " +
+                            "engine is running and ready for basic " +
+                            "operations.") -ForegroundColor Green
+                        break
+                    } else {
+
+                        # either logged in or login check failed, assume docker
+                        # is ready
+                        Microsoft.PowerShell.Utility\Write-Host ("Docker " +
+                            "engine is running and ready.") `
+                            -ForegroundColor Green
+                        break
+                    }
+                }
+            }
+            catch {
+
+                # docker command failed, engine likely not ready
+            }
+
+            # show engine startup message only once
+            if (-not $engineMessageShown) {
+                Microsoft.PowerShell.Utility\Write-Host ("Waiting for " +
+                    "Docker engine to start...") -ForegroundColor Yellow
+                $engineMessageShown = $true
+            }
+
+            # wait before next check and increment elapsed time
+            Microsoft.PowerShell.Utility\Start-Sleep -Seconds 5
+            $elapsed += 5
+        }
 
         # throw error if docker daemon failed to start within timeout
         if ($elapsed -ge $timeout) {
             throw ("Docker daemon failed to start within $timeout seconds.")
         }
 
-        # initialize flag to track if docker login is required
-        $loginRequired = $false
-
-        # check if user needs to log in to docker desktop for registry access
-        $loginRequired = $false
-        try {
-
-            # verify docker daemon is responding to basic commands
-            $dockerInfo = docker info --format '{{.Name}}' 2>$null
-
-            # proceed with authentication check if daemon is responding
-            if ($dockerInfo) {
-
-                # output verbose message about daemon status
-                Microsoft.PowerShell.Utility\Write-Verbose ("Docker daemon " +
-                    "is responding")
-
-                # simple approach: assume login is not required unless we get
-                # specific auth errors most docker operations work without
-                # login (local images, basic commands)
-                $loginRequired = $false
-
-                # only check for login if we're trying to access Docker Hub
-                # content this avoids the unreliable template and pull
-                # operations
-                Microsoft.PowerShell.Utility\Write-Verbose ("Assuming Docker " +
-                    "login is not required for basic operations")
-            }
-        }
-        catch {
-
-            # if docker commands fail entirely, assume bigger issue than login
-            $loginRequired = $false
-
-            # output verbose message about docker command failure
-            Microsoft.PowerShell.Utility\Write-Verbose ("Docker command " +
-                "failed, assuming no login required: $($_.Exception.Message)")
-        }
-
-        # handle docker desktop login process if authentication is required
-        if ($loginRequired) {
-
-            # inform user about docker account requirement
-            Microsoft.PowerShell.Utility\Write-Host ("Please create a Docker " +
-                "account or log in to your existing Docker account in Docker " +
-                "Desktop to continue.") -ForegroundColor Yellow
-
-            # inform user about waiting for login
-            Microsoft.PowerShell.Utility\Write-Host ("Waiting for Docker " +
-                "Desktop login...") -ForegroundColor Cyan
-
-            # for now, we skip the complex login detection since it's
-            # unreliable users can manually retry if they encounter
-            # authentication issues
-            Microsoft.PowerShell.Utility\Write-Host ("Docker operations may " +
-                "require authentication. Please ensure you're logged into " +
-                "Docker Desktop and retry if needed.") -ForegroundColor Yellow
-        }
-
         # output final success message about docker desktop readiness
-        Microsoft.PowerShell.Utility\Write-Verbose "✅ Docker Desktop is ready."
+        Microsoft.PowerShell.Utility\Write-Verbose ("✅ Docker Desktop is " +
+            "ready.")
     }
 
     end {
