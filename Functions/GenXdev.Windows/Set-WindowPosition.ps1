@@ -423,8 +423,8 @@ process {
 
             Microsoft.PowerShell.Utility\Write-Verbose "Have positioning parameters set"
 
-            $WidthProvided = ($Width -ge 0) -and ($Width -is [int]);
-            $heightProvided = ($Height -ge 0) -and ($Height -is [int]);
+            $WidthProvided = ($Width -gt 0) -and ($Width -is [int]);
+            $heightProvided = ($Height -gt 0) -and ($Height -is [int]);
 
             # '-Width' parameter not supplied?
             if ($WidthProvided -eq $false) {
