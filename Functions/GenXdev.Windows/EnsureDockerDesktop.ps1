@@ -144,12 +144,12 @@ function EnsureDockerDesktop {
                             'PATH',
                             "$currentPath;$path",
                             'User')
+                    }
 
-                        # update current session's path for immediate
-                        # availability only if not already present
-                        if ($env:PATH -notlike "*$path*") {
-                            $env:PATH = "$env:PATH;$path"
-                        }
+                    # update current session's path for immediate
+                    # availability only if not already present
+                    if ($env:PATH -notlike "*$path*") {
+                        $env:PATH = "$env:PATH;$path"
                     }
 
                     # mark docker as found and exit loop
@@ -419,6 +419,20 @@ function EnsureDockerDesktop {
     }
 
     end {
+        if ($ShowWindow) {
+
+            try {
+                $a = (GenXDev.Windows\Get-Window -ProcessName "Docker Desktop") ;
+                if ($null -eq $a) { return }
+                $a.Show()
+                $a.Restore()
+                GenXDev.Windows\Set-WindowPosition -WindowHelper $a -Monitor 0 -Right
+                GenXDev.Windows\Set-WindowPosition -Left -Monitor 0 -Left
+            }
+            catch {
+
+            }
+        }
     }
 }
 ################################################################################
