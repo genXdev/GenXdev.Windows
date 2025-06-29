@@ -155,6 +155,7 @@ function Add-WireGuardPeer {
                 "should be saved")
         )]
         [ValidateNotNullOrEmpty()]
+        [Alias("outfile", "OutputFile")]
         [string] $OutputPath = "$env:USERPROFILE\WireGuardConfigs",
         #######################################################################
         [Parameter(
@@ -272,7 +273,7 @@ function Add-WireGuardPeer {
             # copy matching parameters to pass to ensurewireguard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
                 -BoundParameters $PSBoundParameters `
-                -FunctionName 'EnsureWireGuard' `
+                -FunctionName 'GenXdev.Windows\EnsureWireGuard' `
                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
                     -Scope Local `
                     -ErrorAction SilentlyContinue)

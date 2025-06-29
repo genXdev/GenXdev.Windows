@@ -2895,7 +2895,7 @@ PARAMETERS
         Position?                    3
         Accept pipeline input?       false
         Parameter set name           (All)
-        Aliases                      None
+        Aliases                      outfile, OutputFile
         Dynamic?                     false
         Accept wildcard characters?  false
         

@@ -150,7 +150,7 @@ function Get-WireGuardStatus {
             # copy matching parameters to pass to EnsureWireGuard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
                 -BoundParameters $PSBoundParameters `
-                -FunctionName 'EnsureWireGuard' `
+                -FunctionName 'GenXdev.Windows\EnsureWireGuard' `
                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
                     -Scope Local `
                     -ErrorAction SilentlyContinue)
