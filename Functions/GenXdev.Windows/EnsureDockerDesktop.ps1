@@ -146,9 +146,10 @@ function EnsureDockerDesktop {
                             'User')
 
                         # update current session's path for immediate
-                        # availability
-                        $env:PATH = [Environment]::GetEnvironmentVariable(
-                            'PATH', 'User')
+                        # availability only if not already present
+                        if ($env:PATH -notlike "*$path*") {
+                            $env:PATH = "$env:PATH;$path"
+                        }
                     }
 
                     # mark docker as found and exit loop
@@ -200,9 +201,10 @@ function EnsureDockerDesktop {
                                 "$currentPath;$path",
                                 'User')
 
-                            # update current session's path immediately
-                            $env:PATH = [Environment]::GetEnvironmentVariable(
-                                'PATH', 'User')
+                            # update current session's path immediately only if not already present
+                            if ($env:PATH -notlike "*$path*") {
+                                $env:PATH = "$env:PATH;$path"
+                            }
                         }
                         break
                     }
