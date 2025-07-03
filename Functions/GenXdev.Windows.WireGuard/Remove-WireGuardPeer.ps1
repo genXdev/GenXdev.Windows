@@ -1,5 +1,5 @@
 
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Removes a WireGuard VPN peer configuration.
@@ -67,8 +67,7 @@ This function interacts with the linuxserver/wireguard Docker container to manag
 WireGuard peers. It requires the container to be running (use EnsureWireGuard
 first). The function will validate peer existence before attempting removal and
 provides detailed error handling for failed operations.
-#>
-###############################################################################
+###############################################################################>
 function Remove-WireGuardPeer {
 
     [CmdletBinding(SupportsShouldProcess)]
@@ -294,4 +293,4 @@ function Remove-WireGuardPeer {
     }    end {
     }
 }
-################################################################################
+        ###############################################################################

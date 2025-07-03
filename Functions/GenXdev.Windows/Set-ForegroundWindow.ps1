@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Brings the specified window to the foreground and makes it the active window.
@@ -15,15 +15,15 @@ API calls or PowerShell window management functions like Get-Process
 MainWindowHandle.
 
 .EXAMPLE
-# Make Notepad the active window using full parameter name
+        ###############################################################################Make Notepad the active window using full parameter name
 $hwnd = (Get-Process notepad).MainWindowHandle
 Set-ForegroundWindow -WindowHandle $hwnd -WhatIf
 
 .EXAMPLE
-# Using positional parameter for simpler syntax
+        ###############################################################################Using positional parameter for simpler syntax
 $hwnd = (Get-Process notepad).MainWindowHandle
 Set-ForegroundWindow $hwnd
-#>
+        ###############################################################################>
 function Set-ForegroundWindow {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -73,4 +73,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

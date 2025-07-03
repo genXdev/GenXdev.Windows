@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Pops the last active window helper from the stack with optional modifications.
@@ -80,27 +80,26 @@ Specifies the monitor to move the window to after popping from the stack:
 
 .EXAMPLE
 Pop-Window -Maximize -Focus
-# Pops the last window from the stack, maximizes it and gives it focus.
+        ###############################################################################Pops the last window from the stack, maximizes it and gives it focus.
 
 .EXAMPLE
 Pop-Window -X 100 -Y 100 -Width 800 -Height 600 -AlwaysOnTop
-# Pops the last window, positions it at coordinates (100,100),
-# resizes it to 800x600, and sets it to always stay on top.
+        ###############################################################################Pops the last window, positions it at coordinates (100,100),
+        ###############################################################################resizes it to 800x600, and sets it to always stay on top.
 
 .EXAMPLE
 popw -Left -Focus
-# Pops the last window, positions it on the left half of the screen,
-# and gives it focus using the alias.
+        ###############################################################################Pops the last window, positions it on the left half of the screen,
+        ###############################################################################and gives it focus using the alias.
 
 .EXAMPLE
 Pop-Window -Monitor 1 -Maximize
-# Pops the last window, moves it to the first monitor, and maximizes it.
+        ###############################################################################Pops the last window, moves it to the first monitor, and maximizes it.
 
 .EXAMPLE
 Pop-Window -Monitor -2 -Fullscreen
-# Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
-#>
-################################################################################
+        ###############################################################################Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
+###############################################################################>
 function Pop-Window {
 
     ############################################################################
@@ -600,4 +599,4 @@ function Pop-Window {
     end {
     }
 }
-#######################################################################################################################################################
+        ###############################################################################

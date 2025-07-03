@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Retrieves the process object of the window that currently has keyboard focus.
@@ -16,7 +16,7 @@ Write-Host "Active window process: $($focusedProcess.ProcessName)"
 .NOTES
 Requires Windows operating system as it uses Windows-specific API calls.
 May return null if the process cannot be accessed due to permissions.
-#>
+###############################################################################>
 function Get-CurrentFocusedProcess {
 
     [CmdletBinding()]
@@ -73,4 +73,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

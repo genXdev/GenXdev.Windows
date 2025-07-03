@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Ensures Sysinternals tools (PSTools) are installed and available.
@@ -24,7 +24,7 @@ Ensures Sysinternals tools are installed and properly configured.
 EnsurePSTools -Force -PSExeName 'procexp.exe'
 Forces reinstallation of Sysinternals tools and uses procexp.exe to verify
 installation.
-#>
+###############################################################################>
 function EnsurePSTools {
 
     [CmdletBinding()]
@@ -154,4 +154,4 @@ function EnsurePSTools {
     end {
     }
 }
-################################################################################
+        ###############################################################################

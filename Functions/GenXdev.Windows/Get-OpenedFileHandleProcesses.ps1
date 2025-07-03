@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Retrieves processes that have open file handles to specified files.
@@ -19,12 +19,12 @@ Multiple file paths can be provided to check multiple files at once.
 
 .EXAMPLE
 Get-OpenedFileHandleProcesses -FilePath "C:\temp\example.txt"
-# Identifies all processes that have open handles to the specified file
+        ###############################################################################Identifies all processes that have open handles to the specified file
 
 .EXAMPLE
 "file1.txt", "file2.txt" | Get-OpenedFileHandleProcesses
-# Checks multiple files via pipeline input for processes with open handles
-#>
+        ###############################################################################Checks multiple files via pipeline input for processes with open handles
+        ###############################################################################>
 function Get-OpenedFileHandleProcesses {
 
 
@@ -149,4 +149,4 @@ function Get-OpenedFileHandleProcesses {
         Microsoft.PowerShell.Utility\Write-Verbose "Completed file handle process detection"
     }
 }
-################################################################################
+        ###############################################################################

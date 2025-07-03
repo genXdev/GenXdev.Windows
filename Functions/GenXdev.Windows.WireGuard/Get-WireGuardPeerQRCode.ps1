@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Generates a QR code for a WireGuard VPN peer configuration.
@@ -55,7 +55,7 @@ Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize
 .NOTES
 This function requires the container to be running (use EnsureWireGuard first)
 and the peer to exist (use Add-WireGuardPeer to create peers).
-#>
+        ###############################################################################>
 
 function Get-WireGuardPeerQRCode {
 
@@ -260,4 +260,4 @@ function Get-WireGuardPeerQRCode {
         # no specific cleanup needed for this function
     }
 }
-################################################################################
+        ###############################################################################

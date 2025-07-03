@@ -1,12 +1,12 @@
-################################################################################
+###############################################################################
     Pester\Describe "Push-Window" {
 
         Pester\It "should pass PSScriptAnalyzer rules" {
 
-            # get the script path for analysis
+    # get the script path for analysis
             $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Push-Window.ps1"
 
-            # run analyzer with explicit settings
+    # run analyzer with explicit settings
             $analyzerResults = GenXdev.Coding\Invoke-GenXdevScriptAnalyzer `
                 -Path $scriptPath
 
@@ -29,5 +29,5 @@
 
     }
 }
-################################################################################
+###############################################################################
 

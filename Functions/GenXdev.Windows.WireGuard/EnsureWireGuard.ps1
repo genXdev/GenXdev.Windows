@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Ensures WireGuard VPN service is installed and running via Docker container.
@@ -78,8 +78,7 @@ For Android 10 and above:
 - Scan the QR code or import the config file to connect
 
 For more information, see: https://www.wireguard.com/
-#>
-###############################################################################
+###############################################################################>
 function EnsureWireGuard {
 
     [CmdletBinding()]
@@ -856,4 +855,4 @@ For Android 10 and above:
         Microsoft.PowerShell.Management\Set-Location $script:originalLocation
     }
 }
-################################################################################
+        ###############################################################################

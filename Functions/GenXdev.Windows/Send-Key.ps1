@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Sends simulated keystrokes to a window or process.
@@ -37,7 +37,7 @@ Sends text to Notepad followed by Enter key
 .EXAMPLE
 Send-Key "Special {F11} key" -Escape
 Sends literal "{F11}" rather than F11 key
-#>
+        ###############################################################################>
 function Send-Key {
 
     [CmdletBinding(DefaultParameterSetName = "ByProcessName")]
@@ -211,4 +211,4 @@ process {
         }
     }
 }
-################################################################################
+        ###############################################################################

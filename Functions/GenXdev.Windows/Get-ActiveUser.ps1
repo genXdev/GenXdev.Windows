@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Retrieves a list of unique usernames from currently active system processes.
@@ -15,7 +15,7 @@ Returns a list of all unique usernames with active processes.
 .EXAMPLE
 gusers
 Uses the alias to get the same results.
-#>
+###############################################################################>
 function Get-ActiveUser {
 
     [CmdletBinding()]
@@ -102,4 +102,4 @@ process {
         }
     }
 }
-################################################################################
+        ###############################################################################

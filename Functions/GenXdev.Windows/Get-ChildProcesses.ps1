@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Retrieves all processes that are descendants of the current PowerShell process.
@@ -9,13 +9,13 @@ PowerShell process as an ancestor in their parent process chain. This includes
 both direct child processes and their descendants (grandchildren, etc.).
 
 .EXAMPLE
-# Get all child processes of the current PowerShell session
+        ###############################################################################Get all child processes of the current PowerShell session
 Get-ChildProcesses
 
 .EXAMPLE
-# Get child processes and display verbose output
+        ###############################################################################Get child processes and display verbose output
 Get-ChildProcesses -Verbose
-#>
+        ###############################################################################>
 function Get-ChildProcesses {
 
     [CmdletBinding()]
@@ -65,4 +65,4 @@ process {
         Microsoft.PowerShell.Utility\Write-Verbose "Completed child process detection"
     }
 }
-################################################################################
+        ###############################################################################

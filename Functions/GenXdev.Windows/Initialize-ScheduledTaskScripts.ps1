@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Creates scheduled tasks that run PowerShell scripts at specified intervals.
@@ -32,7 +32,7 @@ Initialize-ScheduledTaskScripts -FilePath "C:\Tasks" -Prefix "MyTasks"
 
 .EXAMPLE
 Initialize-ScheduledTaskScripts
-#>
+        ###############################################################################>
 function Initialize-ScheduledTaskScripts {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -119,7 +119,7 @@ process {
             if (-not (Microsoft.PowerShell.Management\Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
                 if ($PSCmdlet.ShouldProcess($scriptPath, "Create task script file")) {
                     $scriptContent = @"
-# $Description
+        ###############################################################################$Description
 
 $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
 
@@ -235,4 +235,4 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
     end {
     }
 }
-################################################################################
+        ###############################################################################

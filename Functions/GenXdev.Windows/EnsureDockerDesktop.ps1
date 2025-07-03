@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Ensures Docker Desktop is installed and available for containerization
@@ -25,7 +25,7 @@ Ensures Docker Desktop is installed and properly configured.
 EnsureDockerDesktop -ShowWindow
 Ensures Docker Desktop is installed, properly configured, and shows its UI
 window.
-#>
+###############################################################################>
 function EnsureDockerDesktop {
 
     [CmdletBinding()]
@@ -435,4 +435,4 @@ function EnsureDockerDesktop {
         }
     }
 }
-################################################################################
+        ###############################################################################

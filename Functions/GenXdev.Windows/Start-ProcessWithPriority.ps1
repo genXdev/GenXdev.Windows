@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Starts a process with a specified priority level.
@@ -34,7 +34,7 @@ Start-ProcessWithPriority -FilePath "notepad.exe" -Priority "Low" -NoWait
 
 .EXAMPLE
 nice notepad.exe -Priority High
-#>
+        ###############################################################################>
 function Start-ProcessWithPriority {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -140,4 +140,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

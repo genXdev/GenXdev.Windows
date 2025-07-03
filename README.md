@@ -41,6 +41,7 @@ Update-Module
 | [EnsurePSTools](#EnsurePSTools) |  | Ensures Sysinternals tools (PSTools) are installed and available. |
 | [Get-ActiveUser](#Get-ActiveUser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
 | [Get-ChildProcesses](#Get-ChildProcesses) |  | Retrieves all processes that are descendants of the current PowerShell process. |
+| [Get-ClipboardFiles](#Get-ClipboardFiles) |  | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
 | [Get-CurrentFocusedProcess](#Get-CurrentFocusedProcess) |  | Retrieves the process object of the window that currently has keyboard focus. |
 | [Get-DesktopScalingFactor](#Get-DesktopScalingFactor) |  | Retrieves the Windows display scaling factor (DPI setting) for a specified monitor. |
 | [Get-ForegroundWindow](#Get-ForegroundWindow) |  |  |
@@ -55,6 +56,7 @@ Update-Module
 | [Pop-Window](#Pop-Window) | popw | Pops the last active window helper from the stack with optional modifications. |
 | [Push-Window](#Push-Window) | pushw | Pushes the current window onto the window stack with optional modifications. |
 | [Send-Key](#Send-Key) | sendkeys, invokekeys | Sends simulated keystrokes to a window or process. |
+| [Set-ClipboardFiles](#Set-ClipboardFiles) | setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
 | [Set-ForegroundWindow](#Set-ForegroundWindow) |  | Brings the specified window to the foreground and makes it the active window. |
 | [Set-KnownFolderPath](#Set-KnownFolderPath) |  | Modifies the physical path of a Windows known folder. |
 | [Set-TaskbarAlignment](#Set-TaskbarAlignment) | set-taskalign | Configures Windows 11+ taskbar alignment between center and left positions. |
@@ -119,6 +121,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > $hasRights = CurrentUserHasElevatedRights
+    ##############################################################################
     
     
     
@@ -189,6 +192,7 @@ OUTPUTS
     PS > EnsureDockerDesktop -ShowWindow
     Ensures Docker Desktop is installed, properly configured, and shows its UI
     window.
+    ##############################################################################
     
     
     
@@ -265,6 +269,7 @@ OUTPUTS
     PS > EnsurePSTools -Force -PSExeName 'procexp.exe'
     Forces reinstallation of Sysinternals tools and uses procexp.exe to verify
     installation.
+    ##############################################################################
     
     
     
@@ -318,6 +323,7 @@ OUTPUTS
     
     PS > gusers
     Uses the alias to get the same results.
+    ##############################################################################
     
     
     
@@ -359,7 +365,7 @@ OUTPUTS
     
     -------------------------- EXAMPLE 1 --------------------------
     
-    PS > # Get all child processes of the current PowerShell session
+    PS > ###############################################################################Get all child processes of the current PowerShell session
     Get-ChildProcesses
     
     
@@ -369,8 +375,85 @@ OUTPUTS
     
     -------------------------- EXAMPLE 2 --------------------------
     
-    PS > # Get child processes and display verbose output
+    PS > ###############################################################################Get child processes and display verbose output
     Get-ChildProcesses -Verbose
+    ##############################################################################
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-ClipboardFiles
+    
+SYNOPSIS
+    Gets files from the Windows clipboard that were set for file operations like copy/paste.
+    
+    
+SYNTAX
+    Get-ClipboardFiles [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function retrieves file paths from the Windows clipboard that were previously
+    set for file operations. It handles both STA and MTA threading modes automatically,
+    ensuring compatibility across different PowerShell execution contexts. The function
+    validates file existence and returns only existing files/directories as objects
+    similar to Get-ChildItem or Get-Item output.
+    
+
+PARAMETERS
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-ClipboardFiles
+    Gets all files currently in the clipboard and returns them as file system objects.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > $clipboardFiles = Get-ClipboardFiles
+    $clipboardFiles | ForEach-Object { Write-Host $_.FullName }
+    Gets clipboard files and displays their full paths.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > Get-ClipboardFiles | Where-Object { $_.Extension -eq '.txt' }
+    Gets only text files from the clipboard.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 4 --------------------------
+    
+    PS > Get-ClipboardFiles | ls
+    Gets all files from the clipboard and lists them in a detailed format.
     
     
     
@@ -416,6 +499,7 @@ NOTES
     
         Requires Windows operating system as it uses Windows-specific API calls.
         May return null if the process cannot be accessed due to permissions.
+        ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -489,6 +573,7 @@ OUTPUTS
     PS > Get-DesktopScalingFactor 1
     Returns the scaling factor percentage for the second monitor using positional
     parameter
+    ##############################################################################
     
     
     
@@ -576,7 +661,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Get-KnownFolderPath -KnownFolder 'Documents'
-    # Returns: C:\Users\Username\Documents
+            ###############################################################################Returns: C:\Users\Username\Documents
     
     
     
@@ -586,7 +671,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > folder Downloads
-    # Returns: C:\Users\Username\Downloads using the alias
+            ###############################################################################Returns: C:\Users\Username\Downloads using the alias
     
     
     
@@ -596,7 +681,8 @@ OUTPUTS
     -------------------------- EXAMPLE 3 --------------------------
     
     PS > cd (folder Desktop)
-    # Changes to the Desktop folder using the alias
+            ###############################################################################Changes to the Desktop folder using the alias
+            ##############################################################################
     
     
     
@@ -650,6 +736,7 @@ OUTPUTS
     
     PS > $screens = Get-MonitorCount -Verbose
     Returns monitor count with verbose output showing detection process
+            ##############################################################################
     
     
     
@@ -695,7 +782,8 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > $defenderPath = Get-MpCmdRunPath
-    # Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
+            ###############################################################################Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
+            ##############################################################################
     
     
     
@@ -754,7 +842,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Get-OpenedFileHandleProcesses -FilePath "C:\temp\example.txt"
-    # Identifies all processes that have open handles to the specified file
+            ###############################################################################Identifies all processes that have open handles to the specified file
     
     
     
@@ -764,7 +852,8 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > "file1.txt", "file2.txt" | Get-OpenedFileHandleProcesses
-    # Checks multiple files via pipeline input for processes with open handles
+            ###############################################################################Checks multiple files via pipeline input for processes with open handles
+            ##############################################################################
     
     
     
@@ -806,6 +895,7 @@ OUTPUTS
     GenXdev.Helpers.WindowObj
     Represents the main window of the PowerShell host process with properties and
     methods for window manipulation.
+            ##############################################################################
     
     
     -------------------------- EXAMPLE 1 --------------------------
@@ -860,6 +950,7 @@ OUTPUTS
     Write-Host "PowerShell is hosted in: $($hostProcess.ProcessName)"
     
     Returns the process hosting the current PowerShell session and displays its name.
+            ##############################################################################
     
     
     
@@ -951,6 +1042,7 @@ OUTPUTS
     
     PS > window -Handle 45678
     Gets window information for specific window handle using the alias.
+            ##############################################################################
     
     
     
@@ -1049,6 +1141,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Initialize-ScheduledTaskScripts
+            ##############################################################################
     
     
     
@@ -1321,7 +1414,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Pop-Window -Maximize -Focus
-    # Pops the last window from the stack, maximizes it and gives it focus.
+            ###############################################################################Pops the last window from the stack, maximizes it and gives it focus.
     
     
     
@@ -1331,8 +1424,8 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Pop-Window -X 100 -Y 100 -Width 800 -Height 600 -AlwaysOnTop
-    # Pops the last window, positions it at coordinates (100,100),
-    # resizes it to 800x600, and sets it to always stay on top.
+            ###############################################################################Pops the last window, positions it at coordinates (100,100),
+            ###############################################################################resizes it to 800x600, and sets it to always stay on top.
     
     
     
@@ -1342,8 +1435,8 @@ OUTPUTS
     -------------------------- EXAMPLE 3 --------------------------
     
     PS > popw -Left -Focus
-    # Pops the last window, positions it on the left half of the screen,
-    # and gives it focus using the alias.
+            ###############################################################################Pops the last window, positions it on the left half of the screen,
+            ###############################################################################and gives it focus using the alias.
     
     
     
@@ -1353,7 +1446,7 @@ OUTPUTS
     -------------------------- EXAMPLE 4 --------------------------
     
     PS > Pop-Window -Monitor 1 -Maximize
-    # Pops the last window, moves it to the first monitor, and maximizes it.
+            ###############################################################################Pops the last window, moves it to the first monitor, and maximizes it.
     
     
     
@@ -1363,7 +1456,8 @@ OUTPUTS
     -------------------------- EXAMPLE 5 --------------------------
     
     PS > Pop-Window -Monitor -2 -Fullscreen
-    # Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
+            ###############################################################################Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
+    ##############################################################################
     
     
     
@@ -1635,7 +1729,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Push-Window -Maximize -AlwaysOnTop
-    # Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
+            ###############################################################################Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
     
     
     
@@ -1645,7 +1739,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Push-Window -X 100 -Y 100 -Width 800 -Height 600 -NoBorders
-    # Positions and resizes the current window, removes its borders, and pushes it onto the stack.
+            ###############################################################################Positions and resizes the current window, removes its borders, and pushes it onto the stack.
     
     
     
@@ -1655,8 +1749,8 @@ OUTPUTS
     -------------------------- EXAMPLE 3 --------------------------
     
     PS > pushw -Left
-    # Positions the current window on the left half of the screen and pushes it
-    # onto the stack using the alias.
+            ###############################################################################Positions the current window on the left half of the screen and pushes it
+            ###############################################################################onto the stack using the alias.
     
     
     
@@ -1666,7 +1760,7 @@ OUTPUTS
     -------------------------- EXAMPLE 4 --------------------------
     
     PS > Push-Window -Monitor 1 -Maximize
-    # Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
+            ###############################################################################Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
     
     
     
@@ -1676,8 +1770,9 @@ OUTPUTS
     -------------------------- EXAMPLE 5 --------------------------
     
     PS > Push-Window -Monitor -2 -Fullscreen
-    # Moves the current window to the secondary monitor, makes it fullscreen,
-    # and pushes it onto the stack.
+            ###############################################################################Moves the current window to the secondary monitor, makes it fullscreen,
+            ###############################################################################and pushes it onto the stack.
+    ##############################################################################
     
     
     
@@ -1815,6 +1910,101 @@ OUTPUTS
     
     PS > Send-Key "Special {F11} key" -Escape
     Sends literal "{F11}" rather than F11 key
+            ##############################################################################
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Set-ClipboardFiles
+    
+SYNOPSIS
+    Sets files to the Windows clipboard for file operations like copy/paste.
+    
+    
+SYNTAX
+    Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function copies one or more file paths to the Windows clipboard,
+    enabling file operations like paste in Windows Explorer. It handles both
+    STA and MTA threading modes automatically, ensuring compatibility across
+    different PowerShell execution contexts. The function validates file
+    existence before adding paths to the clipboard.
+    
+
+PARAMETERS
+    -InputObject <String[]>
+        Array of file paths to add to the clipboard. Accepts pipeline input and
+        supports various aliases for compatibility with different object properties.
+        
+        Required?                    true
+        Position?                    1
+        Default value                
+        Accept pipeline input?       true (ByValue, ByPropertyName)
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -WhatIf [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Confirm [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Set-ClipboardFiles -InputObject "C:\temp\file1.txt", "C:\temp\file2.txt"
+    Sets two files to the clipboard using full parameter names.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > "C:\temp\file1.txt", "C:\temp\file2.txt" | Set-ClipboardFiles
+    Sets files to clipboard using pipeline input.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > ls * -file | select -first 5 | Set-ClipboardFiles
+    Sets files to clipboard using pipeline input, selecting the first 5 files
     
     
     
@@ -1887,7 +2077,7 @@ OUTPUTS
     
     -------------------------- EXAMPLE 1 --------------------------
     
-    PS > # Make Notepad the active window using full parameter name
+    PS > ###############################################################################Make Notepad the active window using full parameter name
     $hwnd = (Get-Process notepad).MainWindowHandle
     Set-ForegroundWindow -WindowHandle $hwnd -WhatIf
     
@@ -1898,9 +2088,10 @@ OUTPUTS
     
     -------------------------- EXAMPLE 2 --------------------------
     
-    PS > # Using positional parameter for simpler syntax
+    PS > ###############################################################################Using positional parameter for simpler syntax
     $hwnd = (Get-Process notepad).MainWindowHandle
     Set-ForegroundWindow $hwnd
+    ##############################################################################
     
     
     
@@ -2000,6 +2191,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Set-KnownFolderPath Downloads 'E:\Downloads'
+            ##############################################################################
     
     
     
@@ -2072,7 +2264,7 @@ OUTPUTS
     -------------------------- EXAMPLE 1 --------------------------
     
     PS > Set-TaskbarAlignment -Justify Left
-    # Sets the Windows 11 taskbar to left alignment
+            ###############################################################################Sets the Windows 11 taskbar to left alignment
     
     
     
@@ -2082,7 +2274,8 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > Set-TaskAlign Center -WhatIf
-    # Shows what would happen if taskbar was set to center alignment
+            ###############################################################################Shows what would happen if taskbar was set to center alignment
+            ##############################################################################
     
     
     
@@ -2324,7 +2517,7 @@ OUTPUTS
     
     -------------------------- EXAMPLE 1 --------------------------
     
-    PS > # Position PowerShell window centered on primary monitor with no borders
+    PS > ###############################################################################Position PowerShell window centered on primary monitor with no borders
     Set-WindowPosition -Centered -Monitor 0 -NoBorders
     
     
@@ -2334,8 +2527,9 @@ OUTPUTS
     
     -------------------------- EXAMPLE 2 --------------------------
     
-    PS > # Split notepad and calc side by side on second monitor using aliases
+    PS > ###############################################################################Split notepad and calc side by side on second monitor using aliases
     Get-Process notepad,calc | wp -m 1 -l,-r
+    ##############################################################################
     
     
     
@@ -2556,6 +2750,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > wps notepad -w 800 -h 600 -c -nb
+            ##############################################################################
     
     
     
@@ -2681,6 +2876,7 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > nice notepad.exe -Priority High
+            ##############################################################################
     
     
     
@@ -2768,6 +2964,7 @@ OUTPUTS
     -------------------------- EXAMPLE 3 --------------------------
     
     PS > "C:\Downloads\file.exe" | HasNoVirus
+            ##############################################################################
     
     
     
@@ -3177,6 +3374,7 @@ NOTES
         - Scan the QR code or import the config file to connect
         
         For more information, see: https://www.wireguard.com/
+        ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -3383,6 +3581,7 @@ NOTES
     
         This function requires the container to be running (use EnsureWireGuard first)
         and the peer to exist (use Add-WireGuardPeer to create peers).
+                ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -3566,6 +3765,7 @@ NOTES
         retrieve information about configured WireGuard peers. The container must be
         running and accessible. Use EnsureWireGuard function first if container setup
         is required.
+        ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -3737,6 +3937,7 @@ NOTES
         This function interacts with the linuxserver/wireguard Docker container to
         retrieve status information about the WireGuard server. It requires the
         container to be running (use EnsureWireGuard first).
+                ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -3936,6 +4137,7 @@ NOTES
         WireGuard peers. It requires the container to be running (use EnsureWireGuard
         first). The function will validate peer existence before attempting removal and
         provides detailed error handling for failed operations.
+        ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     
@@ -4148,6 +4350,7 @@ NOTES
         (use EnsureWireGuard first). This operation will remove all peer configurations
         and cannot be undone. The function will restart the container to regenerate
         a fresh configuration.
+        ##############################################################################
     
     -------------------------- EXAMPLE 1 --------------------------
     

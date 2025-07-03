@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Scans files or directories for malware using Windows Defender.
@@ -27,7 +27,7 @@ virusscan "C:\Downloads\file.exe" -EnableRemediation
 
 .EXAMPLE
 "C:\Downloads\file.exe" | HasNoVirus
-#>
+        ###############################################################################>
 function Test-PathUsingWindowsDefender {
 
     [OutputType([bool])]
@@ -114,4 +114,4 @@ function Test-PathUsingWindowsDefender {
     end {
     }
 }
-################################################################################
+        ###############################################################################

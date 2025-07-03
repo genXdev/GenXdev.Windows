@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets the path of a Windows known folder using the Windows Shell32 API.
@@ -17,16 +17,16 @@ return the full path to this folder.
 
 .EXAMPLE
 Get-KnownFolderPath -KnownFolder 'Documents'
-# Returns: C:\Users\Username\Documents
+        ###############################################################################Returns: C:\Users\Username\Documents
 
 .EXAMPLE
 folder Downloads
-# Returns: C:\Users\Username\Downloads using the alias
+        ###############################################################################Returns: C:\Users\Username\Downloads using the alias
 
 .EXAMPLE
 cd (folder Desktop)
-# Changes to the Desktop folder using the alias
-#>
+        ###############################################################################Changes to the Desktop folder using the alias
+        ###############################################################################>
 function Get-KnownFolderPath {
 
     [CmdletBinding()]
@@ -220,4 +220,4 @@ public extern static int SHGetKnownFolderPath(
     end {
     }
 }
-################################################################################
+        ###############################################################################

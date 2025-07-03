@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.
@@ -21,7 +21,7 @@ Returns the scaling factor percentage for the primary monitor
 Get-DesktopScalingFactor 1
 Returns the scaling factor percentage for the second monitor using positional
 parameter
-#>
+###############################################################################>
 function Get-DesktopScalingFactor {
 
     [CmdletBinding()]
@@ -55,4 +55,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

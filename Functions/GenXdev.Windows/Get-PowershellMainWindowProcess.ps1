@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Returns the process object for the window hosting the PowerShell terminal.
@@ -16,7 +16,7 @@ $hostProcess = Get-PowershellMainWindowProcess
 Write-Host "PowerShell is hosted in: $($hostProcess.ProcessName)"
 
 Returns the process hosting the current PowerShell session and displays its name.
-#>
+        ###############################################################################>
 function Get-PowershellMainWindowProcess {
 
     [CmdletBinding()]
@@ -151,4 +151,4 @@ process {
         $currentProcess
     }
 }
-################################################################################
+        ###############################################################################

@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Adds a new WireGuard VPN peer (client) configuration to the server.
@@ -113,9 +113,9 @@ This function interacts with the linuxserver/wireguard Docker container to
 manage WireGuard peers. It requires Docker to be installed and the WireGuard
 container to be running. Use EnsureWireGuard function first to initialize the
 service if needed.
-#>
+        ###############################################################################>
 
-###############################################################################
+        ###############################################################################
 function Add-WireGuardPeer {
 
     [CmdletBinding(SupportsShouldProcess)]
@@ -505,4 +505,4 @@ function Add-WireGuardPeer {
 
     }
 }
-################################################################################
+        ###############################################################################

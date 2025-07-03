@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets the path to the Windows Defender MpCmdRun.exe executable.
@@ -14,8 +14,8 @@ Returns the full path to MpCmdRun.exe if found.
 
 .EXAMPLE
 $defenderPath = Get-MpCmdRunPath
-# Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
-#>
+        ###############################################################################Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
+        ###############################################################################>
 function Get-MpCmdRunPath {
 
     [CmdletBinding()]
@@ -48,4 +48,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

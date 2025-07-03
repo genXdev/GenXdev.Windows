@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Positions and resizes windows on specified monitors with various layout options.
@@ -55,13 +55,13 @@ Returns focus to PowerShell window after positioning
 Returns window helper object for further manipulation
 
 .EXAMPLE
-# Position PowerShell window centered on primary monitor with no borders
+        ###############################################################################Position PowerShell window centered on primary monitor with no borders
 Set-WindowPosition -Centered -Monitor 0 -NoBorders
 
 .EXAMPLE
-# Split notepad and calc side by side on second monitor using aliases
+        ###############################################################################Split notepad and calc side by side on second monitor using aliases
 Get-Process notepad,calc | wp -m 1 -l,-r
-#>
+        ###############################################################################>
 function Set-WindowPosition {
 
     [CmdletBinding(DefaultParameterSetName = 'ProcessName', SupportsShouldProcess = $true)]
@@ -528,4 +528,4 @@ process {
     End {
     }
 }
-################################################################################
+        ###############################################################################

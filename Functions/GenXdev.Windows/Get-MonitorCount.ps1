@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets the total number of display monitors connected to the system.
@@ -15,7 +15,7 @@ Returns the total number of connected monitors (e.g. 2)
 .EXAMPLE
 $screens = Get-MonitorCount -Verbose
 Returns monitor count with verbose output showing detection process
-#>
+        ###############################################################################>
 function Get-MonitorCount {
 
     [CmdletBinding()]
@@ -40,4 +40,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

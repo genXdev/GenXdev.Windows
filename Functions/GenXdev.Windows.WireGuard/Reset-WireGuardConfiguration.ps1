@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Resets the WireGuard VPN server configuration, removing all peers.
@@ -74,8 +74,7 @@ the WireGuard server configuration. It requires the container to be running
 (use EnsureWireGuard first). This operation will remove all peer configurations
 and cannot be undone. The function will restart the container to regenerate
 a fresh configuration.
-#>
-###############################################################################
+###############################################################################>
 function Reset-WireGuardConfiguration {
 
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
@@ -347,4 +346,4 @@ function Reset-WireGuardConfiguration {
     end {
     }
 }
-################################################################################
+        ###############################################################################

@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Pushes the current window onto the window stack with optional modifications.
@@ -81,27 +81,26 @@ Specifies the monitor to move the window to before pushing onto the stack:
 
 .EXAMPLE
 Push-Window -Maximize -AlwaysOnTop
-# Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
+        ###############################################################################Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
 
 .EXAMPLE
 Push-Window -X 100 -Y 100 -Width 800 -Height 600 -NoBorders
-# Positions and resizes the current window, removes its borders, and pushes it onto the stack.
+        ###############################################################################Positions and resizes the current window, removes its borders, and pushes it onto the stack.
 
 .EXAMPLE
 pushw -Left
-# Positions the current window on the left half of the screen and pushes it
-# onto the stack using the alias.
+        ###############################################################################Positions the current window on the left half of the screen and pushes it
+        ###############################################################################onto the stack using the alias.
 
 .EXAMPLE
 Push-Window -Monitor 1 -Maximize
-# Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
+        ###############################################################################Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
 
 .EXAMPLE
 Push-Window -Monitor -2 -Fullscreen
-# Moves the current window to the secondary monitor, makes it fullscreen,
-# and pushes it onto the stack.
-#>
-################################################################################
+        ###############################################################################Moves the current window to the secondary monitor, makes it fullscreen,
+        ###############################################################################and pushes it onto the stack.
+###############################################################################>
 function Push-Window {
 
     ############################################################################
@@ -550,4 +549,4 @@ function Push-Window {
     end {
     }
 }
-################################################################################
+        ###############################################################################

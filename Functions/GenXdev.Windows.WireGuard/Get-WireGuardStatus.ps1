@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets detailed status information about the WireGuard VPN server.
@@ -57,7 +57,7 @@ Retrieves status for a custom container without initializing Docker.
 This function interacts with the linuxserver/wireguard Docker container to
 retrieve status information about the WireGuard server. It requires the
 container to be running (use EnsureWireGuard first).
-#>
+        ###############################################################################>
 function Get-WireGuardStatus {
 
     [CmdletBinding()]
@@ -332,4 +332,4 @@ function Get-WireGuardStatus {
 
     }
 }
-################################################################################
+        ###############################################################################

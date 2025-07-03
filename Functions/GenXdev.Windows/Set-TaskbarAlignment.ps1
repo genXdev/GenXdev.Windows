@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Configures Windows 11+ taskbar alignment between center and left positions.
@@ -15,12 +15,12 @@ converted to the appropriate registry value (1 for Center, 0 for Left).
 
 .EXAMPLE
 Set-TaskbarAlignment -Justify Left
-# Sets the Windows 11 taskbar to left alignment
+        ###############################################################################Sets the Windows 11 taskbar to left alignment
 
 .EXAMPLE
 Set-TaskAlign Center -WhatIf
-# Shows what would happen if taskbar was set to center alignment
-#>
+        ###############################################################################Shows what would happen if taskbar was set to center alignment
+        ###############################################################################>
 function Set-TaskbarAlignment {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -70,4 +70,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

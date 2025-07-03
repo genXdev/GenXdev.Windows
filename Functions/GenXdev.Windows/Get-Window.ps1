@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets window information for specified processes or window handles.
@@ -28,7 +28,7 @@ Gets window information for the process with ID 1234 using the alias.
 .EXAMPLE
 window -Handle 45678
 Gets window information for specific window handle using the alias.
-#>
+        ###############################################################################>
 function Get-Window {
 
     [CmdletBinding()]
@@ -108,4 +108,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

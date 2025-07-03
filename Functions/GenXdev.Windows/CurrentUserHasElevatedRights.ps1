@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Checks if the current user has elevated rights.
@@ -15,7 +15,7 @@ Returns true if user has admin or backup operator rights, false otherwise.
 
 .EXAMPLE
 $hasRights = CurrentUserHasElevatedRights
-#>
+###############################################################################>
 function CurrentUserHasElevatedRights {
 
     [CmdletBinding()]
@@ -97,4 +97,4 @@ process {
         $ErrorView = $originalErrorView
     }
 }
-################################################################################
+        ###############################################################################

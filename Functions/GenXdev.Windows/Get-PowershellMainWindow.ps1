@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Returns a window helper object for the PowerShell terminal's main window.
@@ -16,7 +16,7 @@ $null = $mainWindow.SetForeground()
 GenXdev.Helpers.WindowObj
 Represents the main window of the PowerShell host process with properties and
 methods for window manipulation.
-#>
+        ###############################################################################>
 function Get-PowershellMainWindow {
 
     [CmdletBinding()]
@@ -62,4 +62,4 @@ process {
     end {
     }
 }
-################################################################################
+        ###############################################################################

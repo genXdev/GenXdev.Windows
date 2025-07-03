@@ -1,6 +1,6 @@
-################################################################################
+        ###############################################################################
 
-# define known folder guids for windows shell api
+        ###############################################################################define known folder guids for windows shell api
 $knownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
     'AddNewPrograms'        = 'de61d971-5ebc-4f02-a3a9-6c82895e5c04';
@@ -92,7 +92,7 @@ $knownFolders = @{
     'Windows'               = 'F38BF404-1D43-42F2-9305-67DE0B28FC23';
 }
 
-###############################################################################
+        ###############################################################################
 
 <#
 .SYNOPSIS
@@ -124,7 +124,7 @@ Set-KnownFolderPath -KnownFolder 'Documents' -Path 'D:\UserDocs'
 
 .EXAMPLE
 Set-KnownFolderPath Downloads 'E:\Downloads'
-#>
+        ###############################################################################>
 function Set-KnownFolderPath {
 
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
@@ -249,4 +249,4 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
     end {
     }
 }
-################################################################################
+        ###############################################################################

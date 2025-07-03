@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Gets information about all WireGuard VPN peers configured on the system.
@@ -67,8 +67,7 @@ This function interacts with the linuxserver/wireguard Docker container to
 retrieve information about configured WireGuard peers. The container must be
 running and accessible. Use EnsureWireGuard function first if container setup
 is required.
-#>
-###############################################################################
+###############################################################################>
 function Get-WireGuardPeers {
 
     [CmdletBinding()]
@@ -381,4 +380,4 @@ function Get-WireGuardPeers {
     end {
     }
 }
-################################################################################
+        ###############################################################################
