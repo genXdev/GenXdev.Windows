@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Retrieves a list of unique usernames from currently active system processes.
@@ -19,7 +19,7 @@ Uses the alias to get the same results.
 function Get-ActiveUser {
 
     [CmdletBinding()]
-    [Alias("gusers")]
+    [Alias('gusers')]
     param()
 
     begin {
@@ -33,11 +33,11 @@ function Get-ActiveUser {
         $ErrorView = 'DetailedView'
 
         # inform about the start of process enumeration
-        Microsoft.PowerShell.Utility\Write-Verbose "Starting to enumerate all system processes..."
+        Microsoft.PowerShell.Utility\Write-Verbose 'Starting to enumerate all system processes...'
     }
 
 
-process {
+    process {
 
         try {
 
@@ -57,7 +57,7 @@ process {
         catch [System.UnauthorizedAccessException] {
 
             Microsoft.PowerShell.Utility\Write-Error `
-                -Message "Access denied while retrieving processes. Run with elevated privileges." `
+                -Message 'Access denied while retrieving processes. Run with elevated privileges.' `
                 -Exception $_.Exception `
                 -Category PermissionDenied `
                 -ErrorId 'ActiveUserAccessDenied'
@@ -66,7 +66,7 @@ process {
         catch [System.ArgumentException] {
 
             Microsoft.PowerShell.Utility\Write-Error `
-                -Message "Invalid argument provided when retrieving processes." `
+                -Message 'Invalid argument provided when retrieving processes.' `
                 -Exception $_.Exception `
                 -Category InvalidArgument `
                 -ErrorId 'ActiveUserInvalidArgument'
@@ -98,8 +98,7 @@ process {
         else {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Process completed. No active users found or an error occurred."
+                'Process completed. No active users found or an error occurred.'
         }
     }
 }
-        ###############################################################################

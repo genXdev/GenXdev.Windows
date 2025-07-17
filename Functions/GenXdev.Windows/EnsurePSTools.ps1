@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Ensures Sysinternals tools (PSTools) are installed and available.
@@ -32,14 +32,14 @@ function EnsurePSTools {
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = "Force reinstallation of Sysinternals tools"
+            HelpMessage = 'Force reinstallation of Sysinternals tools'
         )]
         [switch]$Force,
         ########################################################################
         [parameter(
             Mandatory = $false,
             Position = 0,
-            HelpMessage = "The executable name to verify installation"
+            HelpMessage = 'The executable name to verify installation'
         )]
         [string]$PSExeName = 'handle.exe'
         ########################################################################
@@ -63,11 +63,11 @@ function EnsurePSTools {
         function IsWinGetInstalled {
 
             # attempt to load the winget module silently
-            Microsoft.PowerShell.Core\Import-Module "Microsoft.WinGet.Client" `
+            Microsoft.PowerShell.Core\Import-Module 'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # verify if module was loaded successfully
-            $module = Microsoft.PowerShell.Core\Get-Module "Microsoft.WinGet.Client" `
+            $module = Microsoft.PowerShell.Core\Get-Module 'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # return true if module exists, false otherwise
@@ -90,13 +90,13 @@ function EnsurePSTools {
         function InstallWinGet {
 
             # log installation progress through verbose messages
-            Microsoft.PowerShell.Utility\Write-Verbose "Installing WinGet PowerShell client..."
+            Microsoft.PowerShell.Utility\Write-Verbose 'Installing WinGet PowerShell client...'
 
             # install winget module with force parameter to ensure success
-            $null = PowerShellGet\Install-Module "Microsoft.WinGet.Client" -Force -AllowClobber
+            $null = PowerShellGet\Install-Module 'Microsoft.WinGet.Client' -Force -AllowClobber
 
             # load the newly installed module into the current session
-            Microsoft.PowerShell.Core\Import-Module "Microsoft.WinGet.Client"
+            Microsoft.PowerShell.Core\Import-Module 'Microsoft.WinGet.Client'
         }
     }
 
@@ -107,7 +107,7 @@ function EnsurePSTools {
                         -ErrorAction SilentlyContinue).Length -eq 0)) {
 
             # inform user about installation process starting
-            Microsoft.PowerShell.Utility\Write-Host "Installing Sysinternals packages..."
+            Microsoft.PowerShell.Utility\Write-Host 'Installing Sysinternals packages...'
 
             # make sure winget module is available before proceeding
             if (-not (IsWinGetInstalled)) {
@@ -116,10 +116,10 @@ function EnsurePSTools {
 
             # search for available sysinternals packages using winget
             $sysinternalsPackages = Microsoft.WinGet.Client\Find-WinGetPackage `
-                -Name "Microsoft.Sysinternals" |
-            Microsoft.PowerShell.Core\Where-Object {
-                $_.Id -like "Microsoft.Sysinternals*"
-            }
+                -Name 'Microsoft.Sysinternals' |
+                Microsoft.PowerShell.Core\Where-Object {
+                    $_.Id -like 'Microsoft.Sysinternals*'
+                }
 
             # install each found sysinternals package
             foreach ($package in $sysinternalsPackages) {
@@ -148,10 +148,9 @@ function EnsurePSTools {
         }
 
         # log successful completion of the function
-        Microsoft.PowerShell.Utility\Write-Verbose "✅ Sysinternals tools are ready."
+        Microsoft.PowerShell.Utility\Write-Verbose '✅ Sysinternals tools are ready.'
     }
 
     end {
     }
 }
-        ###############################################################################

@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Gets information about all WireGuard VPN peers configured on the system.
@@ -70,97 +70,232 @@ is required.
 ###############################################################################>
 function Get-WireGuardPeers {
 
+
+
     [CmdletBinding()]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
 
     param(
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Skip Docker initialization (used when already called " +
-                          "by parent function)")
+            HelpMessage = ('Skip Docker initialization (used when already called ' +
+                'by parent function)')
         )]
         [switch] $NoDockerInitialize,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Force rebuild of Docker container and remove existing " +
-                          "data")
+            HelpMessage = ('Force rebuild of Docker container and remove existing ' +
+                'data')
         )]
-        [Alias("ForceRebuild")]
+        [Alias('ForceRebuild')]
         [switch] $Force,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker volume for persistent storage"
+            HelpMessage = 'The name for the Docker volume for persistent storage'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Maximum time in seconds to wait for service health " +
-                          "check")
+            HelpMessage = ('Maximum time in seconds to wait for service health ' +
+                'check')
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC"
+        [string] $TimeZone = 'Etc/UTC',
         ###############################################################################
-    )    begin {
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show the Docker window when running WireGuard'
+        )]
+        [switch] $ShowWindow,
+        ###############################################################################
+        [Alias('nb')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Remove window borders for the Docker window'
+        )]
+        [switch] $NoBorders,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the width of the Docker window'
+        )]
+        [int] $Width,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the height of the Docker window'
+        )]
+        [int] $Height,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the left position of the Docker window'
+        )]
+        [int] $Left,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the right position of the Docker window'
+        )]
+        [int] $Right,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the bottom position of the Docker window'
+        )]
+        [int] $Bottom,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Center the Docker window on the screen'
+        )]
+        [switch] $Centered,
+        ###############################################################################
+        [Alias('fs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Run the Docker window in fullscreen mode'
+        )]
+        [switch] $Fullscreen,
+        ###############################################################################
+        [Alias('rf','bg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore focus to the previous window after running Docker'
+        )]
+        [switch] $RestoreFocus,
+        ###############################################################################
+        [Alias('sbs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show Docker window side by side with other windows'
+        )]
+        [switch] $SideBySide,
+        ###############################################################################
+        [Alias('fw','focus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the Docker window after launching'
+        )]
+        [switch] $FocusWindow,
+        ###############################################################################
+        [Alias('fg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the Docker window as foreground window'
+        )]
+        [switch] $SetForeground,
+        ###############################################################################
+        [Alias('Escape')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Send Escape key to the Docker window after launch'
+        )]
+        [switch] $SendKeyEscape,
+        ###############################################################################
+        [Alias('HoldKeyboardFocus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus in the Docker window after launch'
+        )]
+        [switch] $SendKeyHoldKeyboardFocus,
+        ###############################################################################
+        [Alias('UseShiftEnter')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter when sending keys to Docker window'
+        )]
+        [switch] $SendKeyUseShiftEnter,
+        ###############################################################################
+        [Alias('DelayMilliSeconds')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Delay in milliseconds between sending keys to Docker window'
+        )]
+        [int] $SendKeyDelayMilliSeconds,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use session only for Docker window'
+        )]
+        [switch] $SessionOnly,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Clear session for Docker window before running'
+        )]
+        [switch] $ClearSession,
+        ###############################################################################
+        [Alias('FromPreferences')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Skip session for Docker window'
+        )]
+        [switch] $SkipSession
+        ###############################################################################
+    )
+
+    begin {
 
         # ensure the WireGuard service is running
         if (-not $NoDockerInitialize) {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to EnsureWireGuard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -176,7 +311,7 @@ function Get-WireGuardPeers {
         else {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
     }
 
@@ -185,7 +320,7 @@ function Get-WireGuardPeers {
         try {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Retrieving WireGuard peers"
+                'Retrieving WireGuard peers'
 
             # get peer information from WireGuard container using wg show command
             $wgOutput = docker exec $ContainerName wg show
@@ -214,15 +349,15 @@ function Get-WireGuardPeers {
 
                     # create new peer object with default values
                     $currentPeer = @{
-                        PublicKey = $matches[1]
-                        Name = $null
-                        AllowedIPs = $null
-                        Endpoint = $null
-                        LatestHandshake = $null
-                        TransferRx = $null
-                        TransferTx = $null
+                        PublicKey           = $matches[1]
+                        Name                = $null
+                        AllowedIPs          = $null
+                        Endpoint            = $null
+                        LatestHandshake     = $null
+                        TransferRx          = $null
+                        TransferTx          = $null
                         PersistentKeepalive = $null
-                        Status = $null
+                        Status              = $null
                     }
                 }
                 elseif ($null -ne $currentPeer) {
@@ -275,7 +410,7 @@ function Get-WireGuardPeers {
                         }
                     }                    # check if line contains transfer statistics information
                     elseif ($line -match ('^\\s+transfer: (\\d+\\.?\\d* \\w+) received, ' +
-                                         '(\\d+\\.?\\d* \\w+) sent$')) {
+                            '(\\d+\\.?\\d* \\w+) sent$')) {
 
                         $currentPeer.TransferRx = $matches[1]
                         $currentPeer.TransferTx = $matches[2]
@@ -295,7 +430,7 @@ function Get-WireGuardPeers {
             }
 
             # get peer names from configuration folders
-            $peerFolders = docker exec $ContainerName sh -c "ls -1d /config/peer_*" `
+            $peerFolders = docker exec $ContainerName sh -c 'ls -1d /config/peer_*' `
                 2>$null
 
             # process peer folders if command was successful
@@ -315,7 +450,7 @@ function Get-WireGuardPeers {
 
                         # process if public key was retrieved successfully
                         if ($LASTEXITCODE -eq 0 -and `
-                            -not [string]::IsNullOrEmpty($publicKey)) {
+                                -not [string]::IsNullOrEmpty($publicKey)) {
 
                             # find the peer with this public key and add the name
                             foreach ($peer in $peers) {
@@ -329,19 +464,19 @@ function Get-WireGuardPeers {
 
                             # if not found in peers list (disconnected), add it
                             if (-not ($peers | `
-                                Microsoft.PowerShell.Core\Where-Object { `
-                                    $_.PublicKey -eq $publicKey.Trim() })) {
+                                            Microsoft.PowerShell.Core\Where-Object { `
+                                                $_.PublicKey -eq $publicKey.Trim() })) {
 
                                 $peers += @{
-                                    PublicKey = $publicKey.Trim()
-                                    Name = $peerName
-                                    AllowedIPs = "Unknown"
-                                    Endpoint = "Unknown"
-                                    LatestHandshake = "Never"
-                                    TransferRx = "0 B"
-                                    TransferTx = "0 B"
-                                    PersistentKeepalive = "Off"
-                                    Status = "Disconnected"
+                                    PublicKey           = $publicKey.Trim()
+                                    Name                = $peerName
+                                    AllowedIPs          = 'Unknown'
+                                    Endpoint            = 'Unknown'
+                                    LatestHandshake     = 'Never'
+                                    TransferRx          = '0 B'
+                                    TransferTx          = '0 B'
+                                    PersistentKeepalive = 'Off'
+                                    Status              = 'Disconnected'
                                 }
                             }
                         }
@@ -351,20 +486,20 @@ function Get-WireGuardPeers {
 
             # convert to custom objects
             $peerObjects = $peers | `
-                Microsoft.PowerShell.Core\ForEach-Object {
+                    Microsoft.PowerShell.Core\ForEach-Object {
 
-                [PSCustomObject]@{
-                    Name = $_.Name
-                    PublicKey = $_.PublicKey
-                    AllowedIPs = $_.AllowedIPs
-                    Endpoint = $_.Endpoint
-                    LatestHandshake = $_.LatestHandshake
-                    TransferReceived = $_.TransferRx
-                    TransferSent = $_.TransferTx
-                    PersistentKeepalive = $_.PersistentKeepalive
-                    Status = $_.Status
+                    [PSCustomObject]@{
+                        Name                = $_.Name
+                        PublicKey           = $_.PublicKey
+                        AllowedIPs          = $_.AllowedIPs
+                        Endpoint            = $_.Endpoint
+                        LatestHandshake     = $_.LatestHandshake
+                        TransferReceived    = $_.TransferRx
+                        TransferSent        = $_.TransferTx
+                        PersistentKeepalive = $_.PersistentKeepalive
+                        Status              = $_.Status
+                    }
                 }
-            }
 
             # return the results
             return $peerObjects
@@ -380,4 +515,3 @@ function Get-WireGuardPeers {
     end {
     }
 }
-        ###############################################################################

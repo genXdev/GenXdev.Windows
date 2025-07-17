@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Gets files from the Windows clipboard that were set for file operations like copy/paste.
@@ -30,7 +30,7 @@ Gets all files from the clipboard and lists them in a detailed format.
 function Get-ClipboardFiles {
 
     [CmdletBinding()]
-    [Alias("getclipfiles")]
+    [Alias('getclipfiles')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     param ()
 
@@ -48,7 +48,7 @@ function Get-ClipboardFiles {
 
         # output verbose information about direct clipboard operation
         Microsoft.PowerShell.Utility\Write-Verbose `
-            "Getting clipboard files directly in STA mode"
+            'Getting clipboard files directly in STA mode'
 
         try {
             # get file drop list from clipboard in sta mode
@@ -61,7 +61,7 @@ function Get-ClipboardFiles {
         catch {
             # output verbose information if clipboard doesn't contain files
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "No file drop list found in clipboard or clipboard access failed"
+                'No file drop list found in clipboard or clipboard access failed'
             return
         }
     }
@@ -69,16 +69,16 @@ function Get-ClipboardFiles {
 
         # output verbose information about sta subprocess requirement
         Microsoft.PowerShell.Utility\Write-Verbose (
-            "Current thread is MTA mode, launching STA subprocess " +
-             "for clipboard operation")
+            'Current thread is MTA mode, launching STA subprocess ' +
+            'for clipboard operation')
 
         # create a temporary file to receive the json data
         $tempFile = GenXdev.FileSystem\Expand-Path ([System.IO.Path]::GetTempFileName()) -DeleteExistingFile -CreateDirectory
 
         # define the powershell command to execute in sta mode
         $command = (
-            "Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;"+
-            "try {"+
+            'Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;'+
+            'try {'+
             "`$fileDropList = [System.Windows.Forms.Clipboard]::GetFileDropList();"+
             "if (`$null -ne `$fileDropList) {"+
             "`$paths = `$fileDropList | ForEach-Object { `$_ };"+
@@ -91,7 +91,7 @@ function Get-ClipboardFiles {
 
             # output verbose information about subprocess execution
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Executing STA subprocess for clipboard operation"
+                'Executing STA subprocess for clipboard operation'
 
             # prepare arguments for powershell subprocess
             $pwshArgs = @(

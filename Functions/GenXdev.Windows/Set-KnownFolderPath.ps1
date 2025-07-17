@@ -1,6 +1,6 @@
-        ###############################################################################
+﻿###############################################################################
 
-        ###############################################################################define known folder guids for windows shell api
+###############################################################################define known folder guids for windows shell api
 $knownFolders = @{
     '3DObjects'             = '31C0DD25-9439-4F12-BF41-7FF4EDA38722';
     'AddNewPrograms'        = 'de61d971-5ebc-4f02-a3a9-6c82895e5c04';
@@ -92,7 +92,7 @@ $knownFolders = @{
     'Windows'               = 'F38BF404-1D43-42F2-9305-67DE0B28FC23';
 }
 
-        ###############################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -124,16 +124,16 @@ Set-KnownFolderPath -KnownFolder 'Documents' -Path 'D:\UserDocs'
 
 .EXAMPLE
 Set-KnownFolderPath Downloads 'E:\Downloads'
-        ###############################################################################>
+#>
 function Set-KnownFolderPath {
 
-    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param(
         ###################################################################
         [Parameter(
             Position = 0,
             Mandatory = $true,
-            HelpMessage = "Known folder to modify"
+            HelpMessage = 'Known folder to modify'
         )]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools',
             'AppUpdates', 'CDBurning', 'ChangeRemovePrograms',
@@ -166,10 +166,10 @@ function Set-KnownFolderPath {
         [Parameter(
             Position = 1,
             Mandatory = $true,
-            HelpMessage = "New path for the known folder"
+            HelpMessage = 'New path for the known folder'
         )]
         [ValidateNotNullOrEmpty()]
-        [Alias("FullName")]
+        [Alias('FullName')]
         [string] $Path
         ###################################################################
     )
@@ -198,7 +198,7 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
         }
 
         Microsoft.PowerShell.Utility\Write-Verbose (
-            "Starting known folder path change operation"
+            'Starting known folder path change operation'
         )
 
         Microsoft.PowerShell.Utility\Write-Verbose (
@@ -214,8 +214,8 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
 
         # verify the destination path exists before attempting to move
         if (-not (Microsoft.PowerShell.Management\Test-Path `
-                -Path $Path `
-                -PathType Container)) {
+                    -Path $Path `
+                    -PathType Container)) {
 
             $msg = "Could not find folder path: $Path"
 
@@ -249,4 +249,3 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
     end {
     }
 }
-        ###############################################################################

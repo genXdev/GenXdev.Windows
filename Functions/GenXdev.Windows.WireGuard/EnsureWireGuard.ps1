@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Ensures WireGuard VPN service is installed and running via Docker container.
@@ -89,24 +89,24 @@ function EnsureWireGuard {
         [Parameter(
             Position = 0,
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         #######################################################################
         [Parameter(
             Position = 1,
             Mandatory = $false,
-            HelpMessage = ("The name for the Docker volume for persistent " +
-                          "storage")
+            HelpMessage = ('The name for the Docker volume for persistent ' +
+                'storage')
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         #######################################################################
         [Parameter(
             Position = 2,
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
@@ -114,8 +114,8 @@ function EnsureWireGuard {
         [Parameter(
             Position = 3,
             Mandatory = $false,
-            HelpMessage = ("Maximum time in seconds to wait for service " +
-                          "health check")
+            HelpMessage = ('Maximum time in seconds to wait for service ' +
+                'health check')
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
@@ -123,7 +123,7 @@ function EnsureWireGuard {
         [Parameter(
             Position = 4,
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
@@ -131,41 +131,178 @@ function EnsureWireGuard {
         [Parameter(
             Position = 5,
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         #######################################################################
         [Parameter(
             Position = 6,
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         #######################################################################
         [Parameter(
             Position = 7,
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         #######################################################################
         [Parameter(
             Position = 8,
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC",
+        [string] $TimeZone = 'Etc/UTC',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Force rebuild of Docker container and remove " +
-                          "existing data")
+            HelpMessage = 'Show Docker Desktop window during initialization'
         )]
-        [Alias("ForceRebuild")]
+        [switch] $ShowWindow,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Removes the borders of the window'
+        )]
+        [Alias('nb')]
+        [switch] $NoBorders,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial width of the window'
+        )]
+        [int] $Width,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial height of the window'
+        )]
+        [int] $Height,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the left side of the screen'
+        )]
+        [switch] $Left,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the right side of the screen'
+        )]
+        [switch] $Right,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the bottom side of the screen'
+        )]
+        [switch] $Bottom,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window in the center of the screen'
+        )]
+        [switch] $Centered,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Maximize the window'
+        )]
+        [Alias('fs')]
+        [switch] $Fullscreen,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore PowerShell window focus'
+        )]
+        [Alias('rf', 'bg')]
+        [switch] $RestoreFocus,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Will either set the window fullscreen on a ' +
+                'different monitor than Powershell, or side by side with ' +
+                'Powershell on the same monitor')
+        )]
+        [Alias('sbs')]
+        [switch] $SideBySide,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the window after opening'
+        )]
+        [Alias('fw','focus')]
+        [switch] $FocusWindow,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window to foreground after opening'
+        )]
+        [Alias('fg')]
+        [switch] $SetForeground,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Escape control characters and modifiers when sending keys'
+        )]
+        [Alias('Escape')]
+        [switch] $SendKeyEscape,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus on target window when sending keys'
+        )]
+        [Alias('HoldKeyboardFocus')]
+        [switch] $SendKeyHoldKeyboardFocus,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter instead of Enter when sending keys'
+        )]
+        [Alias('UseShiftEnter')]
+        [switch] $SendKeyUseShiftEnter,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Delay between different input strings in ' +
+                'milliseconds when sending keys')
+        )]
+        [Alias('DelayMilliSeconds')]
+        [int] $SendKeyDelayMilliSeconds,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Use alternative settings stored in session for AI ' +
+                'preferences')
+        )]
+        [switch] $SessionOnly,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Clear alternative settings stored in session for ' +
+                'AI preferences')
+        )]
+        [switch] $ClearSession,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Store settings only in persistent preferences ' +
+                'without affecting session')
+        )]
+        [Alias('FromPreferences')]
+        [switch] $SkipSession,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Force rebuild of Docker container and remove ' +
+                'existing data')
+        )]
+        [Alias('ForceRebuild')]
         [switch] $Force
         #######################################################################
     )    begin {
@@ -197,7 +334,7 @@ function EnsureWireGuard {
 
         # store original location for cleanup at the end of the function
         $script:originalLocation = `
-            (Microsoft.PowerShell.Management\Get-Location).Path
+        (Microsoft.PowerShell.Management\Get-Location).Path
 
         #######################################################################
         <#
@@ -213,7 +350,7 @@ function EnsureWireGuard {
             try {
 
                 # attempt to get docker version to verify docker is running
-                $null = docker version --format "{{.Server.Version}}" 2>$null
+                $null = docker version --format '{{.Server.Version}}' 2>$null
 
                 return $LASTEXITCODE -eq 0
             }
@@ -241,7 +378,7 @@ function EnsureWireGuard {
             try {
 
                 # query docker for existing images matching the specified name
-                $images = docker images $ImageName --format "{{.Repository}}" `
+                $images = docker images $ImageName --format '{{.Repository}}' `
                     2>$null
 
                 return -not [string]::IsNullOrWhiteSpace($images)
@@ -271,7 +408,7 @@ function EnsureWireGuard {
 
                 # search for containers with exact name match including stopped ones
                 $containers = docker ps -a --filter "name=^${ContainerName}$" `
-                    --format "{{.ID}}" 2>$null
+                    --format '{{.ID}}' 2>$null
 
                 return -not [string]::IsNullOrWhiteSpace($containers)
             }
@@ -300,7 +437,7 @@ function EnsureWireGuard {
 
                 # search for running containers with exact name match
                 $containers = docker ps --filter "name=^${ContainerName}$" `
-                    --format "{{.ID}}" 2>$null
+                    --format '{{.ID}}' 2>$null
 
                 return -not [string]::IsNullOrWhiteSpace($containers)
             }
@@ -333,7 +470,7 @@ function EnsureWireGuard {
                 if (Test-DockerContainer $ContainerName) {
 
                     if ($PSCmdlet.ShouldProcess($ContainerName,
-                        "Stop and remove Docker container")) {
+                            'Stop and remove Docker container')) {
 
                         # output verbose information about container removal
                         Microsoft.PowerShell.Utility\Write-Verbose `
@@ -375,7 +512,7 @@ function EnsureWireGuard {
             try {
 
                 if ($PSCmdlet.ShouldProcess($VolumeName,
-                    "Remove Docker volume")) {
+                        'Remove Docker volume')) {
 
                     # output verbose information about volume removal
                     Microsoft.PowerShell.Utility\Write-Verbose `
@@ -419,13 +556,13 @@ function EnsureWireGuard {
                 $logs = docker logs $script:containerName 2>&1
 
                 # look for indications that wireguard is running properly
-                if ($logs -match "Server started" -or
-                    $logs -match "WireGuard started" -or
-                    $logs -match "UDP listening") {
+                if ($logs -match 'Server started' -or
+                    $logs -match 'WireGuard started' -or
+                    $logs -match 'UDP listening') {
 
                     # log successful health check for debugging
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        "WireGuard service health check passed"
+                        'WireGuard service health check passed'
 
                     return $true
                 }
@@ -439,8 +576,8 @@ function EnsureWireGuard {
 
                     # log successful health check for debugging
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        ("WireGuard service health check passed " +
-                         "(port is listening)")
+                    ('WireGuard service health check passed ' +
+                        '(port is listening)')
 
                     return $true
                 }
@@ -470,14 +607,14 @@ function EnsureWireGuard {
 
             # output verbose information about waiting for service readiness
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Waiting for WireGuard service to become ready..."
+                'Waiting for WireGuard service to become ready...'
 
             # initialize retry counter for health check attempts
             $retryCount = 0
 
             # calculate maximum retry attempts based on timeout and interval
             $maxRetries = [math]::Floor($script:healthCheckTimeout / `
-                $script:healthCheckInterval)
+                    $script:healthCheckInterval)
 
             while ($retryCount -lt $maxRetries) {
 
@@ -486,7 +623,7 @@ function EnsureWireGuard {
 
                     # log successful service readiness
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        "WireGuard service is ready and responding"
+                        'WireGuard service is ready and responding'
 
                     return $true
                 }
@@ -505,8 +642,8 @@ function EnsureWireGuard {
 
             # warn about service readiness timeout after all retries
             Microsoft.PowerShell.Utility\Write-Warning `
-                ("WireGuard service did not become ready within " +
-                 "$script:healthCheckTimeout seconds")
+            ('WireGuard service did not become ready within ' +
+                "$script:healthCheckTimeout seconds")
 
             return $false
         }
@@ -539,7 +676,7 @@ function EnsureWireGuard {
 
                 # log successful image pull completion
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "✅ WireGuard image pulled successfully"
+                    '✅ WireGuard image pulled successfully'
 
                 return $true
             }
@@ -571,19 +708,19 @@ function EnsureWireGuard {
 
                 # output verbose information about container creation process
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Creating WireGuard container..."
+                    'Creating WireGuard container...'
 
                 # check if docker volume already exists in the system
                 $volumeExists = docker volume ls `
                     --filter "name=^${script:volumeName}$" `
-                    --format "{{.Name}}" 2>$null
+                    --format '{{.Name}}' 2>$null
 
                 # create docker volume if it doesn't exist yet
                 if ([string]::IsNullOrWhiteSpace($volumeExists)) {
 
                     # use shouldprocess to confirm volume creation
                     if ($PSCmdlet.ShouldProcess("$script:volumeName",
-                        "Create Docker volume")) {
+                            'Create Docker volume')) {
 
                         # output verbose information about volume creation
                         Microsoft.PowerShell.Utility\Write-Verbose `
@@ -596,24 +733,24 @@ function EnsureWireGuard {
                         # check if volume creation failed
                         if ($LASTEXITCODE -ne 0) {
 
-                            throw ("Failed to create Docker volume " +
-                                  "$script:volumeName`: $volumeResult")
+                            throw ('Failed to create Docker volume ' +
+                                "$script:volumeName`: $volumeResult")
                         }
                     }
                 }
 
                 # prepare docker run arguments for container creation
                 $dockerArgs = @(
-                    "run", "-d"
-                    "--name", $script:containerName
-                    "--cap-add", "NET_ADMIN"
-                    "--cap-add", "SYS_MODULE"
-                    "-e", "PUID=$($script:puid)"
-                    "-e", "PGID=$($script:pgid)"
-                    "-e", "TZ=$($script:timezone)"
-                    "-p", "$($script:servicePort):51820/udp"
-                    "-v", "$($script:volumeName):/config"
-                    "--restart", "unless-stopped"
+                    'run', '-d'
+                    '--name', $script:containerName
+                    '--cap-add', 'NET_ADMIN'
+                    '--cap-add', 'SYS_MODULE'
+                    '-e', "PUID=$($script:puid)"
+                    '-e', "PGID=$($script:pgid)"
+                    '-e', "TZ=$($script:timezone)"
+                    '-p', "$($script:servicePort):51820/udp"
+                    '-v', "$($script:volumeName):/config"
+                    '--restart', 'unless-stopped'
                 )
 
                 # add the docker image name as final argument
@@ -625,7 +762,7 @@ function EnsureWireGuard {
 
                 # use shouldprocess to confirm container creation
                 if ($PSCmdlet.ShouldProcess("$script:containerName",
-                    "Create WireGuard container")) {
+                        'Create WireGuard container')) {
 
                     # execute docker run command to create container
                     $result = & docker @dockerArgs 2>&1
@@ -642,7 +779,7 @@ function EnsureWireGuard {
 
                 # log successful container creation
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "✅ WireGuard container created successfully"
+                    '✅ WireGuard container created successfully'
 
                 return $true
             }
@@ -662,14 +799,20 @@ function EnsureWireGuard {
 
             # ensure docker desktop is available and running properly
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring Docker Desktop is available..."
+                'Ensuring Docker Desktop is available...'
 
-            GenXdev.Windows\EnsureDockerDesktop
+            # Copy identical parameters between functions
+            $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                -FunctionName 'GenXdev.Windows\EnsureDockerDesktop' `
+                -BoundParameters $PSBoundParameters `
+                -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable -Scope Local -ErrorAction SilentlyContinue)
+
+            GenXdev.Windows\EnsureDockerDesktop @params
 
             # verify docker is responding to commands after ensuring it's running
             if (-not (Test-DockerAvailability)) {
 
-                throw "Docker is not available or not responding"
+                throw 'Docker is not available or not responding'
             }
 
             # handle force cleanup if requested by user for fresh installation
@@ -677,7 +820,7 @@ function EnsureWireGuard {
 
                 # output verbose information about forced cleanup process
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Force flag specified - cleaning up existing resources..."
+                    'Force flag specified - cleaning up existing resources...'
 
                 # remove existing container and volume for clean slate
                 Remove-DockerContainer $script:containerName
@@ -691,14 +834,14 @@ function EnsureWireGuard {
                 # pull the docker image if not present or force specified
                 if (-not (Get-WireGuardImage)) {
 
-                    throw "Failed to obtain WireGuard Docker image"
+                    throw 'Failed to obtain WireGuard Docker image'
                 }
             }
             else {
 
                 # log that image is already available locally
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "✅ WireGuard image already available"
+                    '✅ WireGuard image already available'
             }
 
             # check current container state for appropriate action
@@ -717,14 +860,14 @@ function EnsureWireGuard {
 
                         # log successful health check result
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            "✅ WireGuard container is healthy and responding"
+                            '✅ WireGuard container is healthy and responding'
                     }
                     else {
 
                         # restart unhealthy running container to fix issues
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            ("Container is running but not responding - " +
-                             "restarting...")
+                        ('Container is running but not responding - ' +
+                            'restarting...')
 
                         # restart the container to fix health issues
                         $null = docker restart $script:containerName 2>$null
@@ -739,8 +882,8 @@ function EnsureWireGuard {
                         if (-not $serviceReady) {
 
                             Microsoft.PowerShell.Utility\Write-Warning `
-                                ("WireGuard service may not be fully ready " +
-                                 "after restart")
+                            ('WireGuard service may not be fully ready ' +
+                                'after restart')
                         }
                     }
                 }
@@ -748,7 +891,7 @@ function EnsureWireGuard {
 
                     # start existing stopped container
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        "Starting existing container..."
+                        'Starting existing container...'
 
                     # start the stopped container
                     $null = docker start $script:containerName 2>$null
@@ -763,13 +906,13 @@ function EnsureWireGuard {
                     if ($serviceReady) {
 
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            "✅ WireGuard service is ready after container start"
+                            '✅ WireGuard service is ready after container start'
                     }
                     else {
 
                         Microsoft.PowerShell.Utility\Write-Warning `
-                            ("WireGuard service may not be fully ready " +
-                             "after start")
+                        ('WireGuard service may not be fully ready ' +
+                            'after start')
                     }
                 }
             }
@@ -777,17 +920,17 @@ function EnsureWireGuard {
 
                 # create and start new container when none exists
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Creating and starting WireGuard container..."
+                    'Creating and starting WireGuard container...'
 
                 # attempt to create new wireguard container
                 if (-not (New-WireGuardContainer)) {
 
-                    throw "Failed to create WireGuard container"
+                    throw 'Failed to create WireGuard container'
                 }
 
                 # wait for service to be ready after creation
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Waiting for WireGuard service to be ready..."
+                    'Waiting for WireGuard service to be ready...'
 
                 $serviceReady = Wait-ServiceReady
 
@@ -795,19 +938,19 @@ function EnsureWireGuard {
                 if ($serviceReady) {
 
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        "✅ WireGuard service is ready"
+                        '✅ WireGuard service is ready'
                 }
                 else {
 
                     Microsoft.PowerShell.Utility\Write-Warning `
-                        ("WireGuard service may not be fully ready " +
-                         "after creation")
+                    ('WireGuard service may not be fully ready ' +
+                        'after creation')
                 }
             }
 
             # perform final validation of service state before returning
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Performing final validation..."
+                'Performing final validation...'
 
             # check if container is running and service is healthy
             if ((Test-DockerContainerRunning $script:containerName) -and `
@@ -815,8 +958,8 @@ function EnsureWireGuard {
 
                 # log successful service operation
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    ("✅ WireGuard VPN service is fully " +
-                     "operational on port $script:servicePort")
+                ('✅ WireGuard VPN service is fully ' +
+                    "operational on port $script:servicePort")
 
                 # display instructions for client configuration to user
                 Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green @"
@@ -836,7 +979,7 @@ For Android 10 and above:
 
                 # warn about potential service issues
                 Microsoft.PowerShell.Utility\Write-Warning `
-                    "WireGuard service may not be fully operational"
+                    'WireGuard service may not be fully operational'
 
                 return $false
             }
@@ -855,4 +998,3 @@ For Android 10 and above:
         Microsoft.PowerShell.Management\Set-Location $script:originalLocation
     }
 }
-        ###############################################################################

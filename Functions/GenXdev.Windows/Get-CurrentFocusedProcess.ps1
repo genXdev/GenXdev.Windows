@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Retrieves the process object of the window that currently has keyboard focus.
@@ -27,7 +27,7 @@ function Get-CurrentFocusedProcess {
         # this adds two critical User32.dll methods via P/Invoke:
         # - GetForegroundWindow: gets handle of active window
         # - GetWindowThreadProcessId: gets process ID from window handle
-        Microsoft.PowerShell.Utility\Add-Type -TypeDefinition @"
+        Microsoft.PowerShell.Utility\Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
 
@@ -38,18 +38,18 @@ public class User32 {
     [DllImport("user32.dll")]
     public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int processId);
 }
-"@
+'@
     }
 
 
-process {
+    process {
 
         # get the handle to the currently active window
-        Microsoft.PowerShell.Utility\Write-Verbose "Attempting to get foreground window handle"
+        Microsoft.PowerShell.Utility\Write-Verbose 'Attempting to get foreground window handle'
         $foregroundWindow = [User32]::GetForegroundWindow()
 
         # retrieve the process id associated with the window handle
-        Microsoft.PowerShell.Utility\Write-Verbose "Getting process ID from window handle"
+        Microsoft.PowerShell.Utility\Write-Verbose 'Getting process ID from window handle'
         $processId = 0
         $null = [User32]::GetWindowThreadProcessId($foregroundWindow, [ref]$processId)
 
@@ -67,10 +67,9 @@ process {
             }
         }
 
-        Microsoft.PowerShell.Utility\Write-Warning "Could not retrieve process for the focused window"
+        Microsoft.PowerShell.Utility\Write-Warning 'Could not retrieve process for the focused window'
     }
 
     end {
     }
 }
-        ###############################################################################

@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.
@@ -31,9 +31,10 @@ function Get-DesktopScalingFactor {
         [Parameter(
             Position = 0,
             Mandatory = $false,
-            HelpMessage = "The monitor index to check (0 = primary monitor)"
+            HelpMessage = 'The monitor index to check (0 = primary monitor)'
         )]
         [ValidateRange(0, 99)]
+        [Alias('m', 'mon')]
         [int] $Monitor = 0
         ########################################################################
     )
@@ -45,7 +46,7 @@ function Get-DesktopScalingFactor {
     }
 
 
-process {
+    process {
 
         # invoke the native method to retrieve the current scaling factor
         # uses the GenXdev.Helpers.DesktopInfo class's static method
@@ -55,4 +56,3 @@ process {
     end {
     }
 }
-        ###############################################################################

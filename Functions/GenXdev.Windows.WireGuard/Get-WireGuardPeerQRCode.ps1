@@ -55,101 +55,233 @@ Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize
 .NOTES
 This function requires the container to be running (use EnsureWireGuard first)
 and the peer to exist (use Add-WireGuardPeer to create peers).
-        ###############################################################################>
+##############################################################################
+#>
 
 function Get-WireGuardPeerQRCode {
 
     [CmdletBinding()]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
 
     param(
         ###############################################################################
         [Parameter(
             Position = 0,
             Mandatory = $true,
-            HelpMessage = "The name of the peer to generate a QR code for"
+            HelpMessage = 'The name of the peer to generate a QR code for'
         )]
         [ValidateNotNullOrEmpty()]
         [string] $PeerName,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Skip Docker initialization (used when already " +
-                          "called by parent function)")
+            HelpMessage = ('Skip Docker initialization (used when already ' +
+                'called by parent function)')
         )]
         [switch] $NoDockerInitialize,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Force rebuild of Docker container and remove " +
-                          "existing data")
+            HelpMessage = ('Force rebuild of Docker container and remove ' +
+                'existing data')
         )]
-        [Alias("ForceRebuild")]
+        [Alias('ForceRebuild')]
         [switch] $Force,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker volume for persistent storage"
+            HelpMessage = 'The name for the Docker volume for persistent storage'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Maximum time in seconds to wait for service " +
-                          "health check")
+            HelpMessage = ('Maximum time in seconds to wait for service ' +
+                'health check')
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC"
+        [string] $TimeZone = 'Etc/UTC',
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show the WireGuard window (if supported)'
+        )]
+        [switch] $ShowWindow,
+        ###############################################################################
+        [Alias('nb')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Display window without borders (if supported)'
+        )]
+        [switch] $NoBorders,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Width of the window (if supported)'
+        )]
+        [int] $Width,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Height of the window (if supported)'
+        )]
+        [int] $Height,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Left position of the window (if supported)'
+        )]
+        [int] $Left,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Right position of the window (if supported)'
+        )]
+        [int] $Right,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Bottom position of the window (if supported)'
+        )]
+        [int] $Bottom,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Center the window (if supported)'
+        )]
+        [switch] $Centered,
+        ###############################################################################
+        [Alias('fs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show window in fullscreen mode (if supported)'
+        )]
+        [switch] $Fullscreen,
+        ###############################################################################
+        [Alias('rf','bg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore focus to previous window (if supported)'
+        )]
+        [switch] $RestoreFocus,
+        ###############################################################################
+        [Alias('sbs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show windows side by side (if supported)'
+        )]
+        [switch] $SideBySide,
+        ###############################################################################
+        [Alias('fw','focus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the WireGuard window (if supported)'
+        )]
+        [switch] $FocusWindow,
+        ###############################################################################
+        [Alias('fg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the WireGuard window to foreground (if supported)'
+        )]
+        [switch] $SetForeground,
+        ###############################################################################
+        [Alias('Escape')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Send Escape key to the window (if supported)'
+        )]
+        [switch] $SendKeyEscape,
+        ###############################################################################
+        [Alias('HoldKeyboardFocus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus when sending keys (if supported)'
+        )]
+        [switch] $SendKeyHoldKeyboardFocus,
+        ###############################################################################
+        [Alias('UseShiftEnter')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter when sending keys (if supported)'
+        )]
+        [switch] $SendKeyUseShiftEnter,
+        ###############################################################################
+        [Alias('DelayMilliSeconds')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Delay in milliseconds between sending keys (if supported)'
+        )]
+        [int] $SendKeyDelayMilliSeconds,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Session only mode (if supported)'
+        )]
+        [switch] $SessionOnly,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Clear session before starting (if supported)'
+        )]
+        [switch] $ClearSession,
+        ###############################################################################
+        [Alias('FromPreferences')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Skip session initialization (if supported)'
+        )]
+        [switch] $SkipSession
         ###############################################################################
     )    begin {
 
@@ -157,7 +289,7 @@ function Get-WireGuardPeerQRCode {
         if (-not $NoDockerInitialize) {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to EnsureWireGuard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -173,7 +305,7 @@ function Get-WireGuardPeerQRCode {
         else {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
 
         # define helper function to check if peer exists
@@ -211,7 +343,7 @@ function Get-WireGuardPeerQRCode {
             if (-not (Test-PeerExist -peerName $PeerName)) {
 
                 throw ("Peer '$PeerName' does not exist. Create it with " +
-                       "Add-WireGuardPeer first")
+                    'Add-WireGuardPeer first')
             }
 
             Microsoft.PowerShell.Utility\Write-Verbose `
@@ -226,26 +358,26 @@ function Get-WireGuardPeerQRCode {
             }
 
             # output the QR code to the console with formatting
-            Microsoft.PowerShell.Utility\Write-Host ""
+            Microsoft.PowerShell.Utility\Write-Host ''
 
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Cyan `
                 "QR Code for peer '$PeerName':"
 
-            Microsoft.PowerShell.Utility\Write-Host ""
+            Microsoft.PowerShell.Utility\Write-Host ''
 
             Microsoft.PowerShell.Utility\Write-Host $qrCode
 
-            Microsoft.PowerShell.Utility\Write-Host ""
+            Microsoft.PowerShell.Utility\Write-Host ''
 
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
-                ("Scan this QR code with the WireGuard mobile app to set up " +
-                "the connection.")
+            ('Scan this QR code with the WireGuard mobile app to set up ' +
+                'the connection.')
 
             # return structured data about the QR code
             return [PSCustomObject]@{
                 PeerName = $PeerName
-                QRCode = $qrCode
-                Message = "QR code generated successfully for peer '$PeerName'"
+                QRCode   = $qrCode
+                Message  = "QR code generated successfully for peer '$PeerName'"
             }
         }
         catch {
@@ -260,4 +392,3 @@ function Get-WireGuardPeerQRCode {
         # no specific cleanup needed for this function
     }
 }
-        ###############################################################################

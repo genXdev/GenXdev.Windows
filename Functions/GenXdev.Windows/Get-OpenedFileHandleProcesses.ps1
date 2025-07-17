@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Retrieves processes that have open file handles to specified files.
@@ -19,17 +19,17 @@ Multiple file paths can be provided to check multiple files at once.
 
 .EXAMPLE
 Get-OpenedFileHandleProcesses -FilePath "C:\temp\example.txt"
-        ###############################################################################Identifies all processes that have open handles to the specified file
+Identifies all processes that have open handles to the specified file
 
 .EXAMPLE
 "file1.txt", "file2.txt" | Get-OpenedFileHandleProcesses
-        ###############################################################################Checks multiple files via pipeline input for processes with open handles
-        ###############################################################################>
+Checks multiple files via pipeline input for processes with open handles
+#>
 function Get-OpenedFileHandleProcesses {
 
 
     [CmdletBinding()]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     param(
         ########################################################################
         [Parameter(
@@ -37,7 +37,7 @@ function Get-OpenedFileHandleProcesses {
             Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = "The path to the file(s) to check for open handles"
+            HelpMessage = 'The path to the file(s) to check for open handles'
         )]
         [ValidateNotNullOrEmpty()]
         [string[]]$FilePath
@@ -47,7 +47,7 @@ function Get-OpenedFileHandleProcesses {
     begin {
 
         # log start of process detection for user visibility
-        Microsoft.PowerShell.Utility\Write-Verbose "Starting file handle process detection..."
+        Microsoft.PowerShell.Utility\Write-Verbose 'Starting file handle process detection...'
 
         # ensure handle.exe from sysinternals is available before proceeding
         GenXdev.Windows\EnsurePSTools -PSExeName 'handle.exe'
@@ -83,46 +83,46 @@ function Get-OpenedFileHandleProcesses {
                 # parse output to find processes with file handles
                 # first filter for lines containing "pid:" which indicate a process handle
                 $processes = $handleOutput |
-                Microsoft.PowerShell.Core\Where-Object {
-                    $_ -match "pid:"
-                } |
-                Microsoft.PowerShell.Core\ForEach-Object {
-                    # match the pattern for pid and ensure it's the correct file
-                    if ($_ -match "pid:\s*(\d+)\s+type:\s*File\s+.*$([regex]::Escape($file))") {
-                        # extract the process id from the regex match
-                        $processId = $Matches[1]
-                        Microsoft.PowerShell.Utility\Write-Verbose (
-                            "Found process with PID $processId accessing file: $file"
-                        )
-
-                        try {
-                            # get detailed information about the process
-                            $process = Microsoft.PowerShell.Management\Get-Process -Id $processId -ErrorAction Stop
-
-                            # create and return a custom object with process details
-                            [PSCustomObject]@{
-                                ProcessName = $process.ProcessName
-                                PID         = [int]$processId
-                                FilePath    = $file
-                                ProcessPath = $process.Path
-                            }
-                        }
-                        catch {
-                            # handle case where process info can't be retrieved
-                            Microsoft.PowerShell.Utility\Write-Warning (
-                                "Could not retrieve process details for PID $processId"
+                    Microsoft.PowerShell.Core\Where-Object {
+                        $_ -match 'pid:'
+                    } |
+                    Microsoft.PowerShell.Core\ForEach-Object {
+                        # match the pattern for pid and ensure it's the correct file
+                        if ($_ -match "pid:\s*(\d+)\s+type:\s*File\s+.*$([regex]::Escape($file))") {
+                            # extract the process id from the regex match
+                            $processId = $Matches[1]
+                            Microsoft.PowerShell.Utility\Write-Verbose (
+                                "Found process with PID $processId accessing file: $file"
                             )
 
-                            # return object with available information
-                            [PSCustomObject]@{
-                                ProcessName = "Unknown"
-                                PID         = [int]$processId
-                                FilePath    = $file
-                                ProcessPath = $null
+                            try {
+                                # get detailed information about the process
+                                $process = Microsoft.PowerShell.Management\Get-Process -Id $processId -ErrorAction Stop
+
+                                # create and return a custom object with process details
+                                [PSCustomObject]@{
+                                    ProcessName = $process.ProcessName
+                                    PID         = [int]$processId
+                                    FilePath    = $file
+                                    ProcessPath = $process.Path
+                                }
+                            }
+                            catch {
+                                # handle case where process info can't be retrieved
+                                Microsoft.PowerShell.Utility\Write-Warning (
+                                    "Could not retrieve process details for PID $processId"
+                                )
+
+                                # return object with available information
+                                [PSCustomObject]@{
+                                    ProcessName = 'Unknown'
+                                    PID         = [int]$processId
+                                    FilePath    = $file
+                                    ProcessPath = $null
+                                }
                             }
                         }
                     }
-                }
 
                 # return the results or log that none were found
                 if ($processes) {
@@ -146,7 +146,6 @@ function Get-OpenedFileHandleProcesses {
 
     end {
         # log completion of the function
-        Microsoft.PowerShell.Utility\Write-Verbose "Completed file handle process detection"
+        Microsoft.PowerShell.Utility\Write-Verbose 'Completed file handle process detection'
     }
 }
-        ###############################################################################

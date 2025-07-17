@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Checks if the current user has elevated rights.
@@ -36,7 +36,7 @@ function CurrentUserHasElevatedRights {
     }
 
 
-process {
+    process {
 
         try {
 
@@ -54,17 +54,17 @@ process {
                 $principal.IsInRole(
                     [System.Security.Principal.WindowsBuiltInRole]::BackupOperator)) {
 
-                Microsoft.PowerShell.Utility\Write-Verbose "User has elevated rights"
+                Microsoft.PowerShell.Utility\Write-Verbose 'User has elevated rights'
                 return $true
             }
 
-            Microsoft.PowerShell.Utility\Write-Verbose "User does not have elevated rights"
+            Microsoft.PowerShell.Utility\Write-Verbose 'User does not have elevated rights'
             return $false
         }
         catch [System.Security.SecurityException] {
 
             Microsoft.PowerShell.Utility\Write-Error `
-                -Message "Security violation checking user rights" `
+                -Message 'Security violation checking user rights' `
                 -Exception $_.Exception `
                 -Category SecurityError `
                 -ErrorId 'SecurityViolation'
@@ -73,7 +73,7 @@ process {
         catch [System.UnauthorizedAccessException] {
 
             Microsoft.PowerShell.Utility\Write-Error `
-                -Message "Access denied while verifying user privileges" `
+                -Message 'Access denied while verifying user privileges' `
                 -Exception $_.Exception `
                 -Category PermissionDenied `
                 -ErrorId 'AccessDenied'
@@ -82,7 +82,7 @@ process {
         catch {
 
             Microsoft.PowerShell.Utility\Write-Error `
-                -Message "Unexpected error during rights verification" `
+                -Message 'Unexpected error during rights verification' `
                 -Exception $_.Exception `
                 -Category OperationStopped `
                 -ErrorId 'UnexpectedError'
@@ -97,4 +97,3 @@ process {
         $ErrorView = $originalErrorView
     }
 }
-        ###############################################################################

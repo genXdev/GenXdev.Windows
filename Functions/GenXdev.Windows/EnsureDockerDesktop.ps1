@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Ensures Docker Desktop is installed and available for containerization
@@ -17,14 +17,108 @@ Shows the Docker Desktop window during initialization when specified. When
 this switch is enabled, Docker Desktop will start with its window visible
 instead of minimized to the system tray.
 
+.PARAMETER Monitor
+Specifies the monitor to move the Docker Desktop window to:
+  0 = Primary monitor (default)
+  1..n = Specific monitor (1-based index)
+  -1 = Discard monitor positioning
+  -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)
+
+.PARAMETER NoBorders
+Removes the window borders and title bar from the Docker Desktop window for
+a cleaner appearance.
+
+.PARAMETER Width
+Sets the width of the Docker Desktop window in pixels. Use -1 for automatic
+sizing based on window content.
+
+.PARAMETER Height
+Sets the height of the Docker Desktop window in pixels. Use -1 for automatic
+sizing based on window content.
+
+.PARAMETER X
+Sets the horizontal position of the Docker Desktop window in pixels. Use -1
+for automatic positioning by the system.
+
+.PARAMETER Y
+Sets the vertical position of the Docker Desktop window in pixels. Use -1
+for automatic positioning by the system.
+
+.PARAMETER Left
+Places the Docker Desktop window on the left half of the screen.
+
+.PARAMETER Right
+Places the Docker Desktop window on the right half of the screen.
+
+.PARAMETER Top
+Places the Docker Desktop window on the top half of the screen.
+
+.PARAMETER Bottom
+Places the Docker Desktop window on the bottom half of the screen.
+
+.PARAMETER Centered
+Centers the Docker Desktop window on the screen.
+
+.PARAMETER Fullscreen
+Maximizes the Docker Desktop window to fill the entire screen.
+
+.PARAMETER RestoreFocus
+Returns focus to the PowerShell window after positioning Docker Desktop.
+
+.PARAMETER SideBySide
+Positions Docker Desktop side by side with PowerShell on the same monitor
+or fullscreen on a different monitor.
+
+.PARAMETER FocusWindow
+Focuses the Docker Desktop window after positioning and initialization.
+
+.PARAMETER SetForeground
+Sets the Docker Desktop window to foreground after positioning and
+initialization.
+
+.PARAMETER Maximize
+Maximizes the Docker Desktop window after positioning.
+
+.PARAMETER KeysToSend
+Keystrokes to send to the Docker Desktop window after positioning and
+initialization. See documentation for cmdlet GenXdev.Windows\Send-Key.
+
+.PARAMETER SendKeyEscape
+Escape control characters and modifiers when sending keys
+
+.PARAMETER SendKeyHoldKeyboardFocus
+Hold keyboard focus on target window when sending keys
+
+.PARAMETER SendKeyUseShiftEnter
+Use Shift+Enter instead of Enter when sending keys
+
+.PARAMETER SendKeyDelayMilliSeconds
+Delay between different input strings in milliseconds when sending keys
+
+.PARAMETER SessionOnly
+Uses alternative settings stored in session for AI preferences instead of
+persistent preferences.
+
+.PARAMETER ClearSession
+Clears alternative settings stored in session for AI preferences.
+
+.PARAMETER SkipSession
+Stores settings only in persistent preferences without affecting session
+variables.
+
 .EXAMPLE
 EnsureDockerDesktop
 Ensures Docker Desktop is installed and properly configured.
 
 .EXAMPLE
-EnsureDockerDesktop -ShowWindow
-Ensures Docker Desktop is installed, properly configured, and shows its UI
-window.
+EnsureDockerDesktop -ShowWindow -Centered -NoBorders
+Ensures Docker Desktop is installed, properly configured, shows its UI
+window centered on screen without borders.
+
+.EXAMPLE
+EnsureDockerDesktop -ShowWindow -Monitor 1 -Left -Width 800 -Height 600
+Ensures Docker Desktop is installed, shows window on monitor 1, positioned
+on left half with specific dimensions.
 ###############################################################################>
 function EnsureDockerDesktop {
 
@@ -33,9 +127,173 @@ function EnsureDockerDesktop {
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Show Docker Desktop window during initialization"
+            HelpMessage = 'Show Docker Desktop window during initialization'
         )]
-        [switch]$ShowWindow
+        [switch]$ShowWindow,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The monitor to use, 0 = default, -1 is discard'
+        )]
+        [Alias('m', 'mon')]
+        [int] $Monitor,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Removes the borders of the window'
+        )]
+        [Alias('nb')]
+        [switch] $NoBorders,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial width of the window'
+        )]
+        [int]$Width,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial height of the window'
+        )]
+        [int]$Height,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial X position of the window'
+        )]
+        [int]$X,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'The initial Y position of the window'
+        )]
+        [int]$Y,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the left side of the screen'
+        )]
+        [switch]$Left,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the right side of the screen'
+        )]
+        [switch]$Right,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the top side of the screen'
+        )]
+        [switch]$Top,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window on the bottom side of the screen'
+        )]
+        [switch]$Bottom,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Place window in the center of the screen'
+        )]
+        [switch]$Centered,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Maximize the window'
+        )]
+        [Alias('fs')]
+        [switch]$Fullscreen,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore PowerShell window focus'
+        )]
+        [Alias('rf', 'bg')]
+        [switch]$RestoreFocus,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Will either set the window fullscreen on a ' +
+                'different monitor than Powershell, or side by side with ' +
+                'Powershell on the same monitor')
+        )]
+        [Alias('sbs')]
+        [switch]$SideBySide,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the window after opening'
+        )]
+        [Alias('fw','focus')]
+        [switch]$FocusWindow,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window to foreground after opening'
+        )]
+        [Alias('fg')]
+        [switch]$SetForeground,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Keystrokes to send to the Window, ' +
+                'see documentation for cmdlet GenXdev.Windows\Send-Key')
+        )]
+        [ValidateNotNullOrEmpty()]
+        [string[]]$KeysToSend,
+        ########################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Escape control characters and modifiers when sending keys'
+        )]
+        [Alias('Escape')]
+        [switch] $SendKeyEscape,
+        ########################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus on target window when sending keys'
+        )]
+        [Alias('HoldKeyboardFocus')]
+        [switch] $SendKeyHoldKeyboardFocus,
+        ########################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter instead of Enter when sending keys'
+        )]
+        [Alias('UseShiftEnter')]
+        [switch] $SendKeyUseShiftEnter,
+        ########################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Delay between different input strings in ' +
+                'milliseconds when sending keys')
+        )]
+        [Alias('DelayMilliSeconds')]
+        [int] $SendKeyDelayMilliSeconds,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Use alternative settings stored in session for AI ' +
+                'preferences')
+        )]
+        [switch]$SessionOnly,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Clear alternative settings stored in session for ' +
+                'AI preferences')
+        )]
+        [switch]$ClearSession,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = ('Store settings only in persistent preferences ' +
+                'without affecting session')
+        )]
+        [Alias('FromPreferences')]
+        [switch]$SkipSession
         #######################################################################
     )
 
@@ -60,12 +318,12 @@ function EnsureDockerDesktop {
         function IsWinGetInstalled {
 
             # attempt to load the winget module silently without error output
-            Microsoft.PowerShell.Core\Import-Module "Microsoft.WinGet.Client" `
+            Microsoft.PowerShell.Core\Import-Module 'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # verify if module was loaded successfully by checking module list
             $module = Microsoft.PowerShell.Core\Get-Module `
-                "Microsoft.WinGet.Client" `
+                'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # return true if module object exists, false otherwise
@@ -90,17 +348,17 @@ function EnsureDockerDesktop {
         function InstallWinGet {
 
             # output status message about winget installation
-            Microsoft.PowerShell.Utility\Write-Verbose ("Installing WinGet " +
-                "PowerShell client...")
+            Microsoft.PowerShell.Utility\Write-Verbose ('Installing WinGet ' +
+                'PowerShell client...')
 
             # install winget module with force to ensure success and allow
             # clobber
-            $null = PowerShellGet\Install-Module "Microsoft.WinGet.Client" `
+            $null = PowerShellGet\Install-Module 'Microsoft.WinGet.Client' `
                 -Force `
                 -AllowClobber
 
             # load the newly installed module into current session
-            Microsoft.PowerShell.Core\Import-Module "Microsoft.WinGet.Client"
+            Microsoft.PowerShell.Core\Import-Module 'Microsoft.WinGet.Client'
         }
     }
 
@@ -108,7 +366,7 @@ function EnsureDockerDesktop {
 
         # verify if docker desktop executable is available in current session
         if (@(Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
-            -ErrorAction SilentlyContinue).Length -eq 0) {
+                    -ErrorAction SilentlyContinue).Length -eq 0) {
 
             # define common docker installation paths for system and user
             # installs
@@ -126,7 +384,7 @@ function EnsureDockerDesktop {
                 # check if docker executable exists in current path
                 if (Microsoft.PowerShell.Management\Test-Path `
                     (Microsoft.PowerShell.Management\Join-Path $path `
-                        "docker.exe")) {
+                            'docker.exe')) {
 
                     # get current user PATH environment variable
                     $currentPath = [Environment]::GetEnvironmentVariable('PATH',
@@ -136,8 +394,8 @@ function EnsureDockerDesktop {
                     if ($currentPath -notlike "*$path*") {
 
                         # inform user about path modification
-                        Microsoft.PowerShell.Utility\Write-Verbose ("Adding " +
-                            "Docker to system PATH...")
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Adding ' +
+                            'Docker to system PATH...')
 
                         # update user PATH environment variable permanently
                         [Environment]::SetEnvironmentVariable(
@@ -162,13 +420,30 @@ function EnsureDockerDesktop {
             if (-not $dockerFound) {
 
                 # inform user about docker installation process
-                Microsoft.PowerShell.Utility\Write-Host ("Docker Desktop not " +
-                    "found. Installing Docker Desktop...")
+                Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +
+                    'found. Installing Docker Desktop...')
 
                 # ensure winget is available before attempting docker
                 # installation
                 if (-not (IsWinGetInstalled)) {
                     InstallWinGet
+                }
+
+                # check if wsl is installed and update it if necessary
+                if (-not (Microsoft.PowerShell.Core\Get-Command 'wsl.exe' `
+                            -ErrorAction SilentlyContinue)) {
+
+                    # inform user about WSL installation
+                    Microsoft.PowerShell.Utility\Write-Host ('WSL is not ' +
+                        'installed. Installing WSL...')
+
+                    # install WSL using PowerShell command
+                    $null = Microsoft.PowerShell.Core\Invoke-Expression `
+                        'wsl --install'
+                }
+                else {
+
+                    wsl --update
                 }
 
                 # install docker desktop using winget package manager
@@ -182,7 +457,7 @@ function EnsureDockerDesktop {
                     # verify docker executable exists in path after installation
                     if (Microsoft.PowerShell.Management\Test-Path `
                         (Microsoft.PowerShell.Management\Join-Path $path `
-                            "docker.exe")) {
+                                'docker.exe')) {
 
                         # get current user PATH environment variable
                         $currentPath = [Environment]::GetEnvironmentVariable(
@@ -193,7 +468,7 @@ function EnsureDockerDesktop {
 
                             # inform user about path update after installation
                             Microsoft.PowerShell.Utility\Write-Verbose (
-                                "Adding Docker to system PATH...")
+                                'Adding Docker to system PATH...')
 
                             # update user PATH environment variable
                             [Environment]::SetEnvironmentVariable(
@@ -201,7 +476,8 @@ function EnsureDockerDesktop {
                                 "$currentPath;$path",
                                 'User')
 
-                            # update current session's path immediately only if not already present
+                            # update current session's path immediately only if
+                            # not already present
                             if ($env:PATH -notlike "*$path*") {
                                 $env:PATH = "$env:PATH;$path"
                             }
@@ -212,27 +488,27 @@ function EnsureDockerDesktop {
 
                 # verify docker installation was successful by checking command
                 if (-not (Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
-                    -ErrorAction SilentlyContinue)) {
+                            -ErrorAction SilentlyContinue)) {
 
-                    throw "Docker Desktop installation failed."
+                    throw 'Docker Desktop installation failed.'
                 }
             }
         }
 
         # check if docker desktop process is currently running
         $dockerDesktopProcess = Microsoft.PowerShell.Management\Get-Process `
-            "Docker Desktop" `
+            'Docker Desktop' `
             -ErrorAction SilentlyContinue
 
         # start docker desktop if process is not running
         if (-not $dockerDesktopProcess) {
 
             # inform user about docker desktop startup
-            Microsoft.PowerShell.Utility\Write-Host "Starting Docker Desktop..."
+            Microsoft.PowerShell.Utility\Write-Host 'Starting Docker Desktop...'
 
             # try to find docker desktop executable via get-command
             $dockerExePath = Microsoft.PowerShell.Core\Get-Command `
-                "Docker Desktop.exe" `
+                'Docker Desktop.exe' `
                 -ErrorAction SilentlyContinue
 
             # start docker desktop if found via get-command
@@ -260,7 +536,7 @@ function EnsureDockerDesktop {
                 $dockerDesktopPaths = @(
                     "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe",
                     ("${env:LOCALAPPDATA}\Programs\Docker\Docker\" +
-                        "Docker Desktop.exe")
+                    'Docker Desktop.exe')
                 )
 
                 # try each known docker desktop installation path
@@ -288,56 +564,36 @@ function EnsureDockerDesktop {
                 }
             }
         }
-        # docker Desktop is already running, show window if -ShowWindow is
-        # specified
-        elseif ($ShowWindow) {
+
+        # handle docker desktop window positioning if ShowWindow is specified
+        if ($ShowWindow) {
 
             # inform user that we're bringing docker desktop window to
             # foreground
-            Microsoft.PowerShell.Utility\Write-Verbose ("Bringing Docker " +
-                "Desktop window to the foreground...")
+            Microsoft.PowerShell.Utility\Write-Verbose ('Bringing Docker ' +
+                'Desktop window to the foreground...')
 
-            # get the docker desktop window using the get-window function
-            $dockerWindows = GenXdev.Windows\Get-Window `
-                -ProcessName "Docker Desktop"
+            # get docker desktop window object
+            $dockerWindow = GenXdev.Windows\Get-Window -ProcessName 'Docker Desktop'
 
-            # handle case where we found docker window(s)
-            if ($dockerWindows) {
+            # position window if window object was found
+            if ($null -ne $dockerWindow) {
 
-                # get first docker window from results
-                $dockerWindow = $dockerWindows | `
-                    Microsoft.PowerShell.Utility\Select-Object -First 1
+                # copy window positioning parameters using helper function
+                $windowPositionParams = GenXdev.Helpers\Copy-IdenticalParamValues `
+                    -BoundParameters $PSBoundParameters `
+                    -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
+                    -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
+                        -Scope Local -Name * -ErrorAction SilentlyContinue)
 
-                # bring window to foreground and restore it if minimized
-                Microsoft.PowerShell.Utility\Write-Verbose ("Found Docker " +
-                    "Desktop window, bringing to foreground...")
-
-                $dockerWindow.Focus()
-
-                $null = $dockerWindow.Restore()
-            }
-            else {
-
-                # fallback to starting docker desktop again to bring foreground
-                Microsoft.PowerShell.Utility\Write-Verbose ("Docker Desktop " +
-                    "window not found, trying to start the application...")
-
-                $dockerExePath = Microsoft.PowerShell.Core\Get-Command `
-                    "Docker Desktop.exe" `
-                    -ErrorAction SilentlyContinue
-
-                # start docker desktop if executable was found
-                if ($dockerExePath) {
-                    Microsoft.PowerShell.Management\Start-Process `
-                        $dockerExePath.Source `
-                        -WindowStyle Normal
-                }
+                # apply window positioning with copied parameters
+                $null = GenXdev.Windows\Set-WindowPosition @windowPositionParams
             }
         }
 
         # wait for docker daemon to become ready for commands
-        Microsoft.PowerShell.Utility\Write-Host ("Checking Docker Desktop " +
-            "status...") -ForegroundColor Cyan
+        Microsoft.PowerShell.Utility\Write-Host ('Checking Docker Desktop ' +
+            'status...') -ForegroundColor Cyan
 
         # set timeout for waiting for docker daemon (600 seconds)
         $timeout = 600
@@ -362,30 +618,30 @@ function EnsureDockerDesktop {
                     $dockerInfo = docker.exe info 2>&1
 
                     # check if login is required based on docker info output
-                    if ($dockerInfo -match "not logged in" -or `
-                        $dockerInfo -match "Please log in") {
+                    if ($dockerInfo -match 'not logged in' -or `
+                            $dockerInfo -match 'Please log in') {
 
                         # show login message only once
                         if (-not $loginMessageShown) {
-                            Microsoft.PowerShell.Utility\Write-Host ("Docker " +
-                                "engine is running, but user is not logged " +
-                                "in. Please log in via Docker Desktop.") `
+                            Microsoft.PowerShell.Utility\Write-Host ('Docker ' +
+                                'engine is running, but user is not logged ' +
+                                'in. Please log in via Docker Desktop.') `
                                 -ForegroundColor Yellow
                             $loginMessageShown = $true
                         }
 
                         # continue waiting or break - for many operations,
                         # login isn't required
-                        Microsoft.PowerShell.Utility\Write-Host ("Docker " +
-                            "engine is running and ready for basic " +
-                            "operations.") -ForegroundColor Green
+                        Microsoft.PowerShell.Utility\Write-Host ('Docker ' +
+                            'engine is running and ready for basic ' +
+                            'operations.') -ForegroundColor Green
                         break
                     } else {
 
                         # either logged in or login check failed, assume docker
                         # is ready
-                        Microsoft.PowerShell.Utility\Write-Host ("Docker " +
-                            "engine is running and ready.") `
+                        Microsoft.PowerShell.Utility\Write-Host ('Docker ' +
+                            'engine is running and ready.') `
                             -ForegroundColor Green
                         break
                     }
@@ -398,8 +654,8 @@ function EnsureDockerDesktop {
 
             # show engine startup message only once
             if (-not $engineMessageShown) {
-                Microsoft.PowerShell.Utility\Write-Host ("Waiting for " +
-                    "Docker engine to start...") -ForegroundColor Yellow
+                Microsoft.PowerShell.Utility\Write-Host ('Waiting for ' +
+                    'Docker engine to start...') -ForegroundColor Yellow
                 $engineMessageShown = $true
             }
 
@@ -414,25 +670,11 @@ function EnsureDockerDesktop {
         }
 
         # output final success message about docker desktop readiness
-        Microsoft.PowerShell.Utility\Write-Verbose ("✅ Docker Desktop is " +
-            "ready.")
+        Microsoft.PowerShell.Utility\Write-Verbose ('✅ Docker Desktop is ' +
+            'ready.')
     }
 
     end {
-        if ($ShowWindow) {
-
-            try {
-                $a = (GenXDev.Windows\Get-Window -ProcessName "Docker Desktop") ;
-                if ($null -eq $a) { return }
-                $null = $a.Show()
-                $null = $a.Restore()
-                GenXDev.Windows\Set-WindowPosition -WindowHelper $a -Monitor 0 -Right
-                GenXDev.Windows\Set-WindowPosition -Left -Monitor 0 -Left
-            }
-            catch {
-
-            }
-        }
     }
 }
-        ###############################################################################
+###############################################################################

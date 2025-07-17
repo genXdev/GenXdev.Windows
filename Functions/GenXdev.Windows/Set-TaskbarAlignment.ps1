@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Configures Windows 11+ taskbar alignment between center and left positions.
@@ -15,24 +15,24 @@ converted to the appropriate registry value (1 for Center, 0 for Left).
 
 .EXAMPLE
 Set-TaskbarAlignment -Justify Left
-        ###############################################################################Sets the Windows 11 taskbar to left alignment
+Sets the Windows 11 taskbar to left alignment
 
 .EXAMPLE
 Set-TaskAlign Center -WhatIf
-        ###############################################################################Shows what would happen if taskbar was set to center alignment
-        ###############################################################################>
+Shows what would happen if taskbar was set to center alignment
+#>
 function Set-TaskbarAlignment {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
-    [Alias("Set-TaskAlign")]
+    [Alias('Set-TaskAlign')]
     param(
         ########################################################################
         [Parameter(
             Mandatory = $true,
             Position = 0,
-            HelpMessage = "The taskbar alignment (Center or Left)"
+            HelpMessage = 'The taskbar alignment (Center or Left)'
         )]
-        [ValidateSet("Center", "Left")]
+        [ValidateSet('Center', 'Left')]
         [string] $Justify
         ########################################################################
     )
@@ -40,27 +40,27 @@ function Set-TaskbarAlignment {
     begin {
 
         # store the registry path for taskbar settings
-        $regPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+        $regPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
 
         # log the requested alignment change for troubleshooting
         Microsoft.PowerShell.Utility\Write-Verbose "Setting taskbar alignment to: $Justify"
     }
 
 
-process {
+    process {
 
         # convert the alignment choice to its corresponding registry value
-        $value = if ($Justify -eq "Left") { 0 } else { 1 }
+        $value = if ($Justify -eq 'Left') { 0 } else { 1 }
 
         # check if we should proceed with the registry modification
         if ($PSCmdlet.ShouldProcess(
-                "Windows Taskbar Alignment",
+                'Windows Taskbar Alignment',
                 "Set alignment to $Justify"
             )) {
 
             # update the registry key
             $null = Microsoft.PowerShell.Management\Set-ItemProperty -Path $regPath `
-                -Name "TaskbarAl" `
+                -Name 'TaskbarAl' `
                 -Value $value
 
             Microsoft.PowerShell.Utility\Write-Verbose "Registry value 'TaskbarAl' set to: $value"
@@ -70,4 +70,3 @@ process {
     end {
     }
 }
-        ###############################################################################

@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Pops the last active window helper from the stack with optional modifications.
@@ -80,288 +80,292 @@ Specifies the monitor to move the window to after popping from the stack:
 
 .EXAMPLE
 Pop-Window -Maximize -Focus
-        ###############################################################################Pops the last window from the stack, maximizes it and gives it focus.
+Pops the last window from the stack, maximizes it and gives it focus.
 
 .EXAMPLE
 Pop-Window -X 100 -Y 100 -Width 800 -Height 600 -AlwaysOnTop
-        ###############################################################################Pops the last window, positions it at coordinates (100,100),
-        ###############################################################################resizes it to 800x600, and sets it to always stay on top.
+Pops the last window, positions it at coordinates (100,100),
+resizes it to 800x600, and sets it to always stay on top.
 
 .EXAMPLE
 popw -Left -Focus
-        ###############################################################################Pops the last window, positions it on the left half of the screen,
-        ###############################################################################and gives it focus using the alias.
+Pops the last window, positions it on the left half of the screen,
+and gives it focus using the alias.
 
 .EXAMPLE
 Pop-Window -Monitor 1 -Maximize
-        ###############################################################################Pops the last window, moves it to the first monitor, and maximizes it.
+Pops the last window, moves it to the first monitor, and maximizes it.
 
 .EXAMPLE
 Pop-Window -Monitor -2 -Fullscreen
-        ###############################################################################Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
+Pops the last window, moves it to the secondary monitor, and makes it fullscreen.
 ###############################################################################>
 function Pop-Window {
 
     ############################################################################
-    [CmdletBinding(DefaultParameterSetName = "Default")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
-    [Alias("popw")]
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '')]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
+    [Alias('popw')]
     param (
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Maximize,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Minimize,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Restore,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Hide,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Show,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
+        [Alias('nb')]
         [switch] $NoBorders,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $AlwaysOnTop,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [ValidateRange(0, 255)]
         [byte] $Opacity,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Position",
+            ParameterSetName = 'Position',
             Mandatory = $true
         )]
         [int] $X,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Position",
+            ParameterSetName = 'Position',
             Mandatory = $true
         )]
         [int] $Y,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Dimensions",
+            ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
         [int] $Width,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Dimensions",
+            ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
         [int] $Height,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Focus,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $FadeIn,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "NoModify"
+            ParameterSetName = 'NoModify'
         )]
         [switch] $NoModify,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Left,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Right,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Top,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Bottom,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Centered,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
-        [switch] $Fullscreen,
+        [Alias('sw')]
+        [switch]$ShowWindow
+        ,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [ValidateNotNull()]
+        [Alias('m', 'mon')]
         [int] $Monitor
     )
 
     ############################################################################
     begin {
         # Check if the type already exists
-        $typeName = "Win32.Unique2165442User32"
+        $typeName = 'Win32.Unique2165442User32'
         $typeExists = $null -ne [System.Type]::GetType($typeName)
 
         # define the iswindow function from user32.dll if it doesn't already exist
         if (-not $typeExists) {
             Microsoft.PowerShell.Utility\Add-Type -Namespace Win32 -Name Unique2165442User32 `
-                -MemberDefinition @"
+                -MemberDefinition @'
                 [DllImport("user32.dll")]
                 public static extern bool IsWindow(IntPtr hWnd);
-"@ -Language CSharp
+'@ -Language CSharp
         }
     }
 
@@ -403,13 +407,13 @@ function Pop-Window {
             }
 
             # reset to null if window was invalid
-            Microsoft.PowerShell.Utility\Write-Verbose "Discarded invalid window from stack"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Discarded invalid window from stack'
             $poppedWindow = $null
         }
 
         # if no valid window found, push current window and use that instead
         if (-not $poppedWindow) {
-            Microsoft.PowerShell.Utility\Write-Verbose "No valid window in stack, getting current window"
+            Microsoft.PowerShell.Utility\Write-Verbose 'No valid window in stack, getting current window'
             try {
                 # Get the current foreground window directly
                 $foregroundHandle = GenXdev.Windows\Get-CurrentFocusedWindow
@@ -419,7 +423,7 @@ function Pop-Window {
                     Microsoft.PowerShell.Utility\Write-Verbose "Created window object, Title: $($poppedWindow.Title)"
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Failed to get foreground window, falling back to Push-Window"
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Failed to get foreground window, falling back to Push-Window'
                     $null = GenXdev.Windows\Push-Window
                     $Global:GenXdevWindowStack.TryDequeue([ref]$poppedWindow) |
                         Microsoft.PowerShell.Core\Out-Null
@@ -427,7 +431,7 @@ function Pop-Window {
             }
             catch {
                 Microsoft.PowerShell.Utility\Write-Verbose "Error getting current window: $_"
-                Microsoft.PowerShell.Utility\Write-Verbose "Falling back to Push-Window"
+                Microsoft.PowerShell.Utility\Write-Verbose 'Falling back to Push-Window'
                 $null = GenXdev.Windows\Push-Window
                 $Global:GenXdevWindowStack.TryDequeue([ref]$poppedWindow) |
                     Microsoft.PowerShell.Core\Out-Null
@@ -436,7 +440,7 @@ function Pop-Window {
 
         # Validate we have a window to work with
         if (-not $poppedWindow -or -not $poppedWindow.Handle -or -not (IsWindowValid -Handle $poppedWindow.Handle)) {
-            Microsoft.PowerShell.Utility\Write-Error "Failed to get a valid window to manipulate"
+            Microsoft.PowerShell.Utility\Write-Error 'Failed to get a valid window to manipulate'
             return
         }
 
@@ -497,28 +501,31 @@ function Pop-Window {
 
         if ($cornerPositioning) {
             # Handle corner positioning (quarter screen)
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to corner (quarter screen)"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to corner (quarter screen)'
 
             if ($Left) {
                 if ($Top) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-left corner"
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to top-left corner'
                     $result = $poppedWindow.PositionTopLeft()
                     Microsoft.PowerShell.Utility\Write-Verbose "PositionTopLeft result: $result"
                 }
-                else { # Bottom
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-left corner"
+                else {
+                    # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to bottom-left corner'
                     $result = $poppedWindow.PositionBottomLeft()
                     Microsoft.PowerShell.Utility\Write-Verbose "PositionBottomLeft result: $result"
                 }
             }
-            else { # Right
+            else {
+                # Right
                 if ($Top) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-right corner"
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to top-right corner'
                     $result = $poppedWindow.PositionTopRight()
                     Microsoft.PowerShell.Utility\Write-Verbose "PositionTopRight result: $result"
                 }
-                else { # Bottom
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-right corner"
+                else {
+                    # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to bottom-right corner'
                     $result = $poppedWindow.PositionBottomRight()
                     Microsoft.PowerShell.Utility\Write-Verbose "PositionBottomRight result: $result"
                 }
@@ -526,32 +533,32 @@ function Pop-Window {
         }
         # Original half-screen positioning logic
         elseif ($Left) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to left half of screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to left half of screen'
             $result = $poppedWindow.PositionLeft()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionLeft result: $result"
         }
         elseif ($Right) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to right half of screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to right half of screen'
             $result = $poppedWindow.PositionRight()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionRight result: $result"
         }
         elseif ($Top) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to top half of screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to top half of screen'
             $result = $poppedWindow.PositionTop()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionTop result: $result"
         }
         elseif ($Bottom) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to bottom half of screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to bottom half of screen'
             $result = $poppedWindow.PositionBottom()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionBottom result: $result"
         }
         elseif ($Centered) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Centering window on screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Centering window on screen'
             $result = $poppedWindow.PositionCentered()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionCentered result: $result"
         }
         elseif ($Fullscreen) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Making window fullscreen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Making window fullscreen'
             $result = $poppedWindow.PositionFullscreen()
             Microsoft.PowerShell.Utility\Write-Verbose "PositionFullscreen result: $result"
         }
@@ -599,4 +606,3 @@ function Pop-Window {
     end {
     }
 }
-        ###############################################################################

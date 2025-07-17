@@ -1,16 +1,17 @@
-###############################################################################
-Pester\Describe "Set-WindowPositionForSecondary" {
+﻿###############################################################################
+Describe 'Set-WindowPositionForSecondary' {
 
-    Pester\It "Should pass PSScriptAnalyzer rules" {
+    It 'should pass PSScriptAnalyzer rules' {
 
-# get the script path for analysis
+        # get the script path for analysis
         $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Set-WindowPositionForSecondary.ps1"
 
+        # run analyzer with explicit settings
         $analyzerResults = GenXdev.Coding\Invoke-GenXdevScriptAnalyzer `
             -Path $scriptPath
 
-        [string] $message = ""
-        $analyzerResults | Microsoft.PowerShell.Core\ForEach-Object {
+        [string] $message = ''
+        $analyzerResults | ForEach-Object {
 
             $message = $message + @"
 --------------------------------------------------
@@ -21,7 +22,7 @@ Message: $($_.Message)
 "@
         }
 
-        $analyzerResults.Count | Pester\Should -Be 0 -Because @"
+        $analyzerResults.Count | Should -Be 0 -Because @"
 The following PSScriptAnalyzer rules are being violated:
 $message
 "@;

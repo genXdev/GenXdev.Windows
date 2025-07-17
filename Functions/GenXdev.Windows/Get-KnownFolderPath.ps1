@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Gets the path of a Windows known folder using the Windows Shell32 API.
@@ -17,27 +17,27 @@ return the full path to this folder.
 
 .EXAMPLE
 Get-KnownFolderPath -KnownFolder 'Documents'
-        ###############################################################################Returns: C:\Users\Username\Documents
+Returns: C:\Users\Username\Documents
 
 .EXAMPLE
 folder Downloads
-        ###############################################################################Returns: C:\Users\Username\Downloads using the alias
+Returns: C:\Users\Username\Downloads using the alias
 
 .EXAMPLE
 cd (folder Desktop)
-        ###############################################################################Changes to the Desktop folder using the alias
-        ###############################################################################>
+Changes to the Desktop folder using the alias
+#>
 function Get-KnownFolderPath {
 
     [CmdletBinding()]
-    [Alias("folder")]
+    [Alias('folder')]
 
     param (
         ########################################################################
         [Parameter(
             Mandatory = $true,
             Position = 0,
-            HelpMessage = "The Windows known folder name to get the path for"
+            HelpMessage = 'The Windows known folder name to get the path for'
         )]
         [ValidateSet('3DObjects', 'AddNewPrograms', 'AdminTools', 'AppUpdates',
             'CDBurning', 'ChangeRemovePrograms', 'CommonAdminTools',
@@ -167,7 +167,7 @@ function Get-KnownFolderPath {
         if (-not $type) {
 
             Microsoft.PowerShell.Utility\Write-Verbose (
-                "Defining Windows Shell32 API function"
+                'Defining Windows Shell32 API function'
             )
 
             # define the p/invoke signature for shgetknownfolderpath
@@ -220,4 +220,3 @@ public extern static int SHGetKnownFolderPath(
     end {
     }
 }
-        ###############################################################################

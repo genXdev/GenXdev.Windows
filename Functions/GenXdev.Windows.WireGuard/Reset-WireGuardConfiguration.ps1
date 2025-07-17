@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Resets the WireGuard VPN server configuration, removing all peers.
@@ -78,30 +78,30 @@ a fresh configuration.
 function Reset-WireGuardConfiguration {
 
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
 
     param(
         ###########################################################################
         [Parameter(
             Position = 0,
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         ###########################################################################
         [Parameter(
             Position = 1,
             Mandatory = $false,
-            HelpMessage = "The name for the Docker volume for persistent storage"
+            HelpMessage = 'The name for the Docker volume for persistent storage'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         ###########################################################################
         [Parameter(
             Position = 2,
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
@@ -109,7 +109,7 @@ function Reset-WireGuardConfiguration {
         [Parameter(
             Position = 3,
             Mandatory = $false,
-            HelpMessage = "Maximum time in seconds to wait for service health check"
+            HelpMessage = 'Maximum time in seconds to wait for service health check'
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
@@ -117,7 +117,7 @@ function Reset-WireGuardConfiguration {
         [Parameter(
             Position = 4,
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
@@ -125,44 +125,44 @@ function Reset-WireGuardConfiguration {
         [Parameter(
             Position = 5,
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         ###########################################################################
         [Parameter(
             Position = 6,
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         ###########################################################################
         [Parameter(
             Position = 7,
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         ###########################################################################
         [Parameter(
             Position = 8,
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC",
+        [string] $TimeZone = 'Etc/UTC',
         ###########################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Skip Docker initialization (used when already called by parent function)"
+            HelpMessage = 'Skip Docker initialization (used when already called by parent function)'
         )]
         [switch] $NoDockerInitialize,
         ###########################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Force reset without confirmation"
+            HelpMessage = 'Force reset without confirmation'
         )]
         [switch] $Force
         ###########################################################################
@@ -175,7 +175,7 @@ function Reset-WireGuardConfiguration {
 
             # output verbose message about ensuring wireguard service
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to EnsureWireGuard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -186,13 +186,13 @@ function Reset-WireGuardConfiguration {
                     -ErrorAction SilentlyContinue)
 
             # initialize wireguard service with specified parameters
-            $null = GenXdev.Windows\EnsureWireGuard @ensureParams
+                $null = GenXdev.Windows\EnsureWireGuard @ensureParams
 
         } else {
 
             # output verbose message about skipping docker initialization
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
     }
 
@@ -202,7 +202,7 @@ function Reset-WireGuardConfiguration {
 
             # count existing peers to show in warning message
             $peerFolders = docker exec $ContainerName sh -c `
-                "ls -1d /config/peer_* 2>/dev/null | wc -l"
+                'ls -1d /config/peer_* 2>/dev/null | wc -l'
 
             # initialize peer count variable
             $peerCount = 0
@@ -222,53 +222,53 @@ function Reset-WireGuardConfiguration {
             $hasServerConfig = ($serverConfigExists -eq 'exists')
 
             # build confirmation message with peer count information
-            $confirmMessage = ("WARNING: You are about to reset the WireGuard " +
-                              "configuration. This will remove all $peerCount " +
-                              "peer configurations and cannot be undone. Are " +
-                              "you sure you want to proceed?")
+            $confirmMessage = ('WARNING: You are about to reset the WireGuard ' +
+                "configuration. This will remove all $peerCount " +
+                'peer configurations and cannot be undone. Are ' +
+                'you sure you want to proceed?')
 
             # define operation name for shouldprocess
-            $operationName = "Resetting WireGuard configuration"
+            $operationName = 'Resetting WireGuard configuration'
 
             # check if user confirmed the operation or force flag is set
             if ($Force -or $PSCmdlet.ShouldProcess($confirmMessage,
-                                                   $operationName)) {
+                    $operationName)) {
 
                 # output verbose message about starting reset process
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Resetting WireGuard configuration, removing all peers..."
+                    'Resetting WireGuard configuration, removing all peers...'
 
                 # stop wireguard service in the container gracefully
                 $null = docker exec $ContainerName sh -c `
-                    "wg-quick down wg0 2>/dev/null || true"
+                    'wg-quick down wg0 2>/dev/null || true'
 
                 # wait for service to stop completely
                 Microsoft.PowerShell.Utility\Start-Sleep -Seconds 2
 
                 # remove all peer directories from configuration
                 $null = docker exec $ContainerName sh -c `
-                    "rm -rf /config/peer_* 2>/dev/null || true"
+                    'rm -rf /config/peer_* 2>/dev/null || true'
 
                 # check if peer removal was successful
                 $peersRemoved = ($LASTEXITCODE -eq 0)
 
                 # remove wireguard configuration file
                 $null = docker exec $ContainerName sh -c `
-                    "rm -f /config/wg0.conf 2>/dev/null || true"
+                    'rm -f /config/wg0.conf 2>/dev/null || true'
 
                 # check if configuration removal was successful
                 $configRemoved = ($LASTEXITCODE -eq 0)
 
                 # remove server private and public keys
                 $null = docker exec $ContainerName sh -c `
-                    "rm -f /config/server_* 2>/dev/null || true"
+                    'rm -f /config/server_* 2>/dev/null || true'
 
                 # check if key removal was successful
                 $keysRemoved = ($LASTEXITCODE -eq 0)
 
                 # output verbose message about restarting container
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Restarting WireGuard container to regenerate configuration..."
+                    'Restarting WireGuard container to regenerate configuration...'
 
                 # restart the container to regenerate fresh configuration
                 docker restart $ContainerName
@@ -277,7 +277,7 @@ function Reset-WireGuardConfiguration {
                 if ($LASTEXITCODE -ne 0) {
 
                     # throw error if container restart failed
-                    throw "Failed to restart WireGuard container"
+                    throw 'Failed to restart WireGuard container'
                 }
 
                 # wait for container to fully initialize after restart
@@ -290,7 +290,7 @@ function Reset-WireGuardConfiguration {
                 if (-not $containerStatus) {
 
                     # throw error if container failed to restart
-                    throw "WireGuard container failed to restart"
+                    throw 'WireGuard container failed to restart'
                 }
 
                 # check if new configuration was generated successfully
@@ -298,37 +298,37 @@ function Reset-WireGuardConfiguration {
                     "[ -f /config/wg0.conf ] && echo 'exists' || echo 'not exists'"
 
                 # verify new configuration file was created
-                if ($newConfigExists -ne "exists") {
+                if ($newConfigExists -ne 'exists') {
 
                     # throw error if configuration generation failed
-                    throw "Failed to generate new WireGuard configuration"
+                    throw 'Failed to generate new WireGuard configuration'
                 }
 
                 # display success message to user
                 Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
-                    ("WireGuard configuration reset successfully. All peers " +
-                     "have been removed.")
+                ('WireGuard configuration reset successfully. All peers ' +
+                    'have been removed.')
 
                 # provide guidance for next steps
                 Microsoft.PowerShell.Utility\Write-Host `
-                    "Use Add-WireGuardPeer to create new peer configurations."
+                    'Use Add-WireGuardPeer to create new peer configurations.'
 
                 # return success information object
                 return [PSCustomObject]@{
-                    Success = $true
-                    Message = "WireGuard configuration reset successfully"
-                    PeersRemoved = $peerCount
-                    InitialConfig = $hasServerConfig
-                    PeersRemoveSuccess = $peersRemoved
+                    Success             = $true
+                    Message             = 'WireGuard configuration reset successfully'
+                    PeersRemoved        = $peerCount
+                    InitialConfig       = $hasServerConfig
+                    PeersRemoveSuccess  = $peersRemoved
                     ConfigRemoveSuccess = $configRemoved
-                    KeysRemoveSuccess = $keysRemoved
+                    KeysRemoveSuccess   = $keysRemoved
                 }
             }
 
             # return cancellation information if user declined
             return [PSCustomObject]@{
-                Success = $false
-                Message = "WireGuard configuration reset was canceled by user"
+                Success      = $false
+                Message      = 'WireGuard configuration reset was canceled by user'
                 PeersRemoved = 0
             }
 
@@ -346,4 +346,3 @@ function Reset-WireGuardConfiguration {
     end {
     }
 }
-        ###############################################################################

@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Gets the path to the Windows Defender MpCmdRun.exe executable.
@@ -14,8 +14,8 @@ Returns the full path to MpCmdRun.exe if found.
 
 .EXAMPLE
 $defenderPath = Get-MpCmdRunPath
-        ###############################################################################Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
-        ###############################################################################>
+Returns path like: "${env:ProgramFiles}\Windows Defender\MpCmdRun.exe"
+#>
 function Get-MpCmdRunPath {
 
     [CmdletBinding()]
@@ -24,19 +24,19 @@ function Get-MpCmdRunPath {
     begin {
         # construct the expected path for the Windows Defender command-line tool
         $mpCmdRunPath = Microsoft.PowerShell.Management\Join-Path -Path $env:ProgramFiles `
-            -ChildPath "Windows Defender\MpCmdRun.exe"
+            -ChildPath 'Windows Defender\MpCmdRun.exe'
 
         # log the path we're checking
         Microsoft.PowerShell.Utility\Write-Verbose "Attempting to locate MpCmdRun.exe at: $mpCmdRunPath"
     }
 
 
-process {
+    process {
 
         # verify file existence using optimized IO.File method instead of Test-Path
         if ([IO.File]::Exists($mpCmdRunPath)) {
 
-            Microsoft.PowerShell.Utility\Write-Verbose "Successfully located MpCmdRun.exe"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Successfully located MpCmdRun.exe'
             return $mpCmdRunPath
         }
 
@@ -48,4 +48,3 @@ process {
     end {
     }
 }
-        ###############################################################################

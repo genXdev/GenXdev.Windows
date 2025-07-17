@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Sets files to the Windows clipboard for file operations like copy/paste.
@@ -29,7 +29,7 @@ Sets files to clipboard using pipeline input, selecting the first 5 files
 function Set-ClipboardFiles {
 
     [CmdletBinding(SupportsShouldProcess)]
-    [Alias("setclipfiles")]
+    [Alias('setclipfiles')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     param (
         ###################################################################
@@ -38,9 +38,9 @@ function Set-ClipboardFiles {
             Mandatory = $true,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = ("Array of file paths to add to the clipboard")
+            HelpMessage = ('Array of file paths to add to the clipboard')
         )]
-        [Alias("Path", "FullName", "ImageFileName", "FileName")]
+        [Alias('Path', 'FullName', 'ImageFileName', 'FileName')]
         [string[]]$InputObject
         ###################################################################
     )
@@ -67,7 +67,7 @@ function Set-ClipboardFiles {
         }
 
         # check if we should proceed with the operation
-        if (-not $PSCmdlet.ShouldProcess("$($allFilePaths.Count) file(s)", "Set to clipboard")) {
+        if (-not $PSCmdlet.ShouldProcess("$($allFilePaths.Count) file(s)", 'Set to clipboard')) {
             return
         }
 
@@ -120,19 +120,19 @@ function Set-ClipboardFiles {
 
             # create a string collection for the file paths
             $fileCollection = Microsoft.PowerShell.Utility\New-Object `
-            System.Collections.Specialized.StringCollection
+                System.Collections.Specialized.StringCollection
 
             # add each valid file path to the collection
             $validFilePaths |
-            Microsoft.PowerShell.Core\ForEach-Object {
+                Microsoft.PowerShell.Core\ForEach-Object {
 
-                $null = $fileCollection.Add($_)
-            }
+                    $null = $fileCollection.Add($_)
+                }
 
             # output verbose information about direct clipboard operation
             Microsoft.PowerShell.Utility\Write-Verbose `
-                ("Setting clipboard directly in STA mode with " +
-                 "$($fileCollection.Count) files")
+            ('Setting clipboard directly in STA mode with ' +
+                "$($fileCollection.Count) files")
 
             # set clipboard directly in sta mode
             [System.Windows.Forms.Clipboard]::SetFileDropList($fileCollection)
@@ -141,8 +141,8 @@ function Set-ClipboardFiles {
 
             # output verbose information about sta subprocess requirement
             Microsoft.PowerShell.Utility\Write-Verbose (
-                "Current thread is MTA mode, launching STA subprocess " +
-                 "for clipboard operation")
+                'Current thread is MTA mode, launching STA subprocess ' +
+                'for clipboard operation')
 
             # convert file paths to json for subprocess parameter
             $jsonFilePaths = $validFilePaths | Microsoft.PowerShell.Utility\ConvertTo-Json -Compress
@@ -153,9 +153,9 @@ function Set-ClipboardFiles {
 
             # define the powershell command to execute in sta mode
             $command = (
-                "Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;"+
+                'Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;'+
                 "`$InputObject = Microsoft.PowerShell.Management\Get-Content '$tempFile' | "+
-                "Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;"+
+                'Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;'+
                 "Microsoft.PowerShell.Management\Remove-Item '$tempFile' -Force -ErrorAction SilentlyContinue;"+
                 "`$fileCollection = Microsoft.PowerShell.Utility\New-Object System.Collections.Specialized.StringCollection;"+
                 "`$InputObject | ForEach-Object { `$null = `$fileCollection.Add(`$_) };"+
@@ -166,7 +166,7 @@ function Set-ClipboardFiles {
 
                 # output verbose information about subprocess execution
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Executing STA subprocess for clipboard operation"
+                    'Executing STA subprocess for clipboard operation'
 
                 # prepare arguments for powershell subprocess
                 $pwshArgs = @(

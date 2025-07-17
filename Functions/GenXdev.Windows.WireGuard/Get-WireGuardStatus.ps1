@@ -57,7 +57,7 @@ Retrieves status for a custom container without initializing Docker.
 This function interacts with the linuxserver/wireguard Docker container to
 retrieve status information about the WireGuard server. It requires the
 container to be running (use EnsureWireGuard first).
-        ###############################################################################>
+#>
 function Get-WireGuardStatus {
 
     [CmdletBinding()]
@@ -65,87 +65,231 @@ function Get-WireGuardStatus {
     param(        ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Skip Docker initialization (used when already called by parent function)"
+            HelpMessage = 'Skip Docker initialization (used when already called by parent function)'
         )]
         [switch] $NoDockerInitialize,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Force rebuild of Docker container and remove existing data"
+            HelpMessage = 'Force rebuild of Docker container and remove existing data'
         )]
-        [Alias("ForceRebuild")]
+        [Alias('ForceRebuild')]
         [switch] $Force,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker volume for persistent storage"
+            HelpMessage = 'The name for the Docker volume for persistent storage'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Maximum time in seconds to wait for service health check"
+            HelpMessage = 'Maximum time in seconds to wait for service health check'
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         ###############################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC"
+        [string] $TimeZone = 'Etc/UTC',
         ###############################################################################
-    )    begin {
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show the window when running the container (pass-through)'
+        )]
+        [switch] $ShowWindow,
+        ###############################################################################
+        [Alias('nb')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Remove window borders (pass-through)'
+        )]
+        [switch] $NoBorders,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Window width in characters or pixels (pass-through)'
+        )]
+        [int] $Width,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Window height in characters or pixels (pass-through)'
+        )]
+        [int] $Height,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Window left position (pass-through)'
+        )]
+        [int] $Left,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Window right position (pass-through)'
+        )]
+        [int] $Right,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Window bottom position (pass-through)'
+        )]
+        [int] $Bottom,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Center the window (pass-through)'
+        )]
+        [switch] $Centered,
+        ###############################################################################
+        [Alias('fs')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Open window in fullscreen mode (pass-through)'
+        )]
+        [switch] $Fullscreen,
+        ###############################################################################
+        [Alias('rf','bg')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore focus to window after operation (pass-through)'
+        )]
+        [switch] $RestoreFocus,
+        ###############################################################################
+        [Alias('sbs')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show side-by-side window (pass-through)'
+        )]
+        [switch] $SideBySide,
+        ###############################################################################
+        [Alias('fw','focus')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the window after opening (pass-through)'
+        )]
+        [switch] $FocusWindow,
+        ###############################################################################
+        [Alias('fg')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set window to foreground (pass-through)'
+        )]
+        [switch] $SetForeground,
+        ###############################################################################
+        [Alias('Escape')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Send Escape key to window (pass-through)'
+        )]
+        [switch] $SendKeyEscape,
+        ###############################################################################
+        [Alias('HoldKeyboardFocus')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus when sending keys (pass-through)'
+        )]
+        [switch] $SendKeyHoldKeyboardFocus,
+        ###############################################################################
+        [Alias('UseShiftEnter')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter when sending keys (pass-through)'
+        )]
+        [switch] $SendKeyUseShiftEnter,
+        ###############################################################################
+        [Alias('DelayMilliSeconds')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Delay in milliseconds between sending keys (pass-through)'
+        )]
+        [int] $SendKeyDelayMilliSeconds,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Session only mode (pass-through)'
+        )]
+        [switch] $SessionOnly,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Clear session data (pass-through)'
+        )]
+        [switch] $ClearSession,
+        ###############################################################################
+        [Alias('FromPreferences')]
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Skip session initialization (pass-through)'
+        )]
+        [switch] $SkipSession
+        ###############################################################################
+    )
+
+    begin {
 
         # ensure the wireguard service is running
         if (-not $NoDockerInitialize) {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to EnsureWireGuard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -161,24 +305,24 @@ function Get-WireGuardStatus {
         else {
 
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
     }    process {
 
         try {
 
-            Microsoft.PowerShell.Utility\Write-Verbose "Retrieving WireGuard status"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Retrieving WireGuard status'
 
             # check container status
             $containerRunning = docker ps -q -f name=$ContainerName
 
             if (-not $containerRunning) {
 
-                throw "WireGuard container is not running"
+                throw 'WireGuard container is not running'
             }
 
             # get container uptime
-            $containerInfo = docker inspect --format "{{.State.StartedAt}}" `
+            $containerInfo = docker inspect --format '{{.State.StartedAt}}' `
                 $ContainerName
 
             $startTime = [DateTime]::Parse($containerInfo)
@@ -190,14 +334,14 @@ function Get-WireGuardStatus {
 
             if ($LASTEXITCODE -ne 0) {
 
-                throw "Failed to retrieve WireGuard interface information"
+                throw 'Failed to retrieve WireGuard interface information'
             }
 
             # get server ip address
             $serverIP = $null
 
             $ipInfo = docker exec $ContainerName sh -c `
-                "ip -o addr show wg0 | grep -v inet6"
+                'ip -o addr show wg0 | grep -v inet6'
 
             if ($LASTEXITCODE -eq 0) {
 
@@ -209,7 +353,7 @@ function Get-WireGuardStatus {
 
             # get server configuration
             $serverConfig = docker exec $ContainerName sh -c `
-                "cat /config/wg0.conf 2>/dev/null"
+                'cat /config/wg0.conf 2>/dev/null'
 
             $listenPort = if ($serverConfig -match 'ListenPort\s*=\s*(\d+)') {
                 $matches[1]
@@ -219,7 +363,7 @@ function Get-WireGuardStatus {
 
             # count peers
             $peerFolders = docker exec $ContainerName sh -c `
-                "ls -1d /config/peer_* 2>/dev/null | wc -l"
+                'ls -1d /config/peer_* 2>/dev/null | wc -l'
 
             $peerCount = if ($LASTEXITCODE -eq 0) {
                 [int]$peerFolders
@@ -239,7 +383,7 @@ function Get-WireGuardStatus {
                     $line = $interfaceInfo.Substring($handshake.Index)
 
                     if ($line -match `
-                        'latest handshake: (\d+) (second|minute|hour)s? ago') {
+                            'latest handshake: (\d+) (second|minute|hour)s? ago') {
 
                         $connectedPeers++
                     }
@@ -251,45 +395,45 @@ function Get-WireGuardStatus {
                 "curl -s https://api.ipify.org || echo 'unknown'"
 
             $externalEndpoint = if ($externalIP -ne 'unknown') {
-                ("{0}:{1}" -f $externalIP, $listenPort)
+                ('{0}:{1}' -f $externalIP, $listenPort)
             } else {
-                "unknown"
+                'unknown'
             }
 
             # create status object
             $status = [PSCustomObject]@{
-                ServerStatus = "Running"
-                ServerIP = $serverIP
-                ListenPort = $listenPort
-                TotalPeers = $peerCount
-                ConnectedPeers = $connectedPeers
-                ContainerUptime = ("{0}d {1:D2}h {2:D2}m {3:D2}s" -f `
-                    $uptime.Days, $uptime.Hours, $uptime.Minutes, $uptime.Seconds)
+                ServerStatus     = 'Running'
+                ServerIP         = $serverIP
+                ListenPort       = $listenPort
+                TotalPeers       = $peerCount
+                ConnectedPeers   = $connectedPeers
+                ContainerUptime  = ('{0}d {1:D2}h {2:D2}m {3:D2}s' -f `
+                        $uptime.Days, $uptime.Hours, $uptime.Minutes, $uptime.Seconds)
                 ExternalEndpoint = $externalEndpoint
-                Interface = "wg0"
-                ServerPublicKey = if ($interfaceInfo -match 'public key: (.+)') {
+                Interface        = 'wg0'
+                ServerPublicKey  = if ($interfaceInfo -match 'public key: (.+)') {
                     $matches[1]
                 } else {
-                    "unknown"
+                    'unknown'
                 }
-                ContainerName = $ContainerName
-                ServicePort = $ServicePort
+                ContainerName    = $ContainerName
+                ServicePort      = $ServicePort
             }
 
             # display status information
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Cyan `
-                "WireGuard Server Status"
+                'WireGuard Server Status'
 
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Cyan `
-                "======================="
+                '======================='
 
-            Microsoft.PowerShell.Utility\Write-Host "Server Status    : " `
+            Microsoft.PowerShell.Utility\Write-Host 'Server Status    : ' `
                 -NoNewline
 
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
-                "Running"
+                'Running'
 
-            Microsoft.PowerShell.Utility\Write-Host "Interface        : wg0"
+            Microsoft.PowerShell.Utility\Write-Host 'Interface        : wg0'
 
             Microsoft.PowerShell.Utility\Write-Host `
                 "Server IP        : $serverIP"
@@ -312,11 +456,11 @@ function Get-WireGuardStatus {
             Microsoft.PowerShell.Utility\Write-Host `
                 "Connected Peers  : $connectedPeers"
 
-            Microsoft.PowerShell.Utility\Write-Host ""
+            Microsoft.PowerShell.Utility\Write-Host ''
 
             Microsoft.PowerShell.Utility\Write-Host `
-                ("Use Get-WireGuardPeers for detailed information about " + `
-                 "peer connections.")
+            ('Use Get-WireGuardPeers for detailed information about ' + `
+                    'peer connections.')
 
             # return the status object
             return $status
@@ -332,4 +476,3 @@ function Get-WireGuardStatus {
 
     }
 }
-        ###############################################################################

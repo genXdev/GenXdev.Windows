@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Adds a new WireGuard VPN peer (client) configuration to the server.
@@ -113,20 +113,21 @@ This function interacts with the linuxserver/wireguard Docker container to
 manage WireGuard peers. It requires Docker to be installed and the WireGuard
 container to be running. Use EnsureWireGuard function first to initialize the
 service if needed.
-        ###############################################################################>
+##############################################################################
+#>
 
-        ###############################################################################
+###############################################################################
 function Add-WireGuardPeer {
 
     [CmdletBinding(SupportsShouldProcess)]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
 
     param(
         #######################################################################
         [Parameter(
             Position = 0,
             Mandatory = $true,
-            HelpMessage = "A unique name for the peer"
+            HelpMessage = 'A unique name for the peer'
         )]
         [ValidateNotNullOrEmpty()]
         [string] $PeerName,
@@ -134,51 +135,51 @@ function Add-WireGuardPeer {
         [Parameter(
             Position = 1,
             Mandatory = $false,
-            HelpMessage = ("The IP ranges that will be routed through the " +
-                "VPN")
+            HelpMessage = ('The IP ranges that will be routed through the ' +
+                'VPN')
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $AllowedIPs = "0.0.0.0/0, ::/0",
+        [string] $AllowedIPs = '0.0.0.0/0, ::/0',
         #######################################################################
         [Parameter(
             Position = 2,
             Mandatory = $false,
-            HelpMessage = "DNS servers to use for this peer"
+            HelpMessage = 'DNS servers to use for this peer'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $DNS = "1.1.1.1, 1.0.0.1",
+        [string] $DNS = '1.1.1.1, 1.0.0.1',
         #######################################################################
         [Parameter(
             Position = 3,
             Mandatory = $false,
-            HelpMessage = ("The path where the peer configuration file " +
-                "should be saved")
+            HelpMessage = ('The path where the peer configuration file ' +
+                'should be saved')
         )]
         [ValidateNotNullOrEmpty()]
-        [Alias("outfile", "OutputFile")]
+        [Alias('outfile', 'OutputFile')]
         [string] $OutputPath = "$env:USERPROFILE\WireGuardConfigs",
         #######################################################################
         [Parameter(
             Position = 4,
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         #######################################################################
         [Parameter(
             Position = 5,
             Mandatory = $false,
-            HelpMessage = ("The name for the Docker volume for persistent " +
-                "storage")
+            HelpMessage = ('The name for the Docker volume for persistent ' +
+                'storage')
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         #######################################################################
         [Parameter(
             Position = 6,
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
@@ -186,8 +187,8 @@ function Add-WireGuardPeer {
         [Parameter(
             Position = 7,
             Mandatory = $false,
-            HelpMessage = ("Maximum time in seconds to wait for service " +
-                "health check")
+            HelpMessage = ('Maximum time in seconds to wait for service ' +
+                'health check')
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
@@ -195,8 +196,8 @@ function Add-WireGuardPeer {
         [Parameter(
             Position = 8,
             Mandatory = $false,
-            HelpMessage = ("Interval in seconds between health check " +
-                "attempts")
+            HelpMessage = ('Interval in seconds between health check ' +
+                'attempts')
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
@@ -204,61 +205,192 @@ function Add-WireGuardPeer {
         [Parameter(
             Position = 9,
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         #######################################################################
         [Parameter(
             Position = 10,
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         #######################################################################
         [Parameter(
             Position = 11,
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         #######################################################################
         [Parameter(
             Position = 12,
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC",
+        [string] $TimeZone = 'Etc/UTC',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Save the peer configuration to a file"
+            HelpMessage = 'Save the peer configuration to a file'
         )]
         [switch] $SaveConfig,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show the WireGuard window when initializing the service'
+        )]
+        [switch] $ShowWindow,
+        ###############################################################################
+        [Alias('nb')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Remove window borders when initializing the service'
+        )]
+        [switch] $NoBorders,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window width when initializing the service'
+        )]
+        [int] $Width,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window height when initializing the service'
+        )]
+        [int] $Height,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window left position when initializing the service'
+        )]
+        [int] $Left,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window right position when initializing the service'
+        )]
+        [int] $Right,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window bottom position when initializing the service'
+        )]
+        [int] $Bottom,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Center the window when initializing the service'
+        )]
+        [switch] $Centered,
+        ###############################################################################
+        [Alias('fs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Start the service in fullscreen mode'
+        )]
+        [switch] $Fullscreen,
+        ###############################################################################
+        [Alias('rf','bg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Restore focus to the window after initializing the service'
+        )]
+        [switch] $RestoreFocus,
+        ###############################################################################
+        [Alias('sbs')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Show the window side by side when initializing the service'
+        )]
+        [switch] $SideBySide,
+        ###############################################################################
+        [Alias('fw','focus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Focus the window after initializing the service'
+        )]
+        [switch] $FocusWindow,
+        ###############################################################################
+        [Alias('fg')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Set the window to foreground after initializing the service'
+        )]
+        [switch] $SetForeground,
+        ###############################################################################
+        [Alias('Escape')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Send Escape key to the window after initializing the service'
+        )]
+        [switch] $SendKeyEscape,
+        ###############################################################################
+        [Alias('HoldKeyboardFocus')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Hold keyboard focus when sending keys after initializing the service'
+        )]
+        [switch] $SendKeyHoldKeyboardFocus,
+        ###############################################################################
+        [Alias('UseShiftEnter')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use Shift+Enter when sending keys after initializing the service'
+        )]
+        [switch] $SendKeyUseShiftEnter,
+        ###############################################################################
+        [Alias('DelayMilliSeconds')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Delay in milliseconds when sending keys after initializing the service'
+        )]
+        [int] $SendKeyDelayMilliSeconds,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Use session only for the WireGuard service'
+        )]
+        [switch] $SessionOnly,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Clear session when initializing the service'
+        )]
+        [switch] $ClearSession,
+        ###############################################################################
+        [Alias('FromPreferences')]
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Skip session when initializing the service'
+        )]
+        [switch] $SkipSession,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Show QR code in the console for easy mobile " +
-                "setup")
+            HelpMessage = ('Show QR code in the console for easy mobile ' +
+                'setup')
         )]
         [switch] $ShowQRCode,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Skip Docker initialization (used when already " +
-                "called by parent function)")
+            HelpMessage = ('Skip Docker initialization (used when already ' +
+                'called by parent function)')
         )]
         [switch] $NoDockerInitialize,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ("Force rebuild of Docker container and remove " +
-                "existing data")
+            HelpMessage = ('Force rebuild of Docker container and remove ' +
+                'existing data')
         )]
-        [Alias("ForceRebuild")]
+        [Alias('ForceRebuild')]
         [switch] $Force
         #######################################################################
     )    begin {
@@ -268,7 +400,7 @@ function Add-WireGuardPeer {
 
             # log verbose message about ensuring service availability
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to ensurewireguard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -285,24 +417,24 @@ function Add-WireGuardPeer {
 
             # log verbose message about skipping docker initialization
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
 
         #######################################################################
         # define helper function to validate peer name format and constraints
-        function Test-PeerNameFormat {
+        function TestPeerNameFormat {
 
             param([string]$peerName)
 
             # check for null or whitespace peer name
             if ([string]::IsNullOrWhiteSpace($peerName)) {
-                throw "Peer name cannot be empty or whitespace"
+                throw 'Peer name cannot be empty or whitespace'
             }
 
             # check for peer name length exceeding maximum allowed
             if ($peerName.Length -gt 100) {
-                throw ("Peer name is too long. Maximum length is 100 " +
-                    "characters")
+                throw ('Peer name is too long. Maximum length is 100 ' +
+                    'characters')
             }
 
             # define list of characters that are invalid for peer names
@@ -322,7 +454,7 @@ function Add-WireGuardPeer {
 
         #######################################################################
         # define helper function to check if peer configuration already exists
-        function Test-PeerExist {
+        function TestPeerExist {
 
             param([string]$peerName)
 
@@ -330,7 +462,7 @@ function Add-WireGuardPeer {
 
                 # check for existing peer configuration files in container
                 $existingPeers = & docker exec $ContainerName sh -c `
-                    "ls -1 /config/peer_*"
+                    'ls -1 /config/peer_*'
 
                 # iterate through existing peer configurations
                 foreach ($existingPeer in $existingPeers) {
@@ -360,16 +492,16 @@ function Add-WireGuardPeer {
         try {
 
             # validate peer name format using helper function
-            Test-PeerNameFormat -peerName $PeerName
+            TestPeerNameFormat -peerName $PeerName
 
             # check if peer already exists using helper function
-            if (Test-PeerExist -peerName $PeerName) {
+            if (TestPeerExist -peerName $PeerName) {
                 throw "A peer with name '$PeerName' already exists"
             }
 
             # ask for confirmation before creating the peer
             if ($PSCmdlet.ShouldProcess("WireGuard peer '$PeerName'",
-                "Add peer")) {
+                    'Add peer')) {
 
                 # log verbose message about adding new peer
                 Microsoft.PowerShell.Utility\Write-Verbose `
@@ -393,7 +525,7 @@ function Add-WireGuardPeer {
 
                 # check if configuration retrieval succeeded and is not empty
                 if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrEmpty($peerConfig)) {
-                    throw "Failed to retrieve peer configuration"
+                    throw 'Failed to retrieve peer configuration'
                 }
 
                 # save configuration to file if requested by user
@@ -401,12 +533,12 @@ function Add-WireGuardPeer {
 
                     # ask for confirmation before saving configuration file
                     if ($PSCmdlet.ShouldProcess(
-                        "Configuration file for peer '$PeerName'",
-                        "Save to $OutputPath")) {
+                            "Configuration file for peer '$PeerName'",
+                            "Save to $OutputPath")) {
 
                         # create output directory if it doesn't exist
                         if (-not (Microsoft.PowerShell.Management\Test-Path `
-                            $OutputPath)) {
+                                    $OutputPath)) {
 
                             # create directory with force flag to create parent dirs
                             $null = Microsoft.PowerShell.Management\New-Item `
@@ -454,7 +586,7 @@ function Add-WireGuardPeer {
                         # display instruction message for qr code usage
                         Microsoft.PowerShell.Utility\Write-Host `
                             -ForegroundColor Green `
-                            "Scan this QR code with the WireGuard mobile app"
+                            'Scan this QR code with the WireGuard mobile app'
                     }
                     else {
 
@@ -466,12 +598,12 @@ function Add-WireGuardPeer {
 
                 # create hash table with peer details for return object
                 $peerDetails = @{
-                    PeerName = $PeerName
-                    Configuration = $peerConfig
+                    PeerName          = $PeerName
+                    Configuration     = $peerConfig
                     ConfigurationPath = if ($SaveConfig) { $configFile } else {
                         $null
                     }
-                    QRCodeGenerated = $ShowQRCode
+                    QRCodeGenerated   = $ShowQRCode
                 }
 
                 # return peer details as powershell custom object
@@ -505,4 +637,3 @@ function Add-WireGuardPeer {
 
     }
 }
-        ###############################################################################

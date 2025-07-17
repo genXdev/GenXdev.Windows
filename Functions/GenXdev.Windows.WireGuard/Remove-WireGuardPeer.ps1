@@ -1,4 +1,3 @@
-
 ###############################################################################
 <#
 .SYNOPSIS
@@ -71,92 +70,164 @@ provides detailed error handling for failed operations.
 function Remove-WireGuardPeer {
 
     [CmdletBinding(SupportsShouldProcess)]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
 
     param(
         #######################################################################
         [Parameter(
             Position = 0,
             Mandatory = $true,
-            HelpMessage = "The name of the peer to remove"
+            HelpMessage = 'The name of the peer to remove'
         )]
         [ValidateNotNullOrEmpty()]
         [string] $PeerName,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker container"
+            HelpMessage = 'The name for the Docker container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ContainerName = "wireguard",
+        [string] $ContainerName = 'wireguard',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The name for the Docker volume for persistent storage"
+            HelpMessage = 'The name for the Docker volume for persistent storage'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $VolumeName = "wireguard_data",
+        [string] $VolumeName = 'wireguard_data',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "The port number for the WireGuard service"
+            HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
         [int] $ServicePort = 51820,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Maximum time in seconds to wait for service health check"
+            HelpMessage = 'Maximum time in seconds to wait for service health check'
         )]
         [ValidateRange(10, 300)]
         [int] $HealthCheckTimeout = 60,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Interval in seconds between health check attempts"
+            HelpMessage = 'Interval in seconds between health check attempts'
         )]
         [ValidateRange(1, 10)]
         [int] $HealthCheckInterval = 3,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Custom Docker image name to use"
+            HelpMessage = 'Custom Docker image name to use'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $ImageName = "linuxserver/wireguard",
+        [string] $ImageName = 'linuxserver/wireguard',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "User ID for permissions in the container"
+            HelpMessage = 'User ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PUID = "1000",
+        [string] $PUID = '1000',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Group ID for permissions in the container"
+            HelpMessage = 'Group ID for permissions in the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $PGID = "1000",
+        [string] $PGID = '1000',
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Timezone to use for the container"
+            HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = "Etc/UTC",
+        [string] $TimeZone = 'Etc/UTC',
         #######################################################################
+        [Alias('ForceRebuild')]
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Force removal without confirmation"
+            HelpMessage = 'Force removal without confirmation'
         )]
         [switch] $Force,
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Skip Docker initialization when called by parent function"
+            HelpMessage = 'Skip Docker initialization when called by parent function'
         )]
-        [switch] $NoDockerInitialize
+        [switch] $NoDockerInitialize,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Show Docker Desktop window during initialization')]
+        [switch] $ShowWindow,
+        #######################################################################
+        [Alias('nb')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Removes the borders of the window')]
+        [switch] $NoBorders,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'The initial width of the window')]
+        [int] $Width,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'The initial height of the window')]
+        [int] $Height,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Place window on the left side of the screen')]
+        [switch] $Left,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Place window on the right side of the screen')]
+        [switch] $Right,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Place window on the bottom side of the screen')]
+        [switch] $Bottom,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Place window in the center of the screen')]
+        [switch] $Centered,
+        #######################################################################
+        [Alias('fs')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Maximize the window')]
+        [switch] $Fullscreen,
+        #######################################################################
+        [Alias('rf', 'bg')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Restore PowerShell window focus')]
+        [switch] $RestoreFocus,
+        #######################################################################
+        [Alias('sbs')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor')]
+        [switch] $SideBySide,
+        #######################################################################
+        [Alias('fw','focus')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Focus the window after opening')]
+        [switch] $FocusWindow,
+        #######################################################################
+        [Alias('fg')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Set the window to foreground after opening')]
+        [switch] $SetForeground,
+        #######################################################################
+        [Alias('Escape')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Escape control characters and modifiers when sending keys')]
+        [switch] $SendKeyEscape,
+        #######################################################################
+        [Alias('HoldKeyboardFocus')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Hold keyboard focus on target window when sending keys')]
+        [switch] $SendKeyHoldKeyboardFocus,
+        #######################################################################
+        [Alias('UseShiftEnter')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Use Shift+Enter instead of Enter when sending keys')]
+        [switch] $SendKeyUseShiftEnter,
+        #######################################################################
+        [Alias('DelayMilliSeconds')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Delay between different input strings in milliseconds when sending keys')]
+        [int] $SendKeyDelayMilliSeconds,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Use alternative settings stored in session for AI preferences')]
+        [switch] $SessionOnly,
+        #######################################################################
+        [Parameter(Mandatory = $false, HelpMessage = 'Clear alternative settings stored in session for AI preferences')]
+        [switch] $ClearSession,
+        #######################################################################
+        [Alias('FromPreferences')]
+        [Parameter(Mandatory = $false, HelpMessage = 'Store settings only in persistent preferences without affecting session')]
+        [switch] $SkipSession
         #######################################################################
     )
     begin {
@@ -164,7 +235,7 @@ function Remove-WireGuardPeer {
         # ensure the wireguard service is running if not skipped
         if (-not $NoDockerInitialize) {
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Ensuring WireGuard service is available"
+                'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to ensurewireguard function
             $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
@@ -179,7 +250,7 @@ function Remove-WireGuardPeer {
         }
         else {
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Skipping Docker initialization as requested"
+                'Skipping Docker initialization as requested'
         }
 
         # define helper function to check if peer configuration exists
@@ -215,10 +286,10 @@ function Remove-WireGuardPeer {
 
             # get the peer's public key for wireguard configuration removal
             $publicKey = docker exec $ContainerName sh -c ("cat /config/peer_$PeerName/publickey " +
-                "2>/dev/null")
+                '2>/dev/null')
 
             if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrEmpty($publicKey)) {
-                Microsoft.PowerShell.Utility\Write-Warning ("Could not retrieve public key for " +
+                Microsoft.PowerShell.Utility\Write-Warning ('Could not retrieve public key for ' +
                     "peer '$PeerName', but will attempt removal anyway")
                 $publicKey = $null
             }
@@ -237,7 +308,7 @@ function Remove-WireGuardPeer {
 
                 # remove from wireguard configuration if we have the public key
                 if (-not [string]::IsNullOrEmpty($publicKey)) {
-                    $removeResult = docker exec $ContainerName sh -c ("wg set wg0 peer " +
+                    $removeResult = docker exec $ContainerName sh -c ('wg set wg0 peer ' +
                         "$publicKey remove")
 
                     if ($LASTEXITCODE -ne 0) {
@@ -246,7 +317,7 @@ function Remove-WireGuardPeer {
                     }
                     else {
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            "Peer removed from WireGuard configuration"
+                            'Peer removed from WireGuard configuration'
                     }
                 }
 
@@ -258,7 +329,7 @@ function Remove-WireGuardPeer {
                 }
 
                 # save wireguard configuration to persist changes
-                $saveResult = docker exec $ContainerName sh -c "wg-quick save wg0"
+                $saveResult = docker exec $ContainerName sh -c 'wg-quick save wg0'
 
                 if ($LASTEXITCODE -ne 0) {
                     Microsoft.PowerShell.Utility\Write-Warning `
@@ -270,19 +341,19 @@ function Remove-WireGuardPeer {
 
                 # return success information for pipeline use
                 return [PSCustomObject]@{
-                    PeerName = $PeerName
+                    PeerName  = $PeerName
                     PublicKey = $publicKey
-                    Success = $true
-                    Message = "Peer '$PeerName' removed successfully"
+                    Success   = $true
+                    Message   = "Peer '$PeerName' removed successfully"
                 }
             }
 
             # return cancellation information when user declines
             return [PSCustomObject]@{
-                PeerName = $PeerName
+                PeerName  = $PeerName
                 PublicKey = $publicKey
-                Success = $false
-                Message = "Peer removal was canceled by user"
+                Success   = $false
+                Message   = 'Peer removal was canceled by user'
             }
         }
         catch {
@@ -293,4 +364,3 @@ function Remove-WireGuardPeer {
     }    end {
     }
 }
-        ###############################################################################

@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Creates scheduled tasks that run PowerShell scripts at specified intervals.
@@ -32,34 +32,34 @@ Initialize-ScheduledTaskScripts -FilePath "C:\Tasks" -Prefix "MyTasks"
 
 .EXAMPLE
 Initialize-ScheduledTaskScripts
-        ###############################################################################>
+#>
 function Initialize-ScheduledTaskScripts {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     param(
         ###########################################################################
         [parameter(
             Position = 0,
             Mandatory = $false,
-            HelpMessage = "The directory path where task scripts will be created"
+            HelpMessage = 'The directory path where task scripts will be created'
         )]
-        [string] $FilePath = "",
+        [string] $FilePath = '',
         ###########################################################################
         [parameter(
             Position = 1,
             Mandatory = $false,
-            HelpMessage = "Prefix for the scheduled task names"
+            HelpMessage = 'Prefix for the scheduled task names'
         )]
-        [string] $Prefix = "PS"
+        [string] $Prefix = 'PS'
         ###########################################################################
     )
 
     begin {
         # array of weekdays for creating weekly scheduled tasks
         $daysOfWeek = @(
-            "Sunday", "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday"
+            'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+            'Thursday', 'Friday', 'Saturday'
         )
 
         # get current UTC time for calculating task start times
@@ -87,7 +87,7 @@ function Initialize-ScheduledTaskScripts {
     }
 
 
-process {
+    process {
 
         ###########################################################################
         <#
@@ -117,9 +117,9 @@ process {
 
             # create script file with logging if it doesn't exist
             if (-not (Microsoft.PowerShell.Management\Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
-                if ($PSCmdlet.ShouldProcess($scriptPath, "Create task script file")) {
+                if ($PSCmdlet.ShouldProcess($scriptPath, 'Create task script file')) {
                     $scriptContent = @"
-        ###############################################################################$Description
+$Description
 
 $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
 
@@ -139,9 +139,9 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
                 $actionArguments = "-ExecutionPolicy Bypass -NoLogo -Command & `
                     `"'$scriptPath'`""
                 $action = ScheduledTasks\New-ScheduledTaskAction `
-                    -Execute ((Microsoft.PowerShell.Core\Get-Command "pwsh.exe").source) `
+                    -Execute ((Microsoft.PowerShell.Core\Get-Command 'pwsh.exe').source) `
                     -Argument $actionArguments `
-                    -Id "Exec $TaskName".Replace(" ", "_") `
+                    -Id "Exec $TaskName".Replace(' ', '_') `
                     -WorkingDirectory $WorkspaceFolder
 
                 # configure task execution settings
@@ -169,7 +169,7 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
                     TaskName    = $TaskName
                     User        = $credential.UserName
                     Password    = $plainPassword
-                    RunLevel    = "Highest"
+                    RunLevel    = 'Highest'
                     Action      = $action
                     Description = $Description
                     Settings    = $settings
@@ -177,7 +177,7 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
                     TaskPath    = $Prefix
                     Force       = $true
                 }
-                if ($PSCmdlet.ShouldProcess("$Prefix\$TaskName", "Create scheduled task")) {
+                if ($PSCmdlet.ShouldProcess("$Prefix\$TaskName", 'Create scheduled task')) {
                     ScheduledTasks\Register-ScheduledTask @taskParams
                 }
             }
@@ -189,13 +189,13 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
         # create system startup triggered task
         New-TaskDefinition `
             -TaskName "${Prefix}_at_startup" `
-            -Description "Scheduled-task executed at startup" `
+            -Description 'Scheduled-task executed at startup' `
             -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -AtStartup)
 
         # create user logon triggered task
         New-TaskDefinition `
             -TaskName "${Prefix}_at_logon" `
-            -Description "Scheduled-task executed at logon" `
+            -Description 'Scheduled-task executed at logon' `
             -Trigger (ScheduledTasks\New-ScheduledTaskTrigger -AtLogOn)
 
         # create weekly tasks for each day and hour combination
@@ -235,4 +235,3 @@ $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$Works
     end {
     }
 }
-        ###############################################################################

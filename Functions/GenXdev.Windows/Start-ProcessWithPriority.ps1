@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Starts a process with a specified priority level.
@@ -34,18 +34,18 @@ Start-ProcessWithPriority -FilePath "notepad.exe" -Priority "Low" -NoWait
 
 .EXAMPLE
 nice notepad.exe -Priority High
-        ###############################################################################>
+#>
 function Start-ProcessWithPriority {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
-    [Alias("nice")]
+    [Alias('nice')]
 
     param (
         ########################################################################
         [Parameter(
             Position = 0,
             Mandatory = $true,
-            HelpMessage = "Path to the executable to run"
+            HelpMessage = 'Path to the executable to run'
         )]
         [ValidateNotNullOrEmpty()]
         [string] $FilePath,
@@ -53,25 +53,25 @@ function Start-ProcessWithPriority {
         [Parameter(
             Position = 1,
             Mandatory = $false,
-            HelpMessage = "Arguments to pass to the executable"
+            HelpMessage = 'Arguments to pass to the executable'
         )]
-        [string[]] $ArgumentList = "",
+        [string[]] $ArgumentList = '',
         ########################################################################
         [Parameter(
             Position = 2,
             Mandatory = $false,
-            HelpMessage = "Process priority level"
+            HelpMessage = 'Process priority level'
         )]
         [ValidateSet(
-            "Idle",
-            "BelowNormal",
-            "Low",
-            "Normal",
-            "AboveNormal",
-            "High",
-            "RealTime"
+            'Idle',
+            'BelowNormal',
+            'Low',
+            'Normal',
+            'AboveNormal',
+            'High',
+            'RealTime'
         )]
-        [string] $Priority = "BelowNormal",
+        [string] $Priority = 'BelowNormal',
         ########################################################################
         [Parameter(
             Mandatory = $false,
@@ -81,7 +81,7 @@ function Start-ProcessWithPriority {
         ########################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "Return the process object"
+            HelpMessage = 'Return the process object'
         )]
         [switch] $PassThru
         ########################################################################
@@ -93,7 +93,7 @@ function Start-ProcessWithPriority {
     }
 
 
-process {
+    process {
         # check if the user wants to proceed with starting the process
         $processDescription = "Start process '$FilePath' with priority '$Priority'"
         if (-not $PSCmdlet.ShouldProcess($processDescription)) {
@@ -119,7 +119,7 @@ process {
 
         # return early if immediate execution is requested
         if ($NoWait) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Not waiting for process completion"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Not waiting for process completion'
             if ($PassThru) {
                 return $process
             }
@@ -127,12 +127,12 @@ process {
         }
 
         # block execution until the process completes
-        Microsoft.PowerShell.Utility\Write-Verbose "Waiting for process to complete"
+        Microsoft.PowerShell.Utility\Write-Verbose 'Waiting for process to complete'
         $process.WaitForExit()
 
         # return process information if requested
         if ($PassThru) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Returning process object"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Returning process object'
             return $process
         }
     }
@@ -140,4 +140,3 @@ process {
     end {
     }
 }
-        ###############################################################################

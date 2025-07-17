@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Pushes the current window onto the window stack with optional modifications.
@@ -81,278 +81,284 @@ Specifies the monitor to move the window to before pushing onto the stack:
 
 .EXAMPLE
 Push-Window -Maximize -AlwaysOnTop
-        ###############################################################################Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
+Maximizes the current window, sets it to be always on top, and pushes it onto the stack.
 
 .EXAMPLE
 Push-Window -X 100 -Y 100 -Width 800 -Height 600 -NoBorders
-        ###############################################################################Positions and resizes the current window, removes its borders, and pushes it onto the stack.
+Positions and resizes the current window, removes its borders, and pushes it onto the stack.
 
 .EXAMPLE
 pushw -Left
-        ###############################################################################Positions the current window on the left half of the screen and pushes it
-        ###############################################################################onto the stack using the alias.
+Positions the current window on the left half of the screen and pushes it
+onto the stack using the alias.
 
 .EXAMPLE
 Push-Window -Monitor 1 -Maximize
-        ###############################################################################Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
+Moves the current window to the first monitor, maximizes it, and pushes it onto the stack.
 
 .EXAMPLE
 Push-Window -Monitor -2 -Fullscreen
-        ###############################################################################Moves the current window to the secondary monitor, makes it fullscreen,
-        ###############################################################################and pushes it onto the stack.
+Moves the current window to the secondary monitor, makes it fullscreen,
+and pushes it onto the stack.
 ###############################################################################>
 function Push-Window {
 
     ############################################################################
-    [CmdletBinding(DefaultParameterSetName = "Default")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
-    [Alias("pushw")]
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '')]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
+    [Alias('pushw')]
     param (
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Maximize,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Minimize,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Restore,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Hide,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Show,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
+        [Alias('nb')]
         [switch] $NoBorders,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $AlwaysOnTop,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [ValidateRange(0, 255)]
         [byte] $Opacity,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Position",
+            ParameterSetName = 'Position',
             Mandatory = $true
         )]
         [int] $X,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Position",
+            ParameterSetName = 'Position',
             Mandatory = $true
         )]
         [int] $Y,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Dimensions",
+            ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
         [int] $Width,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Dimensions",
+            ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
         [int] $Height,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Focus,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $FadeOut,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
-        [switch] $PassThru,
+        [Alias('pt')]
+        [switch]$PassThru,
+
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Left,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Right,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Top,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Bottom,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [switch] $Centered,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
-        [switch] $Fullscreen,
+        [Alias('sw')]
+        [switch]$ShowWindow
+        ,
 
         ########################################################################
         [Parameter(
-            ParameterSetName = "Default"
+            ParameterSetName = 'Default'
         )]
         [Parameter(
-            ParameterSetName = "Position"
+            ParameterSetName = 'Position'
         )]
         [Parameter(
-            ParameterSetName = "Dimensions"
+            ParameterSetName = 'Dimensions'
         )]
         [ValidateNotNull()]
+        [Alias('m', 'mon')]
         [int] $Monitor
     )
 
@@ -361,7 +367,7 @@ function Push-Window {
         # initialize the global window stack if it doesn't exist yet
         if (-not $Global:GenXdevWindowStack) {
             $Global:GenXdevWindowStack = [System.Collections.Concurrent.ConcurrentQueue[GenXdev.Helpers.WindowObj]]::new()
-            Microsoft.PowerShell.Utility\Write-Verbose "Initialized new window stack"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Initialized new window stack'
         }
     }
 
@@ -372,7 +378,7 @@ function Push-Window {
 
         # extract the process id if we got a Process object
         if ($processId -is [System.Diagnostics.Process]) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Received Process object, extracting process ID"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Received Process object, extracting process ID'
             $processId = $processId.Id
         }
 
@@ -410,21 +416,21 @@ function Push-Window {
 
         # focus the window if requested
         if ($Focus) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Setting window foreground focus"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Setting window foreground focus'
             $null = $window.SetForeground()
         }
 
         # apply window state modifications
         if ($Maximize) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Maximizing window"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Maximizing window'
             $null = $window.Maximize()
         }
         elseif ($Minimize) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Minimizing window"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Minimizing window'
             $null = $window.Minimize()
         }
         elseif ($Restore) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Restoring window"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Restoring window'
             $null = $window.Restore()
         }
 
@@ -436,52 +442,55 @@ function Push-Window {
 
         if ($cornerPositioning) {
             # Handle corner positioning (quarter screen)
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to corner (quarter screen)"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to corner (quarter screen)'
 
             if ($Left) {
                 if ($Top) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-left corner"
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to top-left corner'
                     $null = $window.PositionTopLeft()
                 }
-                else { # Bottom
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-left corner"
+                else {
+                    # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to bottom-left corner'
                     $null = $window.PositionBottomLeft()
                 }
             }
-            else { # Right
+            else {
+                # Right
                 if ($Top) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to top-right corner"
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to top-right corner'
                     $null = $window.PositionTopRight()
                 }
-                else { # Bottom
-                    Microsoft.PowerShell.Utility\Write-Verbose "Positioning to bottom-right corner"
+                else {
+                    # Bottom
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Positioning to bottom-right corner'
                     $null = $window.PositionBottomRight()
                 }
             }
         }
         # Original half-screen positioning logic
         elseif ($Left) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to left half"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to left half'
             $null = $window.PositionLeft()
         }
         elseif ($Right) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to right half"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to right half'
             $null = $window.PositionRight()
         }
         elseif ($Top) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to top half"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to top half'
             $null = $window.PositionTop()
         }
         elseif ($Bottom) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Positioning window to bottom half"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Positioning window to bottom half'
             $null = $window.PositionBottom()
         }
         elseif ($Centered) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Centering window on screen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Centering window on screen'
             $null = $window.PositionCentered()
         }
         elseif ($Fullscreen) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Making window fullscreen"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Making window fullscreen'
             $null = $window.PositionFullscreen()
         }
 
@@ -489,29 +498,29 @@ function Push-Window {
         if ($Hide) {
             if ($FadeOut) {
                 # apply fade-out effect for smooth disappearance
-                Microsoft.PowerShell.Utility\Write-Verbose "Fading out window"
+                Microsoft.PowerShell.Utility\Write-Verbose 'Fading out window'
                 $window.FadeWindow($false)
             }
             else {
                 # hide window immediately
-                Microsoft.PowerShell.Utility\Write-Verbose "Hiding window"
+                Microsoft.PowerShell.Utility\Write-Verbose 'Hiding window'
                 $null = $window.Hide()
             }
         }
         elseif ($Show) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Showing window"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Showing window'
             $null = $window.Show()
         }
 
         # apply visual modifications
         if ($NoBorders) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Removing window borders"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Removing window borders'
             $window.RemoveBorder()
         }
 
         # set always-on-top property if requested
         if ($AlwaysOnTop) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Setting window to always on top"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Setting window to always on top'
             $window.SetAlwaysOnTop($true)
         }
 
@@ -535,12 +544,12 @@ function Push-Window {
         }
 
         # add the window to the stack
-        Microsoft.PowerShell.Utility\Write-Verbose "Enqueueing window to global stack"
+        Microsoft.PowerShell.Utility\Write-Verbose 'Enqueueing window to global stack'
         $Global:GenXdevWindowStack.Enqueue($window)
 
         # return window if passthru is specified
         if ($PassThru) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Returning window object (PassThru)"
+            Microsoft.PowerShell.Utility\Write-Verbose 'Returning window object (PassThru)'
             return $window
         }
     }
@@ -549,4 +558,3 @@ function Push-Window {
     end {
     }
 }
-        ###############################################################################

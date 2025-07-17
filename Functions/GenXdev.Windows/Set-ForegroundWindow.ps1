@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 <#
 .SYNOPSIS
 Brings the specified window to the foreground and makes it the active window.
@@ -15,15 +15,15 @@ API calls or PowerShell window management functions like Get-Process
 MainWindowHandle.
 
 .EXAMPLE
-        ###############################################################################Make Notepad the active window using full parameter name
+Make Notepad the active window using full parameter name
 $hwnd = (Get-Process notepad).MainWindowHandle
 Set-ForegroundWindow -WindowHandle $hwnd -WhatIf
 
 .EXAMPLE
-        ###############################################################################Using positional parameter for simpler syntax
+Using positional parameter for simpler syntax
 $hwnd = (Get-Process notepad).MainWindowHandle
 Set-ForegroundWindow $hwnd
-        ###############################################################################>
+#>
 function Set-ForegroundWindow {
 
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -32,7 +32,7 @@ function Set-ForegroundWindow {
         [Parameter(
             Mandatory = $true,
             Position = 0,
-            HelpMessage = "Window handle to set as foreground window"
+            HelpMessage = 'Window handle to set as foreground window'
         )]
         [IntPtr] $WindowHandle
         ########################################################################
@@ -44,13 +44,13 @@ function Set-ForegroundWindow {
     }
 
 
-process {
+    process {
 
-        if ($PSCmdlet.ShouldProcess("Window $WindowHandle", "Set as foreground window")) {
+        if ($PSCmdlet.ShouldProcess("Window $WindowHandle", 'Set as foreground window')) {
 
             try {
                 # try the preferred SwitchToThisWindow API first as it's more reliable
-                Microsoft.PowerShell.Utility\Write-Verbose "Attempting primary method: SwitchToThisWindow..."
+                Microsoft.PowerShell.Utility\Write-Verbose 'Attempting primary method: SwitchToThisWindow...'
                 $null = [GenXdev.Helpers.WindowObj]::SwitchToThisWindow($WindowHandle, $false)
             }
             catch {
@@ -60,7 +60,7 @@ process {
 
             try {
                 # attempt SetForegroundWindow as fallback if first method failed
-                Microsoft.PowerShell.Utility\Write-Verbose "Attempting fallback method: SetForegroundWindow..."
+                Microsoft.PowerShell.Utility\Write-Verbose 'Attempting fallback method: SetForegroundWindow...'
                 $null = [GenXdev.Helpers.WindowObj]::SetForegroundWindow($WindowHandle)
             }
             catch {
@@ -73,4 +73,3 @@ process {
     end {
     }
 }
-        ###############################################################################
