@@ -429,22 +429,9 @@ function EnsureDockerDesktop {
                     InstallWinGet
                 }
 
-                # check if wsl is installed and update it if necessary
-                if (-not (Microsoft.PowerShell.Core\Get-Command 'wsl.exe' `
-                            -ErrorAction SilentlyContinue)) {
-
-                    # inform user about WSL installation
-                    Microsoft.PowerShell.Utility\Write-Host ('WSL is not ' +
-                        'installed. Installing WSL...')
-
-                    # install WSL using PowerShell command
-                    $null = Microsoft.PowerShell.Core\Invoke-Expression `
-                        'wsl --install'
-                }
-                else {
-
-                    wsl --update
-                }
+                Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+                Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+                wsl --update
 
                 # install docker desktop using winget package manager
                 $null = Microsoft.WinGet.Client\Install-WinGetPackage `
@@ -548,6 +535,7 @@ function EnsureDockerDesktop {
                         # start docker desktop from found path with appropriate
                         # window style
                         if ($ShowWindow) {
+
                             # start with window visible if ShowWindow is specified
                             Microsoft.PowerShell.Management\Start-Process $path `
                                 -WindowStyle Normal
@@ -573,22 +561,13 @@ function EnsureDockerDesktop {
             Microsoft.PowerShell.Utility\Write-Verbose ('Bringing Docker ' +
                 'Desktop window to the foreground...')
 
-            # get docker desktop window object
-            $dockerWindow = GenXdev.Windows\Get-Window -ProcessName 'Docker Desktop'
+            $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                                -BoundParameters $PSBoundParameters `
+                                -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
+                                -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
+                                    -Scope Local -ErrorAction SilentlyContinue)
 
-            # position window if window object was found
-            if ($null -ne $dockerWindow) {
-
-                # copy window positioning parameters using helper function
-                $windowPositionParams = GenXdev.Helpers\Copy-IdenticalParamValues `
-                    -BoundParameters $PSBoundParameters `
-                    -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
-                    -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
-                        -Scope Local -Name * -ErrorAction SilentlyContinue)
-
-                # apply window positioning with copied parameters
-                $null = GenXdev.Windows\Set-WindowPosition @windowPositionParams
-            }
+            $null = GenXdev.Windows\Set-WindowPosition @params -ProcessName "Docker Desktop"
         }
 
         # wait for docker daemon to become ready for commands
