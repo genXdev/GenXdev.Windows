@@ -147,6 +147,12 @@ function EnsureDockerDesktop {
         #######################################################################
         [Parameter(
             Mandatory = $false,
+            HelpMessage = 'Forces a docker desktop restart'
+        )]
+        [switch] $Force,
+        #######################################################################
+        [Parameter(
+            Mandatory = $false,
             HelpMessage = 'The initial width of the window'
         )]
         [int]$Width,
@@ -299,6 +305,10 @@ function EnsureDockerDesktop {
 
     begin {
 
+            if ($Force) {
+                $null = Microsoft.PowerShell.Management\Get-Process *docker* -ErrorAction SilentlyContinue | Microsoft.PowerShell.Management\Stop-Process -Force
+            }
+
         #######################################################################
         <#
         .SYNOPSIS
@@ -429,8 +439,8 @@ function EnsureDockerDesktop {
                     InstallWinGet
                 }
 
-                Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-                Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+                Dism\Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+                Dism\Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
                 wsl --update
 
                 # install docker desktop using winget package manager
@@ -567,7 +577,7 @@ function EnsureDockerDesktop {
                                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
                                     -Scope Local -ErrorAction SilentlyContinue)
 
-            $null = GenXdev.Windows\Set-WindowPosition @params -ProcessName "Docker Desktop"
+            $null = GenXdev.Windows\Set-WindowPosition @params -ProcessName "Docker Desktop" -ErrorAction SilentlyContinue
         }
 
         # wait for docker daemon to become ready for commands

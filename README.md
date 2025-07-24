@@ -88,6 +88,7 @@ Update-Module
 | [Set-TaskbarAlignment](#Set-TaskbarAlignment) | set-taskalign | Configures Windows 11+ taskbar alignment between center and left positions. |
 | [Set-WindowPosition](#Set-WindowPosition) | wp | Positions and resizes windows on specified monitors with various layout options. |
 | [Set-WindowPositionForSecondary](#Set-WindowPositionForSecondary) | wps | Positions a window on the secondary monitor with specified layout options. |
+| [Set-WindowsWallpaper](#Set-WindowsWallpaper) | setaswallpaper | Sets a random wallpaper from a specified directory. |
 | [Start-ProcessWithPriority](#Start-ProcessWithPriority) | nice | Starts a process with a specified priority level. |
 | [Test-PathUsingWindowsDefender](#Test-PathUsingWindowsDefender) | virusscan | Scans files or directories for malware using Windows Defender. |
 
@@ -168,7 +169,7 @@ SYNOPSIS
     
     
 SYNTAX
-    EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>]
+    EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -210,6 +211,15 @@ PARAMETERS
     -NoBorders [<SwitchParameter>]
         Removes the window borders and title bar from the Docker Desktop window for
         a cleaner appearance.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Force [<SwitchParameter>]
         
         Required?                    false
         Position?                    named
@@ -3283,6 +3293,109 @@ OUTPUTS
     -------------------------- EXAMPLE 2 --------------------------
     
     PS > wps notepad -w 800 -h 600 -c -nb
+    
+    
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Set-WindowsWallpaper
+    
+SYNOPSIS
+    Sets a random wallpaper from a specified directory.
+    
+    
+SYNTAX
+    Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Selects a random image file from the specified directory and sets it as the
+    Windows desktop wallpaper. Supports JPG/JPEG image formats and configures the
+    wallpaper to "fit" the screen by default.
+    
+
+PARAMETERS
+    -InputObject <Object>
+        The file path pattern to search for wallpaper images. Supports wildcards and
+        recursive search. This is the path to the directory containing the wallpaper
+        images. When multiple images are found, one is selected at random.
+        
+        Required?                    false
+        Position?                    1
+        Default value                .\
+        Accept pipeline input?       true (ByValue, ByPropertyName)
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -AllDrives [<SwitchParameter>]
+        Search across all available drives.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -NoRecurse [<SwitchParameter>]
+        Do not recurse into subdirectories.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -WhatIf [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -Confirm [<SwitchParameter>]
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Set-WindowsWallpaper -InputObject "C:\Wallpapers\*.jpg"
+    Sets a random wallpaper from the specified directory.
+    
+    
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > nextbg
+    Sets a random wallpaper from the default wallpaper directory.
     
     
     

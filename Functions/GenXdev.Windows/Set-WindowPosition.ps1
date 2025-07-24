@@ -338,6 +338,20 @@ function Set-WindowPosition {
         # store reference to powershell window for focus restoration
         $powerShellWindow = GenXdev.Windows\Get-PowershellMainWindow
 
+        # Warn if not running as admin/backup operator
+        $hasElevated = $false
+        try {
+            $hasElevated = GenXdev.Windows\CurrentUserHasElevatedRights
+
+        } catch {
+
+            $hasElevated = $false
+        }
+        if ($hasElevated -ne $true) {
+
+            Microsoft.PowerShell.Utility\Write-Warning "WARNING: Due to missing administrator rights, only windows created by the current PowerShell process can be positioned."
+        }
+
         # determine which process to work with based on parameter set
         switch ($PSCmdlet.ParameterSetName) {
             'ProcessName' {

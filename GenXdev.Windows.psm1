@@ -37,5 +37,6 @@ if ($major -ne 10) {
 . "$PSScriptRoot\Functions\GenXdev.Windows\Set-TaskbarAlignment.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Set-WindowPosition.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Set-WindowPositionForSecondary.ps1"
+. "$PSScriptRoot\Functions\GenXdev.Windows\Set-WindowsWallpaper.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Start-ProcessWithPriority.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Test-PathUsingWindowsDefender.ps1"
