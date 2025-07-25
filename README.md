@@ -4127,11 +4127,11 @@ PARAMETERS
         
     -ServicePort <Int32>
         The UDP port number for the WireGuard service to listen on. Must be between
-        1-65535. Default: 51820
+        1-65535. Default: 51839
         
         Required?                    false
         Position?                    3
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -4477,7 +4477,7 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left <Int32>] [-Right <Int32>] [-Bottom <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>]
+    Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -4544,7 +4544,7 @@ PARAMETERS
         
         Required?                    false
         Position?                    named
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -4605,186 +4605,6 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                Etc/UTC
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -ShowWindow [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -NoBorders [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Width <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Height <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Left <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Right <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Bottom <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Centered [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -Fullscreen [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -RestoreFocus [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SideBySide [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -FocusWindow [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SetForeground [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SendKeyEscape [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SendKeyUseShiftEnter [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SendKeyDelayMilliSeconds <Int32>
-        
-        Required?                    false
-        Position?                    named
-        Default value                0
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SessionOnly [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -ClearSession [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Aliases                      
-        Accept wildcard characters?  false
-        
-    -SkipSession [<SwitchParameter>]
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -4900,7 +4720,7 @@ PARAMETERS
         
         Required?                    false
         Position?                    3
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -5259,7 +5079,7 @@ PARAMETERS
         
         Required?                    false
         Position?                    3
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -5599,7 +5419,7 @@ PARAMETERS
         
         Required?                    false
         Position?                    named
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false
@@ -5979,11 +5799,11 @@ PARAMETERS
         
     -ServicePort <Int32>
         The port number for the WireGuard service. Must be between 1 and 65535.
-        Defaults to 51820. This is the UDP port WireGuard will listen on.
+        Defaults to 51839. This is the UDP port WireGuard will listen on.
         
         Required?                    false
         Position?                    3
-        Default value                51820
+        Default value                51839
         Accept pipeline input?       false
         Aliases                      
         Accept wildcard characters?  false

@@ -107,7 +107,7 @@ function Get-WireGuardPeerQRCode {
             HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
-        [int] $ServicePort = 51820,
+        [int] $ServicePort = 51839,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
@@ -150,138 +150,7 @@ function Get-WireGuardPeerQRCode {
             HelpMessage = 'Timezone to use for the container'
         )]
         [ValidateNotNullOrEmpty()]
-        [string] $TimeZone = 'Etc/UTC',
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Show the WireGuard window (if supported)'
-        )]
-        [switch] $ShowWindow,
-        ###############################################################################
-        [Alias('nb')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Display window without borders (if supported)'
-        )]
-        [switch] $NoBorders,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Width of the window (if supported)'
-        )]
-        [int] $Width,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Height of the window (if supported)'
-        )]
-        [int] $Height,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Left position of the window (if supported)'
-        )]
-        [int] $Left,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Right position of the window (if supported)'
-        )]
-        [int] $Right,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Bottom position of the window (if supported)'
-        )]
-        [int] $Bottom,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Center the window (if supported)'
-        )]
-        [switch] $Centered,
-        ###############################################################################
-        [Alias('fs')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Show window in fullscreen mode (if supported)'
-        )]
-        [switch] $Fullscreen,
-        ###############################################################################
-        [Alias('rf','bg')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Restore focus to previous window (if supported)'
-        )]
-        [switch] $RestoreFocus,
-        ###############################################################################
-        [Alias('sbs')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Show windows side by side (if supported)'
-        )]
-        [switch] $SideBySide,
-        ###############################################################################
-        [Alias('fw','focus')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Focus the WireGuard window (if supported)'
-        )]
-        [switch] $FocusWindow,
-        ###############################################################################
-        [Alias('fg')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Set the WireGuard window to foreground (if supported)'
-        )]
-        [switch] $SetForeground,
-        ###############################################################################
-        [Alias('Escape')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Send Escape key to the window (if supported)'
-        )]
-        [switch] $SendKeyEscape,
-        ###############################################################################
-        [Alias('HoldKeyboardFocus')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Hold keyboard focus when sending keys (if supported)'
-        )]
-        [switch] $SendKeyHoldKeyboardFocus,
-        ###############################################################################
-        [Alias('UseShiftEnter')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Use Shift+Enter when sending keys (if supported)'
-        )]
-        [switch] $SendKeyUseShiftEnter,
-        ###############################################################################
-        [Alias('DelayMilliSeconds')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Delay in milliseconds between sending keys (if supported)'
-        )]
-        [int] $SendKeyDelayMilliSeconds,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Session only mode (if supported)'
-        )]
-        [switch] $SessionOnly,
-        ###############################################################################
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Clear session before starting (if supported)'
-        )]
-        [switch] $ClearSession,
-        ###############################################################################
-        [Alias('FromPreferences')]
-        [Parameter(
-            Mandatory = $false,
-            HelpMessage = 'Skip session initialization (if supported)'
-        )]
-        [switch] $SkipSession
+        [string] $TimeZone = 'Etc/UTC'
         ###############################################################################
     )    begin {
 
@@ -307,78 +176,24 @@ function Get-WireGuardPeerQRCode {
             Microsoft.PowerShell.Utility\Write-Verbose `
                 'Skipping Docker initialization as requested'
         }
+    }
 
-        # define helper function to check if peer exists
-        function Test-PeerExist {
-
-            param([string]$peerName)
-
-            try {
-
-                # check for existing peer configuration folder
-                $result = docker exec $ContainerName sh -c `
-                    "[ -d /config/peer_$peerName ] && echo 'exists' || echo 'not exists'"
-
-                if ($result -eq 'exists') {
-
-                    return $true
-                }
-
-                return $false
-            }
-            catch {
-
-                Microsoft.PowerShell.Utility\Write-Warning `
-                    "Unable to verify peer existence: $_"
-
-                # proceed with attempt even if we cannot verify existence
-                return $false
-            }
-        }
-    }    process {
+    process {
 
         try {
 
-            # check if peer exists before proceeding
-            if (-not (Test-PeerExist -peerName $PeerName)) {
-
-                throw ("Peer '$PeerName' does not exist. Create it with " +
-                    'Add-WireGuardPeer first')
-            }
-
             Microsoft.PowerShell.Utility\Write-Verbose `
-                "Generating QR code for peer: $PeerName"
+                "Displaying QR code for peer: $PeerName"
 
-            # generate QR code using the container's show-peer command
-            $qrCode = docker exec $ContainerName /app/show-peer $PeerName
+            # use the container's built-in QR code display
+            docker exec $ContainerName /app/show-peer $PeerName
 
             if ($LASTEXITCODE -ne 0) {
-
-                throw "Failed to generate QR code: $qrCode"
+                throw "Failed to display QR code for peer '$PeerName'"
             }
-
-            # output the QR code to the console with formatting
-            Microsoft.PowerShell.Utility\Write-Host ''
-
-            Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Cyan `
-                "QR Code for peer '$PeerName':"
-
-            Microsoft.PowerShell.Utility\Write-Host ''
-
-            Microsoft.PowerShell.Utility\Write-Host $qrCode
-
-            Microsoft.PowerShell.Utility\Write-Host ''
 
             Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
-            ('Scan this QR code with the WireGuard mobile app to set up ' +
-                'the connection.')
-
-            # return structured data about the QR code
-            return [PSCustomObject]@{
-                PeerName = $PeerName
-                QRCode   = $qrCode
-                Message  = "QR code generated successfully for peer '$PeerName'"
-            }
+                "QR code displayed for peer '$PeerName'"
         }
         catch {
 
@@ -387,8 +202,5 @@ function Get-WireGuardPeerQRCode {
 
             throw
         }
-    }    end {
-
-        # no specific cleanup needed for this function
     }
 }

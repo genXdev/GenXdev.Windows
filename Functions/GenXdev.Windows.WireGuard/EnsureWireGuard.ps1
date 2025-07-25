@@ -23,7 +23,7 @@ and client certificates. Default: "wireguard_data"
 
 .PARAMETER ServicePort
 The UDP port number for the WireGuard service to listen on. Must be between
-1-65535. Default: 51820
+1-65535. Default: 51839
 
 .PARAMETER HealthCheckTimeout
 Maximum time in seconds to wait for service health check before timing out.
@@ -109,7 +109,7 @@ function EnsureWireGuard {
             HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
-        [int] $ServicePort = 51820,
+        [int] $ServicePort = 51839,
         #######################################################################
         [Parameter(
             Position = 3,
@@ -556,9 +556,10 @@ function EnsureWireGuard {
                 $logs = docker logs $script:containerName 2>&1
 
                 # look for indications that wireguard is running properly
-                if ($logs -match 'Server started' -or
-                    $logs -match 'WireGuard started' -or
-                    $logs -match 'UDP listening') {
+                # linuxserver/wireguard outputs these specific messages when ready
+                if ($logs -match 'All tunnels are now active' -or
+                    $logs -match '\[ls\.io-init\] done\.' -or
+                    $logs -match 'ip link add wg0 type wireguard') {
 
                     # log successful health check for debugging
                     Microsoft.PowerShell.Utility\Write-Verbose `
@@ -646,6 +647,355 @@ function EnsureWireGuard {
                 "$script:healthCheckTimeout seconds")
 
             return $false
+        }
+        #######################################################################
+        <#
+        .SYNOPSIS
+        Gets a list of existing WireGuard peers from the container.
+
+        .DESCRIPTION
+        Queries the WireGuard container for existing peer configurations by
+        examining the /config directory structure. Returns an array of peer
+        names found in the container.
+        #>
+        function Get-ExistingPeers {
+
+            try {
+
+                # list peer directories in the container's config folder
+                $peerDirs = docker exec $script:containerName sh -c `
+                    "ls -d /config/peer_* 2>/dev/null | grep -o 'peer_[^/]*' | sed 's/peer_//'" `
+                    2>$null
+
+                if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($peerDirs)) {
+
+                    # split the output into individual peer names
+                    $peers = $peerDirs -split "`n" |
+                        Microsoft.PowerShell.Core\Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                        Microsoft.PowerShell.Core\ForEach-Object { $_.Trim() }
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        "Found existing peers: $($peers -join ', ')"
+
+                    return $peers
+                }
+
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    'No existing peers found'
+
+                return @()
+            }
+            catch {
+
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Failed to get existing peers: $_"
+
+                return @()
+            }
+        }
+        #######################################################################
+        <#
+        .SYNOPSIS
+        Checks the status of a WireGuard peer and activates it if inactive.
+
+        .DESCRIPTION
+        Uses the container's /app/show-peer script to check peer status and
+        attempts to activate inactive peers by restarting the WireGuard service
+        or reloading the configuration files.
+
+        .PARAMETER PeerName
+        The name of the peer to check and potentially activate.
+        #>
+        function Enable-PeerIfNeeded {
+
+            param([string]$PeerName)
+
+            try {
+
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    "Checking status of peer: $PeerName"
+
+                # check peer status using container's show-peer script
+                $peerStatus = docker exec $script:containerName /app/show-peer $PeerName 2>&1
+
+                # check if peer is marked as inactive
+                if ($peerStatus -match 'is not active') {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        "Peer '$PeerName' is inactive, attempting to activate..."
+
+                    # try multiple approaches to activate the peer
+
+                    # approach 1: restart the entire container to reload all configs
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        "Restarting WireGuard container to reload configurations..."
+
+                    $restartResult = docker restart $script:containerName 2>&1
+
+                    if ($LASTEXITCODE -eq 0) {
+
+                        # wait for container to fully restart
+                        Microsoft.PowerShell.Utility\Start-Sleep -Seconds 15
+
+                        # wait for service to become ready after restart
+                        $serviceReady = Wait-ServiceReady
+
+                        if ($serviceReady) {
+
+                            # check peer status again after container restart
+                            $newStatus = docker exec $script:containerName /app/show-peer $PeerName 2>&1
+
+                            if ($newStatus -notmatch 'is not active') {
+
+                                Microsoft.PowerShell.Utility\Write-Verbose `
+                                    "✅ Peer '$PeerName' is now active after container restart"
+
+                                return $true
+                            }
+                        }
+                    }
+
+                    Microsoft.PowerShell.Utility\Write-Warning `
+                        ("Peer '$PeerName' appears to be configured but inactive. " +
+                         "This may be normal for peers that haven't connected yet, " +
+                         "or the peer configuration may need to be regenerated.")
+
+                    return $false
+                }
+                else {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        "✅ Peer '$PeerName' status check completed"
+
+                    return $true
+                }
+            }
+            catch {
+
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Failed to check/activate peer '${PeerName}': $_"
+
+                return $false
+            }
+        }
+        #######################################################################
+        <#
+        .SYNOPSIS
+        Rebuilds the WireGuard server configuration to include all existing peers.
+
+        .DESCRIPTION
+        This function rebuilds the main WireGuard server configuration file
+        (/config/wg_confs/wg0.conf) to include all peer configurations found
+        in the persistent storage, then restarts the WireGuard interface.
+        #>
+        function Rebuild-WireGuardConfiguration {
+
+            try {
+
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    "Rebuilding WireGuard configuration to include all existing peers..."
+
+                # get list of existing peers
+                $existingPeers = Get-ExistingPeers
+
+                if ($existingPeers.Count -eq 0) {
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        'No peers to add to configuration'
+                    return $true
+                }
+
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    "Found $($existingPeers.Count) peer(s) to include in configuration"
+
+                # read the current server configuration
+                $serverConfig = docker exec $script:containerName cat /config/wg_confs/wg0.conf 2>$null
+
+                if ($LASTEXITCODE -ne 0) {
+                    Microsoft.PowerShell.Utility\Write-Warning "Could not read server configuration"
+                    return $false
+                }
+
+                # split into server section and peer sections
+                $configLines = $serverConfig -split "`n"
+                $serverSection = @()
+                $inServerSection = $true
+
+                foreach ($line in $configLines) {
+                    if ($line.Trim() -match '^\[Peer\]') {
+                        $inServerSection = $false
+                        break
+                    }
+                    $serverSection += $line
+                }
+
+                # build new configuration with all existing peers
+                $newConfig = $serverSection -join "`n"
+
+                foreach ($peerName in $existingPeers) {
+
+                    # read peer configuration
+                    $peerConfigPath = "/config/peer_$peerName/peer_$peerName.conf"
+                    $peerConfig = docker exec $script:containerName cat $peerConfigPath 2>$null
+
+                    if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($peerConfig)) {
+
+                        # extract peer public key and allowed IPs for server config
+                        $publicKey = $null
+                        $allowedIPs = $null
+
+                        foreach ($line in $peerConfig -split "`n") {
+                            if ($line -match '^PublicKey\s*=\s*(.+)$') {
+                                $publicKey = $matches[1].Trim()
+                            }
+                            elseif ($line -match '^Address\s*=\s*(.+)$') {
+                                $allowedIPs = $matches[1].Trim()
+                            }
+                        }
+
+                        if ($publicKey -and $allowedIPs) {
+                            Microsoft.PowerShell.Utility\Write-Verbose `
+                                "Adding peer '$peerName' to server configuration"
+
+                            $newConfig += "`n`n[Peer]"
+                            $newConfig += "`nPublicKey = $publicKey"
+                            $newConfig += "`nAllowedIPs = $allowedIPs"
+                        }
+                    }
+                }
+
+                # write the new configuration
+                $tempConfigPath = "/tmp/wg0_rebuilt.conf"
+                $escapedConfig = $newConfig -replace '"', '\"' -replace '`', '\`'
+
+                $writeResult = docker exec $script:containerName sh -c "cat > $tempConfigPath << 'EOL'`n$newConfig`nEOL"
+
+                if ($LASTEXITCODE -eq 0) {
+                    # backup current config and replace with new one
+                    docker exec $script:containerName cp /config/wg_confs/wg0.conf /config/wg_confs/wg0.conf.backup 2>$null
+                    docker exec $script:containerName cp $tempConfigPath /config/wg_confs/wg0.conf
+
+                    if ($LASTEXITCODE -eq 0) {
+                        Microsoft.PowerShell.Utility\Write-Verbose `
+                            "Successfully rebuilt WireGuard configuration"
+
+                        # restart WireGuard interface
+                        docker exec $script:containerName wg-quick down wg0 2>$null
+                        docker exec $script:containerName wg-quick up wg0 2>$null
+
+                        if ($LASTEXITCODE -eq 0) {
+                            Microsoft.PowerShell.Utility\Write-Verbose `
+                                "✅ WireGuard interface restarted with new configuration"
+                            return $true
+                        }
+                    }
+                }
+
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Failed to rebuild WireGuard configuration"
+                return $false
+
+            }
+            catch {
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Error rebuilding WireGuard configuration: $_"
+                return $false
+            }
+        }
+        #######################################################################
+        <#
+        .SYNOPSIS
+        Ensures all existing peers are active and operational.
+
+        .DESCRIPTION
+        Scans for existing peer configurations and ensures they are all
+        properly loaded and active in the WireGuard interface. If inactive
+        peers are found, rebuilds the WireGuard configuration to include them.
+        #>
+        function Confirm-AllPeersActive {
+
+            try {
+
+                # get list of existing peers from container
+                $existingPeers = Get-ExistingPeers
+
+                if ($existingPeers.Count -eq 0) {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        'No existing peers to validate'
+
+                    return $true
+                }
+
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    "Validating $($existingPeers.Count) existing peer(s)..."
+
+                $inactivePeersFound = $false
+
+                # check each peer's status
+                foreach ($peer in $existingPeers) {
+
+                    $peerActive = Enable-PeerIfNeeded -PeerName $peer
+
+                    if (-not $peerActive) {
+                        $inactivePeersFound = $true
+                    }
+                }
+
+                # if inactive peers were found, rebuild the configuration
+                if ($inactivePeersFound) {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        'Inactive peers detected - rebuilding WireGuard configuration...'
+
+                    $rebuildSuccessful = Rebuild-WireGuardConfiguration
+
+                    if ($rebuildSuccessful) {
+
+                        Microsoft.PowerShell.Utility\Write-Verbose `
+                            '✅ WireGuard configuration rebuilt successfully'
+
+                        # wait for interface to stabilize
+                        Microsoft.PowerShell.Utility\Start-Sleep -Seconds 5
+
+                        # verify peers are now active
+                        $allActive = $true
+                        foreach ($peer in $existingPeers) {
+                            $peerStatus = docker exec $script:containerName /app/show-peer $peer 2>&1
+                            if ($peerStatus -match 'is not active') {
+                                Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Yellow `
+                                    "ℹ️  Peer '$peer' still shows as inactive (normal for clients that haven't connected)"
+                            }
+                            else {
+                                Microsoft.PowerShell.Utility\Write-Verbose `
+                                    "✅ Peer '$peer' is now properly configured"
+                            }
+                        }
+
+                        Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
+                            '✅ All existing peer configurations have been restored to WireGuard interface'
+                    }
+                    else {
+
+                        Microsoft.PowerShell.Utility\Write-Warning `
+                            'Failed to rebuild WireGuard configuration - some peers may remain inactive'
+                    }
+                }
+                else {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        '✅ All existing peers have been validated'
+                }
+
+                # always return true since the configuration has been rebuilt
+                return $true
+            }
+            catch {
+
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Failed to validate peers: $_"
+
+                return $false
+            }
         }
         #######################################################################
         <#
@@ -748,7 +1098,14 @@ function EnsureWireGuard {
                     '-e', "PUID=$($script:puid)"
                     '-e', "PGID=$($script:pgid)"
                     '-e', "TZ=$($script:timezone)"
-                    '-p', "$($script:servicePort):51820/udp"
+                    '-e', "SERVERURL=auto"
+                    '-e', "SERVERPORT=$($script:servicePort)"
+                    '-e', "PEERS=1"
+                    '-e', "PEERDNS=auto"
+                    '-e', "INTERNAL_SUBNET=10.13.13.0"
+                    '-e', "ALLOWEDIPS=0.0.0.0/0",
+                    '-e', "UPNP=on",
+                    '-p', "$($script:servicePort):51839/udp"
                     '-v', "$($script:volumeName):/config"
                     '--restart', 'unless-stopped'
                 )
@@ -920,7 +1277,13 @@ function EnsureWireGuard {
 
                 # create and start new container when none exists
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    'Creating and starting WireGuard container...'
+                    'No existing container found - creating fresh installation...'
+
+                # clean up any existing volume for a fresh start
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    'Removing any existing volumes for clean installation...'
+
+                Remove-DockerVolume $script:volumeName
 
                 # attempt to create new wireguard container
                 if (-not (New-WireGuardContainer)) {
@@ -955,6 +1318,14 @@ function EnsureWireGuard {
             # check if container is running and service is healthy
             if ((Test-DockerContainerRunning $script:containerName) -and `
                 (Test-ServiceHealth)) {
+
+                # only validate peers if container already existed (not fresh install)
+                if ($containerExists) {
+                    Microsoft.PowerShell.Utility\Write-Verbose `
+                        'Validating existing peer configurations...'
+
+                    $peersValidated = Confirm-AllPeersActive
+                }
 
                 # log successful service operation
                 Microsoft.PowerShell.Utility\Write-Verbose `

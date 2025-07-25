@@ -111,7 +111,7 @@ function Get-WireGuardPeers {
             HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
-        [int] $ServicePort = 51820,
+        [int] $ServicePort = 51839,
         ###############################################################################
         [Parameter(
             Mandatory = $false,

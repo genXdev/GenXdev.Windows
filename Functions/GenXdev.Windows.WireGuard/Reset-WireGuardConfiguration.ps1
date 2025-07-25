@@ -22,7 +22,7 @@ restarts.
 
 .PARAMETER ServicePort
 The port number for the WireGuard service. Must be between 1 and 65535.
-Defaults to 51820. This is the UDP port WireGuard will listen on.
+Defaults to 51839. This is the UDP port WireGuard will listen on.
 
 .PARAMETER HealthCheckTimeout
 Maximum time in seconds to wait for service health check. Must be between 10
@@ -104,7 +104,7 @@ function Reset-WireGuardConfiguration {
             HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
-        [int] $ServicePort = 51820,
+        [int] $ServicePort = 51839,
         ###########################################################################
         [Parameter(
             Position = 3,

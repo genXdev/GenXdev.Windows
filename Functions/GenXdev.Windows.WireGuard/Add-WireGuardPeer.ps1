@@ -44,7 +44,7 @@ initialization. Default is "wireguard_data".
 .PARAMETER ServicePort
 The UDP port number that the WireGuard service listens on for VPN
 connections. Must be a valid port number between 1 and 65535. Default is
-51820 which is the standard WireGuard port.
+51839 which is the standard WireGuard port.
 
 .PARAMETER HealthCheckTimeout
 Maximum time in seconds to wait for the WireGuard service health check to
@@ -101,7 +101,7 @@ Prompts you for confirmation before running the cmdlet.
 Add-WireGuardPeer -PeerName "MyPhone" -AllowedIPs "0.0.0.0/0, ::/0" `
     -DNS "1.1.1.1, 1.0.0.1" -SaveConfig -OutputPath `
     "$env:USERPROFILE\WireGuardConfigs" -ShowQRCode -ContainerName "wireguard" `
-    -VolumeName "wireguard_data" -ServicePort 51820 -HealthCheckTimeout 60 `
+    -VolumeName "wireguard_data" -ServicePort 51839 -HealthCheckTimeout 60 `
     -HealthCheckInterval 3 -ImageName "linuxserver/wireguard" -PUID "1000" `
     -PGID "1000" -TimeZone "Etc/UTC"
 
@@ -182,7 +182,7 @@ function Add-WireGuardPeer {
             HelpMessage = 'The port number for the WireGuard service'
         )]
         [ValidateRange(1, 65535)]
-        [int] $ServicePort = 51820,
+        [int] $ServicePort = 51839,
         #######################################################################
         [Parameter(
             Position = 7,
@@ -460,20 +460,25 @@ function Add-WireGuardPeer {
 
             try {
 
-                # check for existing peer configuration files in container
-                $existingPeers = & docker exec $ContainerName sh -c `
-                    'ls -1 /config/peer_*'
+                # determine peer id format (peer_<name> for named peers)
+                $peerId = "peer_${peerName}"
 
-                # iterate through existing peer configurations
-                foreach ($existingPeer in $existingPeers) {
+                # check if peer directory exists in container
+                $peerExists = docker exec $ContainerName sh -c `
+                    "test -d /config/$peerId && echo 'exists' || echo 'not found'"
 
-                    # check if current peer name matches existing peer
-                    if ($existingPeer -match "peer_$peerName") {
-                        return $true
-                    }
+                # check if main server config exists and contains peer reference
+                $serverConfigExists = docker exec $ContainerName sh -c `
+                    "test -f /config/wg_confs/wg0.conf && echo 'exists' || echo 'not found'"
+
+                if ($serverConfigExists -eq 'exists') {
+                    $peerInConfig = docker exec $ContainerName sh -c `
+                        "grep -q '# $peerId' /config/wg_confs/wg0.conf && echo 'found' || echo 'not found'"
+
+                    return ($peerExists -eq 'exists' -or $peerInConfig -eq 'found')
                 }
 
-                return $false
+                return ($peerExists -eq 'exists')
             }
             catch {
 
@@ -483,6 +488,82 @@ function Add-WireGuardPeer {
 
                 # proceed with creation attempt if verification fails
                 return $false
+            }
+        }
+
+        #######################################################################
+        # define helper function to ensure server configuration exists
+        function EnsureServerConfig {
+
+            try {
+                # check if server config exists
+                $serverConfigExists = docker exec $ContainerName sh -c `
+                    "test -f /config/wg_confs/wg0.conf && echo 'exists' || echo 'not found'"
+
+                if ($serverConfigExists -eq 'not found') {
+                    # create server keys if they don't exist
+                    docker exec $ContainerName sh -c `
+                        "mkdir -p /config/server"
+
+                    docker exec $ContainerName sh -c `
+                        "wg genkey | tee /config/server/privatekey-server | wg pubkey > /config/server/publickey-server"
+
+                    # get server public key for endpoint
+                    $serverPublicKey = docker exec $ContainerName sh -c `
+                        "cat /config/server/publickey-server"
+
+                    # create basic server configuration
+                    $serverConfig = @"
+[Interface]
+Address = 10.13.13.1/24
+ListenPort = $ServicePort
+PrivateKey = $(docker exec $ContainerName sh -c "cat /config/server/privatekey-server")
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE
+
+"@
+
+                    # write server config to container
+                    docker exec $ContainerName sh -c `
+                        "cat > /config/wg_confs/wg0.conf << 'EOF'
+$serverConfig
+EOF"
+
+                    # restart wireguard interface
+                    docker exec $ContainerName sh -c `
+                        "wg-quick down wg0 2>/dev/null || true; wg-quick up wg0"
+                }
+
+                return $true
+            }
+            catch {
+                Microsoft.PowerShell.Utility\Write-Warning `
+                    "Failed to ensure server configuration: $_"
+                return $false
+            }
+        }
+
+        #######################################################################
+        # define helper function to get next available IP address
+        function GetNextClientIP {
+
+            try {
+                # get existing client IPs from server config
+                $existingIPs = docker exec $ContainerName sh -c `
+                    "grep -o '10\.13\.13\.[0-9]\+' /config/wg_confs/wg0.conf || true"
+
+                # find next available IP (starting from 10.13.13.2)
+                for ($i = 2; $i -le 254; $i++) {
+                    $testIP = "10.13.13.$i"
+                    if ($existingIPs -notcontains $testIP) {
+                        return $testIP
+                    }
+                }
+
+                throw "No available IP addresses in range 10.13.13.2-254"
+            }
+            catch {
+                throw "Failed to determine next client IP: $_"
             }
         }
     }
@@ -499,6 +580,11 @@ function Add-WireGuardPeer {
                 throw "A peer with name '$PeerName' already exists"
             }
 
+            # ensure server configuration exists
+            if (-not (EnsureServerConfig)) {
+                throw "Failed to ensure WireGuard server configuration"
+            }
+
             # ask for confirmation before creating the peer
             if ($PSCmdlet.ShouldProcess("WireGuard peer '$PeerName'",
                     'Add peer')) {
@@ -507,26 +593,85 @@ function Add-WireGuardPeer {
                 Microsoft.PowerShell.Utility\Write-Verbose `
                     "Adding new WireGuard peer: $PeerName"
 
-                # create the peer in the docker container using add-peer script
-                $result = docker exec $ContainerName sh -c "/app/add-peer $PeerName"
+                # determine peer ID and get next available IP
+                $peerId = "peer_${PeerName}"
+                $clientIP = GetNextClientIP
 
-                # check if peer creation command succeeded
+                # create peer directory in container
+                docker exec $ContainerName sh -c `
+                    "mkdir -p /config/$peerId"
+
+                # generate peer keys
+                docker exec $ContainerName sh -c `
+                    "wg genkey | tee /config/$peerId/privatekey-$peerId | wg pubkey > /config/$peerId/publickey-$peerId"
+
+                # generate preshared key
+                docker exec $ContainerName sh -c `
+                    "wg genpsk > /config/$peerId/presharedkey-$peerId"
+
+                # get server public key
+                $serverPublicKey = docker exec $ContainerName sh -c `
+                    "cat /config/server/publickey-server"
+
+                # get peer public key
+                $peerPublicKey = docker exec $ContainerName sh -c `
+                    "cat /config/$peerId/publickey-$peerId"
+
+                # get external IP for endpoint
+                try {
+                    $externalIP = Invoke-RestMethod -Uri "https://ifconfig.me/ip" -TimeoutSec 10
+                } catch {
+                    $externalIP = "YOUR_SERVER_IP"
+                    Microsoft.PowerShell.Utility\Write-Warning `
+                        "Could not determine external IP address. Please replace YOUR_SERVER_IP in the configuration."
+                }
+
+                # create peer configuration file
+                $peerConfig = @"
+[Interface]
+Address = $clientIP/24
+PrivateKey = $(docker exec $ContainerName sh -c "cat /config/$peerId/privatekey-$peerId")
+DNS = $DNS
+
+[Peer]
+PublicKey = $serverPublicKey
+PresharedKey = $(docker exec $ContainerName sh -c "cat /config/$peerId/presharedkey-$peerId")
+Endpoint = ${externalIP}:$ServicePort
+AllowedIPs = $AllowedIPs
+"@
+
+                # save peer configuration in container
+                docker exec $ContainerName sh -c `
+                    "cat > /config/$peerId/$peerId.conf << 'EOF'
+$peerConfig
+EOF"
+
+                # add peer to server configuration
+                $peerSection = @"
+
+# $peerId
+[Peer]
+PublicKey = $peerPublicKey
+PresharedKey = $(docker exec $ContainerName sh -c "cat /config/$peerId/presharedkey-$peerId")
+AllowedIPs = $clientIP/32
+"@
+
+                # append peer to server config
+                docker exec $ContainerName sh -c `
+                    "echo '$peerSection' >> /config/wg_confs/wg0.conf"
+
+                # restart wireguard to apply changes
+                docker exec $ContainerName sh -c `
+                    "wg-quick down wg0 2>/dev/null || true; wg-quick up wg0"
+
+                # check if peer creation was successful
                 if ($LASTEXITCODE -ne 0) {
-                    throw "Failed to add peer: $result"
+                    throw "Failed to restart WireGuard with new peer configuration"
                 }
 
                 # log verbose message about successful peer addition
                 Microsoft.PowerShell.Utility\Write-Verbose `
                     "Peer $PeerName added successfully"
-
-                # get the peer configuration details from container
-                $peerConfig = docker exec $ContainerName sh -c `
-                    "cat /config/peer_$PeerName/peer_$PeerName.conf"
-
-                # check if configuration retrieval succeeded and is not empty
-                if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrEmpty($peerConfig)) {
-                    throw 'Failed to retrieve peer configuration'
-                }
 
                 # save configuration to file if requested by user
                 if ($SaveConfig) {
@@ -573,15 +718,15 @@ function Add-WireGuardPeer {
                     Microsoft.PowerShell.Utility\Write-Host `
                         "Generating QR code for peer $PeerName..."
 
-                    # generate qr code using show-peer script in container
-                    $qrCode = docker exec $ContainerName sh -c `
-                        "/app/show-peer $PeerName"
+                    # generate qr code using qrencode directly on the config file
+                    $qrResult = docker exec $ContainerName sh -c `
+                        "qrencode -t ansiutf8 < /config/$peerId/$peerId.conf"
 
                     # check if qr code generation succeeded
                     if ($LASTEXITCODE -eq 0) {
 
                         # display the qr code to console
-                        Microsoft.PowerShell.Utility\Write-Host $qrCode
+                        Microsoft.PowerShell.Utility\Write-Host $qrResult
 
                         # display instruction message for qr code usage
                         Microsoft.PowerShell.Utility\Write-Host `
@@ -592,7 +737,7 @@ function Add-WireGuardPeer {
 
                         # log warning if qr code generation failed
                         Microsoft.PowerShell.Utility\Write-Warning `
-                            "Failed to generate QR code: $qrCode"
+                            "Failed to generate QR code: $qrResult"
                     }
                 }
 
