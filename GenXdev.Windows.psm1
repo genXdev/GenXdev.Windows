@@ -27,6 +27,7 @@ if ($major -ne 10) {
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-PowershellMainWindow.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-PowershellMainWindowProcess.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Get-Window.ps1"
+. "$PSScriptRoot\Functions\GenXdev.Windows\Get-WindowsIsUpToDate.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Initialize-ScheduledTaskScripts.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Pop-Window.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\Push-Window.ps1"

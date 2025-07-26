@@ -308,33 +308,33 @@ function EnsureWireGuard {
     )    begin {
 
         # set script-scoped variables from parameters for container management
-        $script:containerName = $ContainerName
+    $script:wireguardContainerName = $ContainerName
 
-        # set docker image name for pulling and container creation
-        $script:imageName = $ImageName
+    # set docker image name for pulling and container creation
+    $script:wireguardImageName = $ImageName
 
-        # set script-scoped variables for docker volume and networking
-        $script:volumeName = $VolumeName
+    # set script-scoped variables for docker volume and networking
+    $script:wireguardVolumeName = $VolumeName
 
-        # set script-scoped variables for service configuration
-        $script:servicePort = $ServicePort
+    # set script-scoped variables for service configuration
+    $script:wireguardServicePort = $ServicePort
 
-        # set script-scoped variables for health monitoring timeouts
-        $script:healthCheckTimeout = $HealthCheckTimeout
+    # set script-scoped variables for health monitoring timeouts
+    $script:wireguardHealthCheckTimeout = $HealthCheckTimeout
 
-        # set script-scoped variable for health check retry intervals
-        $script:healthCheckInterval = $HealthCheckInterval
+    # set script-scoped variable for health check retry intervals
+    $script:wireguardHealthCheckInterval = $HealthCheckInterval
 
-        # set script-scoped variables for container environment settings
-        $script:puid = $PUID
+    # set script-scoped variables for container environment settings
+    $script:wireguardPuid = $PUID
 
-        $script:pgid = $PGID
+    $script:wireguardPgid = $PGID
 
-        $script:timezone = $TimeZone
+    $script:wireguardTimezone = $TimeZone
 
-        # store original location for cleanup at the end of the function
-        $script:originalLocation = `
-        (Microsoft.PowerShell.Management\Get-Location).Path
+    # store original location for cleanup at the end of the function
+    $script:wireguardOriginalLocation = \
+    (Microsoft.PowerShell.Management\Get-Location).Path
 
         #######################################################################
         <#
@@ -507,6 +507,7 @@ function EnsureWireGuard {
         function Remove-DockerVolume {
 
             [CmdletBinding(SupportsShouldProcess)]
+
             param([string]$VolumeName)
 
             try {
@@ -540,12 +541,14 @@ function EnsureWireGuard {
         listening. Returns true if healthy, false otherwise.
         #>
         function Test-ServiceHealth {
-
+            [CmdletBinding()]
+            [OutputType([System.Boolean])]
+            param()
             try {
 
                 # first check if container is running before health tests
                 $containerRunning = Test-DockerContainerRunning `
-                    $script:containerName
+                    $script:wireguardContainerName
 
                 if (-not $containerRunning) {
 
@@ -553,7 +556,7 @@ function EnsureWireGuard {
                 }
 
                 # check container logs for successful startup messages
-                $logs = docker logs $script:containerName 2>&1
+                $logs = docker logs $script:wireguardContainerName 2>&1
 
                 # look for indications that wireguard is running properly
                 # linuxserver/wireguard outputs these specific messages when ready
@@ -571,7 +574,7 @@ function EnsureWireGuard {
                 # alternatively check if the port is listening using netstat
                 $netstatOutput = & netstat -an |
                     Microsoft.PowerShell.Utility\Select-String `
-                        -Pattern ":$($script:servicePort) "
+                        -Pattern ":$($script:wireguardServicePort) "
 
                 if (-not [string]::IsNullOrEmpty($netstatOutput)) {
 
@@ -605,7 +608,9 @@ function EnsureWireGuard {
         logic. Returns true if service becomes ready, false on timeout.
         #>
         function Wait-ServiceReady {
-
+            [CmdletBinding()]
+            [OutputType([System.Boolean])]
+            param()
             # output verbose information about waiting for service readiness
             Microsoft.PowerShell.Utility\Write-Verbose `
                 'Waiting for WireGuard service to become ready...'
@@ -614,8 +619,8 @@ function EnsureWireGuard {
             $retryCount = 0
 
             # calculate maximum retry attempts based on timeout and interval
-            $maxRetries = [math]::Floor($script:healthCheckTimeout / `
-                    $script:healthCheckInterval)
+        $maxRetries = [math]::Floor($script:wireguardHealthCheckTimeout / `
+            $script:wireguardHealthCheckInterval)
 
             while ($retryCount -lt $maxRetries) {
 
@@ -638,58 +643,46 @@ function EnsureWireGuard {
 
                 # wait between health check attempts as configured
                 Microsoft.PowerShell.Utility\Start-Sleep `
-                    -Seconds $script:healthCheckInterval
+                    -Seconds $script:wireguardHealthCheckInterval
             }
 
             # warn about service readiness timeout after all retries
             Microsoft.PowerShell.Utility\Write-Warning `
             ('WireGuard service did not become ready within ' +
-                "$script:healthCheckTimeout seconds")
+                "$script:wireguardHealthCheckTimeout seconds")
 
             return $false
         }
         #######################################################################
         <#
         .SYNOPSIS
-        Gets a list of existing WireGuard peers from the container.
+        Gets a list of existing WireGuard peer from the container.
 
         .DESCRIPTION
         Queries the WireGuard container for existing peer configurations by
         examining the /config directory structure. Returns an array of peer
         names found in the container.
         #>
-        function Get-ExistingPeers {
-
+        function Get-ExistingPeer {
             try {
-
                 # list peer directories in the container's config folder
-                $peerDirs = docker exec $script:containerName sh -c `
-                    "ls -d /config/peer_* 2>/dev/null | grep -o 'peer_[^/]*' | sed 's/peer_//'" `
-                    2>$null
-
+                $peerDirs = docker exec $script:wireguardContainerName sh -c "ls -d /config/peer_* 2>/dev/null | grep -o 'peer_[^/]*' | sed 's/peer_//'" 2>$null
                 if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($peerDirs)) {
-
                     # split the output into individual peer names
                     $peers = $peerDirs -split "`n" |
                         Microsoft.PowerShell.Core\Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
                         Microsoft.PowerShell.Core\ForEach-Object { $_.Trim() }
-
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        "Found existing peers: $($peers -join ', ')"
-
+                        "Found existing peer: $($peers -join ', ')"
                     return $peers
                 }
-
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    'No existing peers found'
-
+                    'No existing peer found'
                 return @()
             }
             catch {
-
                 Microsoft.PowerShell.Utility\Write-Warning `
-                    "Failed to get existing peers: $_"
-
+                    "Failed to get existing peer: $_"
                 return @()
             }
         }
@@ -707,6 +700,8 @@ function EnsureWireGuard {
         The name of the peer to check and potentially activate.
         #>
         function Enable-PeerIfNeeded {
+            [CmdletBinding()]
+            [OutputType([System.Boolean])]
 
             param([string]$PeerName)
 
@@ -716,7 +711,7 @@ function EnsureWireGuard {
                     "Checking status of peer: $PeerName"
 
                 # check peer status using container's show-peer script
-                $peerStatus = docker exec $script:containerName /app/show-peer $PeerName 2>&1
+                $peerStatus = docker exec $script:wireguardContainerName /app/show-peer $PeerName 2>&1
 
                 # check if peer is marked as inactive
                 if ($peerStatus -match 'is not active') {
@@ -730,7 +725,7 @@ function EnsureWireGuard {
                     Microsoft.PowerShell.Utility\Write-Verbose `
                         "Restarting WireGuard container to reload configurations..."
 
-                    $restartResult = docker restart $script:containerName 2>&1
+                    docker restart $script:wireguardContainerName 2>&1
 
                     if ($LASTEXITCODE -eq 0) {
 
@@ -743,7 +738,7 @@ function EnsureWireGuard {
                         if ($serviceReady) {
 
                             # check peer status again after container restart
-                            $newStatus = docker exec $script:containerName /app/show-peer $PeerName 2>&1
+                            $newStatus = docker exec $script:wireguardContainerName /app/show-peer $PeerName 2>&1
 
                             if ($newStatus -notmatch 'is not active') {
 
@@ -781,68 +776,54 @@ function EnsureWireGuard {
         #######################################################################
         <#
         .SYNOPSIS
-        Rebuilds the WireGuard server configuration to include all existing peers.
+        Resets the WireGuard server configuration to include all existing peer.
 
         .DESCRIPTION
-        This function rebuilds the main WireGuard server configuration file
+        This function resets the main WireGuard server configuration file
         (/config/wg_confs/wg0.conf) to include all peer configurations found
         in the persistent storage, then restarts the WireGuard interface.
         #>
-        function Rebuild-WireGuardConfiguration {
-
+        function Reset-WireGuardConfiguration {
+            [CmdletBinding(SupportsShouldProcess)]
+            [OutputType([System.Boolean])]
+            param()
             try {
-
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Rebuilding WireGuard configuration to include all existing peers..."
-
-                # get list of existing peers
-                $existingPeers = Get-ExistingPeers
-
-                if ($existingPeers.Count -eq 0) {
+                    "Resetting WireGuard configuration to include all existing peer..."
+                # get list of existing peer
+                $existingPeer = Get-ExistingPeer
+                if ($existingPeer.Count -eq 0) {
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        'No peers to add to configuration'
+                        'No peer to add to configuration'
                     return $true
                 }
-
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Found $($existingPeers.Count) peer(s) to include in configuration"
-
+                    "Found $($existingPeer.Count) peer(s) to include in configuration"
                 # read the current server configuration
-                $serverConfig = docker exec $script:containerName cat /config/wg_confs/wg0.conf 2>$null
-
+                $serverConfig = docker exec $script:wireguardContainerName cat /config/wg_confs/wg0.conf 2>$null
                 if ($LASTEXITCODE -ne 0) {
                     Microsoft.PowerShell.Utility\Write-Warning "Could not read server configuration"
                     return $false
                 }
-
                 # split into server section and peer sections
                 $configLines = $serverConfig -split "`n"
                 $serverSection = @()
-                $inServerSection = $true
-
                 foreach ($line in $configLines) {
                     if ($line.Trim() -match '^\[Peer\]') {
-                        $inServerSection = $false
                         break
                     }
                     $serverSection += $line
                 }
-
-                # build new configuration with all existing peers
+                # build new configuration with all existing peer
                 $newConfig = $serverSection -join "`n"
-
-                foreach ($peerName in $existingPeers) {
-
+                foreach ($peerName in $existingPeer) {
                     # read peer configuration
                     $peerConfigPath = "/config/peer_$peerName/peer_$peerName.conf"
-                    $peerConfig = docker exec $script:containerName cat $peerConfigPath 2>$null
-
+                    $peerConfig = docker exec $script:wireguardContainerName cat $peerConfigPath 2>$null
                     if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($peerConfig)) {
-
                         # extract peer public key and allowed IPs for server config
                         $publicKey = $null
                         $allowedIPs = $null
-
                         foreach ($line in $peerConfig -split "`n") {
                             if ($line -match '^PublicKey\s*=\s*(.+)$') {
                                 $publicKey = $matches[1].Trim()
@@ -851,37 +832,28 @@ function EnsureWireGuard {
                                 $allowedIPs = $matches[1].Trim()
                             }
                         }
-
                         if ($publicKey -and $allowedIPs) {
                             Microsoft.PowerShell.Utility\Write-Verbose `
                                 "Adding peer '$peerName' to server configuration"
-
                             $newConfig += "`n`n[Peer]"
                             $newConfig += "`nPublicKey = $publicKey"
                             $newConfig += "`nAllowedIPs = $allowedIPs"
                         }
                     }
                 }
-
                 # write the new configuration
                 $tempConfigPath = "/tmp/wg0_rebuilt.conf"
-                $escapedConfig = $newConfig -replace '"', '\"' -replace '`', '\`'
-
-                $writeResult = docker exec $script:containerName sh -c "cat > $tempConfigPath << 'EOL'`n$newConfig`nEOL"
-
+                docker exec $script:wireguardContainerName sh -c "cat > $tempConfigPath << 'EOL'`n$newConfig`nEOL"
                 if ($LASTEXITCODE -eq 0) {
                     # backup current config and replace with new one
-                    docker exec $script:containerName cp /config/wg_confs/wg0.conf /config/wg_confs/wg0.conf.backup 2>$null
-                    docker exec $script:containerName cp $tempConfigPath /config/wg_confs/wg0.conf
-
+                    docker exec $script:wireguardContainerName cp /config/wg_confs/wg0.conf /config/wg_confs/wg0.conf.backup 2>$null
+                    docker exec $script:wireguardContainerName cp $tempConfigPath /config/wg_confs/wg0.conf
                     if ($LASTEXITCODE -eq 0) {
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            "Successfully rebuilt WireGuard configuration"
-
+                            "Successfully reset WireGuard configuration"
                         # restart WireGuard interface
-                        docker exec $script:containerName wg-quick down wg0 2>$null
-                        docker exec $script:containerName wg-quick up wg0 2>$null
-
+                        docker exec $script:wireguardContainerName wg-quick down wg0 2>$null
+                        docker exec $script:wireguardContainerName wg-quick up wg0 2>$null
                         if ($LASTEXITCODE -eq 0) {
                             Microsoft.PowerShell.Utility\Write-Verbose `
                                 "✅ WireGuard interface restarted with new configuration"
@@ -889,78 +861,61 @@ function EnsureWireGuard {
                         }
                     }
                 }
-
                 Microsoft.PowerShell.Utility\Write-Warning `
-                    "Failed to rebuild WireGuard configuration"
+                    "Failed to reset WireGuard configuration"
                 return $false
-
             }
             catch {
                 Microsoft.PowerShell.Utility\Write-Warning `
-                    "Error rebuilding WireGuard configuration: $_"
+                    "Error resetting WireGuard configuration: $_"
                 return $false
             }
         }
         #######################################################################
         <#
         .SYNOPSIS
-        Ensures all existing peers are active and operational.
+        Ensures all existing peer are active and operational.
 
         .DESCRIPTION
         Scans for existing peer configurations and ensures they are all
         properly loaded and active in the WireGuard interface. If inactive
-        peers are found, rebuilds the WireGuard configuration to include them.
+        peer are found, resets the WireGuard configuration to include them.
         #>
-        function Confirm-AllPeersActive {
-
+        function Confirm-AllPeerActive {
+             [CmdletBinding()]
+            [OutputType([System.Boolean])]
+            param()
             try {
-
-                # get list of existing peers from container
-                $existingPeers = Get-ExistingPeers
-
-                if ($existingPeers.Count -eq 0) {
-
+                # get list of existing peer from container
+                $existingPeer = Get-ExistingPeer
+                if ($existingPeer.Count -eq 0) {
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        'No existing peers to validate'
-
+                        'No existing peer to validate'
                     return $true
                 }
-
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Validating $($existingPeers.Count) existing peer(s)..."
-
-                $inactivePeersFound = $false
-
+                    "Validating $($existingPeer.Count) existing peer(s)..."
+                $inactivePeerFound = $false
                 # check each peer's status
-                foreach ($peer in $existingPeers) {
-
+                foreach ($peer in $existingPeer) {
                     $peerActive = Enable-PeerIfNeeded -PeerName $peer
-
                     if (-not $peerActive) {
-                        $inactivePeersFound = $true
+                        $inactivePeerFound = $true
                     }
                 }
-
-                # if inactive peers were found, rebuild the configuration
-                if ($inactivePeersFound) {
-
+                # if inactive peer were found, reset the configuration
+                if ($inactivePeerFound) {
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        'Inactive peers detected - rebuilding WireGuard configuration...'
-
-                    $rebuildSuccessful = Rebuild-WireGuardConfiguration
-
-                    if ($rebuildSuccessful) {
-
+                        'Inactive peer detected - resetting WireGuard configuration...'
+                    $resetSuccessful = GenXdev.Windows\Reset-WireGuardConfiguration
+                    if ($resetSuccessful) {
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            '✅ WireGuard configuration rebuilt successfully'
-
+                            '✅ WireGuard configuration reset successfully'
                         # wait for interface to stabilize
                         Microsoft.PowerShell.Utility\Start-Sleep -Seconds 5
-
-                        # verify peers are now active
-                        $allActive = $true
-                        foreach ($peer in $existingPeers) {
-                            $peerStatus = docker exec $script:containerName /app/show-peer $peer 2>&1
+                        # verify peer are now active
+                        foreach ($peer in $existingPeer) {
+                            $peerStatus = docker exec $script:wireguardContainerName /app/show-peer $peer 2>&1
                             if ($peerStatus -match 'is not active') {
                                 Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Yellow `
                                     "ℹ️  Peer '$peer' still shows as inactive (normal for clients that haven't connected)"
@@ -970,30 +925,24 @@ function EnsureWireGuard {
                                     "✅ Peer '$peer' is now properly configured"
                             }
                         }
-
                         Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green `
                             '✅ All existing peer configurations have been restored to WireGuard interface'
                     }
                     else {
-
                         Microsoft.PowerShell.Utility\Write-Warning `
-                            'Failed to rebuild WireGuard configuration - some peers may remain inactive'
+                            'Failed to reset WireGuard configuration - some peer may remain inactive'
                     }
                 }
                 else {
-
                     Microsoft.PowerShell.Utility\Write-Verbose `
-                        '✅ All existing peers have been validated'
+                        '✅ All existing peer have been validated'
                 }
-
-                # always return true since the configuration has been rebuilt
+                # always return true since the configuration has been reset
                 return $true
             }
             catch {
-
                 Microsoft.PowerShell.Utility\Write-Warning `
-                    "Failed to validate peers: $_"
-
+                    "Failed to validate peer: $_"
                 return $false
             }
         }
@@ -1008,15 +957,17 @@ function EnsureWireGuard {
         Returns true on success, false on failure.
         #>
         function Get-WireGuardImage {
-
+            [CmdletBinding()]
+            [OutputType([System.Boolean])]
+            param()
             try {
 
                 # output verbose information about docker image pull operation
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Pulling WireGuard image: $script:imageName"
+                    "Pulling WireGuard image: $script:wireguardImageName"
 
                 # pull the specified docker image from registry
-                $pullResult = docker pull $script:imageName 2>&1
+                $pullResult = docker pull $script:wireguardImageName 2>&1
 
                 # check if docker pull command failed
                 if ($LASTEXITCODE -ne 0) {
@@ -1052,6 +1003,7 @@ function EnsureWireGuard {
         function New-WireGuardContainer {
 
             [CmdletBinding(SupportsShouldProcess)]
+            [OutputType([System.Boolean])]
             param()
 
             try {
@@ -1062,22 +1014,22 @@ function EnsureWireGuard {
 
                 # check if docker volume already exists in the system
                 $volumeExists = docker volume ls `
-                    --filter "name=^${script:volumeName}$" `
+                    --filter "name=^${script:wireguardVolumeName}$" `
                     --format '{{.Name}}' 2>$null
 
                 # create docker volume if it doesn't exist yet
                 if ([string]::IsNullOrWhiteSpace($volumeExists)) {
 
                     # use shouldprocess to confirm volume creation
-                    if ($PSCmdlet.ShouldProcess("$script:volumeName",
-                            'Create Docker volume')) {
+            if ($PSCmdlet.ShouldProcess("$script:wireguardVolumeName",
+                'Create Docker volume')) {
 
                         # output verbose information about volume creation
                         Microsoft.PowerShell.Utility\Write-Verbose `
-                            "Creating Docker volume: $script:volumeName"
+                            "Creating Docker volume: $script:wireguardVolumeName"
 
                         # create the docker volume for persistent storage
-                        $volumeResult = docker volume create $script:volumeName `
+                        $volumeResult = docker volume create $script:wireguardVolumeName `
                             2>&1
 
                         # check if volume creation failed
@@ -1092,34 +1044,34 @@ function EnsureWireGuard {
                 # prepare docker run arguments for container creation
                 $dockerArgs = @(
                     'run', '-d'
-                    '--name', $script:containerName
+                    '--name', $script:wireguardContainerName
                     '--cap-add', 'NET_ADMIN'
                     '--cap-add', 'SYS_MODULE'
-                    '-e', "PUID=$($script:puid)"
-                    '-e', "PGID=$($script:pgid)"
-                    '-e', "TZ=$($script:timezone)"
+                    '-e', "PUID=$($script:wireguardPuid)"
+                    '-e', "PGID=$($script:wireguardPgid)"
+                    '-e', "TZ=$($script:wireguardTimezone)"
                     '-e', "SERVERURL=auto"
-                    '-e', "SERVERPORT=$($script:servicePort)"
+                    '-e', "SERVERPORT=$($script:wireguardServicePort)"
                     '-e', "PEERS=1"
                     '-e', "PEERDNS=auto"
                     '-e', "INTERNAL_SUBNET=10.13.13.0"
                     '-e', "ALLOWEDIPS=0.0.0.0/0",
                     '-e', "UPNP=on",
-                    '-p', "$($script:servicePort):51839/udp"
-                    '-v', "$($script:volumeName):/config"
+                    '-p', "$($script:wireguardServicePort):51839/udp"
+                    '-v', "$($script:wireguardVolumeName):/config"
                     '--restart', 'unless-stopped'
                 )
 
                 # add the docker image name as final argument
-                $dockerArgs += $script:imageName
+                $dockerArgs += $script:wireguardImageName
 
                 # output verbose information about docker command execution
                 Microsoft.PowerShell.Utility\Write-Verbose `
                     "Docker command: docker $($dockerArgs -join ' ')"
 
                 # use shouldprocess to confirm container creation
-                if ($PSCmdlet.ShouldProcess("$script:containerName",
-                        'Create WireGuard container')) {
+        if ($PSCmdlet.ShouldProcess("$script:wireguardContainerName",
+            'Create WireGuard container')) {
 
                     # execute docker run command to create container
                     $result = & docker @dockerArgs 2>&1
@@ -1150,7 +1102,9 @@ function EnsureWireGuard {
             }
         }
         #######################################################################
-    }    process {
+    }
+
+    process {
 
         try {
 
@@ -1180,13 +1134,13 @@ function EnsureWireGuard {
                     'Force flag specified - cleaning up existing resources...'
 
                 # remove existing container and volume for clean slate
-                Remove-DockerContainer $script:containerName
+                Remove-DockerContainer $script:wireguardContainerName
 
-                Remove-DockerVolume $script:volumeName
+                Remove-DockerVolume $script:wireguardVolumeName
             }
 
             # ensure we have the latest wireguard image available locally
-            if (-not (Test-DockerImage $script:imageName) -or $Force) {
+            if (-not (Test-DockerImage $script:wireguardImageName) -or $Force) {
 
                 # pull the docker image if not present or force specified
                 if (-not (Get-WireGuardImage)) {
@@ -1202,9 +1156,9 @@ function EnsureWireGuard {
             }
 
             # check current container state for appropriate action
-            $containerExists = Test-DockerContainer $script:containerName
+            $containerExists = Test-DockerContainer $script:wireguardContainerName
 
-            $containerRunning = Test-DockerContainerRunning $script:containerName
+            $containerRunning = Test-DockerContainerRunning $script:wireguardContainerName
 
             # handle existing container scenarios based on current state
             if ($containerExists) {
@@ -1227,7 +1181,7 @@ function EnsureWireGuard {
                             'restarting...')
 
                         # restart the container to fix health issues
-                        $null = docker restart $script:containerName 2>$null
+                        $null = docker restart $script:wireguardContainerName 2>$null
 
                         # wait for container to restart properly
                         Microsoft.PowerShell.Utility\Start-Sleep -Seconds 10
@@ -1251,7 +1205,7 @@ function EnsureWireGuard {
                         'Starting existing container...'
 
                     # start the stopped container
-                    $null = docker start $script:containerName 2>$null
+                    $null = docker start $script:wireguardContainerName 2>$null
 
                     # wait for container to start properly
                     Microsoft.PowerShell.Utility\Start-Sleep -Seconds 10
@@ -1283,7 +1237,7 @@ function EnsureWireGuard {
                 Microsoft.PowerShell.Utility\Write-Verbose `
                     'Removing any existing volumes for clean installation...'
 
-                Remove-DockerVolume $script:volumeName
+                Remove-DockerVolume $script:wireguardVolumeName
 
                 # attempt to create new wireguard container
                 if (-not (New-WireGuardContainer)) {
@@ -1316,27 +1270,26 @@ function EnsureWireGuard {
                 'Performing final validation...'
 
             # check if container is running and service is healthy
-            if ((Test-DockerContainerRunning $script:containerName) -and `
+            if ((Test-DockerContainerRunning $script:wireguardContainerName) -and `
                 (Test-ServiceHealth)) {
 
                 # only validate peers if container already existed (not fresh install)
                 if ($containerExists) {
                     Microsoft.PowerShell.Utility\Write-Verbose `
                         'Validating existing peer configurations...'
-
-                    $peersValidated = Confirm-AllPeersActive
+                    Confirm-AllPeerActive
                 }
 
                 # log successful service operation
                 Microsoft.PowerShell.Utility\Write-Verbose `
                 ('✅ WireGuard VPN service is fully ' +
-                    "operational on port $script:servicePort")
+                    "operational on port $script:wireguardServicePort")
 
                 # display instructions for client configuration to user
                 Microsoft.PowerShell.Utility\Write-Host -ForegroundColor Green @"
 
 To generate client configurations:
-- Run: docker exec -it $script:containerName /app/show-peer 1
+- Run: docker exec -it $script:wireguardContainerName /app/show-peer 1
 This will display a QR code or config file for the client.
 
 For Android 10 and above:
@@ -1366,6 +1319,6 @@ For Android 10 and above:
     }    end {
 
         # restore original location for cleanup after function execution
-        Microsoft.PowerShell.Management\Set-Location $script:originalLocation
+    Microsoft.PowerShell.Management\Set-Location $script:wireguardOriginalLocation
     }
 }

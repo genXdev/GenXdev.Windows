@@ -55,7 +55,7 @@ Remove-WireGuardPeer -PeerName "MyPhone"
 
 - Docker Desktop installed and running
 - PowerShell 5.1 or later (PowerShell Core is also supported)
-- Network port 51820/UDP available and forwarded (if used behind NAT)
+- Network port 51839/UDP available and forwarded (if used behind NAT)
 - WireGuard client app installed on devices you want to connect
 
 ## WireGuard vs Traditional VPNs
@@ -139,7 +139,7 @@ Remove-WireGuardPeer -PeerName "OldDevice"
 
 ### Common Issues
 
-- **Connection Timeouts**: Make sure port 51820/UDP is open in your firewall and forwarded in your router
+- **Connection Timeouts**: Make sure port 51839/UDP is open in your firewall and forwarded in your router
 - **Client Can't Connect**: Verify the endpoint IP address matches your server's public IP
 - **Configuration Errors**: Check for proper configuration by examining the peer details
 - **Docker Issues**: Ensure Docker is running and that the container has the necessary permissions

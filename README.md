@@ -78,6 +78,7 @@ Update-Module
 | [Get-PowershellMainWindow](#Get-PowershellMainWindow) |  | Returns a window helper object for the PowerShell terminal's main window. |
 | [Get-PowershellMainWindowProcess](#Get-PowershellMainWindowProcess) |  | Returns the process object for the window hosting the PowerShell terminal. |
 | [Get-Window](#Get-Window) | gwin, window | Gets window information for specified processes or window handles. |
+| [Get-WindowsIsUpToDate](#Get-WindowsIsUpToDate) | updatewindows | Checks if Windows is up to date and optionally installs available updates. |
 | [Initialize-ScheduledTaskScripts](#Initialize-ScheduledTaskScripts) |  | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
 | [Pop-Window](#Pop-Window) | popw | Pops the last active window helper from the stack with optional modifications. |
 | [Push-Window](#Push-Window) | pushw | Pushes the current window onto the window stack with optional modifications. |
@@ -1338,6 +1339,91 @@ OUTPUTS
     Gets window information for specific window handle using the alias.
     
     
+    
+    
+    
+    
+    
+RELATED LINKS 
+
+<br/><hr/><hr/><br/>
+ 
+NAME
+    Get-WindowsIsUpToDate
+    
+SYNOPSIS
+    Checks if Windows is up to date and optionally installs available updates.
+    
+    
+SYNTAX
+    Get-WindowsIsUpToDate [-AutoInstall] [-AutoReboot] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    This function checks for both Windows updates and winget package updates. It can
+    display available updates or automatically install them. The function requires
+    administrative privileges to install Windows updates and can optionally reboot
+    the system if updates require a restart.
+    
+
+PARAMETERS
+    -AutoInstall [<SwitchParameter>]
+        Automatically install available Windows and winget updates instead of just
+        checking for their availability.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    -AutoReboot [<SwitchParameter>]
+        Automatically reboot the system if installed updates require a restart. This
+        parameter only has effect when AutoInstall is also specified.
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Aliases                      
+        Accept wildcard characters?  false
+        
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216). 
+    
+INPUTS
+    
+OUTPUTS
+    System.Boolean
+    
+    
+    -------------------------- EXAMPLE 1 --------------------------
+    
+    PS > Get-WindowsIsUpToDate
+    
+    Checks for available Windows and winget updates without installing them.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 2 --------------------------
+    
+    PS > Get-WindowsIsUpToDate -AutoInstall
+    
+    Automatically installs all available Windows and winget updates.
+    
+    
+    
+    
+    -------------------------- EXAMPLE 3 --------------------------
+    
+    PS > updatewindows -AutoInstall -AutoReboot
+    
+    Installs all updates and reboots automatically if required using the alias.
     
     
     

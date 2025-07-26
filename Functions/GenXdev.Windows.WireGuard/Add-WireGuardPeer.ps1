@@ -508,10 +508,6 @@ function Add-WireGuardPeer {
                     docker exec $ContainerName sh -c `
                         "wg genkey | tee /config/server/privatekey-server | wg pubkey > /config/server/publickey-server"
 
-                    # get server public key for endpoint
-                    $serverPublicKey = docker exec $ContainerName sh -c `
-                        "cat /config/server/publickey-server"
-
                     # create basic server configuration
                     $serverConfig = @"
 [Interface]
@@ -619,7 +615,7 @@ EOF"
 
                 # get external IP for endpoint
                 try {
-                    $externalIP = Invoke-RestMethod -Uri "https://ifconfig.me/ip" -TimeoutSec 10
+                    $externalIP = Microsoft.PowerShell.Utility\Invoke-RestMethod -Uri "https://ifconfig.me/ip" -TimeoutSec 10
                 } catch {
                     $externalIP = "YOUR_SERVER_IP"
                     Microsoft.PowerShell.Utility\Write-Warning `
