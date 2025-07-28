@@ -59,32 +59,33 @@ Update-Module
 
 # Cmdlet Index
 ### GenXdev.Windows<hr/>
+### GenXdev.Windows
 | Command | Aliases | Description |
 | --- | --- | --- |
-| [CurrentUserHasElevatedRights](#currentuserhaselevatedrights) |  | Checks if the current user has elevated rights. |
-| [EnsureDockerDesktop](#ensuredockerdesktop) |  | Checks if the WinGet PowerShell module is installed. |
-| [EnsurePSTools](#ensurepstools) |  | Ensures Sysinternals tools (PSTools) are installed and available. |
+| [CurrentUserHasElevatedRights](#currentuserhaselevatedrights) | &nbsp; | Checks if the current user has elevated rights. |
+| [EnsureDockerDesktop](#ensuredockerdesktop) | &nbsp; | Checks if the WinGet PowerShell module is installed. |
+| [EnsurePSTools](#ensurepstools) | &nbsp; | Ensures Sysinternals tools (PSTools) are installed and available. |
 | [Get-ActiveUser](#get-activeuser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
-| [Get-ChildProcesses](#get-childprocesses) |  | Retrieves all processes that are descendants of the current PowerShell process. |
-| [Get-ClipboardFiles](#get-clipboardfiles) |  | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
-| [Get-CurrentFocusedProcess](#get-currentfocusedprocess) |  | Retrieves the process object of the window that currently has keyboard focus. |
-| [Get-DesktopScalingFactor](#get-desktopscalingfactor) |  | Retrieves the Windows display scaling factor (DPI setting) for a specified monitor. |
-| [Get-ForegroundWindow](#get-foregroundwindow) |  |  |
+| [Get-ChildProcesses](#get-childprocesses) | &nbsp; | Retrieves all processes that are descendants of the current PowerShell process. |
+| [Get-ClipboardFiles](#get-clipboardfiles) | &nbsp; | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
+| [Get-CurrentFocusedProcess](#get-currentfocusedprocess) | &nbsp; | Retrieves the process object of the window that currently has keyboard focus. |
+| [Get-DesktopScalingFactor](#get-desktopscalingfactor) | &nbsp; | Retrieves the Windows display scaling factor (DPI setting) for a specified monitor. |
+| [Get-ForegroundWindow](#get-foregroundwindow) | &nbsp; |  |
 | [Get-KnownFolderPath](#get-knownfolderpath) | folder | Gets the path of a Windows known folder using the Windows Shell32 API. |
-| [Get-MonitorCount](#get-monitorcount) |  | Gets the total number of display monitors connected to the system. |
-| [Get-MpCmdRunPath](#get-mpcmdrunpath) |  | Gets the path to the Windows Defender MpCmdRun.exe executable. |
-| [Get-OpenedFileHandleProcesses](#get-openedfilehandleprocesses) |  | Retrieves processes that have open file handles to specified files. |
-| [Get-PowershellMainWindow](#get-powershellmainwindow) |  | Returns a window helper object for the PowerShell terminal's main window. |
-| [Get-PowershellMainWindowProcess](#get-powershellmainwindowprocess) |  | Returns the process object for the window hosting the PowerShell terminal. |
+| [Get-MonitorCount](#get-monitorcount) | &nbsp; | Gets the total number of display monitors connected to the system. |
+| [Get-MpCmdRunPath](#get-mpcmdrunpath) | &nbsp; | Gets the path to the Windows Defender MpCmdRun.exe executable. |
+| [Get-OpenedFileHandleProcesses](#get-openedfilehandleprocesses) | &nbsp; | Retrieves processes that have open file handles to specified files. |
+| [Get-PowershellMainWindow](#get-powershellmainwindow) | &nbsp; | Returns a window helper object for the PowerShell terminal's main window. |
+| [Get-PowershellMainWindowProcess](#get-powershellmainwindowprocess) | &nbsp; | Returns the process object for the window hosting the PowerShell terminal. |
 | [Get-Window](#get-window) | gwin, window | Gets window information for specified processes or window handles. |
 | [Get-WindowsIsUpToDate](#get-windowsisuptodate) | updatewindows | Checks if Windows is up to date and optionally installs available updates. |
-| [Initialize-ScheduledTaskScripts](#initialize-scheduledtaskscripts) |  | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
+| [Initialize-ScheduledTaskScripts](#initialize-scheduledtaskscripts) | &nbsp; | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
 | [Pop-Window](#pop-window) | popw | Pops the last active window helper from the stack with optional modifications. |
 | [Push-Window](#push-window) | pushw | Pushes the current window onto the window stack with optional modifications. |
 | [Send-Key](#send-key) | sendkeys, invokekeys | Sends simulated keystrokes to a window or process. |
 | [Set-ClipboardFiles](#set-clipboardfiles) | setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
-| [Set-ForegroundWindow](#set-foregroundwindow) |  | Brings the specified window to the foreground and makes it the active window. |
-| [Set-KnownFolderPath](#set-knownfolderpath) |  | Modifies the physical path of a Windows known folder. |
+| [Set-ForegroundWindow](#set-foregroundwindow) | &nbsp; | Brings the specified window to the foreground and makes it the active window. |
+| [Set-KnownFolderPath](#set-knownfolderpath) | &nbsp; | Modifies the physical path of a Windows known folder. |
 | [Set-TaskbarAlignment](#set-taskbaralignment) | set-taskalign | Configures Windows 11+ taskbar alignment between center and left positions. |
 | [Set-WindowPosition](#set-windowposition) | wp | Positions and resizes windows on specified monitors with various layout options. |
 | [Set-WindowPositionForSecondary](#set-windowpositionforsecondary) | wps | Positions a window on the secondary monitor with specified layout options. |
@@ -95,14 +96,13 @@ Update-Module
 ### GenXdev.Windows.WireGuard
 | Command | Aliases | Description |
 | --- | --- | --- |
-
-| [Add-WireGuardPeer](#add-wireguardpeer) |  | Adds a new WireGuard VPN peer (client) configuration to the server. |
-| [EnsureWireGuard](#ensurewireguard) |  | Ensures WireGuard VPN service is installed and running via Docker container. |
-| [Get-WireGuardPeerQRCode](#get-wireguardpeerqrcode) |  | Generates a QR code for a WireGuard VPN peer configuration. |
-| [Get-WireGuardPeers](#get-wireguardpeers) |  | Gets information about all WireGuard VPN peers configured on the system. |
-| [Get-WireGuardStatus](#get-wireguardstatus) |  | Gets detailed status information about the WireGuard VPN server. |
-| [Remove-WireGuardPeer](#remove-wireguardpeer) |  | Removes a WireGuard VPN peer configuration. |
-| [Reset-WireGuardConfiguration](#reset-wireguardconfiguration) |  | Resets the WireGuard VPN server configuration, removing all peers. |
+| [Add-WireGuardPeer](#add-wireguardpeer) | &nbsp; | Adds a new WireGuard VPN peer (client) configuration to the server. |
+| [EnsureWireGuard](#ensurewireguard) | &nbsp; | Ensures WireGuard VPN service is installed and running via Docker container. |
+| [Get-WireGuardPeerQRCode](#get-wireguardpeerqrcode) | &nbsp; | Generates a QR code for a WireGuard VPN peer configuration. |
+| [Get-WireGuardPeers](#get-wireguardpeers) | &nbsp; | Gets information about all WireGuard VPN peers configured on the system. |
+| [Get-WireGuardStatus](#get-wireguardstatus) | &nbsp; | Gets detailed status information about the WireGuard VPN server. |
+| [Remove-WireGuardPeer](#remove-wireguardpeer) | &nbsp; | Removes a WireGuard VPN peer configuration. |
+| [Reset-WireGuardConfiguration](#reset-wireguardconfiguration) | &nbsp; | Resets the WireGuard VPN server configuration, removing all peers. |
 
 <br/><hr/><hr/><br/>
 
