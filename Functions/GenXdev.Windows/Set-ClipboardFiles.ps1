@@ -158,7 +158,7 @@ function Set-ClipboardFiles {
                 'Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;'+
                 "Microsoft.PowerShell.Management\Remove-Item '$tempFile' -Force -ErrorAction SilentlyContinue;"+
                 "`$fileCollection = Microsoft.PowerShell.Utility\New-Object System.Collections.Specialized.StringCollection;"+
-                "`$InputObject | ForEach-Object { `$null = `$fileCollection.Add(`$_) };"+
+                "`$InputObject | Microsoft.PowerShell.Core\ForEach-Object { `$null = `$fileCollection.Add(`$_) };"+
                 "[System.Windows.Forms.Clipboard]::SetFileDropList(`$fileCollection);"
             );
 

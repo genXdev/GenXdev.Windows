@@ -16,7 +16,7 @@ Gets all files currently in the clipboard and returns them as file system object
 
 .EXAMPLE
 $clipboardFiles = Get-ClipboardFiles
-$clipboardFiles | ForEach-Object { Write-Host $_.FullName }
+$clipboardFiles | Microsoft.PowerShell.Core\ForEach-Object { Write-Host $_.FullName }
 Gets clipboard files and displays their full paths.
 
 .EXAMPLE
@@ -81,7 +81,7 @@ function Get-ClipboardFiles {
             'try {'+
             "`$fileDropList = [System.Windows.Forms.Clipboard]::GetFileDropList();"+
             "if (`$null -ne `$fileDropList) {"+
-            "`$paths = `$fileDropList | ForEach-Object { `$_ };"+
+            "`$paths = `$fileDropList | Microsoft.PowerShell.Core\ForEach-Object { `$_ };"+
             "`$paths | ConvertTo-Json -Compress | Out-File '$tempFile';"+
             "} else { '[]' | Out-File '$tempFile'; }"+
             "} catch { '[]' | Out-File '$tempFile'; }"
