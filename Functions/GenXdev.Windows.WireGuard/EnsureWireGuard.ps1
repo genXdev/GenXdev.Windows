@@ -1319,6 +1319,6 @@ For Android 10 and above:
     }    end {
 
         # restore original location for cleanup after function execution
-    Microsoft.PowerShell.Management\Set-Location $script:wireguardOriginalLocation
+    Microsoft.PowerShell.Management\Set-Location -LiteralPath $script:wireguardOriginalLocation
     }
 }

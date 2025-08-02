@@ -116,7 +116,7 @@ function Initialize-ScheduledTaskScripts {
                 -FilePath "$FilePath\$TaskName.ps1"
 
             # create script file with logging if it doesn't exist
-            if (-not (Microsoft.PowerShell.Management\Test-Path $scriptPath -ErrorAction SilentlyContinue)) {
+            if (-not (Microsoft.PowerShell.Management\Test-Path -LiteralPath $scriptPath -ErrorAction SilentlyContinue)) {
                 if ($PSCmdlet.ShouldProcess($scriptPath, 'Create task script file')) {
                     $scriptContent = @"
 $Description
@@ -124,7 +124,7 @@ $Description
 $($Description | Microsoft.PowerShell.Utility\ConvertTo-Json) | Out-File '$WorkspaceFolder\scheduledtasks.log.txt' -Append
 
 "@
-                    $null = Microsoft.PowerShell.Management\Set-Content -Path $scriptPath -Value $scriptContent
+                    $null = Microsoft.PowerShell.Management\Set-Content -LiteralPath $scriptPath -Value $scriptContent
                 }
             }
 

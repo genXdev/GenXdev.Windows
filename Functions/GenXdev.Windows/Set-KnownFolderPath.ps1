@@ -214,7 +214,7 @@ public extern static int SHSetKnownFolderPath(ref Guid folderId, uint flags,
 
         # verify the destination path exists before attempting to move
         if (-not (Microsoft.PowerShell.Management\Test-Path `
-                    -Path $Path `
+                    -LiteralPath $Path `
                     -PathType Container)) {
 
             $msg = "Could not find folder path: $Path"

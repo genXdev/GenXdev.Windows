@@ -154,9 +154,9 @@ function Set-ClipboardFiles {
             # define the powershell command to execute in sta mode
             $command = (
                 'Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;'+
-                "`$InputObject = Microsoft.PowerShell.Management\Get-Content '$tempFile' | "+
+                "`$InputObject = Microsoft.PowerShell.Management\Get-Content -LiteralPath '$tempFile' | "+
                 'Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;'+
-                "Microsoft.PowerShell.Management\Remove-Item '$tempFile' -Force -ErrorAction SilentlyContinue;"+
+                "Microsoft.PowerShell.Management\Remove-Item -LiteralPath '$tempFile' -Force -ErrorAction SilentlyContinue;"+
                 "`$fileCollection = Microsoft.PowerShell.Utility\New-Object System.Collections.Specialized.StringCollection;"+
                 "`$InputObject | Microsoft.PowerShell.Core\ForEach-Object { `$null = `$fileCollection.Add(`$_) };"+
                 "[System.Windows.Forms.Clipboard]::SetFileDropList(`$fileCollection);"
@@ -186,8 +186,8 @@ function Set-ClipboardFiles {
             catch {
 
                 # cleanup temp file in case of error
-                if (Microsoft.PowerShell.Management\Test-Path $tempFile) {
-                    Microsoft.PowerShell.Management\Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $tempFile) {
+                    Microsoft.PowerShell.Management\Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
                 }
 
                 # output error if subprocess execution fails

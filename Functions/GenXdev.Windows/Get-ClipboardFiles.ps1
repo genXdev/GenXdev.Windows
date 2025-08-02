@@ -109,22 +109,22 @@ function Get-ClipboardFiles {
                 -Wait
 
             # read the result from temp file
-            if (Microsoft.PowerShell.Management\Test-Path $tempFile) {
-                $jsonContent = Microsoft.PowerShell.Management\Get-Content $tempFile -Raw
+            if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $tempFile) {
+                $jsonContent = Microsoft.PowerShell.Management\Get-Content -LiteralPath $tempFile -Raw
                 if ($jsonContent.Trim()) {
                     $clipboardFilePaths = $jsonContent | Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue
                     if ($null -eq $clipboardFilePaths) {
                         $clipboardFilePaths = @()
                     }
                 }
-                Microsoft.PowerShell.Management\Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                Microsoft.PowerShell.Management\Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
             }
         }
         catch {
 
             # cleanup temp file in case of error
-            if (Microsoft.PowerShell.Management\Test-Path $tempFile) {
-                Microsoft.PowerShell.Management\Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+            if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $tempFile) {
+                Microsoft.PowerShell.Management\Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
             }
 
             # output error if subprocess execution fails
@@ -159,14 +159,14 @@ function Get-ClipboardFiles {
             if ([System.IO.File]::Exists($path)) {
 
                 # return file object similar to Get-Item
-                Microsoft.PowerShell.Management\Get-Item -Path $path -ErrorAction SilentlyContinue
+                Microsoft.PowerShell.Management\Get-Item -LiteralPath $path -ErrorAction SilentlyContinue
                 return
             }
 
             if ([System.IO.Directory]::Exists($path)) {
 
                 # return directory object similar to Get-Item
-                Microsoft.PowerShell.Management\Get-Item -Path $path -ErrorAction SilentlyContinue
+                Microsoft.PowerShell.Management\Get-Item -LiteralPath $path -ErrorAction SilentlyContinue
                 return
             }
         }

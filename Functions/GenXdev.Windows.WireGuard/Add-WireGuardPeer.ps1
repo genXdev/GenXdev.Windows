@@ -679,7 +679,7 @@ AllowedIPs = $clientIP/32
 
                         # create output directory if it doesn't exist
                         if (-not (Microsoft.PowerShell.Management\Test-Path `
-                                    $OutputPath)) {
+                                    -LiteralPath $OutputPath)) {
 
                             # create directory with force flag to create parent dirs
                             $null = Microsoft.PowerShell.Management\New-Item `

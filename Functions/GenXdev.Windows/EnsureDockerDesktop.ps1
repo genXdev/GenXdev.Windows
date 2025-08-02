@@ -121,8 +121,7 @@ Ensures Docker Desktop is installed, shows window on monitor 1, positioned
 on left half with specific dimensions.
 ###############################################################################>
 function EnsureDockerDesktop {
-
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param(
         #######################################################################
         [Parameter(
@@ -299,15 +298,21 @@ function EnsureDockerDesktop {
                 'without affecting session')
         )]
         [Alias('FromPreferences')]
-        [switch]$SkipSession
+        [switch]$SkipSession,
         #######################################################################
+        [switch]$NoDockerInitialization
     )
 
-    begin {
 
-            if ($Force) {
-                $null = Microsoft.PowerShell.Management\Get-Process *docker* -ErrorAction SilentlyContinue | Microsoft.PowerShell.Management\Stop-Process -Force
-            }
+    begin {
+        if ($NoDockerInitialization) {
+
+            Microsoft.PowerShell.Utility\Write-Verbose ('Skipping Docker initialization...')
+            return
+        }
+        if ($Force -and $PSCmdlet.ShouldProcess('Docker processes', 'Force stop Docker processes')) {
+            $null = Microsoft.PowerShell.Management\Get-Process *docker* -ErrorAction SilentlyContinue | Microsoft.PowerShell.Management\Stop-Process -Force
+        }
 
         #######################################################################
         <#
@@ -373,10 +378,14 @@ function EnsureDockerDesktop {
     }
 
     process {
+        if ($NoDockerInitialization) {
+            return
+        }
 
         # verify if docker desktop executable is available in current session
         if (@(Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
                     -ErrorAction SilentlyContinue).Length -eq 0) {
+
 
             # define common docker installation paths for system and user
             # installs
@@ -393,7 +402,7 @@ function EnsureDockerDesktop {
 
                 # check if docker executable exists in current path
                 if (Microsoft.PowerShell.Management\Test-Path `
-                    (Microsoft.PowerShell.Management\Join-Path $path `
+                    -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
                             'docker.exe')) {
 
                     # get current user PATH environment variable
@@ -428,67 +437,81 @@ function EnsureDockerDesktop {
 
             # install docker if not found in known installation paths
             if (-not $dockerFound) {
+                if ($PSCmdlet.ShouldProcess('Docker Desktop', 'Install Docker Desktop and required features, might need multiple reboots, just repeat your last command until fully installed.')) {
 
-                # inform user about docker installation process
-                Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +
-                    'found. Installing Docker Desktop...')
+                    GenXdev.Windows\Get-WindowsIsUpToDate -AutoInstall -AutoReboot -Verbose;
 
-                # ensure winget is available before attempting docker
-                # installation
-                if (-not (IsWinGetInstalled)) {
-                    InstallWinGet
-                }
+                    # inform user about docker installation process
+                    Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +
+                        'found. Installing Docker Desktop...')
 
-                Dism\Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-                Dism\Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
-                wsl --update
-
-                # install docker desktop using winget package manager
-                $null = Microsoft.WinGet.Client\Install-WinGetPackage `
-                    -Id 'Docker.DockerDesktop' `
-                    -Force
-
-                # re-check docker paths after installation to update PATH
-                foreach ($path in $dockerPaths) {
-
-                    # verify docker executable exists in path after installation
-                    if (Microsoft.PowerShell.Management\Test-Path `
-                        (Microsoft.PowerShell.Management\Join-Path $path `
-                                'docker.exe')) {
-
-                        # get current user PATH environment variable
-                        $currentPath = [Environment]::GetEnvironmentVariable(
-                            'PATH', 'User')
-
-                        # add docker path to PATH if not already present
-                        if ($currentPath -notlike "*$path*") {
-
-                            # inform user about path update after installation
-                            Microsoft.PowerShell.Utility\Write-Verbose (
-                                'Adding Docker to system PATH...')
-
-                            # update user PATH environment variable
-                            [Environment]::SetEnvironmentVariable(
-                                'PATH',
-                                "$currentPath;$path",
-                                'User')
-
-                            # update current session's path immediately only if
-                            # not already present
-                            if ($env:PATH -notlike "*$path*") {
-                                $env:PATH = "$env:PATH;$path"
-                            }
-                        }
-                        break
+                    # ensure winget is available before attempting docker
+                    # installation
+                    if (-not (IsWinGetInstalled)) {
+                        InstallWinGet
                     }
-                }
 
-                # verify docker installation was successful by checking command
-                if (-not (Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
-                            -ErrorAction SilentlyContinue)) {
+                    try {
+                        # ───── EXECUTION POLICY ─────
+                        Microsoft.PowerShell.Security\Set-ExecutionPolicy Bypass -Scope Process -Force
 
-                    throw 'Docker Desktop installation failed.'
-                }
+                        # ───── WINDOWS FEATURES ─────
+                        Microsoft.PowerShell.Utility\Write-Host 'Enabling Hyper-V and Containers features…' -ForegroundColor Cyan
+                        Dism\Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+                        Dism\Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+
+                        Microsoft.PowerShell.Utility\Write-Host 'Updating Windows Subsystem for Linux (WSL)…' -ForegroundColor Cyan
+                        wsl --update
+                    }
+                    catch {
+                        Microsoft.PowerShell.Utility\Write-Host 'Failed to enable Windows features or update WSL.' -ForegroundColor Red
+                    }
+
+                    # install docker desktop using winget package manager
+                    $null = Microsoft.WinGet.Client\Install-WinGetPackage `
+                        -Id 'Docker.DockerDesktop' `
+                        -Force
+
+                    # re-check docker paths after installation to update PATH
+                    foreach ($path in $dockerPaths) {
+                        # verify docker executable exists in path after installation
+                        if (Microsoft.PowerShell.Management\Test-Path `
+                            -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
+                                    'docker.exe')) {
+
+                            # get current user PATH environment variable
+                            $currentPath = [Environment]::GetEnvironmentVariable(
+                                'PATH', 'User')
+
+                            # add docker path to PATH if not already present
+                            if ($currentPath -notlike "*$path*") {
+
+                                # inform user about path update after installation
+                                Microsoft.PowerShell.Utility\Write-Verbose (
+                                    'Adding Docker to system PATH...')
+
+                                # update user PATH environment variable
+                                [Environment]::SetEnvironmentVariable(
+                                    'PATH',
+                                    "$currentPath;$path",
+                                    'User')
+
+                                # update current session's path immediately only if
+                                # not already present
+                                if ($env:PATH -notlike "*$path*") {
+                                    $env:PATH = "$env:PATH;$path"
+                                }
+                            }
+                            break
+                        }
+                    }
+
+                    # verify docker installation was successful by checking command
+                    if (-not (Microsoft.PowerShell.Core\Get-Command 'docker.exe' `
+                                -ErrorAction SilentlyContinue)) {
+                        throw 'Docker Desktop installation failed.'
+                    }
+                } # ShouldProcess
             }
         }
 
@@ -510,7 +533,6 @@ function EnsureDockerDesktop {
 
             # start docker desktop if found via get-command
             if ($dockerExePath) {
-
                 # start docker desktop process using found executable path
                 if ($ShowWindow) {
                     # start with window visible if ShowWindow is specified
@@ -523,29 +545,23 @@ function EnsureDockerDesktop {
                         $dockerExePath.Source `
                         -WindowStyle Minimized
                 }
-
                 # wait for docker desktop to initialize (30 seconds)
                 Microsoft.PowerShell.Utility\Start-Sleep 30
             }
             else {
-
                 # define common docker desktop executable paths
                 $dockerDesktopPaths = @(
                     "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe",
                     ("${env:LOCALAPPDATA}\Programs\Docker\Docker\" +
                     'Docker Desktop.exe')
                 )
-
                 # try each known docker desktop installation path
                 foreach ($path in $dockerDesktopPaths) {
-
                     # check if docker desktop executable exists at current path
-                    if (Microsoft.PowerShell.Management\Test-Path $path) {
-
+                    if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $path) {
                         # start docker desktop from found path with appropriate
                         # window style
                         if ($ShowWindow) {
-
                             # start with window visible if ShowWindow is specified
                             Microsoft.PowerShell.Management\Start-Process $path `
                                 -WindowStyle Normal
@@ -554,7 +570,6 @@ function EnsureDockerDesktop {
                             Microsoft.PowerShell.Management\Start-Process $path `
                                 -WindowStyle Minimized
                         }
-
                         # wait for docker desktop to initialize
                         Microsoft.PowerShell.Utility\Start-Sleep 30
                         break

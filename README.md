@@ -154,7 +154,7 @@ CurrentUserHasElevatedRights [<CommonParameters>]
 
 ### SYNTAX 
 ````PowerShell 
-EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### DESCRIPTION 
@@ -386,6 +386,27 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
         Required?                    false  
         Position?                    named  
         Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -NoDockerInitialization [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -WhatIf [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -Confirm [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
