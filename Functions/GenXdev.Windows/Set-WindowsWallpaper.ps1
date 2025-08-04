@@ -139,7 +139,8 @@ function Set-WindowsWallpaper {
 
                     # define a C# class to access the Windows API for updating wallpaper
                     # enables immediate wallpaper refresh without logoff
-                    Microsoft.PowerShell.Utility\Add-Type -ErrorAction SilentlyContinue -TypeDefinition @'
+                    try {
+                        Microsoft.PowerShell.Utility\Add-Type -ErrorAction SilentlyContinue -TypeDefinition @'
     using System;
     using System.Runtime.InteropServices;
 
@@ -149,7 +150,8 @@ function Set-WindowsWallpaper {
             int uAction, int uParam, string lpvParam, int fuWinIni);
     }
 '@
-
+                    }
+                    catch {}
                     # apply the wallpaper changes using the Windows API
                     # 20 = SPI_SETDESKWALLPAPER
                     # 0x1 | 0x2 = SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE
