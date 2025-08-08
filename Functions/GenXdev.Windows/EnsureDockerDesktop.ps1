@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Ensures Docker Desktop is installed and available for containerization
@@ -439,7 +439,7 @@ function EnsureDockerDesktop {
             if (-not $dockerFound) {
                 if ($PSCmdlet.ShouldProcess('Docker Desktop', 'Install Docker Desktop and required features, might need multiple reboots, just repeat your last command until fully installed.')) {
 
-                    GenXdev.Windows\Get-WindowsIsUpToDate -AutoInstall -AutoReboot -Verbose;
+                    GenXdev.Windows\Invoke-WindowsUpdate -AutoInstall -AutoReboot -Verbose;
 
                     # inform user about docker installation process
                     Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +

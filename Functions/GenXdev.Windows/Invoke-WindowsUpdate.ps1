@@ -1,0 +1,664 @@
+################################################################################
+<#
+.SYNOPSIS
+Checks if Windows is up to date and optionally installs available updates.
+
+.DESCRIPTION
+This function checks for both Windows updates and winget package updates. It can
+display available updates or automatically install them. The function requires
+administrative privileges to install Windows updates and can optionally reboot
+the system if updates require a restart.
+
+.PARAMETER AutoInstall
+Automatically install available Windows and winget updates instead of just
+checking for their availability.
+
+.PARAMETER AutoReboot
+Automatically reboot the system if installed updates require a restart. This
+parameter only has effect when AutoInstall is also specified.
+
+.PARAMETER Criteria
+Custom Windows Update search criteria. Defaults to finding all non-hidden,
+uninstalled updates.
+
+.PARAMETER IncludeDrivers
+Include drivers in update search. When specified, driver updates will also be
+considered in the search results.
+
+.PARAMETER GroupByCategory
+Group and color output by update category. This provides a more organized view
+of available updates categorized by their type.
+
+.PARAMETER NoBanner
+Disable banner and status output. When specified, reduces verbose output and
+displays only essential information.
+
+.PARAMETER NoRebootCheck
+Skip reboot requirement check and reporting. When specified, the function will
+not check if a reboot is needed after installing updates.
+
+.EXAMPLE
+Invoke-WindowsUpdate
+
+Checks for available Windows and winget updates without installing them.
+
+.EXAMPLE
+Invoke-WindowsUpdate -AutoInstall
+
+Automatically installs all available Windows and winget updates.
+
+.EXAMPLE
+updatewindows -AutoInstall -AutoReboot
+
+Installs all updates and reboots automatically if required using the alias.
+
+.EXAMPLE
+Invoke-WindowsUpdate -GroupByCategory
+
+Displays available updates grouped by category for better organization.
+
+.EXAMPLE
+Invoke-WindowsUpdate -IncludeDrivers -Criteria "IsInstalled=0"
+
+Checks for updates including drivers with custom search criteria.
+#>
+function Invoke-WindowsUpdate {
+
+    [CmdletBinding(SupportsShouldProcess)]
+    [Alias("updatewindows", "Get-WindowsIsUpToDate")]
+
+    param(
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Automatically install available Windows updates"
+        )]
+        [switch] $AutoInstall,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Automatically reboot if updates require a restart"
+        )]
+        [switch] $AutoReboot,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Custom Windows Update search criteria"
+        )]
+        [string] $Criteria = "IsInstalled=0 and IsHidden=0",
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Include drivers in update search"
+        )]
+        [switch] $IncludeDrivers,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Group and color output by update category"
+        )]
+        [switch] $GroupByCategory,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Disable banner/status output"
+        )]
+        [switch] $NoBanner,
+        ###############################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = "Skip reboot requirement check/reporting"
+        )]
+        [switch] $NoRebootCheck
+        ###############################################################################
+    )
+
+    begin {
+
+        Microsoft.PowerShell.Core\Import-Module Microsoft.WinGet.Client
+
+        # initialize tracking variable for winget update availability
+        [bool] $script:wingetHasUpdates = $false
+        [bool] $script:hasAdminRights = $false
+        $script:updateSession = $null
+        $script:updateSearcher = $null
+
+        # verify administrative privileges are available for windows updates
+        $script:hasAdminRights = GenXdev.Windows\CurrentUserHasElevatedRights
+
+        if (-not $script:hasAdminRights) {
+
+            Microsoft.PowerShell.Utility\Write-Error (
+                "This cmdlet requires administrative privileges.")
+        }
+        else {
+
+            # initialize com objects for windows update operations
+            try {
+
+                # create main session object for update operations
+                $script:updateSession = Microsoft.PowerShell.Utility\New-Object `
+                    -ComObject Microsoft.Update.Session
+
+                # create searcher object to find available updates
+                $script:updateSearcher = $script:updateSession.CreateUpdateSearcher()
+            }
+            catch {
+
+                Microsoft.PowerShell.Utility\Write-Error (
+                    "Failed to initialize Windows Update session: ${_}")
+
+                $script:hasAdminRights = $false
+            }
+        }
+
+        # process winget updates if auto-install is requested
+        if ($AutoInstall) {
+
+            try {
+
+                # get list of packages with updates available
+                $packagesWithUpdates = Microsoft.WinGet.Client\Get-WinGetPackage |
+                    Microsoft.PowerShell.Core\Where-Object { $_.IsUpdateAvailable }
+
+                if ($packagesWithUpdates.Count -gt 0) {
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "Updating WinGet Packages:") -ForegroundColor Cyan
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "=========================") -ForegroundColor Cyan
+                    }
+
+                    # confirm winget update installation with user
+                    if ($PSCmdlet.ShouldProcess("$($packagesWithUpdates.Count) available winget packages", "Update")) {
+
+                        $successCount = 0
+                        $errorCount = 0
+                        $updateResults = @()
+
+                        # update each package that has updates available
+                        foreach ($package in $packagesWithUpdates) {
+
+                            try {
+
+                                if (-not $NoBanner) {
+                                    Microsoft.PowerShell.Utility\Write-Host (
+                                        "Updating: $($package.Name)") -ForegroundColor Yellow
+                                }
+
+                                $updateResult = Microsoft.WinGet.Client\Update-WinGetPackage -Id $package.Id -Mode Silent
+
+                                if ($updateResult.Status -eq 'Ok') {
+                                    $successCount++
+                                    if (-not $NoBanner) {
+                                        Microsoft.PowerShell.Utility\Write-Host (
+                                            "  ✓ $($package.Name) updated successfully") -ForegroundColor Green
+                                    }
+                                } else {
+                                    $errorCount++
+                                    Microsoft.PowerShell.Utility\Write-Warning (
+                                        "Failed to update $($package.Name): $($updateResult.Status)")
+                                }
+
+                                $updateResults += $updateResult
+                            }
+                            catch {
+
+                                $errorCount++
+                                Microsoft.PowerShell.Utility\Write-Warning (
+                                    "Failed to update package $($package.Name): ${_}")
+                            }
+                        }
+
+                        if (-not $NoBanner) {
+                            Microsoft.PowerShell.Utility\Write-Host ""
+                            Microsoft.PowerShell.Utility\Write-Host (
+                                "WinGet Update Summary: $successCount successful, $errorCount failed") `
+                                -ForegroundColor $(if ($errorCount -eq 0) { 'Green' } else { 'Yellow' })
+                            Microsoft.PowerShell.Utility\Write-Host ""
+                        }
+                    }
+                }
+
+                # check for remaining winget updates after installation
+                $remainingUpdates = Microsoft.WinGet.Client\Get-WinGetPackage |
+                    Microsoft.PowerShell.Core\Where-Object { $_.IsUpdateAvailable }
+
+                $script:wingetHasUpdates = $remainingUpdates.Count -gt 0
+            }
+            catch {
+
+                # assume no updates if winget check fails
+                $script:wingetHasUpdates = $false
+
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "Failed to check winget updates: ${_}")
+            }
+        }
+        else {
+
+            try {
+
+                # get list of packages with updates available
+                $wingetUpdates = Microsoft.WinGet.Client\Get-WinGetPackage |
+                    Microsoft.PowerShell.Core\Where-Object { $_.IsUpdateAvailable }
+
+                # determine if winget updates are available
+                $script:wingetHasUpdates = $wingetUpdates.Count -gt 0
+
+                # display winget updates if found and banner is enabled
+                if ($script:wingetHasUpdates -and -not $AutoInstall -and -not $NoBanner) {
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "Available Winget Updates:") -ForegroundColor Yellow
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "=========================") -ForegroundColor Yellow
+
+                    # display winget updates in formatted table
+                    $wingetUpdates | Microsoft.PowerShell.Utility\Format-Table `
+                        Name, Id, InstalledVersion, @{
+                            Label = 'Available'
+                            Expression = { $_.AvailableVersions[0] }
+                        }, Source -AutoSize |
+                        Microsoft.PowerShell.Utility\Out-String |
+                        Microsoft.PowerShell.Core\ForEach-Object {
+                            Microsoft.PowerShell.Utility\Write-Host $_.TrimEnd() `
+                                -ForegroundColor White
+                        }
+
+                    Microsoft.PowerShell.Utility\Write-Host ""
+                }
+            }
+            catch {
+
+                # assume no updates if winget check fails
+                $script:wingetHasUpdates = $false
+
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "Failed to check winget updates: ${_}")
+            }
+        }
+    }
+
+    process {
+
+        # if admin rights are not available, return result based on winget status only
+        if (-not $script:hasAdminRights) {
+            return
+        }
+
+        # verify COM objects were initialized successfully
+        if ($null -eq $script:updateSession -or $null -eq $script:updateSearcher) {
+            Microsoft.PowerShell.Utility\Write-Error (
+                "Windows Update session was not properly initialized.")
+            return
+        }
+
+        try {
+
+            # adjust criteria for drivers if requested
+            $searchCriteria = $Criteria
+
+            if ($IncludeDrivers) {
+
+                if ($searchCriteria -notmatch "Type='Driver'" -and $searchCriteria -notmatch "Type!='Driver'") {
+
+                    $searchCriteria += " AND DeploymentAction=*"
+                }
+            }
+
+            Microsoft.PowerShell.Utility\Write-Verbose (
+                "Searching for Windows updates with criteria: $searchCriteria")
+
+            # search for available windows updates
+            $searchResult = $script:updateSearcher.Search($searchCriteria)
+
+            $updates = $searchResult.Updates
+
+            # check if no updates are available
+            if ($updates.Count -eq 0 -and -not $script:wingetHasUpdates) {
+
+                if (-not $NoBanner) {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "No updates available. System is up to date.")
+                }
+
+                return
+            }
+
+            # display available updates without installing them
+            if (-not $AutoInstall) {
+
+                if ($updates.Count -gt 0) {
+
+                    # display updates grouped by category if requested
+                    if ($GroupByCategory) {
+
+                        $h1 = 'Category'
+                        $h2 = 'Title'
+                        $h3 = 'Description'
+                        $catalog = @()
+
+                        # build catalog of updates with category information
+                        foreach ($update in $updates) {
+
+                            if (-not $update.IsHidden) {
+
+                                $table = '' | Microsoft.PowerShell.Utility\Select-Object $h1, $h2, $h3
+                                $index = $update.Categories.Item.count - 1
+                                $item = $update.Categories.Item($index)
+                                $category = $item.Name
+                                $table.$h1 = $category
+                                $table.$h2 = $update.Title
+                                $table.$h3 = $update.Description
+                                $catalog += $table
+                            }
+                        }
+
+                        # group updates by category and display
+                        $group = $catalog | Microsoft.PowerShell.Utility\Group-Object -Property 'Category'
+
+                        foreach ($member in $group) {
+
+                            $title = $member.Name
+
+                            Microsoft.PowerShell.Utility\Write-Host "[${title}]" `
+                                -ForegroundColor Yellow
+
+                            $member.Group | Microsoft.PowerShell.Core\ForEach-Object {
+
+                                Microsoft.PowerShell.Utility\Write-Host " - $($_.Title)" `
+                                    -ForegroundColor Cyan
+
+                                Microsoft.PowerShell.Utility\Write-Host (
+                                    "    $($_.Description)")
+
+                                Microsoft.PowerShell.Utility\Write-Host ""
+                            }
+
+                            Microsoft.PowerShell.Utility\Write-Host ""
+                        }
+                    } else {
+
+                        # display updates in simple list format
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "Available Windows Updates:") -ForegroundColor Cyan
+
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "==========================") -ForegroundColor Cyan
+
+                        foreach ($update in $updates) {
+
+                            if (-not $update.IsHidden) {
+
+                                Microsoft.PowerShell.Utility\Write-Host (
+                                    "• $($update.Title)") -ForegroundColor White
+
+                                Microsoft.PowerShell.Utility\Write-Host (
+                                    "  Size: $([math]::Round($update.MaxDownloadSize / 1MB, 2)) MB") `
+                                    -ForegroundColor Gray
+
+                                if ($update.Description) {
+
+                                    $description = $update.Description
+
+                                    if ($description.Length -gt 100) {
+
+                                        $description = $description.Substring(0, 97) + "..."
+                                    }
+
+                                    Microsoft.PowerShell.Utility\Write-Host (
+                                        "  $description") -ForegroundColor Gray
+                                }
+
+                                Microsoft.PowerShell.Utility\Write-Host ""
+                            }
+                        }
+                    }
+
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "$($updates.Count) Windows updates are available but AutoInstall is not specified.")
+                }
+
+                if ($script:wingetHasUpdates) {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "Winget updates are available but AutoInstall is not specified.")
+                }
+
+                # display usage instructions if updates are available
+                if (($updates.Count -gt 0 -or $script:wingetHasUpdates) -and -not $NoBanner) {
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "To install these updates automatically, use:") `
+                        -ForegroundColor Green
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "  Invoke-WindowsUpdate -AutoInstall") -ForegroundColor Cyan
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "  updatewindows -AutoInstall") -ForegroundColor Cyan
+
+                    Microsoft.PowerShell.Utility\Write-Host ""
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "To install and automatically reboot if needed, use:") `
+                        -ForegroundColor Green
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "  Invoke-WindowsUpdate -AutoInstall -AutoReboot") `
+                        -ForegroundColor Cyan
+
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "  updatewindows -AutoInstall -AutoReboot") -ForegroundColor Cyan
+
+                    Microsoft.PowerShell.Utility\Write-Host ""
+                }
+
+                return
+            }
+
+            # prepare to install the available updates
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "Installing Windows Updates:") -ForegroundColor Cyan
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "============================") -ForegroundColor Cyan
+            }
+
+            Microsoft.PowerShell.Utility\Write-Verbose (
+                "Found $($updates.Count) updates to install.")
+
+            # create collection for updates to install
+            $updatesToInstall = Microsoft.PowerShell.Utility\New-Object `
+                -ComObject Microsoft.Update.UpdateColl
+
+            # add non-hidden updates to installation collection
+            foreach ($update in $updates) {
+
+                if ($update.IsHidden -eq $false) {
+
+                    $null = $updatesToInstall.Add($update)
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "  • $($update.Title)") -ForegroundColor White
+                    }
+                }
+            }
+
+            # verify we have valid updates to install
+            if ($updatesToInstall.Count -eq 0) {
+
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "No valid updates to install after filtering.")
+
+                return
+            }
+
+            # confirm Windows update installation with user
+            if (-not $PSCmdlet.ShouldProcess("$($updatesToInstall.Count) Windows updates", "Download and Install")) {
+                return
+            }
+
+            # create downloader and set updates to download
+            $downloader = $updateSession.CreateUpdateDownloader()
+
+            $downloader.Updates = $updatesToInstall
+
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "Downloading updates...") -ForegroundColor Yellow
+            }
+            Microsoft.PowerShell.Utility\Write-Verbose "Downloading updates..."
+
+            # download the selected updates
+            $downloadResult = $downloader.Download()
+
+            # verify download was successful
+            if ($downloadResult.ResultCode -ne 2) {
+
+                Microsoft.PowerShell.Utility\Write-Error (
+                    "Failed to download updates. Result code: " +
+                    "$($downloadResult.ResultCode)")
+
+                return
+            }
+
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "✓ Download completed successfully") -ForegroundColor Green
+            }
+
+            # create installer and set updates to install
+            $installer = $updateSession.CreateUpdateInstaller()
+
+            $installer.Updates = $updatesToInstall
+
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "Installing updates...") -ForegroundColor Yellow
+            }
+            Microsoft.PowerShell.Utility\Write-Verbose "Installing updates..."
+
+            # install the downloaded updates
+            $installResult = $installer.Install()
+
+            # verify installation was successful
+            if ($installResult.ResultCode -ne 2) {
+
+                Microsoft.PowerShell.Utility\Write-Error (
+                    "Failed to install updates. Result code: " +
+                    "$($installResult.ResultCode)")
+
+                return
+            }
+
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Host (
+                    "✓ Installation completed successfully") -ForegroundColor Green
+                Microsoft.PowerShell.Utility\Write-Host ""
+            }
+
+            # handle reboot requirement after installation
+            if ($installResult.RebootRequired -and $AutoReboot -and -not $NoRebootCheck) {
+
+                if ($PSCmdlet.ShouldProcess("Computer", "Restart")) {
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "🔄 Reboot required. Restarting computer...") -ForegroundColor Yellow
+                    }
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "Reboot required. Initiating reboot...")
+
+                    Microsoft.PowerShell.Management\Restart-Computer -Force
+                }
+
+                return
+            } elseif ($installResult.RebootRequired -and -not $NoRebootCheck) {
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "⚠️  Reboot required to complete installation") -ForegroundColor Yellow
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "   Use -AutoReboot to restart automatically") -ForegroundColor Gray
+                    Microsoft.PowerShell.Utility\Write-Host ""
+                }
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "Reboot required but AutoReboot not specified.")
+
+                return
+            }
+
+            # check for additional updates after installation
+            $newSearchResult = $updateSearcher.Search($searchCriteria)
+
+            # determine final status of system update state
+            if ($newSearchResult.Updates.Count -eq 0 -and -not $script:wingetHasUpdates) {
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "✅ System is now up to date!") -ForegroundColor Green
+                    Microsoft.PowerShell.Utility\Write-Host ""
+                }
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "No more updates available after installation.")
+
+                return
+            } else {
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "ℹ️  Additional updates may be available") -ForegroundColor Cyan
+                }
+
+                if ($newSearchResult.Updates.Count -gt 0) {
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "   Run updatewindows again to check for more Windows updates") `
+                            -ForegroundColor Gray
+                    }
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "Additional Windows updates found after installation.")
+                }
+
+                if ($script:wingetHasUpdates) {
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "   Some WinGet packages still have updates available") `
+                            -ForegroundColor Gray
+                    }
+                    Microsoft.PowerShell.Utility\Write-Verbose (
+                        "Winget updates still available.")
+                }
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Host ""
+                }
+            }
+        }
+        catch {
+
+            Microsoft.PowerShell.Utility\Write-Error (
+                "Error during update process: ${_}")
+
+        }
+    }
+
+    end {
+
+        # release com objects to prevent memory leaks
+        if ($updateSession) {
+
+            $null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject(
+                $updateSession)
+        }
+    }
+}
+################################################################################

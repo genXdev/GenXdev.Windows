@@ -78,8 +78,8 @@ Update-Module
 | [Get-PowershellMainWindow](#get-powershellmainwindow) | &nbsp; | Returns a window helper object for the PowerShell terminal's main window. |
 | [Get-PowershellMainWindowProcess](#get-powershellmainwindowprocess) | &nbsp; | Returns the process object for the window hosting the PowerShell terminal. |
 | [Get-Window](#get-window) | gwin, window | Gets window information for specified processes or window handles. |
-| [Get-WindowsIsUpToDate](#get-windowsisuptodate) | updatewindows | Checks if Windows is up to date and optionally installs available updates. |
 | [Initialize-ScheduledTaskScripts](#initialize-scheduledtaskscripts) | &nbsp; | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
+| [Invoke-WindowsUpdate](#invoke-windowsupdate) | updatewindows, get-windowsisuptodate | Checks if Windows is up to date and optionally installs available updates. |
 | [Pop-Window](#pop-window) | popw | Pops the last active window helper from the stack with optional modifications. |
 | [Push-Window](#push-window) | pushw | Pushes the current window onto the window stack with optional modifications. |
 | [Send-Key](#send-key) | sendkeys, invokekeys | Sends simulated keystrokes to a window or process. |
@@ -911,54 +911,6 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
 <br/><hr/><hr/><br/>
  
 
-##	Get-WindowsIsUpToDate 
-````PowerShell 
-
-   Get-WindowsIsUpToDate                --> updatewindows  
-```` 
-
-### SYNOPSIS 
-    Checks if Windows is up to date and optionally installs available updates.  
-
-### SYNTAX 
-````PowerShell 
-Get-WindowsIsUpToDate [-AutoInstall] [-AutoReboot] [<CommonParameters>] 
-```` 
-
-### DESCRIPTION 
-    This function checks for both Windows updates and winget package updates. It can  
-    display available updates or automatically install them. The function requires  
-    administrative privileges to install Windows updates and can optionally reboot  
-    the system if updates require a restart.  
-
-### PARAMETERS 
-    -AutoInstall [<SwitchParameter>]  
-        Automatically install available Windows and winget updates instead of just  
-        checking for their availability.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -AutoReboot [<SwitchParameter>]  
-        Automatically reboot the system if installed updates require a restart. This  
-        parameter only has effect when AutoInstall is also specified.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><hr/><br/>
- 
-
 ##	Initialize-ScheduledTaskScripts 
 ````PowerShell 
 
@@ -1012,6 +964,113 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
         Accept wildcard characters?  false  
     -Confirm [<SwitchParameter>]  
         Prompts you for confirmation before running the cmdlet.  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+
+<br/><hr/><hr/><br/>
+ 
+
+##	Invoke-WindowsUpdate 
+````PowerShell 
+
+   Invoke-WindowsUpdate                 --> Get-WindowsIsUpToDate, updatewindows  
+```` 
+
+### SYNOPSIS 
+    Checks if Windows is up to date and optionally installs available updates.  
+
+### SYNTAX 
+````PowerShell 
+Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+```` 
+
+### DESCRIPTION 
+    This function checks for both Windows updates and winget package updates. It can  
+    display available updates or automatically install them. The function requires  
+    administrative privileges to install Windows updates and can optionally reboot  
+    the system if updates require a restart.  
+
+### PARAMETERS 
+    -AutoInstall [<SwitchParameter>]  
+        Automatically install available Windows and winget updates instead of just  
+        checking for their availability.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -AutoReboot [<SwitchParameter>]  
+        Automatically reboot the system if installed updates require a restart. This  
+        parameter only has effect when AutoInstall is also specified.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -Criteria <String>  
+        Custom Windows Update search criteria. Defaults to finding all non-hidden,  
+        uninstalled updates.  
+        Required?                    false  
+        Position?                    1  
+        Default value                IsInstalled=0 and IsHidden=0  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -IncludeDrivers [<SwitchParameter>]  
+        Include drivers in update search. When specified, driver updates will also be  
+        considered in the search results.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -GroupByCategory [<SwitchParameter>]  
+        Group and color output by update category. This provides a more organized view  
+        of available updates categorized by their type.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -NoBanner [<SwitchParameter>]  
+        Disable banner and status output. When specified, reduces verbose output and  
+        displays only essential information.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -NoRebootCheck [<SwitchParameter>]  
+        Skip reboot requirement check and reporting. When specified, the function will  
+        not check if a reboot is needed after installing updates.  
+        Required?                    false  
+        Position?                    named  
+        Default value                False  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -WhatIf [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+    -Confirm [<SwitchParameter>]  
         Required?                    false  
         Position?                    named  
         Default value                  
@@ -2827,7 +2886,7 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
         Dynamic?                     false  
         Accept wildcard characters?  false  
     -ShowQRCode  
-        Show QR code in the console for easy mobile setup  
+        Generate QR code for easy mobile setup  
         Required?                    false  
         Position?                    Named  
         Accept pipeline input?       false  

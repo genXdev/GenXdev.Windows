@@ -333,8 +333,7 @@ function EnsureWireGuard {
     $script:wireguardTimezone = $TimeZone
 
     # store original location for cleanup at the end of the function
-    $script:wireguardOriginalLocation = \
-    (Microsoft.PowerShell.Management\Get-Location).Path
+    $script:wireguardOriginalLocation = (Microsoft.PowerShell.Management\Get-Location).Path
 
         #######################################################################
         <#
@@ -1316,9 +1315,10 @@ For Android 10 and above:
 
             throw
         }
-    }    end {
+    }
 
-        # restore original location for cleanup after function execution
-    Microsoft.PowerShell.Management\Set-Location -LiteralPath $script:wireguardOriginalLocation
+    end {
+
+        Microsoft.PowerShell.Management\Set-Location -LiteralPath $script:wireguardOriginalLocation
     }
 }

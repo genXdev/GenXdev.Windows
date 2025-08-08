@@ -7,7 +7,7 @@ Adds a new WireGuard VPN peer (client) configuration to the server.
 This function adds a new peer to the WireGuard VPN server running in a Docker
 container. It generates a new client configuration with a unique IP address,
 creates necessary cryptographic keys, and returns the configuration details.
-The function can optionally save the configuration to a file or display a QR
+The function can optionally save the configuration to a file or generate a QR
 code for easy mobile device setup. The function validates peer names, checks
 for duplicates, and handles various error conditions gracefully.
 
@@ -78,9 +78,9 @@ OutputPath directory. The file will be named with the peer name followed by
 .conf extension.
 
 .PARAMETER ShowQRCode
-When specified, displays a QR code in the console that can be scanned by the
-WireGuard mobile app for easy configuration import. Useful for mobile device
-setup.
+When specified, generates a PNG QR code that can be scanned by the WireGuard
+mobile app for easy configuration import. The QR code is saved to the
+OutputPath directory.
 
 .PARAMETER NoDockerInitialize
 When specified, skips the Docker container initialization check. Use this
@@ -113,10 +113,7 @@ This function interacts with the linuxserver/wireguard Docker container to
 manage WireGuard peers. It requires Docker to be installed and the WireGuard
 container to be running. Use EnsureWireGuard function first to initialize the
 service if needed.
-##############################################################################
 #>
-
-###############################################################################
 function Add-WireGuardPeer {
 
     [CmdletBinding(SupportsShouldProcess)]
@@ -373,8 +370,7 @@ function Add-WireGuardPeer {
         #######################################################################
         [Parameter(
             Mandatory = $false,
-            HelpMessage = ('Show QR code in the console for easy mobile ' +
-                'setup')
+            HelpMessage = ('Generate QR code for easy mobile setup')
         )]
         [switch] $ShowQRCode,
         #######################################################################
@@ -393,7 +389,9 @@ function Add-WireGuardPeer {
         [Alias('ForceRebuild')]
         [switch] $Force
         #######################################################################
-    )    begin {
+    )
+
+    begin {
 
         # ensure the wireguard service is running unless explicitly skipped
         if (-not $NoDockerInitialize) {
@@ -508,6 +506,10 @@ function Add-WireGuardPeer {
                     docker exec $ContainerName sh -c `
                         "wg genkey | tee /config/server/privatekey-server | wg pubkey > /config/server/publickey-server"
 
+                    # set permissions on server keys
+                    docker exec $ContainerName sh -c `
+                        "chmod 600 /config/server/privatekey-server /config/server/publickey-server"
+
                     # create basic server configuration
                     $serverConfig = @"
 [Interface]
@@ -516,14 +518,18 @@ ListenPort = $ServicePort
 PrivateKey = $(docker exec $ContainerName sh -c "cat /config/server/privatekey-server")
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE
-
 "@
+
+                    # clean up server config for Unix compatibility
+                    $serverConfig = $serverConfig -replace "`r`n", "`n"
+                    $serverConfig = $serverConfig.Trim()
+
+                    # escape special characters in server config
+                    $escapedConfig = $serverConfig -replace "'", "'\\''" -replace '\$', '\\$' -replace '\\', '\\\\'
 
                     # write server config to container
                     docker exec $ContainerName sh -c `
-                        "cat > /config/wg_confs/wg0.conf << 'EOF'
-$serverConfig
-EOF"
+                        "echo '$escapedConfig' > /config/wg_confs/wg0.conf && chmod 600 /config/wg_confs/wg0.conf"
 
                     # restart wireguard interface
                     docker exec $ContainerName sh -c `
@@ -592,6 +598,8 @@ EOF"
                 # determine peer ID and get next available IP
                 $peerId = "peer_${PeerName}"
                 $clientIP = GetNextClientIP
+                Microsoft.PowerShell.Utility\Write-Verbose `
+                    "Assigned IP: $clientIP for peer $PeerName"
 
                 # create peer directory in container
                 docker exec $ContainerName sh -c `
@@ -601,9 +609,17 @@ EOF"
                 docker exec $ContainerName sh -c `
                     "wg genkey | tee /config/$peerId/privatekey-$peerId | wg pubkey > /config/$peerId/publickey-$peerId"
 
+                # set permissions on peer keys
+                docker exec $ContainerName sh -c `
+                    "chmod 600 /config/$peerId/privatekey-$peerId /config/$peerId/publickey-$peerId"
+
                 # generate preshared key
                 docker exec $ContainerName sh -c `
                     "wg genpsk > /config/$peerId/presharedkey-$peerId"
+
+                # set permissions on preshared key
+                docker exec $ContainerName sh -c `
+                    "chmod 600 /config/$peerId/presharedkey-$peerId"
 
                 # get server public key
                 $serverPublicKey = docker exec $ContainerName sh -c `
@@ -615,7 +631,7 @@ EOF"
 
                 # get external IP for endpoint
                 try {
-                    $externalIP = Microsoft.PowerShell.Utility\Invoke-RestMethod -Uri "https://ifconfig.me/ip" -TimeoutSec 10
+                    $externalIP = Microsoft.PowerShell.Utility\Invoke-RestMethod -Uri "https://api.ipify.org" -TimeoutSec 10
                 } catch {
                     $externalIP = "YOUR_SERVER_IP"
                     Microsoft.PowerShell.Utility\Write-Warning `
@@ -636,13 +652,18 @@ Endpoint = ${externalIP}:$ServicePort
 AllowedIPs = $AllowedIPs
 "@
 
+                # clean up peer config for Unix compatibility
+                $peerConfig = $peerConfig -replace "`r`n", "`n"
+                $peerConfig = $peerConfig.Trim()
+
+                # escape special characters in peer config
+                $escapedConfig = $peerConfig -replace "'", "'\\''" -replace '\$', '\\$' -replace '\\', '\\\\'
+
                 # save peer configuration in container
                 docker exec $ContainerName sh -c `
-                    "cat > /config/$peerId/$peerId.conf << 'EOF'
-$peerConfig
-EOF"
+                    "echo -n '$escapedConfig' > /config/$peerId/$peerId.conf && chmod 600 /config/$peerId/$peerId.conf"
 
-                # add peer to server configuration
+                # create peer section for server configuration
                 $peerSection = @"
 
 # $peerId
@@ -652,9 +673,23 @@ PresharedKey = $(docker exec $ContainerName sh -c "cat /config/$peerId/preshared
 AllowedIPs = $clientIP/32
 "@
 
+                # clean up peer section for Unix compatibility
+                $peerSection = $peerSection -replace "`r`n", "`n"
+                $peerSection = $peerSection.Trim()
+
+                # escape special characters in peer section
+                $escapedSection = $peerSection -replace "'", "'\\''" -replace '\$', '\\$' -replace '\\', '\\\\'
+
                 # append peer to server config
                 docker exec $ContainerName sh -c `
-                    "echo '$peerSection' >> /config/wg_confs/wg0.conf"
+                    "echo '$escapedSection' >> /config/wg_confs/wg0.conf && chmod 600 /config/wg_confs/wg0.conf"
+
+                # verify peer section was added
+                $peerInConfig = docker exec $ContainerName sh -c `
+                    "grep -q '# $peerId' /config/wg_confs/wg0.conf && echo 'found' || echo 'not found'"
+                if ($peerInConfig -ne 'found') {
+                    throw "Failed to verify peer '$PeerName' in server configuration"
+                }
 
                 # restart wireguard to apply changes
                 docker exec $ContainerName sh -c `
@@ -667,7 +702,13 @@ AllowedIPs = $clientIP/32
 
                 # log verbose message about successful peer addition
                 Microsoft.PowerShell.Utility\Write-Verbose `
-                    "Peer $PeerName added successfully"
+                    "Peer $PeerName added successfully with IP $clientIP"
+
+                # verify configurations
+                Microsoft.PowerShell.Utility\Write-Verbose "Generated peer configuration:`n$peerConfig"
+                docker exec $ContainerName cat /config/$peerId/$peerId.conf | Microsoft.PowerShell.Utility\Write-Verbose
+                Microsoft.PowerShell.Utility\Write-Verbose "Updated server configuration:`n$peerSection"
+                docker exec $ContainerName cat /config/wg_confs/wg0.conf | Microsoft.PowerShell.Utility\Write-Verbose
 
                 # save configuration to file if requested by user
                 if ($SaveConfig) {
@@ -694,11 +735,23 @@ AllowedIPs = $clientIP/32
                             -ChildPath "$PeerName.conf"
 
                         # write peer configuration to file with utf8 encoding
-                        $peerConfig |
-                            Microsoft.PowerShell.Utility\Out-File `
-                                -FilePath $configFile `
-                                -Encoding utf8 `
-                                -Force
+                        $peerConfig | Microsoft.PowerShell.Utility\Out-File `
+                            -FilePath $configFile `
+                            -Encoding utf8 `
+                            -Force
+
+                        # set permissions on local config file
+                        if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $configFile) {
+                            $acl = Microsoft.PowerShell.Security\Get-Acl $configFile
+                            $acl.SetAccessRuleProtection($true, $false)
+                            $rule = Microsoft.PowerShell.Utility\New-Object System.Security.AccessControl.FileSystemAccessRule(
+                                [System.Security.Principal.WindowsIdentity]::GetCurrent().Name,
+                                "FullControl",
+                                "Allow"
+                            )
+                            $acl.SetAccessRule($rule)
+                            Microsoft.PowerShell.Security\Set-Acl $configFile $acl
+                        }
 
                         # display success message with configuration file location
                         Microsoft.PowerShell.Utility\Write-Host `
@@ -710,40 +763,22 @@ AllowedIPs = $clientIP/32
                 # show qr code if requested by user
                 if ($ShowQRCode) {
 
-                    # display message about qr code generation
-                    Microsoft.PowerShell.Utility\Write-Host `
-                        "Generating QR code for peer $PeerName..."
+                   $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                    -BoundParameters $PSBoundParameters `
+                    -FunctionName "GenXdev.Windows\Get-WireGuardPeerQRCode" `
+                    -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
+                        -Scope Local `
+                        -ErrorAction SilentlyContinue)
 
-                    # generate qr code using qrencode directly on the config file
-                    $qrResult = docker exec $ContainerName sh -c `
-                        "qrencode -t ansiutf8 < /config/$peerId/$peerId.conf"
-
-                    # check if qr code generation succeeded
-                    if ($LASTEXITCODE -eq 0) {
-
-                        # display the qr code to console
-                        Microsoft.PowerShell.Utility\Write-Host $qrResult
-
-                        # display instruction message for qr code usage
-                        Microsoft.PowerShell.Utility\Write-Host `
-                            -ForegroundColor Green `
-                            'Scan this QR code with the WireGuard mobile app'
-                    }
-                    else {
-
-                        # log warning if qr code generation failed
-                        Microsoft.PowerShell.Utility\Write-Warning `
-                            "Failed to generate QR code: $qrResult"
-                    }
+                    GenXdev.Windows\Get-WireGuardPeerQRCode @params
                 }
 
                 # create hash table with peer details for return object
                 $peerDetails = @{
                     PeerName          = $PeerName
+                    ClientIP          = $clientIP
                     Configuration     = $peerConfig
-                    ConfigurationPath = if ($SaveConfig) { $configFile } else {
-                        $null
-                    }
+                    ConfigurationPath = if ($SaveConfig) { $configFile } else { $null }
                     QRCodeGenerated   = $ShowQRCode
                 }
 

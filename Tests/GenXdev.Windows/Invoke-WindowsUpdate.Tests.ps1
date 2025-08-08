@@ -1,10 +1,10 @@
 ###############################################################################
-Describe "Get-WindowsIsUpToDate" {
+Describe "Invoke-WindowsUpdate" {
 
     It "should pass PSScriptAnalyzer rules" {
 
 # get the script path for analysis
-        $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Get-WindowsIsUpToDate.ps1"
+        $scriptPath = GenXdev.FileSystem\Expand-Path "$PSScriptRoot\..\..\Functions\GenXdev.Windows\Invoke-WindowsUpdate.ps1"
 
 # run analyzer with explicit settings
         $analyzerResults = GenXdev.Coding\Invoke-GenXdevScriptAnalyzer `
