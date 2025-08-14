@@ -1,19 +1,20 @@
 ﻿################################################################################
 <#
 .SYNOPSIS
-Positions and resizes windows on specified monitors with various layout options.
+Positions and resizes windows when explicit positioning parameters are provided.
 
 .DESCRIPTION
-Provides precise control over window positioning and sizing, supporting multiple
-monitors, border removal, and various preset positions like left/right split,
-top/bottom split, and center placement. Windows can be positioned by coordinates
-or using predefined layouts.
+Provides precise control over window positioning and sizing when positioning
+parameters are specified. Supports multiple monitors, border removal, and
+various preset positions like left/right split, top/bottom split, and center
+placement. Windows can be positioned by coordinates or using predefined layouts.
+Without positioning parameters, the function performs no action on the window.
 
 .PARAMETER ProcessName
-The process name of the window to position (defaults to PowerShell window)
+The process name of the window to position
 
 .PARAMETER Process
-Process or processes whose windows need positioning (defaults to PowerShell window)
+Process or processes whose windows need positioning
 
 .PARAMETER WindowHelper
 Window helper object for direct window manipulation
@@ -25,16 +26,16 @@ Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary
 Removes window borders and title bar for a cleaner appearance
 
 .PARAMETER Width
-Window width in pixels (-1 for automatic sizing)
+Window width in pixels
 
 .PARAMETER Height
-Window height in pixels (-1 for automatic sizing)
+Window height in pixels
 
 .PARAMETER X
-Window horizontal position (-1 for automatic)
+Window horizontal position in pixels
 
 .PARAMETER Y
-Window vertical position (-1 for automatic)
+Window vertical position in pixels
 
 .PARAMETER Left
 Places window on left half of screen
@@ -105,6 +106,14 @@ Position PowerShell window centered on primary monitor with no borders
 .EXAMPLE
 Get-Process notepad,calc | wp -m 1 -l,-r
 Split notepad and calc side by side on second monitor using aliases
+
+.EXAMPLE
+Set-WindowPosition -ProcessName notepad
+Does nothing - no positioning parameters specified
+
+.EXAMPLE
+Set-WindowPosition -ProcessName notepad -KeysToSend "Hello World"
+Sends keystrokes to notepad window without repositioning it
 #>
 ################################################################################
 function Set-WindowPosition {
@@ -118,7 +127,7 @@ function Set-WindowPosition {
             ParameterSetName = 'ProcessName',
             Mandatory = $false,
             Position = 0,
-            HelpMessage = 'The process of the window to position',
+            HelpMessage = 'The process name of the window to position',
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
             ValueFromRemainingArguments = $false
@@ -141,7 +150,7 @@ function Set-WindowPosition {
         [parameter(
             ParameterSetName = 'WindowHelper',
             Mandatory = $false,
-            HelpMessage = 'The process of the window to position',
+            HelpMessage = 'Get-Window helper object for direct window manipulation',
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
             ValueFromRemainingArguments = $false
@@ -151,7 +160,7 @@ function Set-WindowPosition {
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = 'The monitor to use, 0 = default, -1 is discard'
+            HelpMessage = 'Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary'
         )]
         [Alias('m', 'mon')]
         [int] $Monitor = -1,
@@ -165,25 +174,25 @@ function Set-WindowPosition {
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = 'The initial width of the window'
+            HelpMessage = 'Window width in pixels'
         )]
         [int] $Width = -999999,
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = 'The initial height of the window'
+            HelpMessage = 'Window height in pixels'
         )]
         [int] $Height = -999999,
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = 'The initial X position of the window'
+            HelpMessage = 'Window horizontal position in pixels'
         )]
         [int] $X = -999999,
         ########################################################################
         [parameter(
             Mandatory = $false,
-            HelpMessage = 'The initial Y position of the window'
+            HelpMessage = 'Window vertical position in pixels'
         )]
         [int] $Y = -999999,
         ########################################################################
@@ -500,19 +509,25 @@ function Set-WindowPosition {
         if ($null -ne $Process) {
             Microsoft.PowerShell.Utility\Write-Verbose "Processing window for process: $($Process.ProcessName) (Id: $($Process.Id))"
             # determine if any positioning parameters are provided
-            $havePositioning = ($X -gt -999999) -or ($Y -gt -999999) `
+            $havePositioningParams = ($X -gt -999999) -or ($Y -gt -999999) `
                 -or ($Width -gt 0) -or ($Height -gt 0) `
                 -or $Left -or $Right -or $Top -or $Bottom `
-                -or $Centered -or $Fullscreen -or $SideBySide
-            # get window handle - use powershell window or process main window
+                -or $Centered -or $Fullscreen -or $SideBySide `
+                -or $Maximize
+
+            $havePositioning = $havePositioningParams
+
+                # get window handle - use powershell window or process main window
             $window = $WindowHelper ? $WindowHelper : (GenXdev.Windows\Get-Window -ProcessId ($Process.Id))
+
+            # detect window's current monitor for comparison
+            $currentWindowScreen = $null
+            if ($null -ne $window) {
+                $currentWindowScreen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window.Position().X; Y = $window.Position().Y })
+            }
             if ($Monitor -eq 0) {
                 Microsoft.PowerShell.Utility\Write-Verbose ('Choosing primary monitor, because default monitor requested using -Monitor 0')
                 $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
-                if (-not $havePositioning) {
-                    $Centered = $true;
-                    $havePositioning = $true;
-                }
             }
             elseif (((GenXdev.Windows\Get-MonitorCount) -gt 1) -and $Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0) {
                 $userMonitorNum = $Global:DefaultSecondaryMonitor
@@ -520,74 +535,200 @@ function Set-WindowPosition {
                 Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' + "#$userMonitorNum as secondary (requested with -monitor -2) set by `$Global:DefaultSecondaryMonitor")
                 $Screen = $AllScreens[$screenIndex];
                 $Monitor = $Global:DefaultSecondaryMonitor;
-                if (-not $havePositioning) {
-                    $Centered = $true;
-                    $havePositioning = $true;
-                }
             }
             elseif ($Monitor -eq -2 -and ((GenXdev.Windows\Get-MonitorCount) -gt 1)) {
                 Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor #1 as default secondary (requested with -monitor -2), because `$Global:DefaultSecondaryMonitor not set')
                 $Screen = $AllScreens[1 % $AllScreens.Length];
-                if (-not $havePositioning) {
-                    $Centered = $true;
-                    $havePositioning = $true;
-                }
             }
             elseif ($Monitor -eq -2) {
                 Microsoft.PowerShell.Utility\Write-Verbose 'Monitor -2 requested but no secondary monitor found, defaulting to primary.'
                 $Monitor = 0
-                if (-not $havePositioning) {
-                    $Centered = $true;
-                    $havePositioning = $true;
-                }
                 $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
             }
             elseif ($Monitor -ge 1) {
                 Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' + "#$((($Monitor - 1) % $AllScreens.Length)) as requested by the -Monitor parameter")
                 $Screen = $AllScreens[($Monitor - 1) % $AllScreens.Length]
-                if (-not $havePositioning) {
-                    $Centered = $true;
-                    $havePositioning = $true;
-                }
             }
             else {
                 Microsoft.PowerShell.Utility\Write-Verbose 'Picking monitor #1 (FromPoint)'
-                $Screen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window.Position().X; Y = $window.Position().Y });
+                $Screen = $currentWindowScreen
             }
 
             # handle side-by-side positioning
             if ($SideBySide -and ($powerShellWindow.Handle -ne $window.Handle)) {
                 Microsoft.PowerShell.Utility\Write-Verbose 'SideBySide requested and window is not PowerShell main window.'
-                # check if same screen as powershell
-                if ($PowershellScreen -eq $Screen) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Window and PowerShell are on the same screen.'
-                    # split horizontally or vertically based on screen orientation
-                    if ($PowershellScreen.WorkingArea.Width -gt $PowershellScreen.WorkingArea.Height) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Screen is wider than tall, splitting horizontally (Left).'
-                        GenXdev.Windows\Set-WindowPosition -Left -Monitor $Monitor
-                        $FullScreen = $false
-                        $right = $true;
-                        $havePositioning = $true;
-                    }
-                    else {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Screen is taller than wide, splitting vertically (Bottom).'
-                        GenXdev.Windows\Set-WindowPosition -Bottom -Monitor $Monitor
-                        $FullScreen = $false
-                        $Top = $true
-                        $havePositioning = $true;
-                    }
+
+                $powershellMonitorIndex = $AllScreens.IndexOf($PowershellScreen)+1
+                Microsoft.PowerShell.Utility\Write-Verbose 'Window and PowerShell are on the same screen.'
+
+                $left = $false; $top = $false; $right = $false; $FullScreen = $false; $Centered = $false
+
+                # split horizontally or vertically based on screen orientation
+                if ($PowershellScreen.WorkingArea.Width -gt $PowershellScreen.WorkingArea.Height) {
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Screen is taller than wide, splitting vertically (Bottom).'
+                    GenXdev.Windows\Set-WindowPosition -Bottom -Monitor $powershellMonitorIndex
+                    $FullScreen = $false
+                    $Top = $true
+                    $havePositioning = $true;
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Window and PowerShell are on different screens. Using fullscreen for window.'
+                    Microsoft.PowerShell.Utility\Write-Verbose 'Screen is wider than tall, splitting horizontally (Left).'
+                    GenXdev.Windows\Set-WindowPosition -Left -Monitor $powershellMonitorIndex
+                    $FullScreen = $false
+                    $right = $true;
                     $havePositioning = $true;
-                    # use fullscreen on different monitor
-                    $Fullscreen = $true;
                 }
             }
+
             if ($null -eq $screen) {
-                Microsoft.PowerShell.Utility\Write-Verbose "No screen object set, using window's current monitor."
-                $screen = $allScreens[$window.GetCurrentMonitor() % $allScreens.Length]
+                Microsoft.PowerShell.Utility\Write-Verbose "No screen object set, using window's current monitor as fallback."
+                $screen = $currentWindowScreen ? $currentWindowScreen : $allScreens[0]
             }
+
+            # detect if monitor change is being requested
+            $isMonitorChangeRequest = $false
+            if (($Monitor -ge 0) -and ($null -ne $currentWindowScreen) -and ($null -ne $Screen)) {
+
+                $isMonitorChangeRequest = ($currentWindowScreen.DeviceName -ne $Screen.DeviceName)
+
+                if ($isMonitorChangeRequest) {
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Monitor change detected: Moving window from '$($currentWindowScreen.DeviceName)' to '$($Screen.DeviceName)'")
+                    # Monitor change implies positioning is needed
+                    if (-not $havePositioningParams) {
+
+                        Microsoft.PowerShell.Utility\Write-Verbose 'No explicit positioning parameters, but monitor change requested - enabling positioning'
+                        $havePositioning = $true
+
+                        Microsoft.PowerShell.Utility\Write-Verbose 'Detecting current window position to preserve when moving to new monitor'
+
+                        # Get current window position and size
+                        $currentPos = $window.Position()
+                        $currentSize = $window.Size()
+                        $currentWorkArea = $currentWindowScreen.WorkingArea
+
+                        # Calculate relative position within current monitor's work area
+                        $relativeX = ($currentPos.X - $currentWorkArea.X) / $currentWorkArea.Width
+                        $relativeY = ($currentPos.Y - $currentWorkArea.Y) / $currentWorkArea.Height
+                        $relativeWidth = $currentSize.Width / $currentWorkArea.Width
+                        $relativeHeight = $currentSize.Height / $currentWorkArea.Height
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Current relative position: X=$([Math]::Round($relativeX, 2)), Y=$([Math]::Round($relativeY, 2)), W=$([Math]::Round($relativeWidth, 2)), H=$([Math]::Round($relativeHeight, 2))")
+
+                        # Detect positioning style based on relative position and size
+                        $tolerance = 0.1  # 10% tolerance for position detection
+                        $sizeTolerance = 0.4  # 40% minimum size to consider positioned (allows for half-screen at 50%)
+
+                        # Determine primary positioning based on which dimension is more constrained
+                        # If width is more constrained (< 90% of screen), check left/right first
+                        # If height is more constrained (< 90% of screen), check top/bottom first
+
+                        $widthConstrained = $relativeWidth -lt 0.9
+                        $heightConstrained = $relativeHeight -lt 0.9
+
+                        # Priority 1: Check the more constrained dimension first
+                        if ($widthConstrained -and (-not $heightConstrained)) {
+                            # Width is constrained, height spans most/all screen - check left/right
+                            if ($relativeWidth -ge $sizeTolerance) {
+                                if ($relativeX -le $tolerance) {
+                                    $Left = $true
+                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected LEFT positioning (full height) - preserving on new monitor'
+                                } elseif (($relativeX + $relativeWidth) -ge (1.0 - $tolerance)) {
+                                    $Right = $true
+                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected RIGHT positioning (full height) - preserving on new monitor'
+                                }
+                            }
+                        } elseif ($heightConstrained -and (-not $widthConstrained)) {
+                            # Height is constrained, width spans most/all screen - check top/bottom
+                            if ($relativeHeight -ge $sizeTolerance) {
+                                if ($relativeY -le $tolerance) {
+                                    $Top = $true
+                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected TOP positioning (full width) - preserving on new monitor'
+                                } elseif (($relativeY + $relativeHeight) -ge (1.0 - $tolerance)) {
+                                    $Bottom = $true
+                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected BOTTOM positioning (full width) - preserving on new monitor'
+                                }
+                            }
+                        } elseif ($widthConstrained -and $heightConstrained) {
+                            # Both dimensions constrained - check for corner positioning or centered
+                            $centerX = $relativeX + ($relativeWidth / 2)
+                            $centerY = $relativeY + ($relativeHeight / 2)
+
+                            # Check if window is within 5% of screen boundaries (very relaxed centered detection)
+                            $nearLeftEdge = $relativeX -le 0.05     # Left margin <= 5%
+                            $nearRightEdge = ($relativeX + $relativeWidth) -ge 0.95   # Right margin <= 5%
+                            $nearTopEdge = $relativeY -le 0.05      # Top margin <= 5%
+                            $nearBottomEdge = ($relativeY + $relativeHeight) -ge 0.95  # Bottom margin <= 5%
+
+                            # BUT actually, if user wants "5% off boundaries", let's be more generous
+                            # Window with 10% margins (like X=0.1, W=0.8) should be considered centered
+                            $leftMargin = $relativeX
+                            $rightMargin = 1.0 - ($relativeX + $relativeWidth)
+                            $topMargin = $relativeY
+                            $bottomMargin = 1.0 - ($relativeY + $relativeHeight)
+
+                            # Consider centered if ALL margins are small (≤ 10% for more reasonable detection)
+                            $hasSmallMargins = ($leftMargin -le 0.1) -and ($rightMargin -le 0.1) -and ($topMargin -le 0.1) -and ($bottomMargin -le 0.1)
+
+                            Microsoft.PowerShell.Utility\Write-Verbose "Positioning check: centerX=$([Math]::Round($centerX, 2)), centerY=$([Math]::Round($centerY, 2))"
+                            Microsoft.PowerShell.Utility\Write-Verbose "Window bounds: X=$([Math]::Round($relativeX, 2)), Y=$([Math]::Round($relativeY, 2)), W=$([Math]::Round($relativeWidth, 2)), H=$([Math]::Round($relativeHeight, 2))"
+                            Microsoft.PowerShell.Utility\Write-Verbose "Actual margins: Left=$([Math]::Round($leftMargin, 3)), Right=$([Math]::Round($rightMargin, 3)), Top=$([Math]::Round($topMargin, 3)), Bottom=$([Math]::Round($bottomMargin, 3))"
+                            Microsoft.PowerShell.Utility\Write-Verbose "Has small margins (all ≤ 10%): $hasSmallMargins"
+
+                            # If window has small margins on all sides, consider it centered
+                            if ($hasSmallMargins) {
+                                $Centered = $true
+                                Microsoft.PowerShell.Utility\Write-Verbose 'Detected CENTERED positioning (small margins on all sides) - preserving on new monitor'
+                            } else {
+                                # Check for specific edge positioning
+                                # Check left/right first
+                                if ($relativeWidth -ge $sizeTolerance) {
+                                    if ($relativeX -le $tolerance) {
+                                        $Left = $true
+                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected LEFT positioning - preserving on new monitor'
+                                    } elseif (($relativeX + $relativeWidth) -ge (1.0 - $tolerance)) {
+                                        $Right = $true
+                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected RIGHT positioning - preserving on new monitor'
+                                    }
+                                }
+                                # Then check top/bottom
+                                if ($relativeHeight -ge $sizeTolerance) {
+                                    if ($relativeY -le $tolerance) {
+                                        $Top = $true
+                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected TOP positioning - preserving on new monitor'
+                                    } elseif (($relativeY + $relativeHeight) -ge (1.0 - $tolerance)) {
+                                        $Bottom = $true
+                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected BOTTOM positioning - preserving on new monitor'
+                                    }
+                                }
+
+                                # If no specific positioning detected, just enable positioning for auto-sizing
+                                if ((-not $Left) -and (-not $Right) -and (-not $Top) -and (-not $Bottom)) {
+                                    Microsoft.PowerShell.Utility\Write-Verbose 'No specific positioning detected - enabling auto-sizing to maximum'
+                                }
+                            }
+                        } else {
+                            # Neither dimension particularly constrained - likely fullscreen or very large window
+                            # Check margins for large window centered detection
+                            $leftMargin = $relativeX
+                            $rightMargin = 1.0 - ($relativeX + $relativeWidth)
+                            $topMargin = $relativeY
+                            $bottomMargin = 1.0 - ($relativeY + $relativeHeight)
+
+                            # For large windows, be even more generous (≤ 15% margins)
+                            $hasSmallMargins = ($leftMargin -le 0.15) -and ($rightMargin -le 0.15) -and ($topMargin -le 0.15) -and ($bottomMargin -le 0.15)
+
+                            if (-not $hasSmallMargins) {
+                                $Centered = $true
+                                Microsoft.PowerShell.Utility\Write-Verbose 'Detected CENTERED positioning (large window with small margins) - preserving on new monitor'
+                            } else {
+                                Microsoft.PowerShell.Utility\Write-Verbose 'Large window not centered - enabling auto-sizing to maximum'
+                            }
+                        }
+                    }
+                }
+            }
+
             # calculate final window coordinates and dimensions
             if (($X -le -999999) -or ($X -isnot [int])) {
                 Microsoft.PowerShell.Utility\Write-Verbose 'X not provided or invalid, using screen.WorkingArea.X'
@@ -621,6 +762,14 @@ function Set-WindowPosition {
                 $Height = $Screen.WorkingArea.Height;
             }
             Microsoft.PowerShell.Utility\Write-Verbose 'Have positioning parameters set'
+
+            # Reset width/height for smart positioning if detected during monitor change
+            if ($isMonitorChangeRequest -and ($Left -or $Right -or $Top -or $Bottom -or $Centered)) {
+                $Width = -999999
+                $Height = -999999
+                Microsoft.PowerShell.Utility\Write-Verbose 'Reset Width/Height to allow smart positioning to control sizing'
+            }
+
             # check if width and height were explicitly provided
             $widthProvided = ($Width -gt 0) -and ($Width -is [int]);
             $heightProvided = ($Height -gt 0) -and ($Height -is [int]);
@@ -701,6 +850,12 @@ function Set-WindowPosition {
                 $Y = $Screen.WorkingArea.Y + [Math]::Round(($screen.WorkingArea.Height - $Height) / 2, 0);
                 Microsoft.PowerShell.Utility\Write-Verbose ("Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height")
             }
+
+            if ((-not $havePositioning) -and ($KeysToSend -isnot [System.Collections.IEnumerable] -or ($KeysToSend.Count -eq 0))) {
+
+                return;
+            }
+
             # confirm with user if whatif support is enabled
             if ($PSCmdlet.ShouldProcess(
                     "Window of process '$($Process.ProcessName)'",
@@ -712,6 +867,7 @@ function Set-WindowPosition {
                     # restore window and position it
                     $null = $window.Show()
                     $null = $window.Restore()
+                    $null = $window.Show()
                     if ($havePositioning) {
                         Microsoft.PowerShell.Utility\Write-Verbose ("[Set-WindowPosition] About to move window. Handle: $($window.Handle) Target: X=$X, Y=$Y, Width=$Width, Height=$Height")
                         $null = $window.Move($X, $Y, $Width, $Height)
@@ -727,7 +883,7 @@ function Set-WindowPosition {
                         Microsoft.PowerShell.Utility\Write-Verbose 'Setting NoBorders'
                         $null = $window.RemoveBorder();
                     }
-                    if ($Maximize -or (-not $havePositioning)) {
+                    if ($Maximize) {
                         Microsoft.PowerShell.Utility\Write-Verbose 'Maximize requested or no positioning, maximizing window.'
                         $null = $window.Maximize()
                     }

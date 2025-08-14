@@ -3,7 +3,7 @@
 # PowerShell Module Critique: GenXdev.Windows.WireGuard
 
 ## Overview
-This document provides a detailed critique and practical improvement tips for the PowerShell module located at `Modules/GenXdev.Windows/1.236.2025/Functions/GenXdev.Windows.WireGuard`. The focus is on code quality, maintainability, and compliance with the provided 23-point requirements checklist. The primary function targeted for improvement is `$CmdletName` in `$ScriptFileName`.
+This document provides a detailed critique and practical improvement tips for the PowerShell module located at `Modules/GenXdev.Windows/1.238.2025/Functions/GenXdev.Windows.WireGuard`. The focus is on code quality, maintainability, and compliance with the provided 23-point requirements checklist. The primary function targeted for improvement is `$CmdletName` in `$ScriptFileName`.
 
 ---
 
@@ -74,7 +74,7 @@ This document provides a detailed critique and practical improvement tips for th
 
 ## Next Steps
 - Refactor `$CmdletName` in `$ScriptFileName` according to the above tips.
-- Run unit tests using `Assert-GenXdevUnitTest` after making changes.
+- Run unit tests using `Assert-GenXdevTest` after making changes.
 - Offer changelog entries summarizing improvements.
 
 ---

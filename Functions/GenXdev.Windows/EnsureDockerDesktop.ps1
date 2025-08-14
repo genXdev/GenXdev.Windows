@@ -337,12 +337,12 @@ function EnsureDockerDesktop {
                 -ErrorAction SilentlyContinue
 
             # verify if module was loaded successfully by checking module list
-            $module = Microsoft.PowerShell.Core\Get-Module `
+            $ModuleObj = Microsoft.PowerShell.Core\Get-Module `
                 'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # return true if module object exists, false otherwise
-            return $null -ne $module
+            return $null -ne $ModuleObj
         }
 
         #######################################################################
