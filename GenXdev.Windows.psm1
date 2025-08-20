@@ -11,6 +11,7 @@ if ($major -ne 10) {
 }
 
 
+
 . "$PSScriptRoot\Functions\GenXdev.Windows\CurrentUserHasElevatedRights.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\EnsureDockerDesktop.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows\EnsurePSTools.ps1"

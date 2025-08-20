@@ -11,6 +11,7 @@ if ($major -ne 10) {
 }
 
 
+
 . "$PSScriptRoot\Functions\GenXdev.Windows.WireGuard\Add-WireGuardPeer.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows.WireGuard\EnsureWireGuard.ps1"
 . "$PSScriptRoot\Functions\GenXdev.Windows.WireGuard\Get-WireGuardPeerQRCode.ps1"
