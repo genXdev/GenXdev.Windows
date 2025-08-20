@@ -69,7 +69,6 @@ function Send-Key {
             HelpMessage = 'The keyboard input to send as an array of strings'
         )]
         [string[]] $KeysToSend,
-
         ###############################################################################
         [Parameter(
             ParameterSetName = 'ByProcessName',
@@ -80,7 +79,6 @@ function Send-Key {
         [ValidateNotNullOrEmpty()]
         [SupportsWildcards()]
         [string] $ProcessName,
-
         ###############################################################################
         [Parameter(
             ParameterSetName = 'ByProcessId',
@@ -91,7 +89,6 @@ function Send-Key {
         [ValidateNotNull()]
         [Alias('Id', 'PID')]
         [int] $ProcessId,
-
         ###############################################################################
         [Parameter(
             ParameterSetName = 'ByWindowHandle',
@@ -102,7 +99,6 @@ function Send-Key {
         [ValidateNotNull()]
         [Alias('Handle', 'hWnd')]
         [long] $WindowHandle,
-
         ###############################################################################
         [Parameter(
             Mandatory = $false,
@@ -110,7 +106,6 @@ function Send-Key {
         )]
         [Alias('Escape')]
         [switch] $SendKeyEscape,
-
         ###############################################################################
         [Parameter(
             Mandatory = $false,
@@ -118,7 +113,6 @@ function Send-Key {
         )]
         [Alias('HoldKeyboardFocus')]
         [switch] $SendKeyHoldKeyboardFocus,
-
         ###############################################################################
         [Parameter(
             Mandatory = $false,
@@ -126,7 +120,6 @@ function Send-Key {
         )]
         [Alias('UseShiftEnter')]
         [switch] $SendKeyUseShiftEnter,
-
         ###############################################################################
         [Parameter(
             Mandatory = $false,

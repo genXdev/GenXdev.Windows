@@ -654,13 +654,6 @@ function Set-WindowPosition {
                             $centerX = $relativeX + ($relativeWidth / 2)
                             $centerY = $relativeY + ($relativeHeight / 2)
 
-                            # Check if window is within 5% of screen boundaries (very relaxed centered detection)
-                            $nearLeftEdge = $relativeX -le 0.05     # Left margin <= 5%
-                            $nearRightEdge = ($relativeX + $relativeWidth) -ge 0.95   # Right margin <= 5%
-                            $nearTopEdge = $relativeY -le 0.05      # Top margin <= 5%
-                            $nearBottomEdge = ($relativeY + $relativeHeight) -ge 0.95  # Bottom margin <= 5%
-
-                            # BUT actually, if user wants "5% off boundaries", let's be more generous
                             # Window with 10% margins (like X=0.1, W=0.8) should be considered centered
                             $leftMargin = $relativeX
                             $rightMargin = 1.0 - ($relativeX + $relativeWidth)

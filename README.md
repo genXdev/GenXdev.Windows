@@ -14,7 +14,7 @@
 
 ## MIT License
 
-```text
+````text
 MIT License
 
 Copyright (c) 2025 GenXdev
@@ -47,21 +47,21 @@ SOFTWARE.
 ### DEPENDENCIES
 [![WinOS - Windows-10 or later](https://img.shields.io/badge/WinOS-Windows--10--10.0.19041--SP0-brightgreen)](https://www.microsoft.com/en-us/windows/get-windows-10) [![GenXdev.Data](https://img.shields.io/powershellgallery/v/GenXdev.Data.svg?style=flat-square&label=GenXdev.Data)](https://www.powershellgallery.com/packages/GenXdev.Data/) [![GenXdev.Helpers](https://img.shields.io/powershellgallery/v/GenXdev.Helpers.svg?style=flat-square&label=GenXdev.Helpers)](https://www.powershellgallery.com/packages/GenXdev.Helpers/) [![GenXdev.FileSystem](https://img.shields.io/powershellgallery/v/GenXdev.FileSystem.svg?style=flat-square&label=GenXdev.FileSystem)](https://www.powershellgallery.com/packages/GenXdev.FileSystem/)
 ### INSTALLATION
-````PowerShell
+```PowerShell
 Install-Module "GenXdev.Windows"
 Import-Module "GenXdev.Windows"
-````
+```
 ### UPDATE
-````PowerShell
+```PowerShell
 Update-Module
-````
-<br/><hr/><hr/><br/>
+```
+
+<br/><hr/><br/>
 
 # Cmdlet Index
-### GenXdev.Windows<hr/>
 ### GenXdev.Windows
 | Command | Aliases | Description |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | [CurrentUserHasElevatedRights](#currentuserhaselevatedrights) | &nbsp; | Checks if the current user has elevated rights. |
 | [EnsureDockerDesktop](#ensuredockerdesktop) | &nbsp; | Checks if the WinGet PowerShell module is installed. |
 | [EnsurePSTools](#ensurepstools) | &nbsp; | Ensures Sysinternals tools (PSTools) are installed and available. |
@@ -95,7 +95,7 @@ Update-Module
 
 ### GenXdev.Windows.WireGuard
 | Command | Aliases | Description |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | [Add-WireGuardPeer](#add-wireguardpeer) | &nbsp; | Adds a new WireGuard VPN peer (client) configuration to the server. |
 | [EnsureWireGuard](#ensurewireguard) | &nbsp; | Ensures WireGuard VPN service is installed and running via Docker container. |
 | [Get-WireGuardPeerQRCode](#get-wireguardpeerqrcode) | &nbsp; | Generates a QR code for a WireGuard VPN peer configuration. |
@@ -104,7 +104,7 @@ Update-Module
 | [Remove-WireGuardPeer](#remove-wireguardpeer) | &nbsp; | Removes a WireGuard VPN peer configuration. |
 | [Reset-WireGuardConfiguration](#reset-wireguardconfiguration) | &nbsp; | Resets the WireGuard VPN server configuration, removing all peers. |
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
 
 
 # Cmdlets
@@ -113,7 +113,7 @@ Update-Module
 ###	GenXdev.Windows<hr/> 
 
 ##	CurrentUserHasElevatedRights 
-````PowerShell 
+```PowerShell 
 
    CurrentUserHasElevatedRights  
 ```` 
@@ -122,7 +122,7 @@ Update-Module
     Checks if the current user has elevated rights.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
 ```` 
 
@@ -139,11 +139,11 @@ CurrentUserHasElevatedRights [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsureDockerDesktop 
-````PowerShell 
+```PowerShell 
 
    EnsureDockerDesktop  
 ```` 
@@ -153,7 +153,7 @@ CurrentUserHasElevatedRights [<CommonParameters>]
     operations.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -416,11 +416,11 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsurePSTools 
-````PowerShell 
+```PowerShell 
 
    EnsurePSTools  
 ```` 
@@ -429,7 +429,7 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
     Ensures Sysinternals tools (PSTools) are installed and available.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>] 
 ```` 
 
@@ -463,11 +463,11 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ActiveUser 
-````PowerShell 
+```PowerShell 
 
    Get-ActiveUser                       --> gusers  
 ```` 
@@ -476,7 +476,7 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
     Retrieves a list of unique usernames from currently active system processes.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ActiveUser [<CommonParameters>] 
 ```` 
 
@@ -492,11 +492,11 @@ Get-ActiveUser [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ChildProcesses 
-````PowerShell 
+```PowerShell 
 
    Get-ChildProcesses  
 ```` 
@@ -505,7 +505,7 @@ Get-ActiveUser [<CommonParameters>]
     Retrieves all processes that are descendants of the current PowerShell process.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ChildProcesses [<CommonParameters>] 
 ```` 
 
@@ -521,11 +521,11 @@ Get-ChildProcesses [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ClipboardFiles 
-````PowerShell 
+```PowerShell 
 
    Get-ClipboardFiles                   --> getclipfiles  
 ```` 
@@ -534,7 +534,7 @@ Get-ChildProcesses [<CommonParameters>]
     Gets files from the Windows clipboard that were set for file operations like copy/paste.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ClipboardFiles [<CommonParameters>] 
 ```` 
 
@@ -552,11 +552,11 @@ Get-ClipboardFiles [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-CurrentFocusedProcess 
-````PowerShell 
+```PowerShell 
 
    Get-CurrentFocusedProcess  
 ```` 
@@ -565,7 +565,7 @@ Get-ClipboardFiles [<CommonParameters>]
     Retrieves the process object of the window that currently has keyboard focus.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-CurrentFocusedProcess [<CommonParameters>] 
 ```` 
 
@@ -583,7 +583,7 @@ Get-CurrentFocusedProcess [<CommonParameters>]
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        Requires Windows operating system as it uses Windows-specific API calls.  
        May return null if the process cannot be accessed due to permissions.  
@@ -593,11 +593,11 @@ Get-CurrentFocusedProcess [<CommonParameters>]
    Write-Host "Active window process: $($focusedProcess.ProcessName)"  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-DesktopScalingFactor 
-````PowerShell 
+```PowerShell 
 
    Get-DesktopScalingFactor  
 ```` 
@@ -606,7 +606,7 @@ Get-CurrentFocusedProcess [<CommonParameters>]
     Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>] 
 ```` 
 
@@ -632,11 +632,11 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ForegroundWindow 
-````PowerShell 
+```PowerShell 
 
    Get-ForegroundWindow  
 ```` 
@@ -645,7 +645,7 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
     Gets the handle of the currently active foreground window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ForegroundWindow [<CommonParameters>] 
 ```` 
 
@@ -661,11 +661,11 @@ Get-ForegroundWindow [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-KnownFolderPath 
-````PowerShell 
+```PowerShell 
 
    Get-KnownFolderPath                  --> folder  
 ```` 
@@ -674,7 +674,7 @@ Get-ForegroundWindow [<CommonParameters>]
     Gets the path of a Windows known folder using the Windows Shell32 API.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>] 
 ```` 
 
@@ -702,11 +702,11 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-MonitorCount 
-````PowerShell 
+```PowerShell 
 
    Get-MonitorCount  
 ```` 
@@ -715,7 +715,7 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
     Gets the total number of display monitors connected to the system.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-MonitorCount [<CommonParameters>] 
 ```` 
 
@@ -731,11 +731,11 @@ Get-MonitorCount [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-MpCmdRunPath 
-````PowerShell 
+```PowerShell 
 
    Get-MpCmdRunPath  
 ```` 
@@ -744,7 +744,7 @@ Get-MonitorCount [<CommonParameters>]
     Gets the path to the Windows Defender MpCmdRun.exe executable.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-MpCmdRunPath [<CommonParameters>] 
 ```` 
 
@@ -760,11 +760,11 @@ Get-MpCmdRunPath [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-OpenedFileHandleProcesses 
-````PowerShell 
+```PowerShell 
 
    Get-OpenedFileHandleProcesses  
 ```` 
@@ -773,7 +773,7 @@ Get-MpCmdRunPath [<CommonParameters>]
     Retrieves processes that have open file handles to specified files.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>] 
 ```` 
 
@@ -802,11 +802,11 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-PowershellMainWindow 
-````PowerShell 
+```PowerShell 
 
    Get-PowershellMainWindow  
 ```` 
@@ -815,7 +815,7 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
     Returns a window helper object for the PowerShell terminal's main window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-PowershellMainWindow [<CommonParameters>] 
 ```` 
 
@@ -831,11 +831,11 @@ Get-PowershellMainWindow [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-PowershellMainWindowProcess 
-````PowerShell 
+```PowerShell 
 
    Get-PowershellMainWindowProcess  
 ```` 
@@ -844,7 +844,7 @@ Get-PowershellMainWindow [<CommonParameters>]
     Returns the process object for the window hosting the PowerShell terminal.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-PowershellMainWindowProcess [<CommonParameters>] 
 ```` 
 
@@ -863,11 +863,11 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-Window 
-````PowerShell 
+```PowerShell 
 
    Get-Window                           --> gwin, window  
 ```` 
@@ -876,7 +876,7 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
     Gets window information for specified processes or window handles.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>] [<CommonParameters>] 
 ```` 
 
@@ -916,11 +916,11 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Initialize-ScheduledTaskScripts 
-````PowerShell 
+```PowerShell 
 
    Initialize-ScheduledTaskScripts  
 ```` 
@@ -929,7 +929,7 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
     Creates scheduled tasks that run PowerShell scripts at specified intervals.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -984,11 +984,11 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Invoke-WindowsUpdate 
-````PowerShell 
+```PowerShell 
 
    Invoke-WindowsUpdate                 --> Get-WindowsIsUpToDate, updatewindows  
 ```` 
@@ -997,7 +997,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
     Checks if Windows is up to date and optionally installs available updates.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -1091,11 +1091,11 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Pop-Window 
-````PowerShell 
+```PowerShell 
 
    Pop-Window                           --> popw  
 ```` 
@@ -1104,7 +1104,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
     Pops the last active window helper from the stack with optional modifications.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
@@ -1302,11 +1302,11 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Push-Window 
-````PowerShell 
+```PowerShell 
 
    Push-Window                          --> pushw  
 ```` 
@@ -1315,7 +1315,7 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
     Pushes the current window onto the window stack with optional modifications.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>] 
@@ -1513,11 +1513,11 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Send-Key 
-````PowerShell 
+```PowerShell 
 
    Send-Key                             --> invokekeys, sendkeys  
 ```` 
@@ -1526,7 +1526,7 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
     Sends simulated keystrokes to a window or process.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
    Send-Key [-KeysToSend] <String[]> [-ProcessId <Int32>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
    Send-Key [-KeysToSend] <String[]> [-WindowHandle <Int64>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>] 
@@ -1618,11 +1618,11 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-ClipboardFiles 
-````PowerShell 
+```PowerShell 
 
    Set-ClipboardFiles                   --> setclipfiles  
 ```` 
@@ -1631,7 +1631,7 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
     Sets files to the Windows clipboard for file operations like copy/paste.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -1672,11 +1672,11 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-ForegroundWindow 
-````PowerShell 
+```PowerShell 
 
    Set-ForegroundWindow  
 ```` 
@@ -1685,7 +1685,7 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
     Brings the specified window to the foreground and makes it the active window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -1726,11 +1726,11 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-KnownFolderPath 
-````PowerShell 
+```PowerShell 
 
    Set-KnownFolderPath  
 ```` 
@@ -1739,7 +1739,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
     Modifies the physical path of a Windows known folder.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -1795,11 +1795,11 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-TaskbarAlignment 
-````PowerShell 
+```PowerShell 
 
    Set-TaskbarAlignment                 --> Set-TaskAlign  
 ```` 
@@ -1808,7 +1808,7 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
     Configures Windows 11+ taskbar alignment between center and left positions.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -1848,11 +1848,11 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowPosition 
-````PowerShell 
+```PowerShell 
 
    Set-WindowPosition                   --> wp  
 ```` 
@@ -1861,7 +1861,7 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
     Positions and resizes windows when explicit positioning parameters are provided.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
    Set-WindowPosition [[-ProcessName] <String>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
    Set-WindowPosition [-Process <Process>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
@@ -2130,11 +2130,11 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowPositionForSecondary 
-````PowerShell 
+```PowerShell 
 
    Set-WindowPositionForSecondary       --> wps  
 ```` 
@@ -2143,7 +2143,7 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
     Positions a window on the secondary monitor with specified layout options.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -2390,11 +2390,11 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowsWallpaper 
-````PowerShell 
+```PowerShell 
 
    Set-WindowsWallpaper                 --> setaswallpaper  
 ```` 
@@ -2403,7 +2403,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
     Sets a random wallpaper from a specified directory.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -2459,11 +2459,11 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Start-ProcessWithPriority 
-````PowerShell 
+```PowerShell 
 
    Start-ProcessWithPriority            --> nice  
 ```` 
@@ -2472,7 +2472,7 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
     Starts a process with a specified priority level.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -2548,11 +2548,11 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Test-PathUsingWindowsDefender 
-````PowerShell 
+```PowerShell 
 
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ```` 
@@ -2561,7 +2561,7 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
     Scans files or directories for malware using Windows Defender.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
@@ -2598,20 +2598,20 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 &nbsp;<hr/>
 ###	GenXdev.Windows.WireGuard<hr/> 
 
 ##	Add-WireGuardPeer 
-````PowerShell 
+```PowerShell 
 
    Add-WireGuardPeer  
 ```` 
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>] [[-OutputPath] <string>] [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-SaveConfig] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left <int>] [-Right <int>] [-Bottom <int>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-ShowQRCode] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -2971,11 +2971,11 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsureWireGuard 
-````PowerShell 
+```PowerShell 
 
    EnsureWireGuard  
 ```` 
@@ -2984,7 +2984,7 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
     Ensures WireGuard VPN service is installed and running via Docker container.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
 ```` 
 
@@ -3236,7 +3236,7 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        To generate client configurations after setup:  
        - Run: docker exec -it wireguard /app/show-peer 1  
@@ -3257,11 +3257,11 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
    PS C:\> EnsureWireGuard -Force  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardPeerQRCode 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardPeerQRCode  
 ```` 
@@ -3270,7 +3270,7 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
     Generates a QR code for a WireGuard VPN peer configuration.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>] 
 ```` 
 
@@ -3385,7 +3385,7 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function requires the container to be running (use EnsureWireGuard first)  
        and the peer to exist (use Add-WireGuardPeer to create peers).  
@@ -3396,11 +3396,11 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
    PS C:\> Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardPeers 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardPeers  
 ```` 
@@ -3409,7 +3409,7 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
     Gets information about all WireGuard VPN peers configured on the system.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
@@ -3668,7 +3668,7 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to  
        retrieve information about configured WireGuard peers. The container must be  
@@ -3682,11 +3682,11 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
                       -ServicePort 55555  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardStatus 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardStatus  
 ```` 
@@ -3695,7 +3695,7 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
     Gets detailed status information about the WireGuard VPN server.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
@@ -3942,7 +3942,7 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to  
        retrieve status information about the WireGuard server. It requires the  
@@ -3955,11 +3955,11 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
    Retrieves status for a custom container without initializing Docker.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Remove-WireGuardPeer 
-````PowerShell 
+```PowerShell 
 
    Remove-WireGuardPeer  
 ```` 
@@ -3968,7 +3968,7 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
     Removes a WireGuard VPN peer configuration.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -4237,7 +4237,7 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to manage  
        WireGuard peers. It requires the container to be running (use EnsureWireGuard  
@@ -4255,11 +4255,11 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
    Removes the peer using positional parameter syntax.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Reset-WireGuardConfiguration 
-````PowerShell 
+```PowerShell 
 
    Reset-WireGuardConfiguration  
 ```` 
@@ -4268,7 +4268,7 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
     Resets the WireGuard VPN server configuration, removing all peers.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -4402,7 +4402,7 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to reset  
        the WireGuard server configuration. It requires the container to be running  
@@ -4420,14 +4420,14 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
    confirmation prompts.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 &nbsp;<hr/>
 ###	GenXdev.Windows<hr/> 
 
 ##	CurrentUserHasElevatedRights 
-````PowerShell 
+```PowerShell 
 
    CurrentUserHasElevatedRights  
 ```` 
@@ -4436,7 +4436,7 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
     Checks if the current user has elevated rights.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
 ```` 
 
@@ -4453,11 +4453,11 @@ CurrentUserHasElevatedRights [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsureDockerDesktop 
-````PowerShell 
+```PowerShell 
 
    EnsureDockerDesktop  
 ```` 
@@ -4467,7 +4467,7 @@ CurrentUserHasElevatedRights [<CommonParameters>]
     operations.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -4730,11 +4730,11 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsurePSTools 
-````PowerShell 
+```PowerShell 
 
    EnsurePSTools  
 ```` 
@@ -4743,7 +4743,7 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
     Ensures Sysinternals tools (PSTools) are installed and available.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>] 
 ```` 
 
@@ -4777,11 +4777,11 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ActiveUser 
-````PowerShell 
+```PowerShell 
 
    Get-ActiveUser                       --> gusers  
 ```` 
@@ -4790,7 +4790,7 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
     Retrieves a list of unique usernames from currently active system processes.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ActiveUser [<CommonParameters>] 
 ```` 
 
@@ -4806,11 +4806,11 @@ Get-ActiveUser [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ChildProcesses 
-````PowerShell 
+```PowerShell 
 
    Get-ChildProcesses  
 ```` 
@@ -4819,7 +4819,7 @@ Get-ActiveUser [<CommonParameters>]
     Retrieves all processes that are descendants of the current PowerShell process.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ChildProcesses [<CommonParameters>] 
 ```` 
 
@@ -4835,11 +4835,11 @@ Get-ChildProcesses [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ClipboardFiles 
-````PowerShell 
+```PowerShell 
 
    Get-ClipboardFiles                   --> getclipfiles  
 ```` 
@@ -4848,7 +4848,7 @@ Get-ChildProcesses [<CommonParameters>]
     Gets files from the Windows clipboard that were set for file operations like copy/paste.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ClipboardFiles [<CommonParameters>] 
 ```` 
 
@@ -4866,11 +4866,11 @@ Get-ClipboardFiles [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-CurrentFocusedProcess 
-````PowerShell 
+```PowerShell 
 
    Get-CurrentFocusedProcess  
 ```` 
@@ -4879,7 +4879,7 @@ Get-ClipboardFiles [<CommonParameters>]
     Retrieves the process object of the window that currently has keyboard focus.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-CurrentFocusedProcess [<CommonParameters>] 
 ```` 
 
@@ -4897,7 +4897,7 @@ Get-CurrentFocusedProcess [<CommonParameters>]
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        Requires Windows operating system as it uses Windows-specific API calls.  
        May return null if the process cannot be accessed due to permissions.  
@@ -4907,11 +4907,11 @@ Get-CurrentFocusedProcess [<CommonParameters>]
    Write-Host "Active window process: $($focusedProcess.ProcessName)"  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-DesktopScalingFactor 
-````PowerShell 
+```PowerShell 
 
    Get-DesktopScalingFactor  
 ```` 
@@ -4920,7 +4920,7 @@ Get-CurrentFocusedProcess [<CommonParameters>]
     Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>] 
 ```` 
 
@@ -4946,11 +4946,11 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-ForegroundWindow 
-````PowerShell 
+```PowerShell 
 
    Get-ForegroundWindow  
 ```` 
@@ -4959,7 +4959,7 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
     Gets the handle of the currently active foreground window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-ForegroundWindow [<CommonParameters>] 
 ```` 
 
@@ -4975,11 +4975,11 @@ Get-ForegroundWindow [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-KnownFolderPath 
-````PowerShell 
+```PowerShell 
 
    Get-KnownFolderPath                  --> folder  
 ```` 
@@ -4988,7 +4988,7 @@ Get-ForegroundWindow [<CommonParameters>]
     Gets the path of a Windows known folder using the Windows Shell32 API.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>] 
 ```` 
 
@@ -5016,11 +5016,11 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-MonitorCount 
-````PowerShell 
+```PowerShell 
 
    Get-MonitorCount  
 ```` 
@@ -5029,7 +5029,7 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
     Gets the total number of display monitors connected to the system.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-MonitorCount [<CommonParameters>] 
 ```` 
 
@@ -5045,11 +5045,11 @@ Get-MonitorCount [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-MpCmdRunPath 
-````PowerShell 
+```PowerShell 
 
    Get-MpCmdRunPath  
 ```` 
@@ -5058,7 +5058,7 @@ Get-MonitorCount [<CommonParameters>]
     Gets the path to the Windows Defender MpCmdRun.exe executable.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-MpCmdRunPath [<CommonParameters>] 
 ```` 
 
@@ -5074,11 +5074,11 @@ Get-MpCmdRunPath [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-OpenedFileHandleProcesses 
-````PowerShell 
+```PowerShell 
 
    Get-OpenedFileHandleProcesses  
 ```` 
@@ -5087,7 +5087,7 @@ Get-MpCmdRunPath [<CommonParameters>]
     Retrieves processes that have open file handles to specified files.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>] 
 ```` 
 
@@ -5116,11 +5116,11 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-PowershellMainWindow 
-````PowerShell 
+```PowerShell 
 
    Get-PowershellMainWindow  
 ```` 
@@ -5129,7 +5129,7 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
     Returns a window helper object for the PowerShell terminal's main window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-PowershellMainWindow [<CommonParameters>] 
 ```` 
 
@@ -5145,11 +5145,11 @@ Get-PowershellMainWindow [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-PowershellMainWindowProcess 
-````PowerShell 
+```PowerShell 
 
    Get-PowershellMainWindowProcess  
 ```` 
@@ -5158,7 +5158,7 @@ Get-PowershellMainWindow [<CommonParameters>]
     Returns the process object for the window hosting the PowerShell terminal.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-PowershellMainWindowProcess [<CommonParameters>] 
 ```` 
 
@@ -5177,11 +5177,11 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-Window 
-````PowerShell 
+```PowerShell 
 
    Get-Window                           --> gwin, window  
 ```` 
@@ -5190,7 +5190,7 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
     Gets window information for specified processes or window handles.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>] [<CommonParameters>] 
 ```` 
 
@@ -5230,11 +5230,11 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Initialize-ScheduledTaskScripts 
-````PowerShell 
+```PowerShell 
 
    Initialize-ScheduledTaskScripts  
 ```` 
@@ -5243,7 +5243,7 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
     Creates scheduled tasks that run PowerShell scripts at specified intervals.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -5298,11 +5298,11 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Invoke-WindowsUpdate 
-````PowerShell 
+```PowerShell 
 
    Invoke-WindowsUpdate                 --> Get-WindowsIsUpToDate, updatewindows  
 ```` 
@@ -5311,7 +5311,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
     Checks if Windows is up to date and optionally installs available updates.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -5405,11 +5405,11 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Pop-Window 
-````PowerShell 
+```PowerShell 
 
    Pop-Window                           --> popw  
 ```` 
@@ -5418,7 +5418,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
     Pops the last active window helper from the stack with optional modifications.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
@@ -5616,11 +5616,11 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Push-Window 
-````PowerShell 
+```PowerShell 
 
    Push-Window                          --> pushw  
 ```` 
@@ -5629,7 +5629,7 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
     Pushes the current window onto the window stack with optional modifications.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
    Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>] 
@@ -5827,11 +5827,11 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Send-Key 
-````PowerShell 
+```PowerShell 
 
    Send-Key                             --> invokekeys, sendkeys  
 ```` 
@@ -5840,7 +5840,7 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
     Sends simulated keystrokes to a window or process.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
    Send-Key [-KeysToSend] <String[]> [-ProcessId <Int32>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
    Send-Key [-KeysToSend] <String[]> [-WindowHandle <Int64>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>] 
@@ -5932,11 +5932,11 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-ClipboardFiles 
-````PowerShell 
+```PowerShell 
 
    Set-ClipboardFiles                   --> setclipfiles  
 ```` 
@@ -5945,7 +5945,7 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
     Sets files to the Windows clipboard for file operations like copy/paste.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -5986,11 +5986,11 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-ForegroundWindow 
-````PowerShell 
+```PowerShell 
 
    Set-ForegroundWindow  
 ```` 
@@ -5999,7 +5999,7 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
     Brings the specified window to the foreground and makes it the active window.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6040,11 +6040,11 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-KnownFolderPath 
-````PowerShell 
+```PowerShell 
 
    Set-KnownFolderPath  
 ```` 
@@ -6053,7 +6053,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
     Modifies the physical path of a Windows known folder.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6109,11 +6109,11 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-TaskbarAlignment 
-````PowerShell 
+```PowerShell 
 
    Set-TaskbarAlignment                 --> Set-TaskAlign  
 ```` 
@@ -6122,7 +6122,7 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
     Configures Windows 11+ taskbar alignment between center and left positions.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6162,11 +6162,11 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowPosition 
-````PowerShell 
+```PowerShell 
 
    Set-WindowPosition                   --> wp  
 ```` 
@@ -6175,7 +6175,7 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
     Positions and resizes windows when explicit positioning parameters are provided.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
    Set-WindowPosition [[-ProcessName] <String>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
    Set-WindowPosition [-Process <Process>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
@@ -6444,11 +6444,11 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowPositionForSecondary 
-````PowerShell 
+```PowerShell 
 
    Set-WindowPositionForSecondary       --> wps  
 ```` 
@@ -6457,7 +6457,7 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
     Positions a window on the secondary monitor with specified layout options.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6704,11 +6704,11 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Set-WindowsWallpaper 
-````PowerShell 
+```PowerShell 
 
    Set-WindowsWallpaper                 --> setaswallpaper  
 ```` 
@@ -6717,7 +6717,7 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
     Sets a random wallpaper from a specified directory.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6773,11 +6773,11 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Start-ProcessWithPriority 
-````PowerShell 
+```PowerShell 
 
    Start-ProcessWithPriority            --> nice  
 ```` 
@@ -6786,7 +6786,7 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
     Starts a process with a specified priority level.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -6862,11 +6862,11 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Test-PathUsingWindowsDefender 
-````PowerShell 
+```PowerShell 
 
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ```` 
@@ -6875,7 +6875,7 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
     Scans files or directories for malware using Windows Defender.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
@@ -6912,20 +6912,20 @@ Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<Common
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 &nbsp;<hr/>
 ###	GenXdev.Windows.WireGuard<hr/> 
 
 ##	Add-WireGuardPeer 
-````PowerShell 
+```PowerShell 
 
    Add-WireGuardPeer  
 ```` 
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>] [[-OutputPath] <string>] [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-SaveConfig] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left <int>] [-Right <int>] [-Bottom <int>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-ShowQRCode] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -7285,11 +7285,11 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	EnsureWireGuard 
-````PowerShell 
+```PowerShell 
 
    EnsureWireGuard  
 ```` 
@@ -7298,7 +7298,7 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
     Ensures WireGuard VPN service is installed and running via Docker container.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
 ```` 
 
@@ -7550,7 +7550,7 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        To generate client configurations after setup:  
        - Run: docker exec -it wireguard /app/show-peer 1  
@@ -7571,11 +7571,11 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
    PS C:\> EnsureWireGuard -Force  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardPeerQRCode 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardPeerQRCode  
 ```` 
@@ -7584,7 +7584,7 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
     Generates a QR code for a WireGuard VPN peer configuration.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>] 
 ```` 
 
@@ -7699,7 +7699,7 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function requires the container to be running (use EnsureWireGuard first)  
        and the peer to exist (use Add-WireGuardPeer to create peers).  
@@ -7710,11 +7710,11 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
    PS C:\> Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardPeers 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardPeers  
 ```` 
@@ -7723,7 +7723,7 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
     Gets information about all WireGuard VPN peers configured on the system.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
@@ -7982,7 +7982,7 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to  
        retrieve information about configured WireGuard peers. The container must be  
@@ -7996,11 +7996,11 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
                       -ServicePort 55555  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Get-WireGuardStatus 
-````PowerShell 
+```PowerShell 
 
    Get-WireGuardStatus  
 ```` 
@@ -8009,7 +8009,7 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
     Gets detailed status information about the WireGuard VPN server.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
@@ -8256,7 +8256,7 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to  
        retrieve status information about the WireGuard server. It requires the  
@@ -8269,11 +8269,11 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
    Retrieves status for a custom container without initializing Docker.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Remove-WireGuardPeer 
-````PowerShell 
+```PowerShell 
 
    Remove-WireGuardPeer  
 ```` 
@@ -8282,7 +8282,7 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
     Removes a WireGuard VPN peer configuration.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -8551,7 +8551,7 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to manage  
        WireGuard peers. It requires the container to be running (use EnsureWireGuard  
@@ -8569,11 +8569,11 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
    Removes the peer using positional parameter syntax.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>
  
 
 ##	Reset-WireGuardConfiguration 
-````PowerShell 
+```PowerShell 
 
    Reset-WireGuardConfiguration  
 ```` 
@@ -8582,7 +8582,7 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
     Resets the WireGuard VPN server configuration, removing all peers.  
 
 ### SYNTAX 
-````PowerShell 
+```PowerShell 
 Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
@@ -8716,7 +8716,7 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 
 ### NOTES 
-````PowerShell 
+```PowerShell 
 
        This function interacts with the linuxserver/wireguard Docker container to reset  
        the WireGuard server configuration. It requires the container to be running  
@@ -8734,4 +8734,4 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
    confirmation prompts.  
 ```` 
 
-<br/><hr/><hr/><br/>
+<br/><hr/><br/>

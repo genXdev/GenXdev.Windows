@@ -8,7 +8,7 @@ This module provides PowerShell functions to manage a WireGuard VPN server runni
 
 ## MIT License
 
-```text
+````text
 MIT License
 
 Copyright (c) 2025 GenXdev
