@@ -30,7 +30,7 @@ CompanyName = 'GenXdev'
 Copyright = 'Copyright 2021-2025 GenXdev'
 
 # Description of the functionality provided by this module
-Description = 'A Windows PowerShell module that provides ui Windows manipulation helpers'
+Description = 'A Windows PowerShell module that provides UI Windows manipulation helpers'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '7.5.0'

@@ -8,7 +8,7 @@
     GenXdev.Windows
 
 ### SYNOPSIS
-    A Windows PowerShell module that provides ui Windows manipulation helpers
+    A Windows PowerShell module that provides UI Windows manipulation helpers
 
 [![GenXdev.Windows](https://img.shields.io/powershellgallery/v/GenXdev.Windows.svg?style=flat-square&label=GenXdev.Windows)](https://www.powershellgallery.com/packages/GenXdev.Windows/) [![License](https://img.shields.io/github/license/genXdev/GenXdev.Windows?style=flat-square)](./LICENSE)
 
