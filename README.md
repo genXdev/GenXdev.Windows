@@ -998,7 +998,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### DESCRIPTION 
@@ -1008,7 +1008,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
     the system if updates require a restart.  
 
 ### PARAMETERS 
-    -AutoInstall [<SwitchParameter>]  
+    -Install [<SwitchParameter>]  
         Automatically install available Windows and winget updates instead of just  
         checking for their availability.  
         Required?                    false  
@@ -1019,7 +1019,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
         Accept wildcard characters?  false  
     -AutoReboot [<SwitchParameter>]  
         Automatically reboot the system if installed updates require a restart. This  
-        parameter only has effect when AutoInstall is also specified.  
+        parameter only has effect when Install is also specified.  
         Required?                    false  
         Position?                    named  
         Default value                False  
@@ -5312,7 +5312,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### DESCRIPTION 
@@ -5322,7 +5322,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
     the system if updates require a restart.  
 
 ### PARAMETERS 
-    -AutoInstall [<SwitchParameter>]  
+    -Install [<SwitchParameter>]  
         Automatically install available Windows and winget updates instead of just  
         checking for their availability.  
         Required?                    false  
@@ -5333,7 +5333,7 @@ Invoke-WindowsUpdate [-AutoInstall] [-AutoReboot] [[-Criteria] <String>] [-Inclu
         Accept wildcard characters?  false  
     -AutoReboot [<SwitchParameter>]  
         Automatically reboot the system if installed updates require a restart. This  
-        parameter only has effect when AutoInstall is also specified.  
+        parameter only has effect when Install is also specified.  
         Required?                    false  
         Position?                    named  
         Default value                False  

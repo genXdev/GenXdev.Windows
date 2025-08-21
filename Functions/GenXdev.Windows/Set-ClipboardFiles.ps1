@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 <#
 .SYNOPSIS
 Sets files to the Windows clipboard for file operations like copy/paste.
@@ -149,7 +149,7 @@ function Set-ClipboardFiles {
 
             # create a temporary file to store the json data
             $tempFile = GenXdev.FileSystem\Expand-Path ([System.IO.Path]::GetTempFileName()) -DeleteExistingFile -CreateDirectory
-            $jsonFilePaths | Microsoft.PowerShell.Utility\Out-File -FilePath $tempFile
+            $jsonFilePaths | Microsoft.PowerShell.Utility\Out-File  $tempFile
 
             # define the powershell command to execute in sta mode
             $command = (
