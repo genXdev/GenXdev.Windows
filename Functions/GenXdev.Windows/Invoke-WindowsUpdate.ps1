@@ -158,32 +158,46 @@ function Invoke-WindowsUpdate {
 
             try {
 
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Progress -Activity "Checking for Updates" -Status "Checking WinGet packages..." -PercentComplete 20
+                }
+
                 # get list of packages with updates available
                 $packagesWithUpdates = Microsoft.WinGet.Client\Get-WinGetPackage |
                     Microsoft.PowerShell.Core\Where-Object { $_.IsUpdateAvailable }
 
                 if ($packagesWithUpdates.Count -gt 0) {
 
-                    if (-not $NoBanner) {
-                        Microsoft.PowerShell.Utility\Write-Host (
-                            "Updating WinGet Packages:") -ForegroundColor Cyan
-                        Microsoft.PowerShell.Utility\Write-Host (
-                            "=========================") -ForegroundColor Cyan
-                    }
 
                     # confirm winget update installation with user
                     if ($PSCmdlet.ShouldProcess("$($packagesWithUpdates.Count) available winget packages", "Update")) {
 
+                        if (-not $NoBanner) {
+                            Microsoft.PowerShell.Utility\Write-Host (
+                                "Updating WinGet Packages:") -ForegroundColor Cyan
+                            Microsoft.PowerShell.Utility\Write-Host (
+                                "=========================") -ForegroundColor Cyan
+                        }
+
                         $successCount = 0
                         $errorCount = 0
                         $updateResults = @()
+                        $totalPackages = $packagesWithUpdates.Count
+                        $currentPackage = 0
 
                         # update each package that has updates available
                         foreach ($package in $packagesWithUpdates) {
 
                             try {
 
+                                $currentPackage++
+                                $percentComplete = [math]::Round(($currentPackage / $totalPackages) * 100)
+
                                 if (-not $NoBanner) {
+                                    Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing WinGet Updates" `
+                                        -Status "Updating $($package.Name) ($currentPackage of $totalPackages)" `
+                                        -PercentComplete $percentComplete
+
                                     Microsoft.PowerShell.Utility\Write-Host (
                                         "Updating: $($package.Name)") -ForegroundColor Yellow
                                 }
@@ -213,6 +227,7 @@ function Invoke-WindowsUpdate {
                         }
 
                         if (-not $NoBanner) {
+                            Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing WinGet Updates" -Completed
                             Microsoft.PowerShell.Utility\Write-Host ""
                             Microsoft.PowerShell.Utility\Write-Host (
                                 "WinGet Update Summary: $successCount successful, $errorCount failed") `
@@ -241,6 +256,10 @@ function Invoke-WindowsUpdate {
 
             try {
 
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Progress -Activity "Checking for Updates" -Status "Checking WinGet packages..." -PercentComplete 20
+                }
+
                 # get list of packages with updates available
                 $wingetUpdates = Microsoft.WinGet.Client\Get-WinGetPackage |
                     Microsoft.PowerShell.Core\Where-Object { $_.IsUpdateAvailable }
@@ -248,28 +267,36 @@ function Invoke-WindowsUpdate {
                 # determine if winget updates are available
                 $script:wingetHasUpdates = $wingetUpdates.Count -gt 0
 
-                # display winget updates if found and banner is enabled
-                if ($script:wingetHasUpdates -and -not $Install -and -not $NoBanner) {
+                # display winget updates if found
+                if ($script:wingetHasUpdates) {
 
-                    Microsoft.PowerShell.Utility\Write-Host (
-                        "Available Winget Updates:") -ForegroundColor Yellow
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "Available Winget Updates:") -ForegroundColor Yellow
 
-                    Microsoft.PowerShell.Utility\Write-Host (
-                        "=========================") -ForegroundColor Yellow
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "=========================") -ForegroundColor Yellow
 
-                    # display winget updates in formatted table
-                    $wingetUpdates | Microsoft.PowerShell.Utility\Format-Table `
-                        Name, Id, InstalledVersion, @{
-                            Label = 'Available'
-                            Expression = { $_.AvailableVersions[0] }
-                        }, Source -AutoSize |
-                        Microsoft.PowerShell.Utility\Out-String |
-                        Microsoft.PowerShell.Core\ForEach-Object {
-                            Microsoft.PowerShell.Utility\Write-Host $_.TrimEnd() `
-                                -ForegroundColor White
+                        # display winget updates in formatted table
+                        $wingetUpdates | Microsoft.PowerShell.Utility\Format-Table `
+                            Name, Id, InstalledVersion, @{
+                                Label = 'Available'
+                                Expression = { $_.AvailableVersions[0] }
+                            }, Source -AutoSize |
+                            Microsoft.PowerShell.Utility\Out-String |
+                            Microsoft.PowerShell.Core\ForEach-Object {
+                                Microsoft.PowerShell.Utility\Write-Host $_.TrimEnd() `
+                                    -ForegroundColor White
+                            }
+
+                        Microsoft.PowerShell.Utility\Write-Host ""
+                    }
+                    else {
+                        # When NoBanner is set, just output basic info without formatting
+                        $wingetUpdates | Microsoft.PowerShell.Utility\ForEach-Object {
+                            Microsoft.PowerShell.Utility\Write-Output "WinGet Update Available: $($_.Name) ($($_.InstalledVersion) -> $($_.AvailableVersions[0]))"
                         }
-
-                    Microsoft.PowerShell.Utility\Write-Host ""
+                    }
                 }
             }
             catch {
@@ -282,42 +309,70 @@ function Invoke-WindowsUpdate {
             }
         }
 
-        # check for outdated PowerShell modules and display them if not auto-installing
-        if (-not $Install -and -not $NoBanner) {
+        # check for outdated PowerShell modules
+        try {
 
-            try {
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Checking for Updates" -Status "Checking PowerShell modules..." -PercentComplete 60
+            }
 
-                Microsoft.PowerShell.Utility\Write-Verbose (
-                    "Checking for outdated PowerShell modules...")
+            Microsoft.PowerShell.Utility\Write-Verbose (
+                "Checking for outdated PowerShell modules...")
 
-                # get list of installed modules that have updates available
-                $outdatedModules = Microsoft.PowerShell.Management\Get-InstalledModule |
-                    Microsoft.PowerShell.Core\ForEach-Object {
-                        $installedModule = $_
-                        $latestVersion = Microsoft.PowerShell.Management\Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
+            # get list of installed modules that have updates available
+            $installedModules = Get-InstalledModule -ErrorAction SilentlyContinue
+
+            if (-not $installedModules) {
+                Microsoft.PowerShell.Utility\Write-Verbose "No installed modules found or Get-InstalledModule failed"
+                $script:moduleUpdatesAvailable = $false
+            }
+            else {
+                Microsoft.PowerShell.Utility\Write-Verbose "Found $($installedModules.Count) installed modules"
+
+                $outdatedModules = $installedModules | Microsoft.PowerShell.Core\ForEach-Object {
+                    $installedModule = $_
+                    Microsoft.PowerShell.Utility\Write-Verbose "Checking module: $($installedModule.Name) version $($installedModule.Version)"
+
+                    try {
+                        $latestVersion = Find-Module -Name $installedModule.Name -ErrorAction SilentlyContinue |
                             Microsoft.PowerShell.Utility\Select-Object -First 1
 
-                        if ($latestVersion -and ([version]$latestVersion.Version -gt [version]$installedModule.Version)) {
-                            [PSCustomObject]@{
-                                Name = $installedModule.Name
-                                InstalledVersion = $installedModule.Version
-                                AvailableVersion = $latestVersion.Version
-                                Repository = $latestVersion.Repository
+                        if ($latestVersion) {
+                            Microsoft.PowerShell.Utility\Write-Verbose "Latest version for $($installedModule.Name): $($latestVersion.Version)"
+
+                            if ([version]$latestVersion.Version -gt [version]$installedModule.Version) {
+                                Microsoft.PowerShell.Utility\Write-Verbose "Update available for $($installedModule.Name): $($installedModule.Version) -> $($latestVersion.Version)"
+                                [PSCustomObject]@{
+                                    Name = $installedModule.Name
+                                    InstalledVersion = $installedModule.Version
+                                    AvailableVersion = $latestVersion.Version
+                                    Repository = $latestVersion.Repository
+                                }
                             }
                         }
+                        else {
+                            Microsoft.PowerShell.Utility\Write-Verbose "No online version found for $($installedModule.Name)"
+                        }
                     }
+                    catch {
+                        Microsoft.PowerShell.Utility\Write-Verbose "Error checking module $($installedModule.Name): $_"
+                    }
+                }
 
                 # set tracking variable for module updates
                 $script:moduleUpdatesAvailable = $outdatedModules.Count -gt 0
+                Microsoft.PowerShell.Utility\Write-Verbose "Found $($outdatedModules.Count) modules with updates available"
+            }
 
-                # display outdated modules if found
-                if ($script:moduleUpdatesAvailable) {
+            # display outdated modules if found and not installing
+            if ($script:moduleUpdatesAvailable -and -not $Install) {
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "Available PowerShell Module Updates:") -ForegroundColor Cyan
 
                     Microsoft.PowerShell.Utility\Write-Host (
-                        "Available PowerShell Module Updates:") -ForegroundColor Magenta
-
-                    Microsoft.PowerShell.Utility\Write-Host (
-                        "====================================") -ForegroundColor Magenta
+                        "====================================") -ForegroundColor Cyan
 
                     # display module updates in formatted table
                     $outdatedModules | Microsoft.PowerShell.Utility\Format-Table `
@@ -331,47 +386,68 @@ function Invoke-WindowsUpdate {
                     Microsoft.PowerShell.Utility\Write-Host ""
                 }
                 else {
-
-                    Microsoft.PowerShell.Utility\Write-Verbose (
-                        "All installed PowerShell modules are up to date.")
+                    # When NoBanner is set, just output basic info without formatting
+                    $outdatedModules | Microsoft.PowerShell.Utility\ForEach-Object {
+                        Microsoft.PowerShell.Utility\Write-Output "PowerShell Module Update Available: $($_.Name) ($($_.InstalledVersion) -> $($_.AvailableVersion))"
+                    }
                 }
             }
-            catch {
+            elseif (-not $script:moduleUpdatesAvailable) {
 
                 Microsoft.PowerShell.Utility\Write-Verbose (
-                    "Failed to check PowerShell module updates: ${_}")
-
-                $script:moduleUpdatesAvailable = $false
+                    "All installed PowerShell modules are up to date.")
             }
         }
-        else {
+        catch {
 
-            # check for module updates even when auto-installing to set tracking variable
-            try {
+            Microsoft.PowerShell.Utility\Write-Verbose (
+                "Failed to check PowerShell module updates: ${_}")
 
-                $outdatedModules = Microsoft.PowerShell.Management\Get-InstalledModule |
-                    Microsoft.PowerShell.Core\ForEach-Object {
-                        $installedModule = $_
-                        $latestVersion = Microsoft.PowerShell.Management\Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
-                            Microsoft.PowerShell.Utility\Select-Object -First 1
-
-                        if ($latestVersion -and ([version]$latestVersion.Version -gt [version]$installedModule.Version)) {
-                            $installedModule
-                        }
-                    }
-
-                $script:moduleUpdatesAvailable = $outdatedModules.Count -gt 0
-            }
-            catch {
-
-                $script:moduleUpdatesAvailable = $false
-                Microsoft.PowerShell.Utility\Write-Verbose (
-                    "Failed to check PowerShell module updates: ${_}")
-            }
+            $script:moduleUpdatesAvailable = $false
         }
     }
 
     process {
+
+        if ($Install) {
+
+            if ($PSCmdlet.ShouldProcess("PowerShell modules", "Update")) {
+
+                if (-not $NoBanner) {
+                    Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Updates" -Status "Updating PowerShell modules..." -PercentComplete 10
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "Updating PowerShell Modules:") -ForegroundColor Yellow
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "=============================") -ForegroundColor Yellow
+                }
+
+                $oldPolicy = (Get-PSRepository -Name 'PSGallery').InstallationPolicy
+                try {
+                    if (-not (Get-PSRepository -Name 'PSGallery').InstallationPolicy -eq 'Trusted') {
+                        Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -Confirm:$false
+                    }
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "Running Update-Module -AcceptLicense...") -ForegroundColor Yellow
+                    }
+
+                    Update-Module -AcceptLicense -ErrorAction Continue -Confirm:$false
+
+                    if (-not $NoBanner) {
+                        Microsoft.PowerShell.Utility\Write-Host (
+                            "✓ PowerShell modules update completed") -ForegroundColor Green
+                        Microsoft.PowerShell.Utility\Write-Host ""
+                    }
+                }
+                finally {
+                    if ($oldPolicy -ne (Get-PSRepository -Name 'PSGallery').InstallationPolicy) {
+
+                        Set-PSRepository -Name 'PSGallery' -InstallationPolicy $oldPolicy -Confirm:$false
+                    }
+                }
+            }
+        }
 
         # if admin rights are not available, return result based on winget status only
         if (-not $script:hasAdminRights) {
@@ -398,6 +474,10 @@ function Invoke-WindowsUpdate {
                 }
             }
 
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Checking for Updates" -Status "Searching for Windows updates..." -PercentComplete 80
+            }
+
             Microsoft.PowerShell.Utility\Write-Verbose (
                 "Searching for Windows updates with criteria: $searchCriteria")
 
@@ -406,14 +486,21 @@ function Invoke-WindowsUpdate {
 
             $updates = $searchResult.Updates
 
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Checking for Updates" -Completed
+            }
+
             # check if no updates are available
             if ($updates.Count -eq 0 -and -not $script:wingetHasUpdates -and -not $script:moduleUpdatesAvailable) {
 
                 if (-not $NoBanner) {
 
-                    Microsoft.PowerShell.Utility\Write-Verbose (
-                        "No updates available. System is up to date.")
+                    Microsoft.PowerShell.Utility\Write-Host (
+                        "✅ System is up to date!") -ForegroundColor Green
                 }
+
+                Microsoft.PowerShell.Utility\Write-Verbose (
+                    "No updates available. System is up to date.")
 
                 return
             }
@@ -605,6 +692,7 @@ function Invoke-WindowsUpdate {
             $downloader.Updates = $updatesToInstall
 
             if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Windows Updates" -Status "Downloading updates..." -PercentComplete 20
                 Microsoft.PowerShell.Utility\Write-Host (
                     "Downloading updates...") -ForegroundColor Yellow
             }
@@ -624,6 +712,7 @@ function Invoke-WindowsUpdate {
             }
 
             if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Windows Updates" -Status "Installing updates..." -PercentComplete 60
                 Microsoft.PowerShell.Utility\Write-Host (
                     "✓ Download completed successfully") -ForegroundColor Green
             }
@@ -653,6 +742,7 @@ function Invoke-WindowsUpdate {
             }
 
             if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Windows Updates" -Completed
                 Microsoft.PowerShell.Utility\Write-Host (
                     "✓ Installation completed successfully") -ForegroundColor Green
                 Microsoft.PowerShell.Utility\Write-Host ""
@@ -690,16 +780,20 @@ function Invoke-WindowsUpdate {
             }
 
             # check for additional updates after installation
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Windows Updates" -Status "Checking for additional updates..." -PercentComplete 90
+            }
+
             $newSearchResult = $updateSearcher.Search($searchCriteria)
 
             # recheck for module updates after Update-Module has run
             $moduleUpdatesStillAvailable = $false
             if ($Install) {
                 try {
-                    $remainingModuleUpdates = Microsoft.PowerShell.Management\Get-InstalledModule |
+                    $remainingModuleUpdates = Get-InstalledModule |
                         Microsoft.PowerShell.Core\ForEach-Object {
                             $installedModule = $_
-                            $latestVersion = Microsoft.PowerShell.Management\Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
+                            $latestVersion = Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
                                 Microsoft.PowerShell.Utility\Select-Object -First 1
 
                             if ($latestVersion -and ([version]$latestVersion.Version -gt [version]$installedModule.Version)) {
@@ -711,6 +805,10 @@ function Invoke-WindowsUpdate {
                 catch {
                     $moduleUpdatesStillAvailable = $false
                 }
+            }
+
+            if (-not $NoBanner) {
+                Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Windows Updates" -Completed
             }
 
             # determine final status of system update state
@@ -779,13 +877,6 @@ function Invoke-WindowsUpdate {
     }
 
     end {
-
-        if ($Install) {
-
-            if ($PSCmdlet.ShouldProcess("PowerShell modules", "Update")) {
-                Update-Module -AcceptLicense -ErrorAction Continue
-            }
-        }
 
         # release com objects to prevent memory leaks
         if ($updateSession) {
