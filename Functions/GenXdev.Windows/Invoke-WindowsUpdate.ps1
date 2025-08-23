@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 <#
 .SYNOPSIS
 Checks if Windows is up to date and optionally installs available updates.
@@ -320,7 +320,7 @@ function Invoke-WindowsUpdate {
                 "Checking for outdated PowerShell modules...")
 
             # get list of installed modules that have updates available
-            $installedModules = Get-InstalledModule -ErrorAction SilentlyContinue
+            $installedModules = PowerShellGet\Get-InstalledModule -ErrorAction SilentlyContinue
 
             if (-not $installedModules) {
                 Microsoft.PowerShell.Utility\Write-Verbose "No installed modules found or Get-InstalledModule failed"
@@ -334,7 +334,7 @@ function Invoke-WindowsUpdate {
                     Microsoft.PowerShell.Utility\Write-Verbose "Checking module: $($installedModule.Name) version $($installedModule.Version)"
 
                     try {
-                        $latestVersion = Find-Module -Name $installedModule.Name -ErrorAction SilentlyContinue |
+                        $latestVersion = PowerShellGet\Find-Module -Name $installedModule.Name -ErrorAction SilentlyContinue |
                             Microsoft.PowerShell.Utility\Select-Object -First 1
 
                         if ($latestVersion) {
@@ -421,10 +421,10 @@ function Invoke-WindowsUpdate {
                         "=============================") -ForegroundColor Yellow
                 }
 
-                $oldPolicy = (Get-PSRepository -Name 'PSGallery').InstallationPolicy
+                $oldPolicy = (PowerShellGet\Get-PSRepository -Name 'PSGallery').InstallationPolicy
                 try {
-                    if (-not (Get-PSRepository -Name 'PSGallery').InstallationPolicy -eq 'Trusted') {
-                        Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -Confirm:$false
+                    if (-not (PowerShellGet\Get-PSRepository -Name 'PSGallery').InstallationPolicy -eq 'Trusted') {
+                        PowerShellGet\Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -Confirm:$false
                     }
 
                     if (-not $NoBanner) {
@@ -432,7 +432,7 @@ function Invoke-WindowsUpdate {
                             "Running Update-Module -AcceptLicense...") -ForegroundColor Yellow
                     }
 
-                    Update-Module -AcceptLicense -ErrorAction Continue -Confirm:$false
+                    PowerShellGet\Update-Module -AcceptLicense -ErrorAction Continue -Confirm:$false
 
                     if (-not $NoBanner) {
                         Microsoft.PowerShell.Utility\Write-Host (
@@ -441,9 +441,9 @@ function Invoke-WindowsUpdate {
                     }
                 }
                 finally {
-                    if ($oldPolicy -ne (Get-PSRepository -Name 'PSGallery').InstallationPolicy) {
+                    if ($oldPolicy -ne (PowerShellGet\Get-PSRepository -Name 'PSGallery').InstallationPolicy) {
 
-                        Set-PSRepository -Name 'PSGallery' -InstallationPolicy $oldPolicy -Confirm:$false
+                        PowerShellGet\Set-PSRepository -Name 'PSGallery' -InstallationPolicy $oldPolicy -Confirm:$false
                     }
                 }
             }
@@ -790,10 +790,10 @@ function Invoke-WindowsUpdate {
             $moduleUpdatesStillAvailable = $false
             if ($Install) {
                 try {
-                    $remainingModuleUpdates = Get-InstalledModule |
+                    $remainingModuleUpdates = PowerShellGet\Get-InstalledModule |
                         Microsoft.PowerShell.Core\ForEach-Object {
                             $installedModule = $_
-                            $latestVersion = Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
+                            $latestVersion = PowerShellGet\Find-Module -Name $_.Name -ErrorAction SilentlyContinue |
                                 Microsoft.PowerShell.Utility\Select-Object -First 1
 
                             if ($latestVersion -and ([version]$latestVersion.Version -gt [version]$installedModule.Version)) {
