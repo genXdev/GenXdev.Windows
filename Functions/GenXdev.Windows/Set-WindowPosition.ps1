@@ -347,7 +347,7 @@ function Set-WindowPosition {
         # store reference to powershell window for focus restoration
         $powerShellWindow = GenXdev.Windows\Get-PowershellMainWindow
 
-        # Warn if not running as admin/backup operator
+        # Check if running as admin/backup operator
         $hasElevated = $false
         try {
             $hasElevated = GenXdev.Windows\CurrentUserHasElevatedRights
@@ -355,10 +355,6 @@ function Set-WindowPosition {
         } catch {
 
             $hasElevated = $false
-        }
-        if ($hasElevated -ne $true) {
-
-            Microsoft.PowerShell.Utility\Write-Warning "WARNING: Due to missing administrator rights, only windows created by the current PowerShell process can be positioned."
         }
 
         # determine which process to work with based on parameter set
@@ -508,6 +504,28 @@ function Set-WindowPosition {
         # process each window that needs positioning
         if ($null -ne $Process) {
             Microsoft.PowerShell.Utility\Write-Verbose "Processing window for process: $($Process.ProcessName) (Id: $($Process.Id))"
+
+            # Warn if not running as admin and process wasn't created by current PowerShell
+            if ($hasElevated -ne $true) {
+                $currentPowershellPid = $PID
+                $isCreatedByCurrentPowershell = $false
+
+                try {
+                    # Check if this process was created by the current PowerShell process
+                    $processInfo = Microsoft.PowerShell.Management\Get-Process -Id $Process.Id -ErrorAction SilentlyContinue
+                    if ($null -ne $processInfo -and $null -ne $processInfo.Parent -and $processInfo.Parent.Id -eq $currentPowershellPid) {
+                        $isCreatedByCurrentPowershell = $true
+                    }
+                } catch {
+                    # If we can't determine parent process, assume it wasn't created by current PowerShell
+                    $isCreatedByCurrentPowershell = $false
+                }
+
+                if (-not $isCreatedByCurrentPowershell) {
+                    Microsoft.PowerShell.Utility\Write-Warning "Due to missing administrator rights, only windows created by the current PowerShell process can be positioned."
+                }
+            }
+
             # determine if any positioning parameters are provided
             $havePositioningParams = ($X -gt -999999) -or ($Y -gt -999999) `
                 -or ($Width -gt 0) -or ($Height -gt 0) `
