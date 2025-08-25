@@ -1002,15 +1002,15 @@ Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDr
 ```` 
 
 ### DESCRIPTION 
-    This function checks for both Windows updates and winget package updates. It can  
-    display available updates or automatically install them. The function requires  
-    administrative privileges to install Windows updates and can optionally reboot  
-    the system if updates require a restart.  
+    This function checks for Windows updates, winget package updates, and PowerShell  
+    module updates. It can display available updates or automatically install them.  
+    The function requires administrative privileges to install Windows updates and  
+    can optionally reboot the system if updates require a restart.  
 
 ### PARAMETERS 
     -Install [<SwitchParameter>]  
-        Automatically install available Windows and winget updates instead of just  
-        checking for their availability.  
+        Automatically install available Windows updates, winget packages, and PowerShell  
+        modules instead of just checking for their availability.  
         Required?                    false  
         Position?                    named  
         Default value                False  
@@ -5316,15 +5316,15 @@ Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDr
 ```` 
 
 ### DESCRIPTION 
-    This function checks for both Windows updates and winget package updates. It can  
-    display available updates or automatically install them. The function requires  
-    administrative privileges to install Windows updates and can optionally reboot  
-    the system if updates require a restart.  
+    This function checks for Windows updates, winget package updates, and PowerShell  
+    module updates. It can display available updates or automatically install them.  
+    The function requires administrative privileges to install Windows updates and  
+    can optionally reboot the system if updates require a restart.  
 
 ### PARAMETERS 
     -Install [<SwitchParameter>]  
-        Automatically install available Windows and winget updates instead of just  
-        checking for their availability.  
+        Automatically install available Windows updates, winget packages, and PowerShell  
+        modules instead of just checking for their availability.  
         Required?                    false  
         Position?                    named  
         Default value                False  
