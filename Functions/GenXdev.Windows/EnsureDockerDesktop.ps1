@@ -1,3 +1,31 @@
+<##############################################################################
+Part of PowerShell module : GenXdev.Windows
+Original cmdlet filename  : EnsureDockerDesktop.ps1
+Original author           : René Vaessen / GenXdev
+Version                   : 1.264.2025
+################################################################################
+MIT License
+
+Copyright 2021-2025 GenXdev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+################################################################################>
 ###############################################################################
 <#
 .SYNOPSIS
@@ -108,20 +136,18 @@ variables.
 
 .EXAMPLE
 EnsureDockerDesktop
-Ensures Docker Desktop is installed and properly configured.
 
 .EXAMPLE
 EnsureDockerDesktop -ShowWindow -Centered -NoBorders
-Ensures Docker Desktop is installed, properly configured, shows its UI
-window centered on screen without borders.
 
 .EXAMPLE
 EnsureDockerDesktop -ShowWindow -Monitor 1 -Left -Width 800 -Height 600
-Ensures Docker Desktop is installed, shows window on monitor 1, positioned
-on left half with specific dimensions.
-###############################################################################>
+#>
+#>
 function EnsureDockerDesktop {
+
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+
     param(
         #######################################################################
         [Parameter(
@@ -291,30 +317,46 @@ function EnsureDockerDesktop {
                 'AI preferences')
         )]
         [switch]$ClearSession,
-        #######################################################################
+        ###################################################################
         [Parameter(
             Mandatory = $false,
             HelpMessage = ('Store settings only in persistent preferences ' +
-                'without affecting session')
+                          'without affecting session')
         )]
         [Alias('FromPreferences')]
         [switch]$SkipSession,
-        #######################################################################
+        ###################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Skip Docker initialization and return immediately'
+        )]
         [switch]$NoDockerInitialization
+        ###################################################################
     )
 
 
     begin {
+
+        # skip docker initialization if requested by user
         if ($NoDockerInitialization) {
 
-            Microsoft.PowerShell.Utility\Write-Verbose ('Skipping Docker initialization...')
+            Microsoft.PowerShell.Utility\Write-Verbose ('Skipping Docker ' +
+                'initialization...')
+
             return
         }
-        if ($Force -and $PSCmdlet.ShouldProcess('Docker processes', 'Force stop Docker processes')) {
-            $null = Microsoft.PowerShell.Management\Get-Process *docker* -ErrorAction SilentlyContinue | Microsoft.PowerShell.Management\Stop-Process -Force
+
+        # force stop docker processes if requested and confirmed
+        if ($Force -and $PSCmdlet.ShouldProcess('Docker processes',
+                'Force stop Docker processes')) {
+
+            # stop all docker-related processes forcefully
+            $null = Microsoft.PowerShell.Management\Get-Process *docker* `
+                -ErrorAction SilentlyContinue |
+                Microsoft.PowerShell.Management\Stop-Process -Force
         }
 
-        #######################################################################
+        ###################################################################
         <#
         .SYNOPSIS
         Checks if the WinGet PowerShell module is installed.
@@ -327,9 +369,8 @@ function EnsureDockerDesktop {
 
         .EXAMPLE
         IsWinGetInstalled
-        Returns $true if WinGet module is available, $false otherwise.
         #>
-        #######################################################################
+        ###################################################################
         function IsWinGetInstalled {
 
             # attempt to load the winget module silently without error output
@@ -337,15 +378,15 @@ function EnsureDockerDesktop {
                 -ErrorAction SilentlyContinue
 
             # verify if module was loaded successfully by checking module list
-            $ModuleObj = Microsoft.PowerShell.Core\Get-Module `
+            $moduleObj = Microsoft.PowerShell.Core\Get-Module `
                 'Microsoft.WinGet.Client' `
                 -ErrorAction SilentlyContinue
 
             # return true if module object exists, false otherwise
-            return $null -ne $ModuleObj
+            return $null -ne $moduleObj
         }
 
-        #######################################################################
+        ###################################################################
         <#
         .SYNOPSIS
         Installs the WinGet PowerShell module.
@@ -357,9 +398,8 @@ function EnsureDockerDesktop {
 
         .EXAMPLE
         InstallWinGet
-        Installs the WinGet PowerShell module from PowerShell Gallery.
         #>
-        #######################################################################
+        ###################################################################
         function InstallWinGet {
 
             # output status message about winget installation
@@ -378,6 +418,10 @@ function EnsureDockerDesktop {
     }
 
     process {
+
+        $positioningDone = $false
+
+        # skip docker initialization if requested by user
         if ($NoDockerInitialization) {
             return
         }
@@ -437,9 +481,14 @@ function EnsureDockerDesktop {
 
             # install docker if not found in known installation paths
             if (-not $dockerFound) {
-                if ($PSCmdlet.ShouldProcess('Docker Desktop', 'Install Docker Desktop and required features, might need multiple reboots, just repeat your last command until fully installed.')) {
+                if ($PSCmdlet.ShouldProcess('Docker Desktop',
+                        ('Install Docker Desktop and required features, ' +
+                         'might need multiple reboots, just repeat your ' +
+                         'last command until fully installed.'))) {
 
-                    GenXdev.Windows\Invoke-WindowsUpdate -Install -AutoReboot -Verbose;
+                    # install windows updates and handle auto-reboot
+                    GenXdev.Windows\Invoke-WindowsUpdate -Install -AutoReboot `
+                        -Verbose
 
                     # inform user about docker installation process
                     Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +
@@ -452,19 +501,34 @@ function EnsureDockerDesktop {
                     }
 
                     try {
-                        # ───── EXECUTION POLICY ─────
-                        Microsoft.PowerShell.Security\Set-ExecutionPolicy Bypass -Scope Process -Force
+                        # set execution policy to bypass for process scope
+                        Microsoft.PowerShell.Security\Set-ExecutionPolicy Bypass `
+                            -Scope Process -Force
 
-                        # ───── WINDOWS FEATURES ─────
-                        Microsoft.PowerShell.Utility\Write-Host 'Enabling Hyper-V and Containers features…' -ForegroundColor Cyan
-                        Dism\Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-                        Dism\Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+                        # enable hyper-v and containers windows features
+                        Microsoft.PowerShell.Utility\Write-Host ('Enabling ' +
+                            'Hyper-V and Containers features…') `
+                            -ForegroundColor Cyan
 
-                        Microsoft.PowerShell.Utility\Write-Host 'Updating Windows Subsystem for Linux (WSL)…' -ForegroundColor Cyan
+                        # enable hyper-v feature for virtualization support
+                        Dism\Enable-WindowsOptionalFeature -Online `
+                            -FeatureName Microsoft-Hyper-V -All
+
+                        # enable containers feature for docker support
+                        Dism\Enable-WindowsOptionalFeature -Online `
+                            -FeatureName Containers -All
+
+                        # update windows subsystem for linux to latest version
+                        Microsoft.PowerShell.Utility\Write-Host ('Updating ' +
+                            'Windows Subsystem for Linux (WSL)…') `
+                            -ForegroundColor Cyan
+
                         wsl --update
                     }
                     catch {
-                        Microsoft.PowerShell.Utility\Write-Host 'Failed to enable Windows features or update WSL.' -ForegroundColor Red
+                        Microsoft.PowerShell.Utility\Write-Host ('Failed to ' +
+                            'enable Windows features or update WSL.') `
+                            -ForegroundColor Red
                     }
 
                     # install docker desktop using winget package manager
@@ -533,18 +597,49 @@ function EnsureDockerDesktop {
 
             # start docker desktop if found via get-command
             if ($dockerExePath) {
+
+                # initialize process variable
+                $p = $null
+
                 # start docker desktop process using found executable path
                 if ($ShowWindow) {
+
                     # start with window visible if ShowWindow is specified
-                    Microsoft.PowerShell.Management\Start-Process `
+                    $p = Microsoft.PowerShell.Management\Start-Process `
                         $dockerExePath.Source `
-                        -WindowStyle Normal
+                        -WindowStyle Normal `
+                        -PassThru
+
+                    # copy identical parameters for window positioning
+                    $wpParams = GenXdev.Helpers\Copy-IdenticalParamValues `
+                                    -BoundParameters $PSBoundParameters `
+                                    -FunctionName 'GenXdev.Windows\Set-WindowPosition'
+
+                    # set default monitor if not specified
+                    if (-not $PSBoundParameters.ContainsKey('Monitor')) {
+                        $wpParams['Monitor'] = -2
+                    }
+
+                    # position window with specified parameters
+                    $null = GenXdev.Windows\Set-WindowPosition @wpParams `
+                        -ProcessId $p.Id -ErrorAction SilentlyContinue
+
+                    $positioningDone = $true
                 } else {
                     # start minimized by default (hidden in tray)
-                    Microsoft.PowerShell.Management\Start-Process `
+                    $p = Microsoft.PowerShell.Management\Start-Process `
                         $dockerExePath.Source `
-                        -WindowStyle Minimized
+                        -WindowStyle Minimized `
+                        -PassThru
+
+                    # minimize window to tray
+                    $null = GenXdev.Windows\Set-WindowPosition -ProcessId $p.Id `
+                        -Minimize `
+                        -ErrorAction SilentlyContinue
+
+                    $positioningDone = $true
                 }
+
                 # wait for docker desktop to initialize (30 seconds)
                 Microsoft.PowerShell.Utility\Start-Sleep 30
             }
@@ -561,14 +656,39 @@ function EnsureDockerDesktop {
                     if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $path) {
                         # start docker desktop from found path with appropriate
                         # window style
+                        $p = $null
                         if ($ShowWindow) {
                             # start with window visible if ShowWindow is specified
-                            Microsoft.PowerShell.Management\Start-Process $path `
-                                -WindowStyle Normal
+                            $p = Microsoft.PowerShell.Management\Start-Process $path `
+                                -WindowStyle Normal `
+                                -PassThru
+
+                            # copy identical parameters for window positioning
+                            $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                                            -BoundParameters $PSBoundParameters `
+                                            -FunctionName 'GenXdev.Windows\Set-WindowPosition'
+
+                            if (-not $PSBoundParameters.ContainsKey('Monitor')) {
+                                $params['Monitor'] = -2
+                            }
+
+                            # set window positions and focus using the window helper
+                            $null = GenXdev.Windows\Set-WindowPosition @params `
+                                -ProcessId $p.Id -ErrorAction SilentlyContinue
+
+                            $positioningDone = $true
                         } else {
                             # start minimized by default (hidden in tray)
-                            Microsoft.PowerShell.Management\Start-Process $path `
-                                -WindowStyle Minimized
+                            $p = Microsoft.PowerShell.Management\Start-Process $path `
+                                -WindowStyle Minimized `
+                                -PassThru
+
+                            # minimize window to tray
+                            $null = GenXdev.Windows\Set-WindowPosition -ProcessId $p.Id `
+                                -Minimize `
+                                -ErrorAction SilentlyContinue
+
+                            $positioningDone = $true
                         }
                         # wait for docker desktop to initialize
                         Microsoft.PowerShell.Utility\Start-Sleep 30
@@ -579,7 +699,7 @@ function EnsureDockerDesktop {
         }
 
         # handle docker desktop window positioning if ShowWindow is specified
-        if ($ShowWindow) {
+        if ($ShowWindow -and -not $positioningDone) {
 
             # inform user that we're bringing docker desktop window to
             # foreground
@@ -593,6 +713,7 @@ function EnsureDockerDesktop {
                                     -Scope Local -ErrorAction SilentlyContinue)
 
             $null = GenXdev.Windows\Set-WindowPosition @params -ProcessName "Docker Desktop" -ErrorAction SilentlyContinue
+            $positioningDone = $true
         }
 
         # wait for docker daemon to become ready for commands

@@ -1,4 +1,32 @@
-﻿################################################################################
+<##############################################################################
+Part of PowerShell module : GenXdev.Windows
+Original cmdlet filename  : Set-WindowPosition.ps1
+Original author           : René Vaessen / GenXdev
+Version                   : 1.264.2025
+################################################################################
+MIT License
+
+Copyright 2021-2025 GenXdev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+################################################################################>
+################################################################################
 <#
 .SYNOPSIS
 Positions and resizes windows when explicit positioning parameters are provided.
@@ -70,6 +98,9 @@ Focus the window after positioning
 
 .PARAMETER SetForeground
 Set the window to foreground after positioning
+
+.PARAMETER Minimize
+Minimizes the window after positioning
 
 .PARAMETER Maximize
 Maximize the window after positioning
@@ -247,7 +278,6 @@ function Set-WindowPosition {
         )]
         [Alias('pt')]
         [switch]$PassThru,
-
         ########################################################################
         [parameter(
             Mandatory = $false,
@@ -272,6 +302,12 @@ function Set-WindowPosition {
         )]
         [Alias('fg')]
         [switch] $SetForeground,
+        ########################################################################
+        [Parameter(
+            Mandatory = $false,
+            HelpMessage = 'Minimizes the window after positioning'
+        )]
+        [switch] $Minimize,
         ########################################################################
         [Parameter(
             Mandatory = $false,
@@ -341,26 +377,94 @@ function Set-WindowPosition {
 
     begin {
 
-        # store reference to bound parameters for later use
-        $myPSBoundParameters = $PSBoundParameters
+        # get primary screen and all available screens
+        $screen = $null
+
+        $allScreens = @([WpfScreenHelper.Screen]::AllScreens |
+                Microsoft.PowerShell.Core\ForEach-Object { $PSItem })
+
+        Microsoft.PowerShell.Utility\Write-Verbose ("Found $($allScreens.Count) " +
+            "monitors available for window positioning")
+
+        # list all available monitors for debugging
+        for ($i = 0; $i -lt $allScreens.Count; $i++) {
+
+            $screenInfo = $allScreens[$i]
+            Microsoft.PowerShell.Utility\Write-Verbose ("Monitor ${i}: " +
+                "$($screenInfo.WorkingArea.Width)x$($screenInfo.WorkingArea.Height) " +
+                "at ($($screenInfo.WorkingArea.X),$($screenInfo.WorkingArea.Y)) " +
+                "Device: $($screenInfo.DeviceName)")
+        }
+
 
         # store reference to powershell window for focus restoration
         $powerShellWindow = GenXdev.Windows\Get-PowershellMainWindow
 
-        # Check if running as admin/backup operator
-        $hasElevated = $false
-        try {
-            $hasElevated = GenXdev.Windows\CurrentUserHasElevatedRights
+        if ($null -ne $powerShellWindow) {
 
-        } catch {
-
-            $hasElevated = $false
+            Microsoft.PowerShell.Utility\Write-Verbose ("PowerShell window " +
+                "found - Handle: $($powerShellWindow.Handle), " +
+                "Position: $($powerShellWindow.Position().X)," +
+                "$($powerShellWindow.Position().Y), " +
+                "Size: $($powerShellWindow.Size().Width)x" +
+                "$($powerShellWindow.Size().Height)")
         }
+        else {
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("PowerShell window " +
+                "not found or not available")
+        }
+
+        # auto-enable side by side if second monitor requested but not available
+        $wpparams = GenXdev.Helpers\Copy-IdenticalParamValues `
+                    -BoundParameters $PSBoundParameters `
+                    -FunctionName 'GenXdev.Windows\Set-WindowPosition'
+
+        Microsoft.PowerShell.Utility\Write-Verbose ("Window positioning " +
+            "parameters available: $($wpparams.Keys -join ', ')")
+
+        $ForcedSideBySide = ($Monitor -eq -2) -and (
+               ($allScreens.Count -lt 2)  -or
+               (-not ($Global:DefaultSecondaryMonitor -is [int] -and ($Global:DefaultSecondaryMonitor -gt 0)))
+        )
+
+        if ($ForcedSideBySide) {
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Forcing side-by-side " +
+                "positioning: insufficient monitors ($($allScreens.Count)) or " +
+                "invalid DefaultSecondaryMonitor " +
+                "($Global:DefaultSecondaryMonitor)")
+        }
+
+        if ($SideBySide -or $ForcedSideBySide){
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Configuring " +
+                "side-by-side positioning - PowerShell monitor: " +
+                "$($powerShellWindow.GetCurrentMonitor()), " +
+                "Target monitor: $($powerShellWindow.GetCurrentMonitor() + 1)")
+
+            $SideBySide = $true
+            $Monitor = $powerShellWindow.GetCurrentMonitor() + 1
+            $SetForeground = $true
+            $RestoreFocus = $true
+            $Maximize = $false
+            $FullScreen = $false
+            if ($KeysToSend.Count -eq 1 -and $KeysToSend[0] -in @('f', '{F11}')) {
+                $KeysToSend = @()
+            }
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Side-by-side final " +
+                "settings: Monitor=$Monitor, SetForeground=$SetForeground, " +
+                "RestoreFocus=$RestoreFocus, Maximize=$Maximize")
+        }
+
+        # store reference to bound parameters for later use
+        $myPSBoundParameters = $PSBoundParameters
 
         # determine which process to work with based on parameter set
         switch ($PSCmdlet.ParameterSetName) {
             'ProcessName' {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ParameterSetName: ProcessName'
+                Microsoft.PowerShell.Utility\Write-Verbose ('ParameterSetName: ProcessName')
                 # get processes by name
                 $foundProcess = Microsoft.PowerShell.Management\Get-Process `
                     -Name $ProcessName `
@@ -374,18 +478,19 @@ function Set-WindowPosition {
                     Microsoft.PowerShell.Utility\Select-Object `
                         -First 1
                 if ($null -eq $foundProcess) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "No process found with name '$ProcessName' (ProcessName set)"
+                    Microsoft.PowerShell.Utility\Write-Verbose ("No process found with name '$ProcessName' (ProcessName set)")
                     Microsoft.PowerShell.Utility\Write-Error ('No process found with ' + "name '$ProcessName'")
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Process found: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (ProcessName set)"
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Process found: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (ProcessName set)")
                     $Process = $foundProcess
                     Microsoft.PowerShell.Utility\Write-Verbose ('Found process: ' + "$($Process.ProcessName) with ID $($Process.Id)")
                 }
                 break;
             }
             'Process' {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ParameterSetName: Process'
+                Microsoft.PowerShell.Utility\Write-Verbose ('ParameterSetName: Process')
+
                 # get process by id first
                 $foundProcess = Microsoft.PowerShell.Management\Get-Process `
                     -Id ($Process.Id) `
@@ -393,8 +498,11 @@ function Set-WindowPosition {
                     Microsoft.PowerShell.Core\Where-Object `
                         -Property 'MainWindowHandle' `
                         -NE 0
+
                 if ($null -eq $foundProcess) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "No process found by Id $($Process.Id), trying by Name $($Process.Name) (Process set)"
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("No process found by Id $($Process.Id), trying by Name $($Process.Name) (Process set)")
+
                     # fallback to process by name
                     $foundProcess = Microsoft.PowerShell.Management\Get-Process `
                         -Name ($Process.Name) `
@@ -402,42 +510,53 @@ function Set-WindowPosition {
                         Microsoft.PowerShell.Core\Where-Object `
                             -Property 'MainWindowHandle' `
                             -NE 0
+
                     if ($null -eq $foundProcess) {
-                        Microsoft.PowerShell.Utility\Write-Verbose "No process found with name '$($Process.Name)' (Process set)"
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ("No process found with name '$($Process.Name)' (Process set)")
                         Microsoft.PowerShell.Utility\Write-Error ('No process found with ' + "name '$($Process.Name)'")
                         $Process = $null
+
                     } else {
-                        Microsoft.PowerShell.Utility\Write-Verbose "Process found by Name: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (Process set)"
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Process found by Name: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (Process set)")
                     }
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Process found by Id: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (Process set)"
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Process found by Id: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (Process set)")
                     $Process = $foundProcess
                     Microsoft.PowerShell.Utility\Write-Verbose ('Found process: ' + "$($Process.ProcessName) with ID $($Process.Id)")
                 }
                 break;
             }
             'WindowHelper' {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ParameterSetName: WindowHelper'
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('ParameterSetName: WindowHelper')
+
                 # get processes from window helper handles
                 $foundProcess = Microsoft.PowerShell.Management\Get-Process `
                     -ErrorAction SilentlyContinue |
                     Microsoft.PowerShell.Core\Where-Object `
                         -Property MainWindowHandle `
                         -EQ $WindowHelper.Handle
+
                 if ($null -eq $foundProcess) {
-                    Microsoft.PowerShell.Utility\Write-Verbose "No process found with window handle '$($WindowHelper.Handle)' (WindowHelper set)"
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("No process found with window handle '$($WindowHelper.Handle)' (WindowHelper set)")
                     Microsoft.PowerShell.Utility\Write-Error ('No process found with ' + "window handle '$($WindowHelper.Handle)'")
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose "Process found by WindowHelper: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (WindowHelper set)"
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Process found by WindowHelper: $($foundProcess.ProcessName) with ID $($foundProcess.Id) (WindowHelper set)")
                     $Process = $foundProcess
                     Microsoft.PowerShell.Utility\Write-Verbose ('Found process: ' + "$($Process.ProcessName) with ID $($Process.Id)")
                 }
                 break;
             }
             default {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ParameterSetName: default (using PowerShell main window process)'
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('ParameterSetName: default (using PowerShell main window process)')
                 # default to powershell main window process
                 $Process = (GenXdev.Windows\Get-PowershellMainWindowProcess)
                 break;
@@ -447,159 +566,193 @@ function Set-WindowPosition {
 
     process {
 
-        # get primary screen and all available screens
-        $screen = $null
-
-        $allScreens = @([WpfScreenHelper.Screen]::AllScreens |
-                Microsoft.PowerShell.Core\ForEach-Object { $PSItem })
-
-        # helper function to restore powershell window focus if requested
-        function refocusTab() {
-
-            # only proceed if restore focus was requested
-            if ($RestoreFocus -eq $true) {
-
-                # get current foreground window
-                $currentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow()
-
-                # check if focus needs to be restored
-                if (($null -ne $powerShellWindow) -and
-                    ($powerShellWindow.Handle -ne $currentActiveWindow.Handle)) {
-
-                    # attempt to restore focus
-                    $null = $powerShellWindow.SetForeground()
-
-                    # wait for window manager
-                    [System.Threading.Thread]::Sleep(250)
-
-                    # verify focus restoration
-                    $currentActiveWindow = [GenXdev.Helpers.WindowObj]::GetFocusedWindow()
-
-                    if ($powerShellWindow.Handle -ne $currentActiveWindow.Handle) {
-
-                        try {
-
-                            # fallback to alt-tab if direct focus failed
-                            $helper = Microsoft.PowerShell.Utility\New-Object `
-                                -ComObject WScript.Shell
-
-                            $null = $helper.sendKeys('%{TAB}')
-
-                            Microsoft.PowerShell.Utility\Write-Verbose ('Used Alt-Tab to restore ' +
-                                'focus')
-
-                            [System.Threading.Thread]::Sleep(500)
-                        }
-                        catch {
-
-                            # silently continue if focus restoration fails
-                        }
-                    }
-                }
-            }
-        }
 
         ########################################################################
 
         # process each window that needs positioning
         if ($null -ne $Process) {
-            Microsoft.PowerShell.Utility\Write-Verbose "Processing window for process: $($Process.ProcessName) (Id: $($Process.Id))"
 
-            # Warn if not running as admin and process wasn't created by current PowerShell
-            if ($hasElevated -ne $true) {
-                $currentPowershellPid = $PID
-                $isCreatedByCurrentPowershell = $false
-
-                try {
-                    # Check if this process was created by the current PowerShell process
-                    $processInfo = Microsoft.PowerShell.Management\Get-Process -Id $Process.Id -ErrorAction SilentlyContinue
-                    if ($null -ne $processInfo -and $null -ne $processInfo.Parent -and $processInfo.Parent.Id -eq $currentPowershellPid) {
-                        $isCreatedByCurrentPowershell = $true
-                    }
-                } catch {
-                    # If we can't determine parent process, assume it wasn't created by current PowerShell
-                    $isCreatedByCurrentPowershell = $false
-                }
-
-                if (-not $isCreatedByCurrentPowershell) {
-                    Microsoft.PowerShell.Utility\Write-Warning "Due to missing administrator rights, only windows created by the current PowerShell process can be positioned."
-                }
-            }
+            Microsoft.PowerShell.Utility\Write-Verbose ("Processing window for process: $($Process.ProcessName) (Id: $($Process.Id))")
 
             # determine if any positioning parameters are provided
             $havePositioningParams = ($X -gt -999999) -or ($Y -gt -999999) `
                 -or ($Width -gt 0) -or ($Height -gt 0) `
                 -or $Left -or $Right -or $Top -or $Bottom `
                 -or $Centered -or $Fullscreen -or $SideBySide `
-                -or $Maximize
+                -or $Maximize -or $Minimize -or $NoBorders
 
-            $havePositioning = $havePositioningParams
+            # determine if any focus/foreground parameters are provided
+            $haveFocusParams = $SetForeground -or $FocusWindow -or $RestoreFocus -or ($KeysToSend -and ($KeysToSend.Count -gt 0))
 
-                # get window handle - use powershell window or process main window
+            # determine if we should process the window (positioning, focus, or keys)
+            $shouldProcessWindow = $havePositioningParams -or $haveFocusParams -or ($null -ne $KeysToSend -and ($KeysToSend.Count -gt 0))
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Positioning parameters " +
+                "detected: $havePositioningParams (X=$X, Y=$Y, Width=$Width, " +
+                "Height=$Height, Left=$Left, Right=$Right, Top=$Top, " +
+                "Bottom=$Bottom, Centered=$Centered, Fullscreen=$Fullscreen, " +
+                "SideBySide=$SideBySide, Maximize=$Maximize, Minimize=$Minimize, " +
+                "NoBorders=$NoBorders)")
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Focus parameters " +
+                "detected: $haveFocusParams (SetForeground=$SetForeground, " +
+                "FocusWindow=$FocusWindow, RestoreFocus=$RestoreFocus)")
+
+            Microsoft.PowerShell.Utility\Write-Verbose ("Should process window: " +
+                "$shouldProcessWindow (positioning=$havePositioningParams, " +
+                "focus=$haveFocusParams, keys=$($null -ne $KeysToSend -and ($KeysToSend.Count -gt 0)))")
+
+            # get window handle - use powershell window or process main window
             $window = $WindowHelper ? $WindowHelper : (GenXdev.Windows\Get-Window -ProcessId ($Process.Id))
+
+            if ($null -ne $window) {
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("`r`n-----------`r`nWindow object found:`r`n" +
+                    "Title: $($window.Title)`r`n" +
+                    "Handle: $($window.Handle)`r`n" +
+                    "Position: $($window.Position().X),$($window.Position().Y)`r`n" +
+                    "Size: $($window.Size().Width)x$($window.Size().Height)`r`n-----------")
+            }
+            else {
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("No window object " +
+                    "available for process $($Process.ProcessName)")
+            }
 
             # detect window's current monitor for comparison
             $currentWindowScreen = $null
             if ($null -ne $window) {
                 $currentWindowScreen = [WpfScreenHelper.Screen]::FromPoint(@{X = $window.Position().X; Y = $window.Position().Y })
+                Microsoft.PowerShell.Utility\Write-Verbose ("Window's current " +
+                    "monitor detected: $($currentWindowScreen.DeviceName) - " +
+                    "$($currentWindowScreen.WorkingArea.Width)x" +
+                    "$($currentWindowScreen.WorkingArea.Height)")
             }
             if ($Monitor -eq 0) {
-                Microsoft.PowerShell.Utility\Write-Verbose ('Choosing primary monitor, because default monitor requested using -Monitor 0')
+                Microsoft.PowerShell.Utility\Write-Verbose ('Choosing primary ' +
+                    'monitor, because default monitor requested using -Monitor 0')
+
                 $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("Primary monitor " +
+                    "selected: $($Screen.DeviceName) - " +
+                    "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                    "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
-            elseif (((GenXdev.Windows\Get-MonitorCount) -gt 1) -and $Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0) {
+            elseif ((-not $SideBySide) -and ((GenXdev.Windows\Get-MonitorCount) -gt 1) -and $Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0) {
+
                 $userMonitorNum = $Global:DefaultSecondaryMonitor
                 $screenIndex = ($Global:DefaultSecondaryMonitor) % $AllScreens.Length
-                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' + "#$userMonitorNum as secondary (requested with -monitor -2) set by `$Global:DefaultSecondaryMonitor")
+                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' +
+                    "#$userMonitorNum as secondary (requested with -monitor -2) " +
+                    "set by `$Global:DefaultSecondaryMonitor")
                 $Screen = $AllScreens[$screenIndex];
                 $Monitor = $Global:DefaultSecondaryMonitor;
-            }
-            elseif ($Monitor -eq -2 -and ((GenXdev.Windows\Get-MonitorCount) -gt 1)) {
-                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor #1 as default secondary (requested with -monitor -2), because `$Global:DefaultSecondaryMonitor not set')
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("Secondary monitor " +
+                    "selected: $($Screen.DeviceName) - " +
+                    "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                    "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
+
+            } elseif ($Monitor -eq -2 -and ((GenXdev.Windows\Get-MonitorCount) -gt 1) -and -not $SideBySide) {
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor #1 ' +
+                    'as default secondary (requested with -monitor -2), because ' +
+                    '`$Global:DefaultSecondaryMonitor not set')
+
                 $Screen = $AllScreens[1 % $AllScreens.Length];
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("Default secondary " +
+                    "monitor selected: $($Screen.DeviceName) - " +
+                    "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                    "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
-            elseif ($Monitor -eq -2) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Monitor -2 requested but no secondary monitor found, defaulting to primary.'
+            elseif ($Monitor -eq -2 -and -not $SideBySide) {
+                Microsoft.PowerShell.Utility\Write-Verbose ('Monitor -2 requested ' + 'but no secondary monitor found, defaulting to primary.')
                 $Monitor = 0
                 $Screen = [WpfScreenHelper.Screen]::PrimaryScreen;
+                Microsoft.PowerShell.Utility\Write-Verbose ("Fallback to primary " +
+                    "monitor: $($Screen.DeviceName)) - " +
+                    "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                    "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
-            elseif ($Monitor -ge 1) {
-                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' + "#$((($Monitor - 1) % $AllScreens.Length)) as requested by the -Monitor parameter")
-                $Screen = $AllScreens[($Monitor - 1) % $AllScreens.Length]
+            elseif ((-not $SideBySide) -and $Monitor -ge 1) {
+                $selectedIndex = ($Monitor - 1) % $AllScreens.Length
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' +
+                    "#$selectedIndex as requested by the -Monitor parameter " +
+                    "($Monitor)")
+
+                $Screen = $AllScreens[$selectedIndex]
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("Requested monitor " +
+                    "selected: $($Screen.DeviceName) - " +
+                    "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                    "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
             else {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Picking monitor #1 (FromPoint)'
-                $Screen = $currentWindowScreen
+                if (-not $SideBySide) {
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' + '#1 (FromPoint)')
+                    $Screen = $currentWindowScreen
+
+                    if ($null -ne $Screen) {
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Window's " +
+                            "current monitor used: $($Screen.DeviceName) - " +
+                            "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                            "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
+                    }
+                }
+                else {
+
+                    $Screen = $allScreens[$powerShellWindow.GetCurrentMonitor()]
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("PowerShell's " +
+                        "current monitor used for side-by-side: " +
+                        "$($Screen.DeviceName) - " +
+                        "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                        "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
+                }
             }
 
             # handle side-by-side positioning
             if ($SideBySide -and ($powerShellWindow.Handle -ne $window.Handle)) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'SideBySide requested and window is not PowerShell main window.'
 
+                Microsoft.PowerShell.Utility\Write-Verbose ('SideBySide requested and ' + 'window is not PowerShell main window.')
                 $powershellMonitorIndex = $AllScreens.IndexOf($PowershellScreen)+1
-                Microsoft.PowerShell.Utility\Write-Verbose 'Window and PowerShell are on the same screen.'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Window and PowerShell are ' + 'on the same screen.')
+                Microsoft.PowerShell.Utility\Write-Verbose ("PowerShell screen index: " +
+                    "$powershellMonitorIndex for side-by-side positioning")
 
                 $left = $false; $top = $false; $right = $false; $FullScreen = $false; $Centered = $false
+                $KeysToSend = ($KeysToSend.Count -eq 1) -and ($KeysToSend[0] -in @('f', '{F11}') ? @() : $KeysToSend)
+                $RestoreFocus = $true
 
                 # split horizontally or vertically based on screen orientation
                 if ($PowershellScreen.WorkingArea.Width -gt $PowershellScreen.WorkingArea.Height) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Screen is taller than wide, splitting vertically (Bottom).'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Screen is taller than ' +
+                        'wide, splitting vertically (Bottom). Screen dimensions: ' +
+                        "$($PowershellScreen.WorkingArea.Width)x" +
+                        "$($PowershellScreen.WorkingArea.Height)")
                     GenXdev.Windows\Set-WindowPosition -Bottom -Monitor $powershellMonitorIndex
                     $FullScreen = $false
                     $Top = $true
-                    $havePositioning = $true;
+                    Microsoft.PowerShell.Utility\Write-Verbose ('PowerShell moved to ' + 'bottom, target window will be positioned at top')
                 }
                 else {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Screen is wider than tall, splitting horizontally (Left).'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Screen is wider than ' +
+                        'tall, splitting horizontally (Left)). Screen dimensions: ' +
+                        "$($PowershellScreen.WorkingArea.Width)x" +
+                        "$($PowershellScreen.WorkingArea.Height)")
                     GenXdev.Windows\Set-WindowPosition -Left -Monitor $powershellMonitorIndex
                     $FullScreen = $false
                     $right = $true;
-                    $havePositioning = $true;
+                    Microsoft.PowerShell.Utility\Write-Verbose ('PowerShell moved to ' + 'left, target window will be positioned on right')
                 }
             }
 
             if ($null -eq $screen) {
-                Microsoft.PowerShell.Utility\Write-Verbose "No screen object set, using window's current monitor as fallback."
+                Microsoft.PowerShell.Utility\Write-Verbose ("No screen object set, using window's current monitor as fallback.")
                 $screen = $currentWindowScreen ? $currentWindowScreen : $allScreens[0]
             }
 
@@ -611,14 +764,30 @@ function Set-WindowPosition {
 
                 if ($isMonitorChangeRequest) {
 
-                    Microsoft.PowerShell.Utility\Write-Verbose ("Monitor change detected: Moving window from '$($currentWindowScreen.DeviceName)' to '$($Screen.DeviceName)'")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Monitor change " +
+                        "detected: Moving window from " +
+                        "'$($currentWindowScreen.DeviceName)' to " +
+                        "'$($Screen.DeviceName)'")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Source monitor " +
+                        "working area: $($currentWindowScreen.WorkingArea.Width)x" +
+                        "$($currentWindowScreen.WorkingArea.Height) at " +
+                        "($($currentWindowScreen.WorkingArea.X)," +
+                        "$($currentWindowScreen.WorkingArea.Y))")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Target monitor " +
+                        "working area: $($Screen.WorkingArea.Width)x" +
+                        "$($Screen.WorkingArea.Height) at " +
+                        "($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
+
                     # Monitor change implies positioning is needed
                     if (-not $havePositioningParams) {
 
-                        Microsoft.PowerShell.Utility\Write-Verbose 'No explicit positioning parameters, but monitor change requested - enabling positioning'
-                        $havePositioning = $true
+                        Microsoft.PowerShell.Utility\Write-Verbose ('No explicit ' + 'positioning parameters, but monitor change requested ' +
+                            '- enabling positioning for monitor change')
+                        $havePositioningParams = $true
 
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Detecting current window position to preserve when moving to new monitor'
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Detecting ' +
+                            'current window position to preserve when moving to ' +
+                            'new monitor')
 
                         # Get current window position and size
                         $currentPos = $window.Position()
@@ -650,10 +819,10 @@ function Set-WindowPosition {
                             if ($relativeWidth -ge $sizeTolerance) {
                                 if ($relativeX -le $tolerance) {
                                     $Left = $true
-                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected LEFT positioning (full height) - preserving on new monitor'
+                                    Microsoft.PowerShell.Utility\Write-Verbose ('Detected LEFT positioning (full height) - preserving on new monitor')
                                 } elseif (($relativeX + $relativeWidth) -ge (1.0 - $tolerance)) {
                                     $Right = $true
-                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected RIGHT positioning (full height) - preserving on new monitor'
+                                    Microsoft.PowerShell.Utility\Write-Verbose ('Detected RIGHT positioning (full height) - preserving on new monitor')
                                 }
                             }
                         } elseif ($heightConstrained -and (-not $widthConstrained)) {
@@ -661,10 +830,10 @@ function Set-WindowPosition {
                             if ($relativeHeight -ge $sizeTolerance) {
                                 if ($relativeY -le $tolerance) {
                                     $Top = $true
-                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected TOP positioning (full width) - preserving on new monitor'
+                                    Microsoft.PowerShell.Utility\Write-Verbose ('Detected TOP positioning (full width) - preserving on new monitor')
                                 } elseif (($relativeY + $relativeHeight) -ge (1.0 - $tolerance)) {
                                     $Bottom = $true
-                                    Microsoft.PowerShell.Utility\Write-Verbose 'Detected BOTTOM positioning (full width) - preserving on new monitor'
+                                    Microsoft.PowerShell.Utility\Write-Verbose ('Detected BOTTOM positioning (full width) - preserving on new monitor')
                                 }
                             }
                         } elseif ($widthConstrained -and $heightConstrained) {
@@ -681,41 +850,41 @@ function Set-WindowPosition {
                             # Consider centered if ALL margins are small (≤ 10% for more reasonable detection)
                             $hasSmallMargins = ($leftMargin -le 0.1) -and ($rightMargin -le 0.1) -and ($topMargin -le 0.1) -and ($bottomMargin -le 0.1)
 
-                            Microsoft.PowerShell.Utility\Write-Verbose "Positioning check: centerX=$([Math]::Round($centerX, 2)), centerY=$([Math]::Round($centerY, 2))"
-                            Microsoft.PowerShell.Utility\Write-Verbose "Window bounds: X=$([Math]::Round($relativeX, 2)), Y=$([Math]::Round($relativeY, 2)), W=$([Math]::Round($relativeWidth, 2)), H=$([Math]::Round($relativeHeight, 2))"
-                            Microsoft.PowerShell.Utility\Write-Verbose "Actual margins: Left=$([Math]::Round($leftMargin, 3)), Right=$([Math]::Round($rightMargin, 3)), Top=$([Math]::Round($topMargin, 3)), Bottom=$([Math]::Round($bottomMargin, 3))"
-                            Microsoft.PowerShell.Utility\Write-Verbose "Has small margins (all ≤ 10%): $hasSmallMargins"
+                            Microsoft.PowerShell.Utility\Write-Verbose ("Positioning check: centerX=$([Math]::Round($centerX, 2)), centerY=$([Math]::Round($centerY, 2))")
+                            Microsoft.PowerShell.Utility\Write-Verbose ("Window bounds: X=$([Math]::Round($relativeX, 2)), Y=$([Math]::Round($relativeY, 2)), W=$([Math]::Round($relativeWidth, 2)), H=$([Math]::Round($relativeHeight, 2))")
+                            Microsoft.PowerShell.Utility\Write-Verbose ("Actual margins: Left=$([Math]::Round($leftMargin, 3)), Right=$([Math]::Round($rightMargin, 3)), Top=$([Math]::Round($topMargin, 3)), Bottom=$([Math]::Round($bottomMargin, 3))")
+                            Microsoft.PowerShell.Utility\Write-Verbose ("Has small margins (all ≤ 10%): $hasSmallMargins")
 
                             # If window has small margins on all sides, consider it centered
                             if ($hasSmallMargins) {
                                 $Centered = $true
-                                Microsoft.PowerShell.Utility\Write-Verbose 'Detected CENTERED positioning (small margins on all sides) - preserving on new monitor'
+                                Microsoft.PowerShell.Utility\Write-Verbose ('Detected CENTERED positioning (small margins on all sides) - preserving on new monitor')
                             } else {
                                 # Check for specific edge positioning
                                 # Check left/right first
                                 if ($relativeWidth -ge $sizeTolerance) {
                                     if ($relativeX -le $tolerance) {
                                         $Left = $true
-                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected LEFT positioning - preserving on new monitor'
+                                        Microsoft.PowerShell.Utility\Write-Verbose ('Detected LEFT positioning - preserving on new monitor')
                                     } elseif (($relativeX + $relativeWidth) -ge (1.0 - $tolerance)) {
                                         $Right = $true
-                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected RIGHT positioning - preserving on new monitor'
+                                        Microsoft.PowerShell.Utility\Write-Verbose ('Detected RIGHT positioning - preserving on new monitor')
                                     }
                                 }
                                 # Then check top/bottom
                                 if ($relativeHeight -ge $sizeTolerance) {
                                     if ($relativeY -le $tolerance) {
                                         $Top = $true
-                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected TOP positioning - preserving on new monitor'
+                                        Microsoft.PowerShell.Utility\Write-Verbose ('Detected TOP positioning - preserving on new monitor')
                                     } elseif (($relativeY + $relativeHeight) -ge (1.0 - $tolerance)) {
                                         $Bottom = $true
-                                        Microsoft.PowerShell.Utility\Write-Verbose 'Detected BOTTOM positioning - preserving on new monitor'
+                                        Microsoft.PowerShell.Utility\Write-Verbose ('Detected BOTTOM positioning - preserving on new monitor')
                                     }
                                 }
 
                                 # If no specific positioning detected, just enable positioning for auto-sizing
                                 if ((-not $Left) -and (-not $Right) -and (-not $Top) -and (-not $Bottom)) {
-                                    Microsoft.PowerShell.Utility\Write-Verbose 'No specific positioning detected - enabling auto-sizing to maximum'
+                                    Microsoft.PowerShell.Utility\Write-Verbose ('No specific positioning detected - enabling auto-sizing to maximum')
                                 }
                             }
                         } else {
@@ -731,9 +900,9 @@ function Set-WindowPosition {
 
                             if (-not $hasSmallMargins) {
                                 $Centered = $true
-                                Microsoft.PowerShell.Utility\Write-Verbose 'Detected CENTERED positioning (large window with small margins) - preserving on new monitor'
+                                Microsoft.PowerShell.Utility\Write-Verbose ('Detected CENTERED positioning (large window with small margins) - preserving on new monitor')
                             } else {
-                                Microsoft.PowerShell.Utility\Write-Verbose 'Large window not centered - enabling auto-sizing to maximum'
+                                Microsoft.PowerShell.Utility\Write-Verbose ('Large window not centered - enabling auto-sizing to maximum')
                             }
                         }
                     }
@@ -742,43 +911,43 @@ function Set-WindowPosition {
 
             # calculate final window coordinates and dimensions
             if (($X -le -999999) -or ($X -isnot [int])) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'X not provided or invalid, using screen.WorkingArea.X'
+                Microsoft.PowerShell.Utility\Write-Verbose ('X not provided or invalid, using screen.WorkingArea.X')
                 $X = $Screen.WorkingArea.X;
             }
             else {
                 # adjust x position for monitor offset
                 if ($Monitor -ge 0) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Adjusting X for monitor offset.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Adjusting X for monitor offset.')
                     $X = $Screen.WorkingArea.X + $X;
                 }
             }
-            Microsoft.PowerShell.Utility\Write-Verbose "X determined to be $X"
+            Microsoft.PowerShell.Utility\Write-Verbose ("X determined to be $X")
             # calculate y position
             if (($Y -le -999999) -or ($Y -isnot [int])) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Y not provided or invalid, using screen.WorkingArea.Y'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Y not provided or invalid, using screen.WorkingArea.Y')
                 $Y = $Screen.WorkingArea.Y;
             }
             else {
                 # adjust y position for monitor offset
                 if ($Monitor -ge 0) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Adjusting Y for monitor offset.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Adjusting Y for monitor offset.')
                     $Y = $Screen.WorkingArea.Y + $Y;
                 }
             }
-            Microsoft.PowerShell.Utility\Write-Verbose "Y determined to be $Y"
+            Microsoft.PowerShell.Utility\Write-Verbose ("Y determined to be $Y")
             # set fullscreen dimensions if requested
             if ($Fullscreen -eq $true) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Fullscreen requested, setting Width/Height to screen.WorkingArea.'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Fullscreen requested, setting Width/Height to screen.WorkingArea.')
                 $Width = $Screen.WorkingArea.Width;
                 $Height = $Screen.WorkingArea.Height;
             }
-            Microsoft.PowerShell.Utility\Write-Verbose 'Have positioning parameters set'
+            Microsoft.PowerShell.Utility\Write-Verbose ('Have positioning parameters set')
 
             # Reset width/height for smart positioning if detected during monitor change
             if ($isMonitorChangeRequest -and ($Left -or $Right -or $Top -or $Bottom -or $Centered)) {
                 $Width = -999999
                 $Height = -999999
-                Microsoft.PowerShell.Utility\Write-Verbose 'Reset Width/Height to allow smart positioning to control sizing'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Reset Width/Height to allow smart positioning to control sizing')
             }
 
             # check if width and height were explicitly provided
@@ -786,163 +955,298 @@ function Set-WindowPosition {
             $heightProvided = ($Height -gt 0) -and ($Height -is [int]);
             # use screen width if width not provided
             if ($widthProvided -eq $false) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Width not provided, using screen.WorkingArea.Width'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Width not provided, using screen.WorkingArea.Width')
                 $Width = $Screen.WorkingArea.Width;
                 Microsoft.PowerShell.Utility\Write-Verbose ('Width not provided ' + "resetted to $Width")
             }
             # use screen height if height not provided
             if ($heightProvided -eq $false) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Height not provided, using screen.WorkingArea.Height'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Height not provided, using screen.WorkingArea.Height')
                 $Height = $Screen.WorkingArea.Height;
                 Microsoft.PowerShell.Utility\Write-Verbose ('Height not provided ' + "resetted to $Height")
             }
             # apply layout positioning (left/right/top/bottom/centered)
             if ($Left -eq $true) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Left positioning requested.'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Left positioning requested.')
                 $X = $Screen.WorkingArea.X;
+                Microsoft.PowerShell.Utility\Write-Verbose ("Left positioning: " +
+                    "X coordinate set to screen working area left edge: $X")
                 # use half width if not explicitly provided
                 if ($widthProvided -eq $false) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Width not provided for Left, using half screen width.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Width not provided ' + 'for Left, using half screen width.')
                     $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                        "width for left positioning: $Width (half of " +
+                        "$($Screen.WorkingArea.Width))")
                 }
-                Microsoft.PowerShell.Utility\Write-Verbose ("Left chosen, X = $X, Width = $Width")
+                Microsoft.PowerShell.Utility\Write-Verbose ("Left chosen, " +
+                    "X = $X, Width = $Width")
             }
             else {
                 # position on right side
                 if ($Right -eq $true) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Right positioning requested.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Right positioning requested.')
                     # use half width if not explicitly provided
                     if ($widthProvided -eq $false) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Width not provided for Right, using half screen width.'
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Width not ' + 'provided for Right, using half screen width.')
                         $Width = [Math]::Min($Screen.WorkingArea.Width / 2, $Width);
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                            "width for right positioning: $Width (half of " +
+                            "$($Screen.WorkingArea.Width))")
                     }
                     $X = $Screen.WorkingArea.X + $Screen.WorkingArea.Width - $Width;
-                    Microsoft.PowerShell.Utility\Write-Verbose ("Right chosen, X = $X, Width = $Width")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Right positioning: " +
+                        "X coordinate calculated as " +
+                        "$($Screen.WorkingArea.X) + $($Screen.WorkingArea.Width) " +
+                        "- $Width = $X")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Right chosen, " +
+                        "X = $X, Width = $Width")
                 }
             }
             # position on top
             if ($Top -eq $true) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Top positioning requested.'
+                Microsoft.PowerShell.Utility\Write-Verbose ('Top positioning requested.')
                 $Y = $Screen.WorkingArea.Y;
+                Microsoft.PowerShell.Utility\Write-Verbose ("Top positioning: " +
+                    "Y coordinate set to screen working area top edge: $Y")
                 # use half height if not explicitly provided
                 if ($heightProvided -eq $false) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Height not provided for Top, using half screen height.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Height not provided ' + 'for Top, using half screen height.')
                     $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                        "height for top positioning: $Height (half of " +
+                        "$($Screen.WorkingArea.Height))")
                 }
-                Microsoft.PowerShell.Utility\Write-Verbose ("Top chosen, Y = $Y, Height = $Height")
+                Microsoft.PowerShell.Utility\Write-Verbose ("Top chosen, " +
+                    "Y = $Y, Height = $Height")
             }
             else {
                 # position on bottom
                 if ($Bottom -eq $true) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Bottom positioning requested.'
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Bottom positioning requested.')
                     # use half height if not explicitly provided
                     if ($heightProvided -eq $false) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Height not provided for Bottom, using half screen height.'
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Height not ' + 'provided for Bottom, using half screen height.')
                         $Height = [Math]::Min($Screen.WorkingArea.Height / 2, $Height);
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                            "height for bottom positioning: $Height (half of " +
+                            "$($Screen.WorkingArea.Height))")
                     }
                     $Y = $Screen.WorkingArea.Y + $Screen.WorkingArea.Height - $Height;
-                    Microsoft.PowerShell.Utility\Write-Verbose ("Bottom chosen, Y = $Y, Height = $Height")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Bottom positioning: " +
+                        "Y coordinate calculated as " +
+                        "$($Screen.WorkingArea.Y) + $($Screen.WorkingArea.Height) " +
+                        "- $Height = $Y")
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Bottom chosen, " +
+                        "Y = $Y, Height = $Height")
                 }
             }
             # center window on screen
             if ($Centered -eq $true) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'Centered positioning requested.'
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('Centered positioning requested.')
+
                 # use 80% of screen dimensions if not explicitly provided
                 if ($heightProvided -eq $false) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Height not provided for Centered, using 80% of screen height.'
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Height not provided ' + 'for Centered, using 80% of screen height.')
                     $Height = [Math]::Round([Math]::Min($Screen.WorkingArea.Height * 0.8, $Height), 0);
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                        "height for centered positioning: $Height (80% of " +
+                        "$($Screen.WorkingArea.Height))")
                 }
+
                 if ($widthProvided -eq $false) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'Width not provided for Centered, using 80% of screen width.'
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ('Width not provided ' + 'for Centered, using 80% of screen width.')
+
                     $Width = [Math]::Round([Math]::Min($Screen.WorkingArea.Width * 0.8, $Width), 0);
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Auto-calculated " +
+                        "width for centered positioning: $Width (80% of " +
+                        "$($Screen.WorkingArea.Width))")
                 }
+
                 # calculate center position
                 $X = $Screen.WorkingArea.X + [Math]::Round(($screen.WorkingArea.Width - $Width) / 2, 0);
                 $Y = $Screen.WorkingArea.Y + [Math]::Round(($screen.WorkingArea.Height - $Height) / 2, 0);
-                Microsoft.PowerShell.Utility\Write-Verbose ("Centered chosen, X = $X, Width = $Width, Y = $Y, Height = $Height")
+
+                Microsoft.PowerShell.Utility\Write-Verbose ("Centered position " +
+                    "calculation: X = $($Screen.WorkingArea.X) + " +
+                    "(($($screen.WorkingArea.Width) - $Width) / 2) = $X")
+                Microsoft.PowerShell.Utility\Write-Verbose ("Centered position " +
+                    "calculation: Y = $($Screen.WorkingArea.Y) + " +
+                    "(($($screen.WorkingArea.Height) - $Height) / 2) = $Y")
+                Microsoft.PowerShell.Utility\Write-Verbose ("Centered chosen, " +
+                    "X = $X, Width = $Width, Y = $Y, Height = $Height")
             }
 
-            if ((-not $havePositioning) -and ($KeysToSend -isnot [System.Collections.IEnumerable] -or ($KeysToSend.Count -eq 0))) {
+            # recalculate shouldProcessWindow after all positioning logic is complete
+            # (monitor change detection may have updated havePositioningParams)
+            $shouldProcessWindow = $havePositioningParams -or $haveFocusParams -or ($null -ne $KeysToSend -and ($KeysToSend.Count -gt 0))
 
+            Microsoft.PowerShell.Utility\Write-Verbose ("Final shouldProcessWindow check: $shouldProcessWindow (positioning=$havePositioningParams, focus=$haveFocusParams, keys=$($null -ne $KeysToSend -and ($KeysToSend.Count -gt 0)))")
+
+            if (-not $shouldProcessWindow) {
+                Microsoft.PowerShell.Utility\Write-Verbose ('No positioning, focus, or key parameters provided - exiting early')
                 return;
             }
 
             # confirm with user if whatif support is enabled
+            $whatIfMessage = if ($havePositioningParams) {
+                "Set position/size to: X=$X Y=$Y W=$Width H=$Height"
+            } elseif ($haveFocusParams) {
+                "Apply focus/foreground changes"
+            } else {
+                "Send keystrokes: $($KeysToSend -join ', ')"
+            }
+
             if ($PSCmdlet.ShouldProcess(
                     "Window of process '$($Process.ProcessName)'",
-                    "Set position/size to: X=$X Y=$Y W=$Width H=$Height")) {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ShouldProcess returned true, proceeding to set window position/size.'
+                    $whatIfMessage)) {
+
+                Microsoft.PowerShell.Utility\Write-Verbose ('ShouldProcess returned ' + 'true, proceeding with window operations.')
+
+                if ($havePositioningParams) {
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Final window positioning: " +
+                        "Process='$($Process.ProcessName))', Handle=$($window.Handle), " +
+                        "Target coordinates: X=$X, Y=$Y, Width=$Width, Height=$Height")
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Target monitor: " +
+                        "$($Screen.DeviceName) - Working area: " +
+                        "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
+                        "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
+                } else {
+                    Microsoft.PowerShell.Utility\Write-Verbose ("Processing window for focus/foreground or keystroke operations only - no positioning")
+                }
+
                 # have a handle to the mainwindow of the browser?
                 if ($null -ne $window) {
-                    Microsoft.PowerShell.Utility\Write-Verbose ('Restoring and positioning window')
-                    # restore window and position it
-                    $null = $window.Show()
-                    $null = $window.Restore()
-                    $null = $window.Show()
-                    if ($havePositioning) {
-                        Microsoft.PowerShell.Utility\Write-Verbose ("[Set-WindowPosition] About to move window. Handle: $($window.Handle) Target: X=$X, Y=$Y, Width=$Width, Height=$Height")
+
+                    if ($havePositioningParams) {
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Restoring and ' +
+                            'positioning window')
+
+                        # restore window and position it
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Showing window ' + '(first call to ensure window is visible)')
+                        $null = $window.Focus()
+                        Microsoft.PowerShell.Utility\Write-Verbose ("[Set-WindowPosition] " +
+                            "About to move window. Handle: $($window.Handle) " +
+                            "Target: X=$X, Y=$Y, Width=$Width, Height=$Height")
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Executing first ' + 'Move operation to set window position and size')
                         $null = $window.Move($X, $Y, $Width, $Height)
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Executing second ' + 'Move operation for stability (some windows need this)')
                         $null = $window.Move($X, $Y, $Width, $Height)
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Window positioning ' + 'operations completed successfully')
+                    } else {
+                        Microsoft.PowerShell.Utility\Write-Verbose ('No positioning parameters - skipping window positioning operations')
                     }
                     # maximize window if fullscreen requested
                     if ($Fullscreen) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Fullscreen requested, sending F11 keystroke.'
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Fullscreen ' + 'requested, sending F11 keystroke.')
                         $KeysToSend = ($KeysToSend ? $KeysToSend : @()) + @('{F11}')
                     }
                     # needs to be set noborders manually?
                     if ($NoBorders -eq $true) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Setting NoBorders'
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Setting NoBorders ' + '- removing window chrome and decorations')
                         $null = $window.RemoveBorder();
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Window border ' + 'removal completed')
                     }
                     if ($Maximize) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Maximize requested or no positioning, maximizing window.'
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Maximize requested ' + 'or no positioning, maximizing window.')
                         $null = $window.Maximize()
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Window maximization ' + 'completed')
                     }
-                    # handle focus and foreground at the end before maximize
-                    if ($FocusWindow -eq $true) {
-                        Microsoft.PowerShell.Utility\Write-Verbose 'Focusing window'
-                        $null = $window.Focus()
+                    if ($Minimize) {
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Minimize requested, ' + 'minimizing window.')
+                        $null = $window.Minimize()
                     }
-                    # set window to foreground if requested
+                    # handle focus and foreground - if both requested, SetForeground handles both
                     if ($SetForeground -eq $true) {
-                        Microsoft.PowerShell.Utility\Write-Verbose ('Setting window to foreground')
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Setting window to ' +
+                            'foreground (bringing to front and giving focus)')
                         $null = $window.SetForeground()
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Window foreground ' + 'operation completed')
+                    }
+                    elseif ($FocusWindow -eq $true) {
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Focusing window')
+                        $null = $window.Focus()
                     }
                     # send keys if specified, after a delay to ensure window is ready
                     if ($null -ne $KeysToSend -and ($KeysToSend.Count -gt 0)) {
-                        Microsoft.PowerShell.Utility\Write-Verbose ('Sending keystrokes to window after 500ms delay')
+
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Sending keystrokes ' +
+                            'to window after 500ms delay. Keys to send: ' +
+                            "$($KeysToSend -join ', ')")
+
                         Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500
+
                         # copy identical parameters between functions
                         $params = GenXdev.Helpers\Copy-IdenticalParamValues `
                             -FunctionName 'GenXdev.Windows\Send-Key' `
                             -BoundParameters $myPSBoundParameters `
                             -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
                                 -Scope Local -ErrorAction SilentlyContinue)
+
                         # set the window handle for the send-key function
                         $params.WindowHandle = $window.Handle
                         $null = $params.Remove('Process')
                         $null = $params.Remove('ProcessName')
                         # send keys to the window
-                        Microsoft.PowerShell.Utility\Write-Verbose "Calling Send-Key with parameters: $($params | Microsoft.PowerShell.Utility\Out-String)"
-                        $null = GenXdev.Windows\Send-Key @params
+                        Microsoft.PowerShell.Utility\Write-Verbose ("Calling Send-Key " +
+                            "with window handle $($window.Handle) and parameters: " +
+                            "$($params | Microsoft.PowerShell.Utility\Out-String)")
+
+                        $null = GenXdev.Windows\Send-Key @params -SendKeyHoldKeyboardFocus
+                        Microsoft.PowerShell.Utility\Write-Verbose ('Keystroke sending ' + 'operation completed')
                     }
                 } else {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'No window object available to position.'
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ('No window object ' +
+                        'available to position.')
                 }
+
                 # return window helper if passthru specified
                 if ($PassThru -eq $true) {
-                    Microsoft.PowerShell.Utility\Write-Verbose 'PassThru specified, returning window object.'
+
+                    Microsoft.PowerShell.Utility\Write-Verbose ('PassThru specified, returning window object.')
                     $window
                 }
             } else {
-                Microsoft.PowerShell.Utility\Write-Verbose 'ShouldProcess returned false, skipping window positioning.'
+                Microsoft.PowerShell.Utility\Write-Verbose ('ShouldProcess returned false, skipping window positioning.')
             }
         } else {
-            Microsoft.PowerShell.Utility\Write-Verbose 'No process object available, skipping window positioning.'
+            Microsoft.PowerShell.Utility\Write-Verbose ('No process object available, skipping window positioning.')
         }
     }
 
     end {
+
+        # only proceed if restore focus was requested
+        if ($RestoreFocus) {
+
+            $powerShellWindow = GenXdev.Windows\Get-PowershellMainWindow
+            if (-not $powerShellWindow) {
+                Microsoft.PowerShell.Utility\Write-Verbose 'Failed to retrieve PowerShell main window for focus restoration.'
+                return
+            }
+            Microsoft.PowerShell.Utility\Write-Verbose ('RestoreFocus requested ' + 'and target window differs from PowerShell window')
+            Microsoft.PowerShell.Utility\Write-Verbose ("Target window handle: " +
+                "$($process.MainWindowHandle)), PowerShell handle: " +
+                "$($powerShellWindow.handle)")
+
+            Microsoft.PowerShell.Utility\Write-Verbose ('Restoring focus to ' + 'PowerShell window using Set-WindowPosition with ' +
+                '-SetForeground and -FocusWindow')
+
+            $null = $powerShellWindow.Focus();
+
+            Microsoft.PowerShell.Utility\Write-Verbose ('PowerShell window ' + 'focus restoration completed')
+        }
     }
 }
 ################################################################################

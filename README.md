@@ -79,14 +79,14 @@ Update-Module
 | [Get-PowershellMainWindowProcess](#get-powershellmainwindowprocess) | &nbsp; | Returns the process object for the window hosting the PowerShell terminal. |
 | [Get-Window](#get-window) | gwin, window | Gets window information for specified processes or window handles. |
 | [Initialize-ScheduledTaskScripts](#initialize-scheduledtaskscripts) | &nbsp; | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
-| [Invoke-WindowsUpdate](#invoke-windowsupdate) | Get-WindowsIsUpToDate, updatewindows | Checks if Windows is up to date and optionally installs available updates. |
+| [Invoke-WindowsUpdate](#invoke-windowsupdate) | updatewindows | Checks if Windows is up to date and optionally installs available updates. |
 | [Pop-Window](#pop-window) | popw | Pops the last active window helper from the stack with optional modifications. |
 | [Push-Window](#push-window) | pushw | Pushes the current window onto the window stack with optional modifications. |
 | [Send-Key](#send-key) | invokekeys, sendkeys | Sends simulated keystrokes to a window or process. |
 | [Set-ClipboardFiles](#set-clipboardfiles) | setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
 | [Set-ForegroundWindow](#set-foregroundwindow) | &nbsp; | Brings the specified window to the foreground and makes it the active window. |
 | [Set-KnownFolderPath](#set-knownfolderpath) | &nbsp; | Modifies the physical path of a Windows known folder. |
-| [Set-TaskbarAlignment](#set-taskbaralignment) | Set-TaskAlign | Configures Windows 11+ taskbar alignment between center and left positions. |
+| [Set-TaskbarAlignment](#set-taskbaralignment) | &nbsp; | Configures Windows 11+ taskbar alignment between center and left positions. |
 | [Set-WindowPosition](#set-windowposition) | wp | Positions and resizes windows when explicit positioning parameters are provided. |
 | [Set-WindowPositionForSecondary](#set-windowpositionforsecondary) | wps | Positions a window on the secondary monitor with specified layout options. |
 | [Set-WindowsWallpaper](#set-windowswallpaper) | setaswallpaper | Sets a random wallpaper from a specified directory. |
@@ -118,19 +118,10 @@ Update-Module
    CurrentUserHasElevatedRights  
 ```` 
 
-### SYNOPSIS 
-    Checks if the current user has elevated rights.  
-
 ### SYNTAX 
 ```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Determines whether the current Windows user has administrative or backup operator  
-    privileges by checking their security principal roles. Returns true if the user  
-    has elevated rights, false otherwise. Implements robust error handling for  
-    security and access-related issues.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -148,267 +139,270 @@ CurrentUserHasElevatedRights [<CommonParameters>]
    EnsureDockerDesktop  
 ```` 
 
-### SYNOPSIS 
-    Ensures Docker Desktop is installed and available for containerization  
-    operations.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
+EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] <int>] [[-Y] <int>] [[-KeysToSend] <string[]>] [[-SendKeyDelayMilliSeconds] <int>] [-ShowWindow] [-NoBorders] [-Force] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Verifies if Docker Desktop is installed and properly configured on the system.  
-    If not found, installs Docker Desktop using WinGet and handles the complete  
-    installation process automatically. This function also manages Docker Desktop  
-    service startup, daemon readiness verification, and handles authentication  
-    requirements when necessary. The function includes comprehensive path  
-    management for both system and user-level Docker installations.  
-
 ### PARAMETERS 
-    -ShowWindow [<SwitchParameter>]  
-        Shows the Docker Desktop window during initialization when specified. When  
-        this switch is enabled, Docker Desktop will start with its window visible  
-        instead of minimized to the system tray.  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the Docker Desktop window to:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -1 = Discard monitor positioning  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders and title bar from the Docker Desktop window for  
-        a cleaner appearance.  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
+    -Confirm  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the width of the Docker Desktop window in pixels. Use -1 for automatic  
-        sizing based on window content.  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Forces a docker desktop restart  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
         Required?                    false  
         Position?                    2  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the height of the Docker Desktop window in pixels. Use -1 for automatic  
-        sizing based on window content.  
-        Required?                    false  
-        Position?                    3  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the horizontal position of the Docker Desktop window in pixels. Use -1  
-        for automatic positioning by the system.  
-        Required?                    false  
-        Position?                    4  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the vertical position of the Docker Desktop window in pixels. Use -1  
-        for automatic positioning by the system.  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
         Position?                    5  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places the Docker Desktop window on the left half of the screen.  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places the Docker Desktop window on the right half of the screen.  
+    -Monitor <int>  
+        The monitor to use, 0 = default, -1 is discard  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places the Docker Desktop window on the top half of the screen.  
+    -NoBorders  
+        Removes the borders of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places the Docker Desktop window on the bottom half of the screen.  
+    -NoDockerInitialization  
+        Skip Docker initialization and return immediately  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers the Docker Desktop window on the screen.  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Maximizes the Docker Desktop window to fill the entire screen.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Returns focus to the PowerShell window after positioning Docker Desktop.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Positions Docker Desktop side by side with PowerShell on the same monitor  
-        or fullscreen on a different monitor.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focuses the Docker Desktop window after positioning and initialization.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Sets the Docker Desktop window to foreground after positioning and  
-        initialization.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the Docker Desktop window after positioning and  
-        initialization. See documentation for cmdlet GenXdev.Windows\Send-Key.  
-        Required?                    false  
-        Position?                    6  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    7  
-        Default value                0  
+        Position?                    6  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Uses alternative settings stored in session for AI preferences instead of  
-        persistent preferences.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Clears alternative settings stored in session for AI preferences.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Stores settings only in persistent preferences without affecting session  
-        variables.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialization [<SwitchParameter>]  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        The initial width of the window  
+        Required?                    false  
+        Position?                    1  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        The initial X position of the window  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        The initial Y position of the window  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -425,37 +419,29 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
    EnsurePSTools  
 ```` 
 
-### SYNOPSIS 
-    Ensures Sysinternals tools (PSTools) are installed and available.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>] 
+EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Verifies if Sysinternals tools like handle.exe are installed and properly  
-    configured on the system. If not found, installs the Sysinternals Suite  
-    using WinGet and handles the complete installation process automatically.  
-
 ### PARAMETERS 
-    -Force [<SwitchParameter>]  
-        Switch to force reinstallation of Sysinternals tools even if they are already  
-        installed.  
+    -Force  
+        Force reinstallation of Sysinternals tools  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PSExeName <String>  
-        The executable name to check for verifying Sysinternals tools installation.  
-        Default is 'handle.exe'.  
+    -PSExeName <string>  
+        The executable name to verify installation  
         Required?                    false  
-        Position?                    1  
-        Default value                handle.exe  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -472,18 +458,10 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
    Get-ActiveUser                       --> gusers  
 ```` 
 
-### SYNOPSIS 
-    Retrieves a list of unique usernames from currently active system processes.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ActiveUser [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Queries all running processes on the system, extracts the associated username for  
-    each process, and returns a deduplicated list of users who have active processes.  
-    This is useful for system administration and security monitoring.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -501,18 +479,10 @@ Get-ActiveUser [<CommonParameters>]
    Get-ChildProcesses  
 ```` 
 
-### SYNOPSIS 
-    Retrieves all processes that are descendants of the current PowerShell process.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ChildProcesses [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Examines all running processes and identifies those that have the current  
-    PowerShell process as an ancestor in their parent process chain. This includes  
-    both direct child processes and their descendants (grandchildren, etc.).  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -530,20 +500,10 @@ Get-ChildProcesses [<CommonParameters>]
    Get-ClipboardFiles                   --> getclipfiles  
 ```` 
 
-### SYNOPSIS 
-    Gets files from the Windows clipboard that were set for file operations like copy/paste.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ClipboardFiles [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function retrieves file paths from the Windows clipboard that were previously  
-    set for file operations. It handles both STA and MTA threading modes automatically,  
-    ensuring compatibility across different PowerShell execution contexts. The function  
-    validates file existence and returns only existing files/directories as objects  
-    similar to Get-ChildItem or Get-Item output.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -561,19 +521,10 @@ Get-ClipboardFiles [<CommonParameters>]
    Get-CurrentFocusedProcess  
 ```` 
 
-### SYNOPSIS 
-    Retrieves the process object of the window that currently has keyboard focus.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-CurrentFocusedProcess [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function uses Windows API calls through P/Invoke to identify and return the  
-    Process object associated with the currently focused window. It leverages the  
-    User32.dll functions GetForegroundWindow and GetWindowThreadProcessId to determine  
-    which window has focus and obtain its associated process ID.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -581,17 +532,6 @@ Get-CurrentFocusedProcess [<CommonParameters>]
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       Requires Windows operating system as it uses Windows-specific API calls.  
-       May return null if the process cannot be accessed due to permissions.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> $focusedProcess = Get-CurrentFocusedProcess  
-   Write-Host "Active window process: $($focusedProcess.ProcessName)"  
-```` 
 
 <br/><hr/><br/>
  
@@ -602,29 +542,20 @@ Get-CurrentFocusedProcess [<CommonParameters>]
    Get-DesktopScalingFactor  
 ```` 
 
-### SYNOPSIS 
-    Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>] 
+Get-DesktopScalingFactor [[-Monitor] <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Gets the current Windows display scaling factor configured for a monitor in the  
-    system. The scaling factor is expressed as a percentage where 100 represents  
-    standard scaling (96 DPI). Common values are 100, 125, 150, and 200.  
-    If no monitor is specified, returns the scaling factor for the primary display.  
-
 ### PARAMETERS 
-    -Monitor <Int32>  
-        Specifies the zero-based index of the monitor to check. The primary monitor is  
-        index 0, secondary monitor is 1, and so on. Valid values range from 0 to 32.  
+    -Monitor <int>  
+        The monitor index to check (0 = primary monitor)  
         Required?                    false  
-        Position?                    1  
-        Default value                0  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -641,18 +572,10 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
    Get-ForegroundWindow  
 ```` 
 
-### SYNOPSIS 
-    Gets the handle of the currently active foreground window.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ForegroundWindow [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function retrieves the window handle (HWND) of the window that is  
-    currently in the foreground and has keyboard focus. It uses Windows API  
-    functions through P/Invoke to interact with the User32.dll library.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -670,31 +593,20 @@ Get-ForegroundWindow [<CommonParameters>]
    Get-KnownFolderPath                  --> folder  
 ```` 
 
-### SYNOPSIS 
-    Gets the path of a Windows known folder using the Windows Shell32 API.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>] 
+Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Retrieves the path of a specified Windows known folder using the Shell32 API's  
-    SHGetKnownFolderPath function. This method is more reliable than using  
-    environment variables as it works consistently across different Windows versions  
-    and language settings. Supports all standard Windows known folders like  
-    Documents, Downloads, AppData etc.  
-
 ### PARAMETERS 
-    -KnownFolder <String>  
-        Specifies the name of the Windows known folder to retrieve. Must be one of the  
-        predefined folder names like 'Documents', 'Downloads', etc. The function will  
-        return the full path to this folder.  
+    -KnownFolder <string>  
+        The Windows known folder name to get the path for  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -711,18 +623,10 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
    Get-MonitorCount  
 ```` 
 
-### SYNOPSIS 
-    Gets the total number of display monitors connected to the system.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-MonitorCount [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Uses the Windows Presentation Foundation (WPF) Screen helper class to accurately  
-    determine the number of physical display monitors currently connected to the  
-    system. This includes both active and detected but disabled monitors.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -740,18 +644,10 @@ Get-MonitorCount [<CommonParameters>]
    Get-MpCmdRunPath  
 ```` 
 
-### SYNOPSIS 
-    Gets the path to the Windows Defender MpCmdRun.exe executable.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-MpCmdRunPath [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Locates and returns the full path to the Windows Defender command-line utility  
-    (MpCmdRun.exe). The function checks the standard installation location in  
-    Program Files and provides appropriate error handling if the file is not found.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -769,32 +665,20 @@ Get-MpCmdRunPath [<CommonParameters>]
    Get-OpenedFileHandleProcesses  
 ```` 
 
-### SYNOPSIS 
-    Retrieves processes that have open file handles to specified files.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>] 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]> [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Uses the Sysinternals handle.exe tool to identify processes that currently have  
-    open handles to one or more specified files. This is useful for determining  
-    which processes are preventing file operations like deletion or modification.  
-    The function requires handle.exe from the Sysinternals suite to be installed  
-    and available in the system path. It parses the output from handle.exe to  
-    identify processes with open handles to the specified files and returns  
-    detailed information about those processes.  
-
 ### PARAMETERS 
-    -FilePath <String[]>  
-        The path to the file(s) to check for open handles. Supports pipeline input.  
-        Multiple file paths can be provided to check multiple files at once.  
+    -FilePath <string[]>  
+        The path to the file(s) to check for open handles  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -811,18 +695,10 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
    Get-PowershellMainWindow  
 ```` 
 
-### SYNOPSIS 
-    Returns a window helper object for the PowerShell terminal's main window.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-PowershellMainWindow [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Retrieves a WindowObj helper object that represents the main window of the current  
-    PowerShell host process. This allows manipulation and interaction with the  
-    terminal window itself.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -840,21 +716,10 @@ Get-PowershellMainWindow [<CommonParameters>]
    Get-PowershellMainWindowProcess  
 ```` 
 
-### SYNOPSIS 
-    Returns the process object for the window hosting the PowerShell terminal.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-PowershellMainWindowProcess [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Traverses up the process tree starting from the current PowerShell process to  
-    locate the parent window responsible for hosting the terminal. If the immediate  
-    parent process doesn't have a main window handle, it searches for similar  
-    processes that do have main windows. This is useful for identifying the actual  
-    terminal window process (like Windows Terminal, ConHost, etc.) that contains  
-    the PowerShell session.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -872,43 +737,38 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
    Get-Window                           --> gwin, window  
 ```` 
 
-### SYNOPSIS 
-    Gets window information for specified processes or window handles.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>] [<CommonParameters>] 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Retrieves window information using process name, ID, or window handle. Returns  
-    WindowObj objects containing details about the main windows of matching processes.  
-    Supports wildcards when searching by process name.  
-
 ### PARAMETERS 
-    -ProcessName <String>  
-        Name of the process(es) to get window information for. Supports wildcards.  
+    -ProcessId <int>  
+        ID of the process to get window information for  
         Required?                    false  
-        Position?                    1  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  true  
-    -ProcessId <Int32>  
-        Process ID to get window information for. Must be a valid running process ID.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WindowHandle <Int64>  
-        Window handle to get information for. Must be a valid window handle number.  
+    -ProcessName <string>  
+        Name of the process to get window information for  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    0  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+    -WindowHandle <long>  
+        Window handle to get information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -925,58 +785,45 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
    Initialize-ScheduledTaskScripts  
 ```` 
 
-### SYNOPSIS 
-    Creates scheduled tasks that run PowerShell scripts at specified intervals.  
-
 ### SYNTAX 
 ```PowerShell 
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Creates and configures scheduled tasks that execute PowerShell scripts at various  
-    intervals including:  
-    - System startup  
-    - User logon  
-    - Every hour of specific days (e.g., Monday at 13:00)  
-    - Daily at specific hours (e.g., every day at 15:00)  
-    Each task runs with elevated privileges under the current user's context.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The directory path where the PowerShell scripts for each task will be created.  
-        If not specified, scripts are created in a 'ScheduledTasks' folder in the parent  
-        directory.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        The directory path where task scripts will be created  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Prefix <string>  
+        Prefix for the scheduled task names  
         Required?                    false  
         Position?                    1  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Prefix <String>  
-        A prefix string added to all task names for grouping and identification.  
-        Default is "PS".  
+    -WhatIf  
         Required?                    false  
-        Position?                    2  
-        Default value                PS  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Shows what would happen if the cmdlet runs. The cmdlet is not run.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Prompts you for confirmation before running the cmdlet.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -990,100 +837,93 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
 ##	Invoke-WindowsUpdate 
 ```PowerShell 
 
-   Invoke-WindowsUpdate                 --> Get-WindowsIsUpToDate, updatewindows  
+   Invoke-WindowsUpdate                 --> updatewindows  
 ```` 
-
-### SYNOPSIS 
-    Checks if Windows is up to date and optionally installs available updates.  
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function checks for Windows updates, winget package updates, and PowerShell  
-    module updates. It can display available updates or automatically install them.  
-    The function requires administrative privileges to install Windows updates and  
-    can optionally reboot the system if updates require a restart.  
-
 ### PARAMETERS 
-    -Install [<SwitchParameter>]  
-        Automatically install available Windows updates, winget packages, and PowerShell  
-        modules instead of just checking for their availability.  
+    -AutoReboot  
+        Automatically reboot if updates require a restart  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -AutoReboot [<SwitchParameter>]  
-        Automatically reboot the system if installed updates require a restart. This  
-        parameter only has effect when Install is also specified.  
+    -Confirm  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Criteria <String>  
-        Custom Windows Update search criteria. Defaults to finding all non-hidden,  
-        uninstalled updates.  
+    -Criteria <string>  
+        Custom Windows Update search criteria  
         Required?                    false  
-        Position?                    1  
-        Default value                IsInstalled=0 and IsHidden=0  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -IncludeDrivers [<SwitchParameter>]  
-        Include drivers in update search. When specified, driver updates will also be  
-        considered in the search results.  
+    -GroupByCategory  
+        Group and color output by update category  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -GroupByCategory [<SwitchParameter>]  
-        Group and color output by update category. This provides a more organized view  
-        of available updates categorized by their type.  
+    -IncludeDrivers  
+        Include drivers in update search  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBanner [<SwitchParameter>]  
-        Disable banner and status output. When specified, reduces verbose output and  
-        displays only essential information.  
+    -Install  
+        Automatically install available Windows updates  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoRebootCheck [<SwitchParameter>]  
-        Skip reboot requirement check and reporting. When specified, the function will  
-        not check if a reboot is needed after installing updates.  
+    -NoBanner  
+        Disable banner/status output  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -NoRebootCheck  
+        Skip reboot requirement check/reporting  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1100,201 +940,190 @@ Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDr
    Pop-Window                           --> popw  
 ```` 
 
-### SYNOPSIS 
-    Pops the last active window helper from the stack with optional modifications.  
-
 ### SYNTAX 
 ```PowerShell 
-Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
+Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Pop-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
    Pop-Window [-NoModify] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Pops a window helper from the stack and optionally applies window transformations.  
-    If the stack is empty or contains invalid windows, returns the currently focused  
-    window. This function allows you to manipulate windows that were previously saved  
-    with Push-Window, applying various positioning, sizing, and visual effects.  
-
 ### PARAMETERS 
-    -Maximize [<SwitchParameter>]  
-        Maximizes the window after popping it from the stack.  
+    -AlwaysOnTop  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Minimize [<SwitchParameter>]  
-        Minimizes the window after popping it from the stack.  
+    -Bottom  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Restore [<SwitchParameter>]  
-        Restores the window to its normal state after popping it from the stack.  
+    -Centered  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Hide [<SwitchParameter>]  
-        Hides the window after popping it from the stack.  
+    -FadeIn  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Show [<SwitchParameter>]  
-        Ensures the window is visible after popping it from the stack.  
+    -Focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -AlwaysOnTop [<SwitchParameter>]  
-        Sets the window to always be on top after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Opacity <Byte>  
-        Sets the window opacity (0-255) after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the window X position after popping it from the stack.  
+    -Height <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the window Y position after popping it from the stack.  
+    -Hide  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Minimize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoModify  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           NoModify  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Opacity <byte>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Restore  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Show  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      sw  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the window width after popping it from the stack.  
+    -X <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the window height after popping it from the stack.  
+    -Y <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Focus [<SwitchParameter>]  
-        Focuses the window after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FadeIn [<SwitchParameter>]  
-        Applies a fade-in effect when showing the window after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoModify [<SwitchParameter>]  
-        Pops the window but doesn't apply any modifications (just returns it).  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the window to after popping from the stack:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1311,201 +1140,189 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
    Push-Window                          --> pushw  
 ```` 
 
-### SYNOPSIS 
-    Pushes the current window onto the window stack with optional modifications.  
-
 ### SYNTAX 
 ```PowerShell 
-Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>] 
+Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Push-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Push-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Pushes a window helper for the currently focused window onto the stack.  
-    Allows applying various window transformations before or after pushing.  
-    This function captures the current window and stores it for later retrieval  
-    with Pop-Window, while optionally applying positioning, sizing, and visual  
-    effects.  
-
 ### PARAMETERS 
-    -Maximize [<SwitchParameter>]  
-        Maximizes the window before pushing it onto the stack.  
+    -AlwaysOnTop  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Minimize [<SwitchParameter>]  
-        Minimizes the window before pushing it onto the stack.  
+    -Bottom  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Restore [<SwitchParameter>]  
-        Restores the window to its normal state before pushing it onto the stack.  
+    -Centered  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Hide [<SwitchParameter>]  
-        Hides the window before pushing it onto the stack.  
+    -FadeOut  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Show [<SwitchParameter>]  
-        Ensures the window is visible before pushing it onto the stack.  
+    -Focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -AlwaysOnTop [<SwitchParameter>]  
-        Sets the window to always be on top before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Opacity <Byte>  
-        Sets the window opacity (0-255) before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the window X position before pushing it onto the stack.  
+    -Height <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the window Y position before pushing it onto the stack.  
+    -Hide  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Minimize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Opacity <byte>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      pt  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Restore  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Show  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      sw  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the window width before pushing it onto the stack.  
+    -X <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the window height before pushing it onto the stack.  
+    -Y <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Focus [<SwitchParameter>]  
-        Focuses the window before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FadeOut [<SwitchParameter>]  
-        Applies a fade-out effect before pushing the window onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Returns the window object after pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the window to before pushing onto the stack:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1522,95 +1339,85 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
    Send-Key                             --> invokekeys, sendkeys  
 ```` 
 
-### SYNOPSIS 
-    Sends simulated keystrokes to a window or process.  
-
 ### SYNTAX 
 ```PowerShell 
-Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-ProcessId <Int32>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-WindowHandle <Int64>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>] 
+Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <string[]> [-ProcessId <int>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function sends keyboard input to a target window or process using the  
-    Windows Script Host Shell object. It can target windows by process name,  
-    process ID, or window handle. The function supports special key sequences,  
-    escape characters, and various timing options for reliable key delivery.  
-
 ### PARAMETERS 
-    -KeysToSend <String[]>  
-        The keyboard input to send as an array of strings. Supports special key  
-        sequences like {ENTER}, {TAB}, {F1}, etc. Each string in the array is  
-        processed sequentially with optional delays between them.  
+    -KeysToSend <string[]>  
+        The keyboard input to send as an array of strings  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ProcessName <String>  
-        The name of the target process to send keys to. Supports wildcard patterns  
-        for flexible process matching.  
+    -ProcessId <int>  
+        ID of the process to send keys to  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           ByProcessId  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ProcessName <string>  
+        Name of the process to send keys to (supports wildcards)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           ByProcessName  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  true  
-    -ProcessId <Int32>  
-        The process ID of the target process to send keys to. Provides precise  
-        targeting when multiple processes have similar names.  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyEscape  
+        Escape control characters and modifiers in input text  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window after sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter for newlines  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WindowHandle <long>  
+        Window handle to send keys to  
+        Required?                    false  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WindowHandle <Int64>  
-        The window handle (HWND) of the target window to send keys to. Offers  
-        direct window targeting when the handle is known.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        When specified, escapes curly braces in the input text so they are sent as  
-        literal characters rather than interpreted as special key sequences.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        When specified, keeps keyboard focus on the target window after sending  
-        keys instead of returning focus to the PowerShell window.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        When specified, converts newline characters to Shift+Enter key sequences  
-        instead of regular Enter key sequences.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        The delay in milliseconds between sending different key sequences. Helps  
-        ensure reliable delivery when sending multiple key strings.  
-        Required?                    false  
-        Position?                    named  
-        Default value                10  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           ByWindowHandle  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1627,44 +1434,36 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
    Set-ClipboardFiles                   --> setclipfiles  
 ```` 
 
-### SYNOPSIS 
-    Sets files to the Windows clipboard for file operations like copy/paste.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function copies one or more file paths to the Windows clipboard,  
-    enabling file operations like paste in Windows Explorer. It handles both  
-    STA and MTA threading modes automatically, ensuring compatibility across  
-    different PowerShell execution contexts. The function validates file  
-    existence before adding paths to the clipboard.  
-
 ### PARAMETERS 
-    -InputObject <String[]>  
-        Array of file paths to add to the clipboard. Accepts pipeline input and  
-        supports various aliases for compatibility with different object properties.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -InputObject <string[]>  
+        Array of file paths to add to the clipboard  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, ImageFileName, FileName  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1681,44 +1480,36 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
    Set-ForegroundWindow  
 ```` 
 
-### SYNOPSIS 
-    Brings the specified window to the foreground and makes it the active window.  
-
 ### SYNTAX 
 ```PowerShell 
 Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Makes a window the foreground window using multiple Win32 API methods for maximum  
-    reliability. First attempts using SwitchToThisWindow API, then falls back to  
-    SetForegroundWindow if needed. This dual approach ensures consistent window  
-    activation across different Windows versions and scenarios.  
-
 ### PARAMETERS 
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -WindowHandle <IntPtr>  
-        An IntPtr handle to the target window. This handle can be obtained from Windows  
-        API calls or PowerShell window management functions like Get-Process  
-        MainWindowHandle.  
+        Window handle to set as foreground window  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1801,46 +1592,39 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
 ##	Set-TaskbarAlignment 
 ```PowerShell 
 
-   Set-TaskbarAlignment                 --> Set-TaskAlign  
+   Set-TaskbarAlignment  
 ```` 
-
-### SYNOPSIS 
-    Configures Windows 11+ taskbar alignment between center and left positions.  
 
 ### SYNTAX 
 ```PowerShell 
-Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Sets the taskbar alignment in Windows 11 and newer versions by modifying the  
-    registry key 'TaskbarAl' under HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\  
-    Explorer\Advanced. The alignment can be set to either center (value 1) or left  
-    (value 0).  
-
 ### PARAMETERS 
-    -Justify <String>  
-        Specifies the desired taskbar alignment: 'Center' or 'Left'. This setting is  
-        converted to the appropriate registry value (1 for Center, 0 for Left).  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Justify <string>  
+        The taskbar alignment (Center or Left)  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -1857,272 +1641,300 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
    Set-WindowPosition                   --> wp  
 ```` 
 
-### SYNOPSIS 
-    Positions and resizes windows when explicit positioning parameters are provided.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [[-ProcessName] <String>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [[-ProcessName] <string>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-Process <Process>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Provides precise control over window positioning and sizing when positioning  
-    parameters are specified. Supports multiple monitors, border removal, and  
-    various preset positions like left/right split, top/bottom split, and center  
-    placement. Windows can be positioned by coordinates or using predefined layouts.  
-    Without positioning parameters, the function performs no action on the window.  
-
 ### PARAMETERS 
-    -ProcessName <String>  
-        The process name of the window to position  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  true  
-    -Process <Process>  
-        Process or processes whose windows need positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WindowHelper <WindowObj[]>  
-        Window helper object for direct window manipulation  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes window borders and title bar for a cleaner appearance  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Window width in pixels  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
         Window height in pixels  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -X <Int32>  
-        Window horizontal position in pixels  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Window vertical position in pixels  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Maximizes window to fill entire screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Returns focus to PowerShell window after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Returns window helper object for further manipulation  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Will either set the window fullscreen on a different monitor than Powershell, or  
-        side by side with Powershell on the same monitor  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focus the window after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Set the window to foreground after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Maximize [<SwitchParameter>]  
+    -Maximize  
         Maximize the window after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the window after positioning  
+    -Minimize  
+        Minimizes the window after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
+    -Monitor <int>  
+        Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
+    -NoBorders  
+        Removes the borders of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
+    -PassThru  
+        Returns the window helper for each process  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      pt  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -Process <Process>  
+        The process of the window to position  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           Process  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ProcessName <string>  
+        The process name of the window to position  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           ProcessName  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+    -RestoreFocus  
+        Restore PowerShell window focus  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Place window on the right side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Switch to use alternative settings stored in session for AI preferences  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Switch to clear alternative settings stored in session for AI preferences  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Switch to store settings only in persistent preferences without affecting  
-        session  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        Window width in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WindowHelper <WindowObj[]>  
+        Get-Window helper object for direct window manipulation  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           WindowHelper  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        Window horizontal position in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        Window vertical position in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -2139,250 +1951,270 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
    Set-WindowPositionForSecondary       --> wps  
 ```` 
 
-### SYNOPSIS 
-    Positions a window on the secondary monitor with specified layout options.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function allows positioning windows on a configured secondary monitor using  
-    Set-WindowPosition with various layout options including alignment, size, and  
-    border settings. It handles monitor selection based on global configuration and  
-    provides a convenient wrapper for secondary monitor window positioning.  
-
 ### PARAMETERS 
+    -Bottom  
+        Place window on the bottom side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Centered  
+        Place window in the center of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FullScreen  
+        Sends F11 to the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Place window on the left side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Maximize the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        The monitor to use, 0=default, -1=discard, -2=configured  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Returns the process object after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      pt  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -Process <Process[]>  
-        The process or processes containing the windows to position.  
+        The process of the window to position  
         Required?                    false  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        The monitor to use (0=default, 1=secondary, -1=discard, -2=configured secondary).  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                -2  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        The desired width of the window in pixels.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                -1  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        The desired height of the window in pixels.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        The desired X coordinate for window placement.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Y <Int32>  
-        The desired Y coordinate for window placement.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Place the window on the left side of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Place the window on the right side of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Place the window at the top of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Place the window at the bottom of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Center the window on the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FullScreen [<SwitchParameter>]  
-        Maximize the window to fill the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Remove window borders and title bar.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Return focus to the PowerShell window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focus the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Set the window to foreground after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Maximize [<SwitchParameter>]  
-        Maximize the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Return the Process object after positioning.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Place window side by side with PowerShell on the same monitor.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Use alternative settings stored in session for AI preferences.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Clear alternative settings stored in session for AI preferences.  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Store settings only in persistent preferences without affecting session.  
+    -SetForeground  
+        Set the window to foreground after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SideBySide  
+        Place window side by side with PowerShell on the same monitor  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        The initial width of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        The initial X position of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        The initial Y position of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -2399,59 +2231,54 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
    Set-WindowsWallpaper                 --> setaswallpaper  
 ```` 
 
-### SYNOPSIS 
-    Sets a random wallpaper from a specified directory.  
-
 ### SYNTAX 
 ```PowerShell 
 Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Selects a random image file from the specified directory and sets it as the  
-    Windows desktop wallpaper. Supports JPG/JPEG image formats and configures the  
-    wallpaper to "fit" the screen by default.  
-
 ### PARAMETERS 
+    -AllDrives  
+        Search across all available drives  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -InputObject <Object>  
-        The file path pattern to search for wallpaper images. Supports wildcards and  
-        recursive search. This is the path to the directory containing the wallpaper  
-        images. When multiple images are found, one is selected at random.  
+        Path to the directory containing the wallpaper images  
         Required?                    false  
-        Position?                    1  
-        Default value                .\  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, FilePath, Input  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -AllDrives [<SwitchParameter>]  
-        Search across all available drives.  
+    -NoRecurse  
+        Do not recurse into subdirectories  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoRecurse [<SwitchParameter>]  
-        Do not recurse into subdirectories.  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -2468,79 +2295,72 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
    Start-ProcessWithPriority            --> nice  
 ```` 
 
-### SYNOPSIS 
-    Starts a process with a specified priority level.  
-
 ### SYNTAX 
 ```PowerShell 
-Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Launches an executable with a customizable priority level and provides options for  
-    waiting and process handling. This function wraps Start-Process with additional  
-    functionality to control process priority and execution behavior.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The path to the executable file to run. This parameter is mandatory and must  
-        contain a valid path to an executable file.  
-        Required?                    true  
+    -ArgumentList <string[]>  
+        Arguments to pass to the executable  
+        Required?                    false  
         Position?                    1  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ArgumentList <String[]>  
-        Arguments to pass to the executable. Multiple arguments can be provided as an  
-        array of strings.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        Path to the executable to run  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoWait  
+        Do not wait for process completion  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Return the process object  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Priority <string>  
+        Process priority level  
         Required?                    false  
         Position?                    2  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Priority <String>  
-        Sets the process priority level. Valid values are: Idle, BelowNormal, Low,  
-        Normal, AboveNormal, High, RealTime. Defaults to BelowNormal. Higher priorities  
-        may impact system performance.  
+    -WhatIf  
         Required?                    false  
-        Position?                    3  
-        Default value                BelowNormal  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoWait [<SwitchParameter>]  
-        Switch to determine if the function should wait for process completion. When  
-        specified, the function returns immediately after starting the process.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Switch to return the process object after creation. Useful when you need to  
-        manipulate the process after it starts.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -2557,40 +2377,29 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ```` 
 
-### SYNOPSIS 
-    Scans files or directories for malware using Windows Defender.  
-
 ### SYNTAX 
 ```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>] 
+Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Performs a targeted scan of specified files or directories using Windows  
-    Defender's command-line interface (MpCmdRun.exe). The function can either scan  
-    in detection-only mode or with automatic threat remediation enabled. Returns  
-    true if no threats are detected, false if threats are found or scan fails.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The full or relative path to the file or directory to be scanned. The path will  
-        be expanded to its full form before scanning. Accepts pipeline input and  
-        supports both individual files and directories.  
-        Required?                    true  
-        Position?                    1  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -EnableRemediation [<SwitchParameter>]  
-        When specified, allows Windows Defender to automatically remove or quarantine  
-        any detected threats. If omitted, the scan will only detect and report threats  
-        without taking any remediation action.  
+    -EnableRemediation  
+        Instructs Windows Defender to take action on threats  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        The path to the file or directory to be scanned  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -2980,282 +2789,287 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
    EnsureWireGuard  
 ```` 
 
-### SYNOPSIS 
-    Ensures WireGuard VPN service is installed and running via Docker container.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
+EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function sets up and manages the WireGuard VPN service using Docker  
-    Desktop. It automatically ensures Docker Desktop is running, pulls the latest  
-    WireGuard Docker image, creates persistent storage volumes, and manages the  
-    container lifecycle including health monitoring and restart capabilities.  
-    WireGuard is a simple, fast, and modern VPN that utilizes state-of-the-art  
-    cryptography. It offers superior performance and simplicity compared to  
-    traditional VPN solutions like OpenVPN, with minimal configuration overhead  
-    and excellent cross-platform support.  
-
 ### PARAMETERS 
-    -ContainerName <String>  
-        The name for the Docker container. Default: "wireguard"  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage of configuration files  
-        and client certificates. Default: "wireguard_data"  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The UDP port number for the WireGuard service to listen on. Must be between  
-        1-65535. Default: 51839  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    3  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check before timing out.  
-        Must be between 10-300 seconds. Default: 60  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
         Required?                    false  
         Position?                    4  
-        Default value                60  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts during startup validation.  
-        Must be between 1-10 seconds. Default: 3  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
         Required?                    false  
         Position?                    5  
-        Default value                3  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use instead of the default. If not specified,  
-        uses the official "linuxserver/wireguard" image from Docker Hub.  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for file permissions inside the container. Should match your host  
-        system user ID for proper file access. Default: "1000"  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
         Required?                    false  
         Position?                    7  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for file permissions inside the container. Should match your host  
-        system group ID for proper file access. Default: "1000"  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore PowerShell window focus  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Place window on the right side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SetForeground  
+        Set the window to foreground after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
         Position?                    8  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone identifier to use for container logging and timestamps. Uses standard  
-        timezone database format. Default: "Etc/UTC"  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
+    -Width <int>  
+        The initial width of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Forces complete rebuilding of Docker container and removes all existing data.  
-        This will stop and remove existing containers and volumes, pull the latest  
-        WireGuard image, and create a fresh container with clean configuration.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       To generate client configurations after setup:  
-       - Run: docker exec -it wireguard /app/show-peer 1  
-       For Android 10 and above:  
-       - Install the official WireGuard app from Google Play Store  
-       - Scan the QR code or import the config file to connect  
-       For more information, see: https://www.wireguard.com/  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> EnsureWireGuard  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> EnsureWireGuard -ContainerName "my_wireguard" -ServicePort 51821  
-   -------------------------- EXAMPLE 3 --------------------------  
-   PS C:\> EnsureWireGuard -VolumeName "custom_vpn_data" -HealthCheckTimeout 120  
-   -------------------------- EXAMPLE 4 --------------------------  
-   PS C:\> EnsureWireGuard -PUID 1001 -PGID 1001 -TimeZone "America/New_York"  
-   -------------------------- EXAMPLE 5 --------------------------  
-   PS C:\> EnsureWireGuard -Force  
-```` 
 
 <br/><hr/><br/>
  
@@ -3266,135 +3080,125 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
    Get-WireGuardPeerQRCode  
 ```` 
 
-### SYNOPSIS 
-    Generates a QR code for a WireGuard VPN peer configuration.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>] 
+Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function generates a QR code for a WireGuard VPN peer configuration that  
-    can be scanned by mobile devices for easy setup. The QR code is displayed in  
-    the console and can be used to quickly configure WireGuard clients on  
-    smartphones and tablets. The function interacts with the linuxserver/wireguard  
-    Docker container to generate QR codes for peer configurations.  
-
 ### PARAMETERS 
-    -PeerName <String>  
-        The name of the peer to generate a QR code for.  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PeerName <string>  
+        The name of the peer to generate a QR code for  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force rebuild of Docker container and remove existing data.  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container.  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage.  
-        Required?                    false  
-        Position?                    named  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
-        Required?                    false  
-        Position?                    named  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
-        Required?                    false  
-        Position?                    named  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
-        Required?                    false  
-        Position?                    named  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use.  
-        Required?                    false  
-        Position?                    named  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function requires the container to be running (use EnsureWireGuard first)  
-       and the peer to exist (use Add-WireGuardPeer to create peers).  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardPeerQRCode -PeerName "MyPhone"  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize  
-```` 
 
 <br/><hr/><br/>
  
@@ -3405,282 +3209,296 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
    Get-WireGuardPeers  
 ```` 
 
-### SYNOPSIS 
-    Gets information about all WireGuard VPN peers configured on the system.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function retrieves comprehensive information about all WireGuard VPN peers  
-    configured on the server running in a Docker container. It provides detailed  
-    information including peer names, public keys, allowed IP addresses, connection  
-    endpoints, handshake status, data transfer statistics, and current connection  
-    status. The function can operate in conjunction with parent functions or  
-    independently manage Docker container initialization.  
-
 ### PARAMETERS 
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization process when this function is called by a parent  
-        function that has already handled container setup.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force complete rebuild of the Docker container and remove all existing  
-        persistent data before starting fresh.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name identifier for the Docker container running the WireGuard service.  
-        Must be a valid Docker container name.  
-        Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name identifier for the Docker volume used for persistent storage of  
-        WireGuard configuration and peer data.  
-        Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The UDP port number on which the WireGuard service listens for VPN connections.  
-        Must be within valid port range.  
-        Required?                    false  
-        Position?                    3  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for the WireGuard service to respond to health  
-        check attempts before considering it failed.  
-        Required?                    false  
-        Position?                    4  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between consecutive health check attempts when waiting for  
-        the service to become ready.  
-        Required?                    false  
-        Position?                    5  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use instead of the default linuxserver/wireguard  
-        image for the container.  
-        Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for file permissions and process ownership within the Docker container.  
-        Used for security and permission management.  
-        Required?                    false  
-        Position?                    7  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for file permissions and process ownership within the Docker container.  
-        Used for security and permission management.  
-        Required?                    false  
-        Position?                    8  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone setting to use for the container's system clock and log timestamps.  
-        Should be a valid timezone identifier.  
-        Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    10  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    11  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left <Int32>  
-        Required?                    false  
-        Position?                    12  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right <Int32>  
+    -Bottom <int>  
+        Set the bottom position of the Docker window  
         Required?                    false  
         Position?                    13  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom <Int32>  
+    -Centered  
+        Center the Docker window on the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear session for Docker window before running  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the Docker window after launching  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Run the Docker window in fullscreen mode  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        Set the height of the Docker window  
+        Required?                    false  
+        Position?                    10  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    5  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left <int>  
+        Set the left position of the Docker window  
+        Required?                    false  
+        Position?                    11  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Remove window borders for the Docker window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    7  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore focus to the previous window after running Docker  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right <int>  
+        Set the right position of the Docker window  
+        Required?                    false  
+        Position?                    12  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay in milliseconds between sending keys to Docker window  
         Required?                    false  
         Position?                    14  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
+    -SendKeyEscape  
+        Send Escape key to the Docker window after launch  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus in the Docker window after launch  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter when sending keys to Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    2  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
+    -SessionOnly  
+        Use session only for Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
+    -SetForeground  
+        Set the Docker window as foreground window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
+    -ShowWindow  
+        Show the Docker window when running WireGuard  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
+    -SideBySide  
+        Show Docker window side by side with other windows  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
+    -SkipSession  
+        Skip session for Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    15  
-        Default value                0  
+        Position?                    8  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
+    -Width <int>  
+        Set the width of the Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    9  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to  
-       retrieve information about configured WireGuard peers. The container must be  
-       running and accessible. Use EnsureWireGuard function first if container setup  
-       is required.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardPeers  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardPeers -NoDockerInitialize -ContainerName "custom_wireguard" `  
-                      -ServicePort 55555  
-```` 
 
 <br/><hr/><br/>
  
@@ -3691,269 +3509,296 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
    Get-WireGuardStatus  
 ```` 
 
-### SYNOPSIS 
-    Gets detailed status information about the WireGuard VPN server.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function retrieves detailed status information about the WireGuard VPN  
-    server running in a Docker container, including interface details, listening  
-    port, connected peers, and server health. It provides comprehensive information  
-    about the WireGuard service including server status, peer counts, uptime, and  
-    network configuration details.  
-
 ### PARAMETERS 
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force rebuild of Docker container and remove existing data.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container.  
-        Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage.  
-        Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
-        Required?                    false  
-        Position?                    3  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
-        Required?                    false  
-        Position?                    4  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
-        Required?                    false  
-        Position?                    5  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use.  
-        Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
-        Required?                    false  
-        Position?                    7  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
-        Required?                    false  
-        Position?                    8  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
-        Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    10  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    11  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left <Int32>  
-        Required?                    false  
-        Position?                    12  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right <Int32>  
+    -Bottom <int>  
+        Window bottom position (pass-through)  
         Required?                    false  
         Position?                    13  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom <Int32>  
+    -Centered  
+        Center the window (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear session data (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Open window in fullscreen mode (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        Window height in characters or pixels (pass-through)  
+        Required?                    false  
+        Position?                    10  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    5  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left <int>  
+        Window left position (pass-through)  
+        Required?                    false  
+        Position?                    11  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Remove window borders (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    7  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore focus to window after operation (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right <int>  
+        Window right position (pass-through)  
+        Required?                    false  
+        Position?                    12  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay in milliseconds between sending keys (pass-through)  
         Required?                    false  
         Position?                    14  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
+    -SendKeyEscape  
+        Send Escape key to window (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus when sending keys (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter when sending keys (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    2  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
+    -SessionOnly  
+        Session only mode (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
+    -SetForeground  
+        Set window to foreground (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
+    -ShowWindow  
+        Show the window when running the container (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
+    -SideBySide  
+        Show side-by-side window (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
+    -SkipSession  
+        Skip session initialization (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    15  
-        Default value                0  
+        Position?                    8  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
+    -Width <int>  
+        Window width in characters or pixels (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    9  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to  
-       retrieve status information about the WireGuard server. It requires the  
-       container to be running (use EnsureWireGuard first).  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardStatus  
-   Returns the status of the WireGuard server with default settings.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardStatus -NoDockerInitialize -ContainerName "custom_wireguard"  
-   Retrieves status for a custom container without initializing Docker.  
-```` 
 
 <br/><hr/><br/>
  
@@ -3964,296 +3809,321 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
    Remove-WireGuardPeer  
 ```` 
 
-### SYNOPSIS 
-    Removes a WireGuard VPN peer configuration.  
-
 ### SYNTAX 
 ```PowerShell 
-Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function removes a WireGuard VPN peer configuration from the server running  
-    in a Docker container. It deletes the peer's configuration files and updates the  
-    WireGuard server to stop accepting connections from this peer. The function  
-    validates peer existence before removal and provides confirmation prompts unless  
-    the Force parameter is specified.  
-
 ### PARAMETERS 
-    -PeerName <String>  
-        The name of the peer to remove from the WireGuard configuration.  
+    -Bottom  
+        Place window on the bottom side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Centered  
+        Place window in the center of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force removal without confirmation  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Place window on the left side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization when called by parent function  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PeerName <string>  
+        The name of the peer to remove  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container running the WireGuard service.  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume used for persistent storage.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard_data  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                60  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                3  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use for the WireGuard container.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                1000  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                1000  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                Etc/UTC  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        If specified, bypasses confirmation prompts when removing the peer.  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization when already called by parent function.  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
+    -Width <int>  
+        The initial width of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to manage  
-       WireGuard peers. It requires the container to be running (use EnsureWireGuard  
-       first). The function will validate peer existence before attempting removal and  
-       provides detailed error handling for failed operations.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Remove-WireGuardPeer -PeerName "MyPhone"  
-   Removes the peer named "MyPhone" with confirmation prompt.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Remove-WireGuardPeer -PeerName "Tablet" -Force  
-   Removes the peer named "Tablet" without confirmation prompt.  
-   -------------------------- EXAMPLE 3 --------------------------  
-   PS C:\> Remove-WireGuardPeer "WorkLaptop"  
-   Removes the peer using positional parameter syntax.  
-```` 
 
 <br/><hr/><br/>
  
@@ -4264,161 +4134,132 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
    Reset-WireGuardConfiguration  
 ```` 
 
-### SYNOPSIS 
-    Resets the WireGuard VPN server configuration, removing all peers.  
-
 ### SYNTAX 
 ```PowerShell 
-Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Reset-WireGuardConfiguration [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function resets the WireGuard VPN server configuration running in a Docker  
-    container by removing all peers and generating a fresh server configuration.  
-    This is a destructive operation that cannot be undone and will permanently  
-    remove all peer configurations. The function stops the WireGuard service,  
-    removes all peer directories and configuration files, removes server keys,  
-    restarts the container, and verifies that a new configuration is generated.  
-
 ### PARAMETERS 
-    -ContainerName <String>  
-        The name for the Docker container. Defaults to 'wireguard' if not specified.  
-        Used to identify which container to operate on.  
+    -Confirm  
         Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage. Defaults to  
-        'wireguard_data' if not specified. Used for data persistence across container  
-        restarts.  
+    -ContainerName <string>  
+        The name for the Docker container  
         Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service. Must be between 1 and 65535.  
-        Defaults to 51839. This is the UDP port WireGuard will listen on.  
+    -Force  
+        Force reset without confirmation  
         Required?                    false  
-        Position?                    3  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check. Must be between 10  
-        and 300 seconds. Defaults to 60 seconds. Used when verifying service health.  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
         Required?                    false  
         Position?                    4  
-        Default value                60  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts. Must be between 1 and 10  
-        seconds. Defaults to 3 seconds. Controls how often health checks are performed.  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
         Required?                    false  
         Position?                    5  
-        Default value                3  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use. Defaults to 'linuxserver/wireguard'. This  
-        allows using alternative WireGuard Docker images if needed.  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container. Defaults to '1000'. This controls  
-        file ownership and permissions within the container.  
+    -PGID <string>  
+        Group ID for permissions in the container  
         Required?                    false  
         Position?                    7  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container. Defaults to '1000'. This controls  
-        group ownership and permissions within the container.  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
         Position?                    8  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container. Defaults to 'Etc/UTC'. This sets the  
-        container's timezone for logging and scheduling purposes.  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
-        When specified, assumes Docker and WireGuard are already initialized.  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        If specified, bypasses confirmation prompts when removing all peer  
-        configurations. Use with caution as this is a destructive operation.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to reset  
-       the WireGuard server configuration. It requires the container to be running  
-       (use EnsureWireGuard first). This operation will remove all peer configurations  
-       and cannot be undone. The function will restart the container to regenerate  
-       a fresh configuration.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Reset-WireGuardConfiguration  
-   Resets the WireGuard configuration with default settings and prompts for  
-   confirmation before proceeding.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Reset-WireGuardConfiguration -Force -ContainerName "my-wireguard"  
-   Resets the WireGuard configuration for a custom container name without  
-   confirmation prompts.  
-```` 
 
 <br/><hr/><br/>
  
@@ -4432,19 +4273,10 @@ Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>
    CurrentUserHasElevatedRights  
 ```` 
 
-### SYNOPSIS 
-    Checks if the current user has elevated rights.  
-
 ### SYNTAX 
 ```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Determines whether the current Windows user has administrative or backup operator  
-    privileges by checking their security principal roles. Returns true if the user  
-    has elevated rights, false otherwise. Implements robust error handling for  
-    security and access-related issues.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4462,267 +4294,270 @@ CurrentUserHasElevatedRights [<CommonParameters>]
    EnsureDockerDesktop  
 ```` 
 
-### SYNOPSIS 
-    Ensures Docker Desktop is installed and available for containerization  
-    operations.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-Width] <Int32>] [[-Height] <Int32>] [[-X] <Int32>] [[-Y] <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [[-KeysToSend] <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
+EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] <int>] [[-Y] <int>] [[-KeysToSend] <string[]>] [[-SendKeyDelayMilliSeconds] <int>] [-ShowWindow] [-NoBorders] [-Force] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Verifies if Docker Desktop is installed and properly configured on the system.  
-    If not found, installs Docker Desktop using WinGet and handles the complete  
-    installation process automatically. This function also manages Docker Desktop  
-    service startup, daemon readiness verification, and handles authentication  
-    requirements when necessary. The function includes comprehensive path  
-    management for both system and user-level Docker installations.  
-
 ### PARAMETERS 
-    -ShowWindow [<SwitchParameter>]  
-        Shows the Docker Desktop window during initialization when specified. When  
-        this switch is enabled, Docker Desktop will start with its window visible  
-        instead of minimized to the system tray.  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the Docker Desktop window to:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -1 = Discard monitor positioning  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders and title bar from the Docker Desktop window for  
-        a cleaner appearance.  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
+    -Confirm  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the width of the Docker Desktop window in pixels. Use -1 for automatic  
-        sizing based on window content.  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Forces a docker desktop restart  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
         Required?                    false  
         Position?                    2  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the height of the Docker Desktop window in pixels. Use -1 for automatic  
-        sizing based on window content.  
-        Required?                    false  
-        Position?                    3  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the horizontal position of the Docker Desktop window in pixels. Use -1  
-        for automatic positioning by the system.  
-        Required?                    false  
-        Position?                    4  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the vertical position of the Docker Desktop window in pixels. Use -1  
-        for automatic positioning by the system.  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
         Position?                    5  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places the Docker Desktop window on the left half of the screen.  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places the Docker Desktop window on the right half of the screen.  
+    -Monitor <int>  
+        The monitor to use, 0 = default, -1 is discard  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places the Docker Desktop window on the top half of the screen.  
+    -NoBorders  
+        Removes the borders of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places the Docker Desktop window on the bottom half of the screen.  
+    -NoDockerInitialization  
+        Skip Docker initialization and return immediately  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers the Docker Desktop window on the screen.  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Maximizes the Docker Desktop window to fill the entire screen.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Returns focus to the PowerShell window after positioning Docker Desktop.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Positions Docker Desktop side by side with PowerShell on the same monitor  
-        or fullscreen on a different monitor.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focuses the Docker Desktop window after positioning and initialization.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Sets the Docker Desktop window to foreground after positioning and  
-        initialization.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the Docker Desktop window after positioning and  
-        initialization. See documentation for cmdlet GenXdev.Windows\Send-Key.  
-        Required?                    false  
-        Position?                    6  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    7  
-        Default value                0  
+        Position?                    6  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Uses alternative settings stored in session for AI preferences instead of  
-        persistent preferences.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Clears alternative settings stored in session for AI preferences.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Stores settings only in persistent preferences without affecting session  
-        variables.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialization [<SwitchParameter>]  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        The initial width of the window  
+        Required?                    false  
+        Position?                    1  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        The initial X position of the window  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        The initial Y position of the window  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -4739,37 +4574,29 @@ EnsureDockerDesktop [-ShowWindow] [[-Monitor] <Int32>] [-NoBorders] [-Force] [[-
    EnsurePSTools  
 ```` 
 
-### SYNOPSIS 
-    Ensures Sysinternals tools (PSTools) are installed and available.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>] 
+EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Verifies if Sysinternals tools like handle.exe are installed and properly  
-    configured on the system. If not found, installs the Sysinternals Suite  
-    using WinGet and handles the complete installation process automatically.  
-
 ### PARAMETERS 
-    -Force [<SwitchParameter>]  
-        Switch to force reinstallation of Sysinternals tools even if they are already  
-        installed.  
+    -Force  
+        Force reinstallation of Sysinternals tools  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PSExeName <String>  
-        The executable name to check for verifying Sysinternals tools installation.  
-        Default is 'handle.exe'.  
+    -PSExeName <string>  
+        The executable name to verify installation  
         Required?                    false  
-        Position?                    1  
-        Default value                handle.exe  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -4786,18 +4613,10 @@ EnsurePSTools [-Force] [[-PSExeName] <String>] [<CommonParameters>]
    Get-ActiveUser                       --> gusers  
 ```` 
 
-### SYNOPSIS 
-    Retrieves a list of unique usernames from currently active system processes.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ActiveUser [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Queries all running processes on the system, extracts the associated username for  
-    each process, and returns a deduplicated list of users who have active processes.  
-    This is useful for system administration and security monitoring.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4815,18 +4634,10 @@ Get-ActiveUser [<CommonParameters>]
    Get-ChildProcesses  
 ```` 
 
-### SYNOPSIS 
-    Retrieves all processes that are descendants of the current PowerShell process.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ChildProcesses [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Examines all running processes and identifies those that have the current  
-    PowerShell process as an ancestor in their parent process chain. This includes  
-    both direct child processes and their descendants (grandchildren, etc.).  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4844,20 +4655,10 @@ Get-ChildProcesses [<CommonParameters>]
    Get-ClipboardFiles                   --> getclipfiles  
 ```` 
 
-### SYNOPSIS 
-    Gets files from the Windows clipboard that were set for file operations like copy/paste.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ClipboardFiles [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function retrieves file paths from the Windows clipboard that were previously  
-    set for file operations. It handles both STA and MTA threading modes automatically,  
-    ensuring compatibility across different PowerShell execution contexts. The function  
-    validates file existence and returns only existing files/directories as objects  
-    similar to Get-ChildItem or Get-Item output.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4875,19 +4676,10 @@ Get-ClipboardFiles [<CommonParameters>]
    Get-CurrentFocusedProcess  
 ```` 
 
-### SYNOPSIS 
-    Retrieves the process object of the window that currently has keyboard focus.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-CurrentFocusedProcess [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function uses Windows API calls through P/Invoke to identify and return the  
-    Process object associated with the currently focused window. It leverages the  
-    User32.dll functions GetForegroundWindow and GetWindowThreadProcessId to determine  
-    which window has focus and obtain its associated process ID.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4895,17 +4687,6 @@ Get-CurrentFocusedProcess [<CommonParameters>]
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       Requires Windows operating system as it uses Windows-specific API calls.  
-       May return null if the process cannot be accessed due to permissions.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> $focusedProcess = Get-CurrentFocusedProcess  
-   Write-Host "Active window process: $($focusedProcess.ProcessName)"  
-```` 
 
 <br/><hr/><br/>
  
@@ -4916,29 +4697,20 @@ Get-CurrentFocusedProcess [<CommonParameters>]
    Get-DesktopScalingFactor  
 ```` 
 
-### SYNOPSIS 
-    Retrieves the Windows display scaling factor (DPI setting) for a specified monitor.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>] 
+Get-DesktopScalingFactor [[-Monitor] <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Gets the current Windows display scaling factor configured for a monitor in the  
-    system. The scaling factor is expressed as a percentage where 100 represents  
-    standard scaling (96 DPI). Common values are 100, 125, 150, and 200.  
-    If no monitor is specified, returns the scaling factor for the primary display.  
-
 ### PARAMETERS 
-    -Monitor <Int32>  
-        Specifies the zero-based index of the monitor to check. The primary monitor is  
-        index 0, secondary monitor is 1, and so on. Valid values range from 0 to 32.  
+    -Monitor <int>  
+        The monitor index to check (0 = primary monitor)  
         Required?                    false  
-        Position?                    1  
-        Default value                0  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -4955,18 +4727,10 @@ Get-DesktopScalingFactor [[-Monitor] <Int32>] [<CommonParameters>]
    Get-ForegroundWindow  
 ```` 
 
-### SYNOPSIS 
-    Gets the handle of the currently active foreground window.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-ForegroundWindow [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    This function retrieves the window handle (HWND) of the window that is  
-    currently in the foreground and has keyboard focus. It uses Windows API  
-    functions through P/Invoke to interact with the User32.dll library.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -4984,31 +4748,20 @@ Get-ForegroundWindow [<CommonParameters>]
    Get-KnownFolderPath                  --> folder  
 ```` 
 
-### SYNOPSIS 
-    Gets the path of a Windows known folder using the Windows Shell32 API.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>] 
+Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Retrieves the path of a specified Windows known folder using the Shell32 API's  
-    SHGetKnownFolderPath function. This method is more reliable than using  
-    environment variables as it works consistently across different Windows versions  
-    and language settings. Supports all standard Windows known folders like  
-    Documents, Downloads, AppData etc.  
-
 ### PARAMETERS 
-    -KnownFolder <String>  
-        Specifies the name of the Windows known folder to retrieve. Must be one of the  
-        predefined folder names like 'Documents', 'Downloads', etc. The function will  
-        return the full path to this folder.  
+    -KnownFolder <string>  
+        The Windows known folder name to get the path for  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5025,18 +4778,10 @@ Get-KnownFolderPath [-KnownFolder] <String> [<CommonParameters>]
    Get-MonitorCount  
 ```` 
 
-### SYNOPSIS 
-    Gets the total number of display monitors connected to the system.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-MonitorCount [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Uses the Windows Presentation Foundation (WPF) Screen helper class to accurately  
-    determine the number of physical display monitors currently connected to the  
-    system. This includes both active and detected but disabled monitors.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -5054,18 +4799,10 @@ Get-MonitorCount [<CommonParameters>]
    Get-MpCmdRunPath  
 ```` 
 
-### SYNOPSIS 
-    Gets the path to the Windows Defender MpCmdRun.exe executable.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-MpCmdRunPath [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Locates and returns the full path to the Windows Defender command-line utility  
-    (MpCmdRun.exe). The function checks the standard installation location in  
-    Program Files and provides appropriate error handling if the file is not found.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -5083,32 +4820,20 @@ Get-MpCmdRunPath [<CommonParameters>]
    Get-OpenedFileHandleProcesses  
 ```` 
 
-### SYNOPSIS 
-    Retrieves processes that have open file handles to specified files.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>] 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]> [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Uses the Sysinternals handle.exe tool to identify processes that currently have  
-    open handles to one or more specified files. This is useful for determining  
-    which processes are preventing file operations like deletion or modification.  
-    The function requires handle.exe from the Sysinternals suite to be installed  
-    and available in the system path. It parses the output from handle.exe to  
-    identify processes with open handles to the specified files and returns  
-    detailed information about those processes.  
-
 ### PARAMETERS 
-    -FilePath <String[]>  
-        The path to the file(s) to check for open handles. Supports pipeline input.  
-        Multiple file paths can be provided to check multiple files at once.  
+    -FilePath <string[]>  
+        The path to the file(s) to check for open handles  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5125,18 +4850,10 @@ Get-OpenedFileHandleProcesses [-FilePath] <String[]> [<CommonParameters>]
    Get-PowershellMainWindow  
 ```` 
 
-### SYNOPSIS 
-    Returns a window helper object for the PowerShell terminal's main window.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-PowershellMainWindow [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Retrieves a WindowObj helper object that represents the main window of the current  
-    PowerShell host process. This allows manipulation and interaction with the  
-    terminal window itself.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -5154,21 +4871,10 @@ Get-PowershellMainWindow [<CommonParameters>]
    Get-PowershellMainWindowProcess  
 ```` 
 
-### SYNOPSIS 
-    Returns the process object for the window hosting the PowerShell terminal.  
-
 ### SYNTAX 
 ```PowerShell 
 Get-PowershellMainWindowProcess [<CommonParameters>] 
 ```` 
-
-### DESCRIPTION 
-    Traverses up the process tree starting from the current PowerShell process to  
-    locate the parent window responsible for hosting the terminal. If the immediate  
-    parent process doesn't have a main window handle, it searches for similar  
-    processes that do have main windows. This is useful for identifying the actual  
-    terminal window process (like Windows Terminal, ConHost, etc.) that contains  
-    the PowerShell session.  
 
 ### PARAMETERS 
     <CommonParameters>  
@@ -5186,43 +4892,38 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
    Get-Window                           --> gwin, window  
 ```` 
 
-### SYNOPSIS 
-    Gets window information for specified processes or window handles.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>] [<CommonParameters>] 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Retrieves window information using process name, ID, or window handle. Returns  
-    WindowObj objects containing details about the main windows of matching processes.  
-    Supports wildcards when searching by process name.  
-
 ### PARAMETERS 
-    -ProcessName <String>  
-        Name of the process(es) to get window information for. Supports wildcards.  
+    -ProcessId <int>  
+        ID of the process to get window information for  
         Required?                    false  
-        Position?                    1  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  true  
-    -ProcessId <Int32>  
-        Process ID to get window information for. Must be a valid running process ID.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WindowHandle <Int64>  
-        Window handle to get information for. Must be a valid window handle number.  
+    -ProcessName <string>  
+        Name of the process to get window information for  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    0  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+    -WindowHandle <long>  
+        Window handle to get information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5239,58 +4940,45 @@ Get-Window [[-ProcessName] <String>] [-ProcessId <Int32>] [-WindowHandle <Int64>
    Initialize-ScheduledTaskScripts  
 ```` 
 
-### SYNOPSIS 
-    Creates scheduled tasks that run PowerShell scripts at specified intervals.  
-
 ### SYNTAX 
 ```PowerShell 
-Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Creates and configures scheduled tasks that execute PowerShell scripts at various  
-    intervals including:  
-    - System startup  
-    - User logon  
-    - Every hour of specific days (e.g., Monday at 13:00)  
-    - Daily at specific hours (e.g., every day at 15:00)  
-    Each task runs with elevated privileges under the current user's context.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The directory path where the PowerShell scripts for each task will be created.  
-        If not specified, scripts are created in a 'ScheduledTasks' folder in the parent  
-        directory.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        The directory path where task scripts will be created  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Prefix <string>  
+        Prefix for the scheduled task names  
         Required?                    false  
         Position?                    1  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Prefix <String>  
-        A prefix string added to all task names for grouping and identification.  
-        Default is "PS".  
+    -WhatIf  
         Required?                    false  
-        Position?                    2  
-        Default value                PS  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Shows what would happen if the cmdlet runs. The cmdlet is not run.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Prompts you for confirmation before running the cmdlet.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5304,100 +4992,93 @@ Initialize-ScheduledTaskScripts [[-FilePath] <String>] [[-Prefix] <String>] [-Wh
 ##	Invoke-WindowsUpdate 
 ```PowerShell 
 
-   Invoke-WindowsUpdate                 --> Get-WindowsIsUpToDate, updatewindows  
+   Invoke-WindowsUpdate                 --> updatewindows  
 ```` 
-
-### SYNOPSIS 
-    Checks if Windows is up to date and optionally installs available updates.  
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function checks for Windows updates, winget package updates, and PowerShell  
-    module updates. It can display available updates or automatically install them.  
-    The function requires administrative privileges to install Windows updates and  
-    can optionally reboot the system if updates require a restart.  
-
 ### PARAMETERS 
-    -Install [<SwitchParameter>]  
-        Automatically install available Windows updates, winget packages, and PowerShell  
-        modules instead of just checking for their availability.  
+    -AutoReboot  
+        Automatically reboot if updates require a restart  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -AutoReboot [<SwitchParameter>]  
-        Automatically reboot the system if installed updates require a restart. This  
-        parameter only has effect when Install is also specified.  
+    -Confirm  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Criteria <String>  
-        Custom Windows Update search criteria. Defaults to finding all non-hidden,  
-        uninstalled updates.  
+    -Criteria <string>  
+        Custom Windows Update search criteria  
         Required?                    false  
-        Position?                    1  
-        Default value                IsInstalled=0 and IsHidden=0  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -IncludeDrivers [<SwitchParameter>]  
-        Include drivers in update search. When specified, driver updates will also be  
-        considered in the search results.  
+    -GroupByCategory  
+        Group and color output by update category  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -GroupByCategory [<SwitchParameter>]  
-        Group and color output by update category. This provides a more organized view  
-        of available updates categorized by their type.  
+    -IncludeDrivers  
+        Include drivers in update search  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBanner [<SwitchParameter>]  
-        Disable banner and status output. When specified, reduces verbose output and  
-        displays only essential information.  
+    -Install  
+        Automatically install available Windows updates  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoRebootCheck [<SwitchParameter>]  
-        Skip reboot requirement check and reporting. When specified, the function will  
-        not check if a reboot is needed after installing updates.  
+    -NoBanner  
+        Disable banner/status output  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -NoRebootCheck  
+        Skip reboot requirement check/reporting  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5414,201 +5095,190 @@ Invoke-WindowsUpdate [-Install] [-AutoReboot] [[-Criteria] <String>] [-IncludeDr
    Pop-Window                           --> popw  
 ```` 
 
-### SYNOPSIS 
-    Pops the last active window helper from the stack with optional modifications.  
-
 ### SYNTAX 
 ```PowerShell 
-Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
+Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Pop-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
    Pop-Window [-NoModify] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Pops a window helper from the stack and optionally applies window transformations.  
-    If the stack is empty or contains invalid windows, returns the currently focused  
-    window. This function allows you to manipulate windows that were previously saved  
-    with Push-Window, applying various positioning, sizing, and visual effects.  
-
 ### PARAMETERS 
-    -Maximize [<SwitchParameter>]  
-        Maximizes the window after popping it from the stack.  
+    -AlwaysOnTop  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Minimize [<SwitchParameter>]  
-        Minimizes the window after popping it from the stack.  
+    -Bottom  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Restore [<SwitchParameter>]  
-        Restores the window to its normal state after popping it from the stack.  
+    -Centered  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Hide [<SwitchParameter>]  
-        Hides the window after popping it from the stack.  
+    -FadeIn  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Show [<SwitchParameter>]  
-        Ensures the window is visible after popping it from the stack.  
+    -Focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -AlwaysOnTop [<SwitchParameter>]  
-        Sets the window to always be on top after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Opacity <Byte>  
-        Sets the window opacity (0-255) after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the window X position after popping it from the stack.  
+    -Height <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the window Y position after popping it from the stack.  
+    -Hide  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Minimize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoModify  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           NoModify  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Opacity <byte>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Restore  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Show  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      sw  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the window width after popping it from the stack.  
+    -X <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the window height after popping it from the stack.  
+    -Y <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Focus [<SwitchParameter>]  
-        Focuses the window after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FadeIn [<SwitchParameter>]  
-        Applies a fade-in effect when showing the window after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoModify [<SwitchParameter>]  
-        Pops the window but doesn't apply any modifications (just returns it).  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen after popping it from the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the window to after popping from the stack:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5625,201 +5295,189 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
    Push-Window                          --> pushw  
 ```` 
 
-### SYNOPSIS 
-    Pushes the current window onto the window stack with optional modifications.  
-
 ### SYNTAX 
 ```PowerShell 
-Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -Width <Int32> -Height <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>]  
-   Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <Byte>] -X <Int32> -Y <Int32> [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <Int32>] [<CommonParameters>] 
+Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Push-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
+   Push-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Pushes a window helper for the currently focused window onto the stack.  
-    Allows applying various window transformations before or after pushing.  
-    This function captures the current window and stores it for later retrieval  
-    with Pop-Window, while optionally applying positioning, sizing, and visual  
-    effects.  
-
 ### PARAMETERS 
-    -Maximize [<SwitchParameter>]  
-        Maximizes the window before pushing it onto the stack.  
+    -AlwaysOnTop  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Minimize [<SwitchParameter>]  
-        Minimizes the window before pushing it onto the stack.  
+    -Bottom  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Restore [<SwitchParameter>]  
-        Restores the window to its normal state before pushing it onto the stack.  
+    -Centered  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Hide [<SwitchParameter>]  
-        Hides the window before pushing it onto the stack.  
+    -FadeOut  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Show [<SwitchParameter>]  
-        Ensures the window is visible before pushing it onto the stack.  
+    -Focus  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes the window borders before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -AlwaysOnTop [<SwitchParameter>]  
-        Sets the window to always be on top before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Opacity <Byte>  
-        Sets the window opacity (0-255) before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        Sets the window X position before pushing it onto the stack.  
+    -Height <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Sets the window Y position before pushing it onto the stack.  
+    -Hide  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Minimize  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Opacity <byte>  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      pt  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Restore  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Show  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      sw  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           Dimensions, Position, Default  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Dimensions  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Sets the window width before pushing it onto the stack.  
+    -X <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        Sets the window height before pushing it onto the stack.  
+    -Y <int>  
         Required?                    true  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Focus [<SwitchParameter>]  
-        Focuses the window before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FadeOut [<SwitchParameter>]  
-        Applies a fade-out effect before pushing the window onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Returns the window object after pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen before pushing it onto the stack.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Specifies the monitor to move the window to before pushing onto the stack:  
-          0 = Primary monitor (default)  
-          1..n = Specific monitor (1-based index)  
-          -2 = Secondary monitor (uses $Global:DefaultSecondaryMonitor if defined)  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           Position  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5836,95 +5494,85 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
    Send-Key                             --> invokekeys, sendkeys  
 ```` 
 
-### SYNOPSIS 
-    Sends simulated keystrokes to a window or process.  
-
 ### SYNTAX 
 ```PowerShell 
-Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-ProcessId <Int32>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <String[]> [-WindowHandle <Int64>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [<CommonParameters>] 
+Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <string[]> [-ProcessId <int>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
+   Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function sends keyboard input to a target window or process using the  
-    Windows Script Host Shell object. It can target windows by process name,  
-    process ID, or window handle. The function supports special key sequences,  
-    escape characters, and various timing options for reliable key delivery.  
-
 ### PARAMETERS 
-    -KeysToSend <String[]>  
-        The keyboard input to send as an array of strings. Supports special key  
-        sequences like {ENTER}, {TAB}, {F1}, etc. Each string in the array is  
-        processed sequentially with optional delays between them.  
+    -KeysToSend <string[]>  
+        The keyboard input to send as an array of strings  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ProcessName <String>  
-        The name of the target process to send keys to. Supports wildcard patterns  
-        for flexible process matching.  
+    -ProcessId <int>  
+        ID of the process to send keys to  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
+        Parameter set name           ByProcessId  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ProcessName <string>  
+        Name of the process to send keys to (supports wildcards)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           ByProcessName  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  true  
-    -ProcessId <Int32>  
-        The process ID of the target process to send keys to. Provides precise  
-        targeting when multiple processes have similar names.  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyEscape  
+        Escape control characters and modifiers in input text  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window after sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter for newlines  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WindowHandle <long>  
+        Window handle to send keys to  
+        Required?                    false  
+        Position?                    Named  
         Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WindowHandle <Int64>  
-        The window handle (HWND) of the target window to send keys to. Offers  
-        direct window targeting when the handle is known.  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        When specified, escapes curly braces in the input text so they are sent as  
-        literal characters rather than interpreted as special key sequences.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        When specified, keeps keyboard focus on the target window after sending  
-        keys instead of returning focus to the PowerShell window.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        When specified, converts newline characters to Shift+Enter key sequences  
-        instead of regular Enter key sequences.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        The delay in milliseconds between sending different key sequences. Helps  
-        ensure reliable delivery when sending multiple key strings.  
-        Required?                    false  
-        Position?                    named  
-        Default value                10  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           ByWindowHandle  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5941,44 +5589,36 @@ Send-Key [-KeysToSend] <String[]> [-ProcessName <String>] [-SendKeyEscape] [-Sen
    Set-ClipboardFiles                   --> setclipfiles  
 ```` 
 
-### SYNOPSIS 
-    Sets files to the Windows clipboard for file operations like copy/paste.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function copies one or more file paths to the Windows clipboard,  
-    enabling file operations like paste in Windows Explorer. It handles both  
-    STA and MTA threading modes automatically, ensuring compatibility across  
-    different PowerShell execution contexts. The function validates file  
-    existence before adding paths to the clipboard.  
-
 ### PARAMETERS 
-    -InputObject <String[]>  
-        Array of file paths to add to the clipboard. Accepts pipeline input and  
-        supports various aliases for compatibility with different object properties.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -InputObject <string[]>  
+        Array of file paths to add to the clipboard  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, ImageFileName, FileName  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -5995,44 +5635,36 @@ Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf] [-Confirm] [<CommonParame
    Set-ForegroundWindow  
 ```` 
 
-### SYNOPSIS 
-    Brings the specified window to the foreground and makes it the active window.  
-
 ### SYNTAX 
 ```PowerShell 
 Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Makes a window the foreground window using multiple Win32 API methods for maximum  
-    reliability. First attempts using SwitchToThisWindow API, then falls back to  
-    SetForegroundWindow if needed. This dual approach ensures consistent window  
-    activation across different Windows versions and scenarios.  
-
 ### PARAMETERS 
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -WindowHandle <IntPtr>  
-        An IntPtr handle to the target window. This handle can be obtained from Windows  
-        API calls or PowerShell window management functions like Get-Process  
-        MainWindowHandle.  
+        Window handle to set as foreground window  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6115,46 +5747,39 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
 ##	Set-TaskbarAlignment 
 ```PowerShell 
 
-   Set-TaskbarAlignment                 --> Set-TaskAlign  
+   Set-TaskbarAlignment  
 ```` 
-
-### SYNOPSIS 
-    Configures Windows 11+ taskbar alignment between center and left positions.  
 
 ### SYNTAX 
 ```PowerShell 
-Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Sets the taskbar alignment in Windows 11 and newer versions by modifying the  
-    registry key 'TaskbarAl' under HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\  
-    Explorer\Advanced. The alignment can be set to either center (value 1) or left  
-    (value 0).  
-
 ### PARAMETERS 
-    -Justify <String>  
-        Specifies the desired taskbar alignment: 'Center' or 'Left'. This setting is  
-        converted to the appropriate registry value (1 for Center, 0 for Left).  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Justify <string>  
+        The taskbar alignment (Center or Left)  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6171,272 +5796,300 @@ Set-TaskbarAlignment [-Justify] <String> [-WhatIf] [-Confirm] [<CommonParameters
    Set-WindowPosition                   --> wp  
 ```` 
 
-### SYNOPSIS 
-    Positions and resizes windows when explicit positioning parameters are provided.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [[-ProcessName] <String>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [[-ProcessName] <string>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-Process <Process>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
+   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Provides precise control over window positioning and sizing when positioning  
-    parameters are specified. Supports multiple monitors, border removal, and  
-    various preset positions like left/right split, top/bottom split, and center  
-    placement. Windows can be positioned by coordinates or using predefined layouts.  
-    Without positioning parameters, the function performs no action on the window.  
-
 ### PARAMETERS 
-    -ProcessName <String>  
-        The process name of the window to position  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  true  
-    -Process <Process>  
-        Process or processes whose windows need positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WindowHelper <WindowObj[]>  
-        Window helper object for direct window manipulation  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Removes window borders and title bar for a cleaner appearance  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        Window width in pixels  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
         Window height in pixels  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -X <Int32>  
-        Window horizontal position in pixels  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Y <Int32>  
-        Window vertical position in pixels  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                -999999  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Places window on left half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Places window on right half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Places window on top half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Places window on bottom half of screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Centers window on screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Maximizes window to fill entire screen  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Returns focus to PowerShell window after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Returns window helper object for further manipulation  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Will either set the window fullscreen on a different monitor than Powershell, or  
-        side by side with Powershell on the same monitor  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focus the window after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Set the window to foreground after positioning  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Maximize [<SwitchParameter>]  
+    -Maximize  
         Maximize the window after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the window after positioning  
+    -Minimize  
+        Minimizes the window after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
+    -Monitor <int>  
+        Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
+    -NoBorders  
+        Removes the borders of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
+    -PassThru  
+        Returns the window helper for each process  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      pt  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -Process <Process>  
+        The process of the window to position  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           Process  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ProcessName <string>  
+        The process name of the window to position  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           ProcessName  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+    -RestoreFocus  
+        Restore PowerShell window focus  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Place window on the right side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Switch to use alternative settings stored in session for AI preferences  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Switch to clear alternative settings stored in session for AI preferences  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Switch to store settings only in persistent preferences without affecting  
-        session  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        Window width in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WindowHelper <WindowObj[]>  
+        Get-Window helper object for direct window manipulation  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           WindowHelper  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        Window horizontal position in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        Window vertical position in pixels  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6453,250 +6106,270 @@ Set-WindowPosition [-Monitor <Int32>] [-NoBorders] [-Width <Int32>] [-Height <In
    Set-WindowPositionForSecondary       --> wps  
 ```` 
 
-### SYNOPSIS 
-    Positions a window on the secondary monitor with specified layout options.  
-
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Width <Int32>] [-Height <Int32>] [-X <Int32>] [-Y <Int32>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <String[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function allows positioning windows on a configured secondary monitor using  
-    Set-WindowPosition with various layout options including alignment, size, and  
-    border settings. It handles monitor selection based on global configuration and  
-    provides a convenient wrapper for secondary monitor window positioning.  
-
 ### PARAMETERS 
+    -Bottom  
+        Place window on the bottom side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Centered  
+        Place window in the center of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FullScreen  
+        Sends F11 to the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -KeysToSend <string[]>  
+        Keystrokes to send to the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Place window on the left side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Maximize  
+        Maximize the window after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Monitor <int>  
+        The monitor to use, 0=default, -1=discard, -2=configured  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Returns the process object after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      pt  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -Process <Process[]>  
-        The process or processes containing the windows to position.  
+        The process of the window to position  
         Required?                    false  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Monitor <Int32>  
-        The monitor to use (0=default, 1=secondary, -1=discard, -2=configured secondary).  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                -2  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
-        The desired width of the window in pixels.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                -1  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
-        The desired height of the window in pixels.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -X <Int32>  
-        The desired X coordinate for window placement.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Y <Int32>  
-        The desired Y coordinate for window placement.  
-        Required?                    false  
-        Position?                    named  
-        Default value                -1  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Place the window on the left side of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Place the window on the right side of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Top [<SwitchParameter>]  
-        Place the window at the top of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Place the window at the bottom of the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Center the window on the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FullScreen [<SwitchParameter>]  
-        Maximize the window to fill the screen.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Remove window borders and title bar.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Return focus to the PowerShell window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Focus the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Set the window to foreground after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Maximize [<SwitchParameter>]  
-        Maximize the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -KeysToSend <String[]>  
-        Keystrokes to send to the window after positioning.  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Escape control characters and modifiers when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Hold keyboard focus on target window when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Use Shift+Enter instead of Enter when sending keys  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Return the Process object after positioning.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Place window side by side with PowerShell on the same monitor.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Use alternative settings stored in session for AI preferences.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Clear alternative settings stored in session for AI preferences.  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Store settings only in persistent preferences without affecting session.  
+    -SetForeground  
+        Set the window to foreground after positioning  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
+    -SideBySide  
+        Place window side by side with PowerShell on the same monitor  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
         Required?                    false  
-        Position?                    named  
-        Default value                  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Top  
+        Place window on the top side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -WhatIf  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Width <int>  
+        The initial width of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -X <int>  
+        The initial X position of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Y <int>  
+        The initial Y position of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6713,59 +6386,54 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <Int32>] [-Wid
    Set-WindowsWallpaper                 --> setaswallpaper  
 ```` 
 
-### SYNOPSIS 
-    Sets a random wallpaper from a specified directory.  
-
 ### SYNTAX 
 ```PowerShell 
 Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Selects a random image file from the specified directory and sets it as the  
-    Windows desktop wallpaper. Supports JPG/JPEG image formats and configures the  
-    wallpaper to "fit" the screen by default.  
-
 ### PARAMETERS 
+    -AllDrives  
+        Search across all available drives  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -InputObject <Object>  
-        The file path pattern to search for wallpaper images. Supports wildcards and  
-        recursive search. This is the path to the directory containing the wallpaper  
-        images. When multiple images are found, one is selected at random.  
+        Path to the directory containing the wallpaper images  
         Required?                    false  
-        Position?                    1  
-        Default value                .\  
+        Position?                    0  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, FilePath, Input  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -AllDrives [<SwitchParameter>]  
-        Search across all available drives.  
+    -NoRecurse  
+        Do not recurse into subdirectories  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoRecurse [<SwitchParameter>]  
-        Do not recurse into subdirectories.  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6782,79 +6450,72 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
    Start-ProcessWithPriority            --> nice  
 ```` 
 
-### SYNOPSIS 
-    Starts a process with a specified priority level.  
-
 ### SYNTAX 
 ```PowerShell 
-Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-Priority] <String>] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Launches an executable with a customizable priority level and provides options for  
-    waiting and process handling. This function wraps Start-Process with additional  
-    functionality to control process priority and execution behavior.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The path to the executable file to run. This parameter is mandatory and must  
-        contain a valid path to an executable file.  
-        Required?                    true  
+    -ArgumentList <string[]>  
+        Arguments to pass to the executable  
+        Required?                    false  
         Position?                    1  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ArgumentList <String[]>  
-        Arguments to pass to the executable. Multiple arguments can be provided as an  
-        array of strings.  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        Path to the executable to run  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoWait  
+        Do not wait for process completion  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PassThru  
+        Return the process object  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Priority <string>  
+        Process priority level  
         Required?                    false  
         Position?                    2  
-        Default value                  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Priority <String>  
-        Sets the process priority level. Valid values are: Idle, BelowNormal, Low,  
-        Normal, AboveNormal, High, RealTime. Defaults to BelowNormal. Higher priorities  
-        may impact system performance.  
+    -WhatIf  
         Required?                    false  
-        Position?                    3  
-        Default value                BelowNormal  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoWait [<SwitchParameter>]  
-        Switch to determine if the function should wait for process completion. When  
-        specified, the function returns immediately after starting the process.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PassThru [<SwitchParameter>]  
-        Switch to return the process object after creation. Useful when you need to  
-        manipulate the process after it starts.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -6871,40 +6532,29 @@ Start-ProcessWithPriority [-FilePath] <String> [[-ArgumentList] <String[]>] [[-P
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ```` 
 
-### SYNOPSIS 
-    Scans files or directories for malware using Windows Defender.  
-
 ### SYNTAX 
 ```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <String> [-EnableRemediation] [<CommonParameters>] 
+Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    Performs a targeted scan of specified files or directories using Windows  
-    Defender's command-line interface (MpCmdRun.exe). The function can either scan  
-    in detection-only mode or with automatic threat remediation enabled. Returns  
-    true if no threats are detected, false if threats are found or scan fails.  
-
 ### PARAMETERS 
-    -FilePath <String>  
-        The full or relative path to the file or directory to be scanned. The path will  
-        be expanded to its full form before scanning. Accepts pipeline input and  
-        supports both individual files and directories.  
-        Required?                    true  
-        Position?                    1  
-        Default value                  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -EnableRemediation [<SwitchParameter>]  
-        When specified, allows Windows Defender to automatically remove or quarantine  
-        any detected threats. If omitted, the scan will only detect and report threats  
-        without taking any remediation action.  
+    -EnableRemediation  
+        Instructs Windows Defender to take action on threats  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FilePath <string>  
+        The path to the file or directory to be scanned  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
@@ -7294,282 +6944,287 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>
    EnsureWireGuard  
 ```` 
 
-### SYNOPSIS 
-    Ensures WireGuard VPN service is installed and running via Docker container.  
-
 ### SYNTAX 
 ```PowerShell 
-EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
+EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function sets up and manages the WireGuard VPN service using Docker  
-    Desktop. It automatically ensures Docker Desktop is running, pulls the latest  
-    WireGuard Docker image, creates persistent storage volumes, and manages the  
-    container lifecycle including health monitoring and restart capabilities.  
-    WireGuard is a simple, fast, and modern VPN that utilizes state-of-the-art  
-    cryptography. It offers superior performance and simplicity compared to  
-    traditional VPN solutions like OpenVPN, with minimal configuration overhead  
-    and excellent cross-platform support.  
-
 ### PARAMETERS 
-    -ContainerName <String>  
-        The name for the Docker container. Default: "wireguard"  
+    -Bottom  
+        Place window on the bottom side of the screen  
         Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage of configuration files  
-        and client certificates. Default: "wireguard_data"  
+    -Centered  
+        Place window in the center of the screen  
         Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The UDP port number for the WireGuard service to listen on. Must be between  
-        1-65535. Default: 51839  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    3  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check before timing out.  
-        Must be between 10-300 seconds. Default: 60  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
         Required?                    false  
         Position?                    4  
-        Default value                60  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts during startup validation.  
-        Must be between 1-10 seconds. Default: 3  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
         Required?                    false  
         Position?                    5  
-        Default value                3  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use instead of the default. If not specified,  
-        uses the official "linuxserver/wireguard" image from Docker Hub.  
+    -Left  
+        Place window on the left side of the screen  
         Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for file permissions inside the container. Should match your host  
-        system user ID for proper file access. Default: "1000"  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
         Required?                    false  
         Position?                    7  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for file permissions inside the container. Should match your host  
-        system group ID for proper file access. Default: "1000"  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore PowerShell window focus  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right  
+        Place window on the right side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SetForeground  
+        Set the window to foreground after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
         Position?                    8  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone identifier to use for container logging and timestamps. Uses standard  
-        timezone database format. Default: "Etc/UTC"  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
+    -Width <int>  
+        The initial width of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Forces complete rebuilding of Docker container and removes all existing data.  
-        This will stop and remove existing containers and volumes, pull the latest  
-        WireGuard image, and create a fresh container with clean configuration.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       To generate client configurations after setup:  
-       - Run: docker exec -it wireguard /app/show-peer 1  
-       For Android 10 and above:  
-       - Install the official WireGuard app from Google Play Store  
-       - Scan the QR code or import the config file to connect  
-       For more information, see: https://www.wireguard.com/  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> EnsureWireGuard  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> EnsureWireGuard -ContainerName "my_wireguard" -ServicePort 51821  
-   -------------------------- EXAMPLE 3 --------------------------  
-   PS C:\> EnsureWireGuard -VolumeName "custom_vpn_data" -HealthCheckTimeout 120  
-   -------------------------- EXAMPLE 4 --------------------------  
-   PS C:\> EnsureWireGuard -PUID 1001 -PGID 1001 -TimeZone "America/New_York"  
-   -------------------------- EXAMPLE 5 --------------------------  
-   PS C:\> EnsureWireGuard -Force  
-```` 
 
 <br/><hr/><br/>
  
@@ -7580,135 +7235,125 @@ EnsureWireGuard [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServiceP
    Get-WireGuardPeerQRCode  
 ```` 
 
-### SYNOPSIS 
-    Generates a QR code for a WireGuard VPN peer configuration.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [<CommonParameters>] 
+Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function generates a QR code for a WireGuard VPN peer configuration that  
-    can be scanned by mobile devices for easy setup. The QR code is displayed in  
-    the console and can be used to quickly configure WireGuard clients on  
-    smartphones and tablets. The function interacts with the linuxserver/wireguard  
-    Docker container to generate QR codes for peer configurations.  
-
 ### PARAMETERS 
-    -PeerName <String>  
-        The name of the peer to generate a QR code for.  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PeerName <string>  
+        The name of the peer to generate a QR code for  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force rebuild of Docker container and remove existing data.  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container.  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage.  
-        Required?                    false  
-        Position?                    named  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
-        Required?                    false  
-        Position?                    named  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
-        Required?                    false  
-        Position?                    named  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
-        Required?                    false  
-        Position?                    named  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use.  
-        Required?                    false  
-        Position?                    named  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
-        Required?                    false  
-        Position?                    named  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function requires the container to be running (use EnsureWireGuard first)  
-       and the peer to exist (use Add-WireGuardPeer to create peers).  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardPeerQRCode -PeerName "MyPhone"  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardPeerQRCode -PeerName "Tablet" -NoDockerInitialize  
-```` 
 
 <br/><hr/><br/>
  
@@ -7719,282 +7364,296 @@ Get-WireGuardPeerQRCode [-PeerName] <String> [-NoDockerInitialize] [-Force] [-Co
    Get-WireGuardPeers  
 ```` 
 
-### SYNOPSIS 
-    Gets information about all WireGuard VPN peers configured on the system.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function retrieves comprehensive information about all WireGuard VPN peers  
-    configured on the server running in a Docker container. It provides detailed  
-    information including peer names, public keys, allowed IP addresses, connection  
-    endpoints, handshake status, data transfer statistics, and current connection  
-    status. The function can operate in conjunction with parent functions or  
-    independently manage Docker container initialization.  
-
 ### PARAMETERS 
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization process when this function is called by a parent  
-        function that has already handled container setup.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force complete rebuild of the Docker container and remove all existing  
-        persistent data before starting fresh.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name identifier for the Docker container running the WireGuard service.  
-        Must be a valid Docker container name.  
-        Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name identifier for the Docker volume used for persistent storage of  
-        WireGuard configuration and peer data.  
-        Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The UDP port number on which the WireGuard service listens for VPN connections.  
-        Must be within valid port range.  
-        Required?                    false  
-        Position?                    3  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for the WireGuard service to respond to health  
-        check attempts before considering it failed.  
-        Required?                    false  
-        Position?                    4  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between consecutive health check attempts when waiting for  
-        the service to become ready.  
-        Required?                    false  
-        Position?                    5  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use instead of the default linuxserver/wireguard  
-        image for the container.  
-        Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for file permissions and process ownership within the Docker container.  
-        Used for security and permission management.  
-        Required?                    false  
-        Position?                    7  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for file permissions and process ownership within the Docker container.  
-        Used for security and permission management.  
-        Required?                    false  
-        Position?                    8  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone setting to use for the container's system clock and log timestamps.  
-        Should be a valid timezone identifier.  
-        Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    10  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    11  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left <Int32>  
-        Required?                    false  
-        Position?                    12  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right <Int32>  
+    -Bottom <int>  
+        Set the bottom position of the Docker window  
         Required?                    false  
         Position?                    13  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom <Int32>  
+    -Centered  
+        Center the Docker window on the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear session for Docker window before running  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the Docker window after launching  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Run the Docker window in fullscreen mode  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        Set the height of the Docker window  
+        Required?                    false  
+        Position?                    10  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    5  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left <int>  
+        Set the left position of the Docker window  
+        Required?                    false  
+        Position?                    11  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Remove window borders for the Docker window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    7  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore focus to the previous window after running Docker  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right <int>  
+        Set the right position of the Docker window  
+        Required?                    false  
+        Position?                    12  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay in milliseconds between sending keys to Docker window  
         Required?                    false  
         Position?                    14  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
+    -SendKeyEscape  
+        Send Escape key to the Docker window after launch  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus in the Docker window after launch  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter when sending keys to Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    2  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
+    -SessionOnly  
+        Use session only for Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
+    -SetForeground  
+        Set the Docker window as foreground window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
+    -ShowWindow  
+        Show the Docker window when running WireGuard  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
+    -SideBySide  
+        Show Docker window side by side with other windows  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
+    -SkipSession  
+        Skip session for Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    15  
-        Default value                0  
+        Position?                    8  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
+    -Width <int>  
+        Set the width of the Docker window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    9  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to  
-       retrieve information about configured WireGuard peers. The container must be  
-       running and accessible. Use EnsureWireGuard function first if container setup  
-       is required.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardPeers  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardPeers -NoDockerInitialize -ContainerName "custom_wireguard" `  
-                      -ServicePort 55555  
-```` 
 
 <br/><hr/><br/>
  
@@ -8005,269 +7664,296 @@ Get-WireGuardPeers [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[
    Get-WireGuardStatus  
 ```` 
 
-### SYNOPSIS 
-    Gets detailed status information about the WireGuard VPN server.  
-
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-ShowWindow] [-NoBorders] [[-Width] <Int32>] [[-Height] <Int32>] [[-Left] <Int32>] [[-Right] <Int32>] [[-Bottom] <Int32>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [[-SendKeyDelayMilliSeconds] <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function retrieves detailed status information about the WireGuard VPN  
-    server running in a Docker container, including interface details, listening  
-    port, connected peers, and server health. It provides comprehensive information  
-    about the WireGuard service including server status, peer counts, uptime, and  
-    network configuration details.  
-
 ### PARAMETERS 
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        Force rebuild of Docker container and remove existing data.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container.  
-        Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage.  
-        Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
-        Required?                    false  
-        Position?                    3  
-        Default value                51839  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
-        Required?                    false  
-        Position?                    4  
-        Default value                60  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
-        Required?                    false  
-        Position?                    5  
-        Default value                3  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use.  
-        Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
-        Required?                    false  
-        Position?                    7  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
-        Required?                    false  
-        Position?                    8  
-        Default value                1000  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
-        Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Width <Int32>  
-        Required?                    false  
-        Position?                    10  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Height <Int32>  
-        Required?                    false  
-        Position?                    11  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Left <Int32>  
-        Required?                    false  
-        Position?                    12  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right <Int32>  
+    -Bottom <int>  
+        Window bottom position (pass-through)  
         Required?                    false  
         Position?                    13  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Bottom <Int32>  
+    -Centered  
+        Center the window (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear session data (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Open window in fullscreen mode (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    4  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        Window height in characters or pixels (pass-through)  
+        Required?                    false  
+        Position?                    10  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    5  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left <int>  
+        Window left position (pass-through)  
+        Required?                    false  
+        Position?                    11  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Remove window borders (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    7  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -RestoreFocus  
+        Restore focus to window after operation (pass-through)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Right <int>  
+        Window right position (pass-through)  
+        Required?                    false  
+        Position?                    12  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay in milliseconds between sending keys (pass-through)  
         Required?                    false  
         Position?                    14  
-        Default value                0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
+    -SendKeyEscape  
+        Send Escape key to window (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus when sending keys (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter when sending keys (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    2  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
+    -SessionOnly  
+        Session only mode (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
+    -SetForeground  
+        Set window to foreground (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
+    -ShowWindow  
+        Show the window when running the container (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
+    -SideBySide  
+        Show side-by-side window (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
+    -SkipSession  
+        Skip session initialization (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    15  
-        Default value                0  
+        Position?                    8  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
+    -Width <int>  
+        Window width in characters or pixels (pass-through)  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    9  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to  
-       retrieve status information about the WireGuard server. It requires the  
-       container to be running (use EnsureWireGuard first).  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Get-WireGuardStatus  
-   Returns the status of the WireGuard server with default settings.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Get-WireGuardStatus -NoDockerInitialize -ContainerName "custom_wireguard"  
-   Retrieves status for a custom container without initializing Docker.  
-```` 
 
 <br/><hr/><br/>
  
@@ -8278,296 +7964,321 @@ Get-WireGuardStatus [-NoDockerInitialize] [-Force] [[-ContainerName] <String>] [
    Remove-WireGuardPeer  
 ```` 
 
-### SYNOPSIS 
-    Removes a WireGuard VPN peer configuration.  
-
 ### SYNTAX 
 ```PowerShell 
-Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName <String>] [-ServicePort <Int32>] [-HealthCheckTimeout <Int32>] [-HealthCheckInterval <Int32>] [-ImageName <String>] [-PUID <String>] [-PGID <String>] [-TimeZone <String>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <Int32>] [-Height <Int32>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <Int32>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function removes a WireGuard VPN peer configuration from the server running  
-    in a Docker container. It deletes the peer's configuration files and updates the  
-    WireGuard server to stop accepting connections from this peer. The function  
-    validates peer existence before removal and provides confirmation prompts unless  
-    the Force parameter is specified.  
-
 ### PARAMETERS 
-    -PeerName <String>  
-        The name of the peer to remove from the WireGuard configuration.  
+    -Bottom  
+        Place window on the bottom side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Centered  
+        Place window in the center of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ClearSession  
+        Clear alternative settings stored in session for AI preferences  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Confirm  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -FocusWindow  
+        Focus the window after opening  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fw, focus  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Force  
+        Force removal without confirmation  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Fullscreen  
+        Maximize the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      fs  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Height <int>  
+        The initial height of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -Left  
+        Place window on the left side of the screen  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoBorders  
+        Removes the borders of the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      nb  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -NoDockerInitialize  
+        Skip Docker initialization when called by parent function  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -PeerName <string>  
+        The name of the peer to remove  
         Required?                    true  
-        Position?                    1  
-        Default value                  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ContainerName <String>  
-        The name for the Docker container running the WireGuard service.  
+    -RestoreFocus  
+        Restore PowerShell window focus  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      rf, bg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume used for persistent storage.  
+    -Right  
+        Place window on the right side of the screen  
         Required?                    false  
-        Position?                    named  
-        Default value                wireguard_data  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service.  
+    -SendKeyDelayMilliSeconds <int>  
+        Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      DelayMilliSeconds  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check.  
+    -SendKeyEscape  
+        Escape control characters and modifiers when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                60  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      Escape  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts.  
+    -SendKeyHoldKeyboardFocus  
+        Hold keyboard focus on target window when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                3  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      HoldKeyboardFocus  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use for the WireGuard container.  
+    -SendKeyUseShiftEnter  
+        Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
-        Position?                    named  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      UseShiftEnter  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container.  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
         Required?                    false  
-        Position?                    named  
-        Default value                1000  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container.  
+    -SessionOnly  
+        Use alternative settings stored in session for AI preferences  
         Required?                    false  
-        Position?                    named  
-        Default value                1000  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container.  
+    -SetForeground  
+        Set the window to foreground after opening  
         Required?                    false  
-        Position?                    named  
-        Default value                Etc/UTC  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      fg  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        If specified, bypasses confirmation prompts when removing the peer.  
+    -ShowWindow  
+        Show Docker Desktop window during initialization  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization when already called by parent function.  
+    -SideBySide  
+        Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      sbs  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ShowWindow [<SwitchParameter>]  
+    -SkipSession  
+        Store settings only in persistent preferences without affecting session  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      FromPreferences  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoBorders [<SwitchParameter>]  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Width <Int32>  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Height <Int32>  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                0  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -Left [<SwitchParameter>]  
+    -Width <int>  
+        The initial width of the window  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Right [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Bottom [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Centered [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Fullscreen [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -RestoreFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SideBySide [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -FocusWindow [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SetForeground [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyEscape [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyHoldKeyboardFocus [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyUseShiftEnter [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SendKeyDelayMilliSeconds <Int32>  
-        Required?                    false  
-        Position?                    named  
-        Default value                0  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SessionOnly [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -ClearSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -SkipSession [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to manage  
-       WireGuard peers. It requires the container to be running (use EnsureWireGuard  
-       first). The function will validate peer existence before attempting removal and  
-       provides detailed error handling for failed operations.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Remove-WireGuardPeer -PeerName "MyPhone"  
-   Removes the peer named "MyPhone" with confirmation prompt.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Remove-WireGuardPeer -PeerName "Tablet" -Force  
-   Removes the peer named "Tablet" without confirmation prompt.  
-   -------------------------- EXAMPLE 3 --------------------------  
-   PS C:\> Remove-WireGuardPeer "WorkLaptop"  
-   Removes the peer using positional parameter syntax.  
-```` 
 
 <br/><hr/><br/>
  
@@ -8578,160 +8289,131 @@ Remove-WireGuardPeer [-PeerName] <String> [-ContainerName <String>] [-VolumeName
    Reset-WireGuardConfiguration  
 ```` 
 
-### SYNOPSIS 
-    Resets the WireGuard VPN server configuration, removing all peers.  
-
 ### SYNTAX 
 ```PowerShell 
-Reset-WireGuardConfiguration [[-ContainerName] <String>] [[-VolumeName] <String>] [[-ServicePort] <Int32>] [[-HealthCheckTimeout] <Int32>] [[-HealthCheckInterval] <Int32>] [[-ImageName] <String>] [[-PUID] <String>] [[-PGID] <String>] [[-TimeZone] <String>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Reset-WireGuardConfiguration [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
-### DESCRIPTION 
-    This function resets the WireGuard VPN server configuration running in a Docker  
-    container by removing all peers and generating a fresh server configuration.  
-    This is a destructive operation that cannot be undone and will permanently  
-    remove all peer configurations. The function stops the WireGuard service,  
-    removes all peer directories and configuration files, removes server keys,  
-    restarts the container, and verifies that a new configuration is generated.  
-
 ### PARAMETERS 
-    -ContainerName <String>  
-        The name for the Docker container. Defaults to 'wireguard' if not specified.  
-        Used to identify which container to operate on.  
+    -Confirm  
         Required?                    false  
-        Position?                    1  
-        Default value                wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      cf  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -VolumeName <String>  
-        The name for the Docker volume for persistent storage. Defaults to  
-        'wireguard_data' if not specified. Used for data persistence across container  
-        restarts.  
+    -ContainerName <string>  
+        The name for the Docker container  
         Required?                    false  
-        Position?                    2  
-        Default value                wireguard_data  
+        Position?                    0  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ServicePort <Int32>  
-        The port number for the WireGuard service. Must be between 1 and 65535.  
-        Defaults to 51839. This is the UDP port WireGuard will listen on.  
+    -Force  
+        Force reset without confirmation  
         Required?                    false  
-        Position?                    3  
-        Default value                51839  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckTimeout <Int32>  
-        Maximum time in seconds to wait for service health check. Must be between 10  
-        and 300 seconds. Defaults to 60 seconds. Used when verifying service health.  
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
         Required?                    false  
         Position?                    4  
-        Default value                60  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -HealthCheckInterval <Int32>  
-        Interval in seconds between health check attempts. Must be between 1 and 10  
-        seconds. Defaults to 3 seconds. Controls how often health checks are performed.  
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    3  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ImageName <string>  
+        Custom Docker image name to use  
         Required?                    false  
         Position?                    5  
-        Default value                3  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -ImageName <String>  
-        Custom Docker image name to use. Defaults to 'linuxserver/wireguard'. This  
-        allows using alternative WireGuard Docker images if needed.  
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
-        Position?                    6  
-        Default value                linuxserver/wireguard  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PUID <String>  
-        User ID for permissions in the container. Defaults to '1000'. This controls  
-        file ownership and permissions within the container.  
+    -PGID <string>  
+        Group ID for permissions in the container  
         Required?                    false  
         Position?                    7  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -PGID <String>  
-        Group ID for permissions in the container. Defaults to '1000'. This controls  
-        group ownership and permissions within the container.  
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    6  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -TimeZone <string>  
+        Timezone to use for the container  
         Required?                    false  
         Position?                    8  
-        Default value                1000  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -TimeZone <String>  
-        Timezone to use for the container. Defaults to 'Etc/UTC'. This sets the  
-        container's timezone for logging and scheduling purposes.  
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
         Required?                    false  
-        Position?                    9  
-        Default value                Etc/UTC  
+        Position?                    1  
         Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
-    -NoDockerInitialize [<SwitchParameter>]  
-        Skip Docker initialization (used when already called by parent function).  
-        When specified, assumes Docker and WireGuard are already initialized.  
+    -WhatIf  
         Required?                    false  
-        Position?                    named  
-        Default value                False  
+        Position?                    Named  
         Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Force [<SwitchParameter>]  
-        If specified, bypasses confirmation prompts when removing all peer  
-        configurations. Use with caution as this is a destructive operation.  
-        Required?                    false  
-        Position?                    named  
-        Default value                False  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -WhatIf [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
-        Accept wildcard characters?  false  
-    -Confirm [<SwitchParameter>]  
-        Required?                    false  
-        Position?                    named  
-        Default value                  
-        Accept pipeline input?       false  
-        Aliases                        
+        Parameter set name           (All)  
+        Aliases                      wi  
+        Dynamic?                     false  
         Accept wildcard characters?  false  
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-### NOTES 
-```PowerShell 
-
-       This function interacts with the linuxserver/wireguard Docker container to reset  
-       the WireGuard server configuration. It requires the container to be running  
-       (use EnsureWireGuard first). This operation will remove all peer configurations  
-       and cannot be undone. The function will restart the container to regenerate  
-       a fresh configuration.  
-       ##############################################################################  
-   -------------------------- EXAMPLE 1 --------------------------  
-   PS C:\> Reset-WireGuardConfiguration  
-   Resets the WireGuard configuration with default settings and prompts for  
-   confirmation before proceeding.  
-   -------------------------- EXAMPLE 2 --------------------------  
-   PS C:\> Reset-WireGuardConfiguration -Force -ContainerName "my-wireguard"  
-   Resets the WireGuard configuration for a custom container name without  
-   confirmation prompts.  
-```` 
 
 <br/><hr/><br/>
