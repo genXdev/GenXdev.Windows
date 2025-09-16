@@ -12,7 +12,7 @@
 RootModule = 'GenXdev.Windows.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.264.2025'
+ModuleVersion = '1.268.2025'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core'
@@ -52,7 +52,7 @@ ProcessorArchitecture = 'Amd64'
 
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = @(@{ModuleName = 'Microsoft.WinGet.Client'; ModuleVersion = '1.11.410'; }, 
-               @{ModuleName = 'GenXdev.Data'; ModuleVersion = '1.264.2025'; })
+               @{ModuleName = 'GenXdev.Data'; ModuleVersion = '1.268.2025'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
