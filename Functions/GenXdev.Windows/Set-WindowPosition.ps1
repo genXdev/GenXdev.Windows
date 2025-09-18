@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-WindowPosition.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.274.2025
+Version                   : 1.276.2025
 ################################################################################
 MIT License
 
@@ -287,7 +287,6 @@ function Set-WindowPosition {
         )]
         [Alias('sbs')]
         [switch]$SideBySide,
-
         ########################################################################
         [Parameter(
             Mandatory = $false,
