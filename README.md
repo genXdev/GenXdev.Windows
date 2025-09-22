@@ -544,7 +544,8 @@ Get-CurrentFocusedProcess [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <int>] [<CommonParameters>] 
+Get-DesktopScalingFactor [[-Monitor] <int>]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -595,7 +596,32 @@ Get-ForegroundWindow [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>] 
+Get-KnownFolderPath [-KnownFolder] {3DObjects |
+    AddNewPrograms | AdminTools | AppUpdates | CDBurning |
+    ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks
+    | CommonPrograms | CommonStartMenu | CommonStartup |
+    CommonTemplates | ComputerFolder | ConflictFolder |
+    ConnectionsFolder | Contacts | ControlPanelFolder |
+    Cookies | Desktop | Documents | Downloads | Favorites |
+    Fonts | Games | GameTasks | History | InternetCache |
+    InternetFolder | Links | LocalAppData | LocalAppDataLow
+    | LocalizedResourcesDir | Music | NetHood |
+    NetworkFolder | OriginalImages | PhotoAlbums | Pictures
+    | Playlists | PrintersFolder | PrintHood | Profile |
+    ProgramData | ProgramFiles | ProgramFilesX64 |
+    ProgramFilesX86 | ProgramFilesCommon |
+    ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs
+    | Public | PublicDesktop | PublicDocuments |
+    PublicDownloads | PublicGameTasks | PublicMusic |
+    PublicPictures | PublicVideos | QuickLaunch | Recent |
+    RecycleBinFolder | ResourceDir | RoamingAppData |
+    SampleMusic | SamplePictures | SamplePlaylists |
+    SampleVideos | SavedGames | SavedSearches | SEARCH_CSC |
+    SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts
+    | SidebarParts | StartMenu | Startup | SyncManagerFolder
+    | SyncResultsFolder | SyncSetupFolder | System |
+    SystemX86 | Templates | TreeProperties | UserProfiles |
+    UsersFiles | Videos | Windows} [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -667,7 +693,8 @@ Get-MpCmdRunPath [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <string[]> [<CommonParameters>] 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -739,7 +766,8 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [<CommonParameters>] 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
+    [-WindowHandle <long>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -787,7 +815,9 @@ Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [
 
 ### SYNTAX 
 ```PowerShell 
-Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Initialize-ScheduledTaskScripts [[-FilePath] <string>]
+    [[-Prefix] <string>] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -842,7 +872,10 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-Wh
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
+    [-AutoReboot] [-IncludeDrivers] [-GroupByCategory]
+    [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -942,10 +975,22 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDr
 
 ### SYNTAX 
 ```PowerShell 
-Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window [-NoModify] [<CommonParameters>] 
+Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide]
+    [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>]
+    [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Pop-Window -Width <int> -Height <int> [-Maximize]
+    [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders]
+    [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn]
+    [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-ShowWindow] [-Monitor <int>] [<CommonParameters>]
+Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize]
+    [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop]
+    [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right]
+    [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor
+    <int>] [<CommonParameters>]
+Pop-Window [-NoModify] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1142,9 +1187,22 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
 
 ### SYNTAX 
 ```PowerShell 
-Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Push-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Push-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
+Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide]
+    [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>]
+    [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top]
+    [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Push-Window -Width <int> -Height <int> [-Maximize]
+    [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders]
+    [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut]
+    [-PassThru] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
+    [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop]
+    [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru]
+    [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1341,9 +1399,18 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
 
 ### SYNTAX 
 ```PowerShell 
-Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <string[]> [-ProcessId <int>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>] 
+Send-Key [-KeysToSend] <string[]> [-ProcessName <string>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>]
+Send-Key [-KeysToSend] <string[]> [-ProcessId <int>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>]
+Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1436,7 +1503,8 @@ Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-Sen
 
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1482,7 +1550,8 @@ Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParame
 
 ### SYNTAX 
 ```PowerShell 
-Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1531,7 +1600,8 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
 
 ### SYNTAX 
 ```PowerShell 
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
+    [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### DESCRIPTION 
@@ -1597,7 +1667,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
 
 ### SYNTAX 
 ```PowerShell 
-Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1643,10 +1714,45 @@ Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonPar
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [[-ProcessName] <string>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width
+    <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left]
+    [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen]
+    [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow]
+    [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-WindowPosition [[-ProcessName] <string>] [-Monitor
+    <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-WindowPosition [-Process <Process>] [-Monitor <int>]
+    [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>]
+    [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide]
+    [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize]
+    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>]
+Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
+    <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1953,7 +2059,16 @@ Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] 
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPositionForSecondary [[-Process] <Process[]>]
+    [-Monitor <int>] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus]
+    [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-PassThru] [-SideBySide] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -2233,7 +2348,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
+    [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -2297,7 +2413,11 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
 
 ### SYNTAX 
 ```PowerShell 
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Start-ProcessWithPriority [-FilePath] <string>
+    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
+    BelowNormal | Low | Normal | AboveNormal | High |
+    RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -2379,7 +2499,8 @@ Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-P
 
 ### SYNTAX 
 ```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<CommonParameters>] 
+Test-PathUsingWindowsDefender [-FilePath] <string>
+    [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -2421,7 +2542,22 @@ Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<Common
 
 ### SYNTAX 
 ```PowerShell 
-Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>] [[-OutputPath] <string>] [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-SaveConfig] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left <int>] [-Right <int>] [-Bottom <int>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-ShowQRCode] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
+    <string>] [[-DNS] <string>] [[-OutputPath] <string>]
+    [[-ContainerName] <string>] [[-VolumeName] <string>]
+    [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>]
+    [[-HealthCheckInterval] <int>] [[-ImageName] <string>]
+    [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone]
+    <string>] [-SaveConfig] [-ShowWindow] [-NoBorders]
+    [-Width <int>] [-Height <int>] [-Left <int>] [-Right
+    <int>] [-Bottom <int>] [-Centered] [-Fullscreen]
+    [-RestoreFocus] [-SideBySide] [-FocusWindow]
+    [-SetForeground] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-ShowQRCode]
+    [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -3082,7 +3218,12 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [<CommonParameters>] 
+Get-WireGuardPeerQRCode [-PeerName] <string>
+    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
+    [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -3211,7 +3352,19 @@ Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-Co
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardPeers [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>] [[-Width]
+    <int>] [[-Height] <int>] [[-Left] <int>] [[-Right]
+    <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds]
+    <int>] [-NoDockerInitialize] [-Force] [-ShowWindow]
+    [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -3511,7 +3664,19 @@ Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-Servi
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardStatus [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>] [[-Width]
+    <int>] [[-Height] <int>] [[-Left] <int>] [[-Right]
+    <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds]
+    <int>] [-NoDockerInitialize] [-Force] [-ShowWindow]
+    [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -3811,7 +3976,19 @@ Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-Serv
 
 ### SYNTAX 
 ```PowerShell 
-Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
+    <string>] [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [-Force] [-NoDockerInitialize]
+    [-ShowWindow] [-NoBorders] [-Width <int>] [-Height
+    <int>] [-Left] [-Right] [-Bottom] [-Centered]
+    [-Fullscreen] [-RestoreFocus] [-SideBySide]
+    [-FocusWindow] [-SetForeground] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4136,7 +4313,13 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName
 
 ### SYNTAX 
 ```PowerShell 
-Reset-WireGuardConfiguration [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Reset-WireGuardConfiguration [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>]
+    [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4699,7 +4882,8 @@ Get-CurrentFocusedProcess [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <int>] [<CommonParameters>] 
+Get-DesktopScalingFactor [[-Monitor] <int>]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4750,7 +4934,32 @@ Get-ForegroundWindow [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-KnownFolderPath [-KnownFolder] {3DObjects | AddNewPrograms | AdminTools | AppUpdates | CDBurning | ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks | CommonPrograms | CommonStartMenu | CommonStartup | CommonTemplates | ComputerFolder | ConflictFolder | ConnectionsFolder | Contacts | ControlPanelFolder | Cookies | Desktop | Documents | Downloads | Favorites | Fonts | Games | GameTasks | History | InternetCache | InternetFolder | Links | LocalAppData | LocalAppDataLow | LocalizedResourcesDir | Music | NetHood | NetworkFolder | OriginalImages | PhotoAlbums | Pictures | Playlists | PrintersFolder | PrintHood | Profile | ProgramData | ProgramFiles | ProgramFilesX64 | ProgramFilesX86 | ProgramFilesCommon | ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs | Public | PublicDesktop | PublicDocuments | PublicDownloads | PublicGameTasks | PublicMusic | PublicPictures | PublicVideos | QuickLaunch | Recent | RecycleBinFolder | ResourceDir | RoamingAppData | SampleMusic | SamplePictures | SamplePlaylists | SampleVideos | SavedGames | SavedSearches | SEARCH_CSC | SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts | SidebarParts | StartMenu | Startup | SyncManagerFolder | SyncResultsFolder | SyncSetupFolder | System | SystemX86 | Templates | TreeProperties | UserProfiles | UsersFiles | Videos | Windows} [<CommonParameters>] 
+Get-KnownFolderPath [-KnownFolder] {3DObjects |
+    AddNewPrograms | AdminTools | AppUpdates | CDBurning |
+    ChangeRemovePrograms | CommonAdminTools | CommonOEMLinks
+    | CommonPrograms | CommonStartMenu | CommonStartup |
+    CommonTemplates | ComputerFolder | ConflictFolder |
+    ConnectionsFolder | Contacts | ControlPanelFolder |
+    Cookies | Desktop | Documents | Downloads | Favorites |
+    Fonts | Games | GameTasks | History | InternetCache |
+    InternetFolder | Links | LocalAppData | LocalAppDataLow
+    | LocalizedResourcesDir | Music | NetHood |
+    NetworkFolder | OriginalImages | PhotoAlbums | Pictures
+    | Playlists | PrintersFolder | PrintHood | Profile |
+    ProgramData | ProgramFiles | ProgramFilesX64 |
+    ProgramFilesX86 | ProgramFilesCommon |
+    ProgramFilesCommonX64 | ProgramFilesCommonX86 | Programs
+    | Public | PublicDesktop | PublicDocuments |
+    PublicDownloads | PublicGameTasks | PublicMusic |
+    PublicPictures | PublicVideos | QuickLaunch | Recent |
+    RecycleBinFolder | ResourceDir | RoamingAppData |
+    SampleMusic | SamplePictures | SamplePlaylists |
+    SampleVideos | SavedGames | SavedSearches | SEARCH_CSC |
+    SEARCH_MAPI | SearchHome | SendTo | SidebarDefaultParts
+    | SidebarParts | StartMenu | Startup | SyncManagerFolder
+    | SyncResultsFolder | SyncSetupFolder | System |
+    SystemX86 | Templates | TreeProperties | UserProfiles |
+    UsersFiles | Videos | Windows} [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4822,7 +5031,8 @@ Get-MpCmdRunPath [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <string[]> [<CommonParameters>] 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4894,7 +5104,8 @@ Get-PowershellMainWindowProcess [<CommonParameters>]
 
 ### SYNTAX 
 ```PowerShell 
-Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [<CommonParameters>] 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
+    [-WindowHandle <long>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4942,7 +5153,9 @@ Get-Window [[-ProcessName] <string>] [-ProcessId <int>] [-WindowHandle <long>] [
 
 ### SYNTAX 
 ```PowerShell 
-Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Initialize-ScheduledTaskScripts [[-FilePath] <string>]
+    [[-Prefix] <string>] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -4997,7 +5210,10 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>] [[-Prefix] <string>] [-Wh
 
 ### SYNTAX 
 ```PowerShell 
-Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDrivers] [-GroupByCategory] [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
+    [-AutoReboot] [-IncludeDrivers] [-GroupByCategory]
+    [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5097,10 +5313,22 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install] [-AutoReboot] [-IncludeDr
 
 ### SYNTAX 
 ```PowerShell 
-Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Pop-Window [-NoModify] [<CommonParameters>] 
+Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide]
+    [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>]
+    [-Focus] [-FadeIn] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Pop-Window -Width <int> -Height <int> [-Maximize]
+    [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders]
+    [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeIn]
+    [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-ShowWindow] [-Monitor <int>] [<CommonParameters>]
+Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize]
+    [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop]
+    [-Opacity <byte>] [-Focus] [-FadeIn] [-Left] [-Right]
+    [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor
+    <int>] [<CommonParameters>]
+Pop-Window [-NoModify] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5297,9 +5525,22 @@ Pop-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Alw
 
 ### SYNTAX 
 ```PowerShell 
-Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Push-Window -Width <int> -Height <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>]  
-   Push-Window -X <int> -Y <int> [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
+Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide]
+    [-Show] [-NoBorders] [-AlwaysOnTop] [-Opacity <byte>]
+    [-Focus] [-FadeOut] [-PassThru] [-Left] [-Right] [-Top]
+    [-Bottom] [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Push-Window -Width <int> -Height <int> [-Maximize]
+    [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders]
+    [-AlwaysOnTop] [-Opacity <byte>] [-Focus] [-FadeOut]
+    [-PassThru] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-ShowWindow] [-Monitor <int>]
+    [<CommonParameters>]
+Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
+    [-Restore] [-Hide] [-Show] [-NoBorders] [-AlwaysOnTop]
+    [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru]
+    [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5496,9 +5737,18 @@ Push-Window [-Maximize] [-Minimize] [-Restore] [-Hide] [-Show] [-NoBorders] [-Al
 
 ### SYNTAX 
 ```PowerShell 
-Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <string[]> [-ProcessId <int>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>]  
-   Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [<CommonParameters>] 
+Send-Key [-KeysToSend] <string[]> [-ProcessName <string>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>]
+Send-Key [-KeysToSend] <string[]> [-ProcessId <int>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>]
+Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5591,7 +5841,8 @@ Send-Key [-KeysToSend] <string[]> [-ProcessName <string>] [-SendKeyEscape] [-Sen
 
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5637,7 +5888,8 @@ Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf] [-Confirm] [<CommonParame
 
 ### SYNTAX 
 ```PowerShell 
-Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5686,7 +5938,8 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf] [-Confirm] [<CommonParam
 
 ### SYNTAX 
 ```PowerShell 
-Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
+    [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### DESCRIPTION 
@@ -5752,7 +6005,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String> [-WhatIf] [-Confirm
 
 ### SYNTAX 
 ```PowerShell 
-Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
+    [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -5798,10 +6052,45 @@ Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf] [-Confirm] [<CommonPar
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [[-ProcessName] <string>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-Process <Process>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>]  
-   Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width
+    <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left]
+    [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen]
+    [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow]
+    [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-WindowPosition [[-ProcessName] <string>] [-Monitor
+    <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-WindowPosition [-Process <Process>] [-Monitor <int>]
+    [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>]
+    [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]
+    [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide]
+    [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize]
+    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>]
+Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
+    <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6108,7 +6397,16 @@ Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width <int>] [-Height <int>] 
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus] [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-PassThru] [-SideBySide] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowPositionForSecondary [[-Process] <Process[]>]
+    [-Monitor <int>] [-Width <int>] [-Height <int>] [-X
+    <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
+    [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus]
+    [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
+    <int>] [-PassThru] [-SideBySide] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6388,7 +6686,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>] [-Monitor <int>] [-Width
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
+    [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6452,7 +6751,11 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives] [-NoRecurse] [-WhatI
 
 ### SYNTAX 
 ```PowerShell 
-Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-Priority] {Idle | BelowNormal | Low | Normal | AboveNormal | High | RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Start-ProcessWithPriority [-FilePath] <string>
+    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
+    BelowNormal | Low | Normal | AboveNormal | High |
+    RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6534,7 +6837,8 @@ Start-ProcessWithPriority [-FilePath] <string> [[-ArgumentList] <string[]>] [[-P
 
 ### SYNTAX 
 ```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<CommonParameters>] 
+Test-PathUsingWindowsDefender [-FilePath] <string>
+    [-EnableRemediation] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6576,7 +6880,22 @@ Test-PathUsingWindowsDefender [-FilePath] <string> [-EnableRemediation] [<Common
 
 ### SYNTAX 
 ```PowerShell 
-Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs] <string>] [[-DNS] <string>] [[-OutputPath] <string>] [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-SaveConfig] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left <int>] [-Right <int>] [-Bottom <int>] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-ShowQRCode] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
+    <string>] [[-DNS] <string>] [[-OutputPath] <string>]
+    [[-ContainerName] <string>] [[-VolumeName] <string>]
+    [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>]
+    [[-HealthCheckInterval] <int>] [[-ImageName] <string>]
+    [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone]
+    <string>] [-SaveConfig] [-ShowWindow] [-NoBorders]
+    [-Width <int>] [-Height <int>] [-Left <int>] [-Right
+    <int>] [-Bottom <int>] [-Centered] [-Fullscreen]
+    [-RestoreFocus] [-SideBySide] [-FocusWindow]
+    [-SetForeground] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-ShowQRCode]
+    [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -7237,7 +7556,12 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [<CommonParameters>] 
+Get-WireGuardPeerQRCode [-PeerName] <string>
+    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
+    [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -7366,7 +7690,19 @@ Get-WireGuardPeerQRCode [-PeerName] <string> [-NoDockerInitialize] [-Force] [-Co
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardPeers [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>] [[-Width]
+    <int>] [[-Height] <int>] [[-Left] <int>] [[-Right]
+    <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds]
+    <int>] [-NoDockerInitialize] [-Force] [-ShowWindow]
+    [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -7666,7 +8002,19 @@ Get-WireGuardPeers [[-ContainerName] <string>] [[-VolumeName] <string>] [[-Servi
 
 ### SYNTAX 
 ```PowerShell 
-Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [[-Width] <int>] [[-Height] <int>] [[-Left] <int>] [[-Right] <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds] <int>] [-NoDockerInitialize] [-Force] [-ShowWindow] [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [<CommonParameters>] 
+Get-WireGuardStatus [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>] [[-Width]
+    <int>] [[-Height] <int>] [[-Left] <int>] [[-Right]
+    <int>] [[-Bottom] <int>] [[-SendKeyDelayMilliSeconds]
+    <int>] [-NoDockerInitialize] [-Force] [-ShowWindow]
+    [-NoBorders] [-Centered] [-Fullscreen] [-RestoreFocus]
+    [-SideBySide] [-FocusWindow] [-SetForeground]
+    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -7966,7 +8314,19 @@ Get-WireGuardStatus [[-ContainerName] <string>] [[-VolumeName] <string>] [[-Serv
 
 ### SYNTAX 
 ```PowerShell 
-Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName <string>] [-ServicePort <int>] [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>] [-ImageName <string>] [-PUID <string>] [-PGID <string>] [-TimeZone <string>] [-Force] [-NoDockerInitialize] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
+    <string>] [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [-Force] [-NoDockerInitialize]
+    [-ShowWindow] [-NoBorders] [-Width <int>] [-Height
+    <int>] [-Left] [-Right] [-Bottom] [-Centered]
+    [-Fullscreen] [-RestoreFocus] [-SideBySide]
+    [-FocusWindow] [-SetForeground] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -8291,7 +8651,13 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName <string>] [-VolumeName
 
 ### SYNTAX 
 ```PowerShell 
-Reset-WireGuardConfiguration [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>] 
+Reset-WireGuardConfiguration [[-ContainerName] <string>]
+    [[-VolumeName] <string>] [[-ServicePort] <int>]
+    [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval]
+    <int>] [[-ImageName] <string>] [[-PUID] <string>]
+    [[-PGID] <string>] [[-TimeZone] <string>]
+    [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 

@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Send-Key.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.276.2025
+Version                   : 1.278.2025
 ################################################################################
 MIT License
 
@@ -38,9 +38,53 @@ process ID, or window handle. The function supports special key sequences,
 escape characters, and various timing options for reliable key delivery.
 
 .PARAMETER KeysToSend
-The keyboard input to send as an array of strings. Supports special key
-sequences like {ENTER}, {TAB}, {F1}, etc. Each string in the array is
-processed sequentially with optional delays between them.
+The keyboard input to send as an array of strings. Each string in the
+array represents a sequence of keystrokes and is processed sequentially,
+with optional delays between them if specified in the cmdlet logic.
+
+The input format for each keystroke string follows the following syntax;
+
+It supports plain characters, special key sequences in braces {},
+modifiers for key combinations (SHIFT, CTRL, ALT), and repeat counts.
+
+Keystroke String Details
+
+Plain Characters: Use the character itself (e.g., 'A' for A, 'abc' for a, b, c in sequence).
+Special Characters: Characters like +, ^, %, ~, (, ), {, }, [, ] have special meanings. To send them literally,
+enclose in braces: '{+}' for plus, '{^}' for caret, etc. For braces: '{{}' for '{' and '{}}' for '}'. For brackets: '{[}' or '{]}'.
+Non-Printable/Action Keys: Enclose key codes in braces. Common keys include:
+
+BACKSPACE: {BACKSPACE}, {BS}, {BKSP}
+BREAK: {BREAK}
+CAPS LOCK: {CAPSLOCK}
+DEL/DELETE: {DELETE}, {DEL}
+DOWN ARROW: {DOWN}
+END: {END}
+ENTER: {ENTER}, ~
+ESC: {ESC}
+HELP: {HELP}
+HOME: {HOME}
+INS/INSERT: {INSERT}, {INS}
+LEFT ARROW: {LEFT}
+NUM LOCK: {NUMLOCK}
+PAGE DOWN: {PGDN}
+PAGE UP: {PGUP}
+PRINT SCREEN: {PRTSC}
+RIGHT ARROW: {RIGHT}
+SCROLL LOCK: {SCROLLLOCK}
+TAB: {TAB}
+UP ARROW: {UP}
+Function Keys: {F1} to {F16}
+
+Modifiers for Key Combinations:
+
+for SHIFT (e.g., '+A' for Shift+A)
+^ for CTRL (e.g., '^C' for Ctrl+C)
+% for ALT (e.g., '%F' for Alt+F)
+
+Group combinations with parentheses: '+(EC)' to hold SHIFT while pressing E then C.
+Repeating Keys: Use '{key number}' with a space between
+e.g., '{A 5}' presses A five times; '{LEFT 10}' presses left arrow 10 times
 
 .PARAMETER SendKeyEscape
 When specified, escapes curly braces in the input text so they are sent as
