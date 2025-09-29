@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsureDockerDesktop.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.286.2025
+Version                   : 1.288.2025
 ################################################################################
 MIT License
 
@@ -622,7 +622,7 @@ function EnsureDockerDesktop {
 
                     # position window with specified parameters
                     $null = GenXdev.Windows\Set-WindowPosition @wpParams `
-                        -ProcessId $p.Id -ErrorAction SilentlyContinue
+                        -Process $p -ErrorAction SilentlyContinue
 
                     $positioningDone = $true
                 } else {
@@ -633,7 +633,7 @@ function EnsureDockerDesktop {
                         -PassThru
 
                     # minimize window to tray
-                    $null = GenXdev.Windows\Set-WindowPosition -ProcessId $p.Id `
+                    $null = GenXdev.Windows\Set-WindowPosition -Process $p `
                         -Minimize `
                         -ErrorAction SilentlyContinue
 
@@ -674,7 +674,7 @@ function EnsureDockerDesktop {
 
                             # set window positions and focus using the window helper
                             $null = GenXdev.Windows\Set-WindowPosition @params `
-                                -ProcessId $p.Id -ErrorAction SilentlyContinue
+                                -Process $p -ErrorAction SilentlyContinue
 
                             $positioningDone = $true
                         } else {
@@ -684,7 +684,7 @@ function EnsureDockerDesktop {
                                 -PassThru
 
                             # minimize window to tray
-                            $null = GenXdev.Windows\Set-WindowPosition -ProcessId $p.Id `
+                            $null = GenXdev.Windows\Set-WindowPosition -Process $p `
                                 -Minimize `
                                 -ErrorAction SilentlyContinue
 

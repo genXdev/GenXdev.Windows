@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-WindowPosition.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.286.2025
+Version                   : 1.288.2025
 ################################################################################
 MIT License
 
@@ -1242,7 +1242,7 @@ function Set-WindowPosition {
             Microsoft.PowerShell.Utility\Write-Verbose ('Restoring focus to ' + 'PowerShell window using Set-WindowPosition with ' +
                 '-SetForeground and -FocusWindow')
 
-            $null = $powerShellWindow.Focus();
+            $null = $powerShellWindow.SetForeground();
 
             Microsoft.PowerShell.Utility\Write-Verbose ('PowerShell window ' + 'focus restoration completed')
         }
