@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Invoke-WindowsUpdate.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.288.2025
+Version                   : 1.290.2025
 ################################################################################
 MIT License
 
@@ -196,6 +196,19 @@ function Invoke-WindowsUpdate {
 
                 if ($packagesWithUpdates.Count -gt 0) {
 
+                    # request consent before updating winget packages
+                    $wingetUpdateConsent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                        -ApplicationName "WinGet Package Updates" `
+                        -Source "WinGet" `
+                        -Description "Update existing third-party software packages managed by WinGet package manager" `
+                        -Publisher "Various Publishers"
+
+                    if (-not $wingetUpdateConsent) {
+                        Microsoft.PowerShell.Utility\Write-Warning (
+                            "WinGet package updates cancelled - installation consent denied")
+                        $script:wingetHasUpdates = $packagesWithUpdates.Count -gt 0
+                        return
+                    }
 
                     # confirm winget update installation with user
                     if ($PSCmdlet.ShouldProcess("$($packagesWithUpdates.Count) available winget packages", "Update")) {
@@ -439,7 +452,20 @@ function Invoke-WindowsUpdate {
 
         if ($Install) {
 
-            if ($PSCmdlet.ShouldProcess("PowerShell modules", "Update")) {
+            # request consent before updating PowerShell modules
+            $moduleUpdateConsent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                -ApplicationName "PowerShell Module Updates" `
+                -Source "PowerShell Gallery" `
+                -Description "Update existing PowerShell modules from the PowerShell Gallery repository" `
+                -Publisher "Various Publishers"
+
+            if (-not $moduleUpdateConsent) {
+                Microsoft.PowerShell.Utility\Write-Warning (
+                    "PowerShell module updates cancelled - installation consent denied")
+                # Continue with Windows updates even if module updates are declined
+            }
+            else {
+                if ($PSCmdlet.ShouldProcess("PowerShell modules", "Update")) {
 
                 if (-not $NoBanner) {
                     Microsoft.PowerShell.Utility\Write-Progress -Activity "Installing Updates" -Status "Updating PowerShell modules..." -PercentComplete 10
@@ -473,6 +499,7 @@ function Invoke-WindowsUpdate {
 
                         PowerShellGet\Set-PSRepository -Name 'PSGallery' -InstallationPolicy $oldPolicy -Confirm:$false
                     }
+                }
                 }
             }
         }

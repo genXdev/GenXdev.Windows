@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsurePSTools.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.288.2025
+Version                   : 1.290.2025
 ################################################################################
 MIT License
 
@@ -117,6 +117,17 @@ function EnsurePSTools {
         #>
         function InstallWinGet {
 
+            # request consent before installing winget module
+            $wingetConsent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                -ApplicationName 'Microsoft.WinGet.Client PowerShell Module' `
+                -Source 'PowerShell Gallery' `
+                -Description 'Required for automated software package management via WinGet' `
+                -Publisher 'Microsoft'
+
+            if (-not $wingetConsent) {
+                throw 'Installation consent denied for Microsoft.WinGet.Client PowerShell module'
+            }
+
             # log installation progress through verbose messages
             Microsoft.PowerShell.Utility\Write-Verbose 'Installing WinGet PowerShell client...'
 
@@ -133,6 +144,17 @@ function EnsurePSTools {
         # check if we should install/reinstall based on force flag or missing executable
         if ($Force -or (@(Microsoft.PowerShell.Core\Get-Command $PSExeName `
                         -ErrorAction SilentlyContinue).Length -eq 0)) {
+
+            # request consent before installing sysinternals packages
+            $sysinternalsConsent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                -ApplicationName 'Microsoft Sysinternals Suite' `
+                -Source 'WinGet' `
+                -Description 'System administration and diagnostic tools (handle.exe, procexp.exe, etc.)' `
+                -Publisher 'Microsoft'
+
+            if (-not $sysinternalsConsent) {
+                throw 'Installation consent denied for Microsoft Sysinternals Suite. Cannot proceed without system tools.'
+            }
 
             # inform user about installation process starting
             Microsoft.PowerShell.Utility\Write-Host 'Installing Sysinternals packages...'

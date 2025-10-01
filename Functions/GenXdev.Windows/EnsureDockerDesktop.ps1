@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsureDockerDesktop.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.288.2025
+Version                   : 1.290.2025
 ################################################################################
 MIT License
 
@@ -402,6 +402,17 @@ function EnsureDockerDesktop {
         ###################################################################
         function InstallWinGet {
 
+            # request consent before installing winget module
+            $consent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                -ApplicationName 'Microsoft.WinGet.Client PowerShell Module' `
+                -Source 'PowerShell Gallery' `
+                -Description 'Required for managing Windows software packages programmatically' `
+                -Publisher 'Microsoft'
+
+            if (-not $consent) {
+                throw 'Installation consent denied for WinGet PowerShell module'
+            }
+
             # output status message about winget installation
             Microsoft.PowerShell.Utility\Write-Verbose ('Installing WinGet ' +
                 'PowerShell client...')
@@ -498,6 +509,18 @@ function EnsureDockerDesktop {
                     # installation
                     if (-not (IsWinGetInstalled)) {
                         InstallWinGet
+                    }
+
+                    # request consent before installing docker desktop
+                    $dockerConsent = GenXdev.FileSystem\Confirm-InstallationConsent `
+                        -ApplicationName 'Docker Desktop' `
+                        -Source 'WinGet' `
+                        -Description 'Container platform for developing and running applications' `
+                        -Publisher 'Docker Inc.'
+
+                    if (-not $dockerConsent) {
+                        Microsoft.PowerShell.Utility\Write-Warning 'Installation consent denied for Docker Desktop'
+                        return
                     }
 
                     try {
@@ -652,15 +675,17 @@ function EnsureDockerDesktop {
                 )
                 # try each known docker desktop installation path
                 foreach ($path in $dockerDesktopPaths) {
+
                     # check if docker desktop executable exists at current path
                     if (Microsoft.PowerShell.Management\Test-Path -LiteralPath $path) {
                         # start docker desktop from found path with appropriate
                         # window style
                         $p = $null
                         if ($ShowWindow) {
-                            # start with window visible if ShowWindow is specified
+
+                            # start minimized by default (hidden in tray)
                             $p = Microsoft.PowerShell.Management\Start-Process $path `
-                                -WindowStyle Normal `
+                                -WindowStyle Minimized `
                                 -PassThru
 
                             # copy identical parameters for window positioning
@@ -672,21 +697,31 @@ function EnsureDockerDesktop {
                                 $params['Monitor'] = -2
                             }
 
-                            # set window positions and focus using the window helper
-                            $null = GenXdev.Windows\Set-WindowPosition @params `
-                                -Process $p -ErrorAction SilentlyContinue
+                            try {
+                                # minimize window to tray
+                                $null = GenXdev.Windows\Set-WindowPosition -Process $p `
+                                    -Minimize `
+                                    -ErrorAction SilentlyContinue
+                            } catch {
+                                # ignore errors
+                            }
 
-                            $positioningDone = $true
+                           $positioningDone = $true
                         } else {
+
                             # start minimized by default (hidden in tray)
                             $p = Microsoft.PowerShell.Management\Start-Process $path `
                                 -WindowStyle Minimized `
                                 -PassThru
 
-                            # minimize window to tray
-                            $null = GenXdev.Windows\Set-WindowPosition -Process $p `
-                                -Minimize `
-                                -ErrorAction SilentlyContinue
+                            try {
+                                # minimize window to tray
+                                $null = GenXdev.Windows\Set-WindowPosition -Process $p `
+                                    -Minimize `
+                                    -ErrorAction SilentlyContinue
+                            } catch {
+                                # ignore errors
+                            }
 
                             $positioningDone = $true
                         }
