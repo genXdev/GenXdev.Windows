@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Pop-Window.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.290.2025
+Version                   : 1.292.2025
 ################################################################################
 MIT License
 
@@ -38,7 +38,10 @@ window. This function allows you to manipulate windows that were previously save
 with Push-Window, applying various positioning, sizing, and visual effects.
 
 .PARAMETER Maximize
-Maximizes the window after popping it from the stack.
+Maximize the window after positioning
+
+.PARAMETER SetRestored
+Restore the window to normal state after positioning
 
 .PARAMETER Minimize
 Minimizes the window after popping it from the stack.

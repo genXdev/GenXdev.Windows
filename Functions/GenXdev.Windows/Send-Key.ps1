@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Send-Key.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.290.2025
+Version                   : 1.292.2025
 ################################################################################
 MIT License
 
@@ -240,15 +240,22 @@ function Send-Key {
         # bring the target window to foreground if one was found
         if ($null -ne $window) {
 
-            $null = $window.Focus()
+            $null = $window.SetForeground()
 
             # allow time for window activation to complete
             Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500
         }
+        else {
+            Microsoft.PowerShell.Utility\Write-Warning `
+                'No target window found - sending keys to the current window'
+        }
     }
 
-
     process {
+
+    }
+
+    end {
 
         try {
             # iterate through each key sequence string to send
@@ -330,7 +337,5 @@ function Send-Key {
         }
     }
 
-    end {
-    }
 }
 ###############################################################################

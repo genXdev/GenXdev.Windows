@@ -1718,41 +1718,44 @@ Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width
     <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left]
     [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen]
     [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow]
-    [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend
-    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
-    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
-    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-SetForeground] [-Minimize] [-Maximize] [-SetRestored]
+    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-OnlyOutputCoords]
     [-WhatIf] [-Confirm] [<CommonParameters>]
 Set-WindowPosition [[-ProcessName] <string>] [-Monitor
     <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
     [-SideBySide] [-FocusWindow] [-SetForeground]
-    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
-    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-Minimize] [-Maximize] [-SetRestored] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
-    [-WhatIf] [-Confirm] [<CommonParameters>]
+    [-OnlyOutputCoords] [-WhatIf] [-Confirm]
+    [<CommonParameters>]
 Set-WindowPosition [-Process <Process>] [-Monitor <int>]
     [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>]
     [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]
     [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide]
     [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize]
-    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SetRestored] [-KeysToSend <string[]>] [-SendKeyEscape]
     [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
     [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
-    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
-    [<CommonParameters>]
+    [-ClearSession] [-SkipSession] [-OnlyOutputCoords]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
 Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
     <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
     [-SideBySide] [-FocusWindow] [-SetForeground]
-    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
-    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-Minimize] [-Maximize] [-SetRestored] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
-    [-WhatIf] [-Confirm] [<CommonParameters>] 
+    [-OnlyOutputCoords] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -1872,6 +1875,15 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+    -OnlyOutputCoords  
+        Only output the calculated coordinates and size without actually positioning the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -PassThru  
         Returns the window helper for each process  
         Required?                    false  
@@ -1971,6 +1983,15 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+    -SetRestored  
+        Restore the window to normal state after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -2063,12 +2084,12 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
     [-Monitor <int>] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus]
-    [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend
-    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
-    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
-    <int>] [-PassThru] [-SideBySide] [-SessionOnly]
-    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
-    [<CommonParameters>] 
+    [-FocusWindow] [-SetForeground] [-Maximize]
+    [-SetRestored] [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-PassThru]
+    [-SideBySide] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -2267,6 +2288,15 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Accept pipeline input?       false  
         Parameter set name           (All)  
         Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SetRestored  
+        Restore the window to normal state after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
     -SideBySide  
@@ -6056,41 +6086,44 @@ Set-WindowPosition [-Monitor <int>] [-NoBorders] [-Width
     <int>] [-Height <int>] [-X <int>] [-Y <int>] [-Left]
     [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen]
     [-RestoreFocus] [-PassThru] [-SideBySide] [-FocusWindow]
-    [-SetForeground] [-Minimize] [-Maximize] [-KeysToSend
-    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
-    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
-    <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
+    [-SetForeground] [-Minimize] [-Maximize] [-SetRestored]
+    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
+    [-ClearSession] [-SkipSession] [-OnlyOutputCoords]
     [-WhatIf] [-Confirm] [<CommonParameters>]
 Set-WindowPosition [[-ProcessName] <string>] [-Monitor
     <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
     [-SideBySide] [-FocusWindow] [-SetForeground]
-    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
-    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-Minimize] [-Maximize] [-SetRestored] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
-    [-WhatIf] [-Confirm] [<CommonParameters>]
+    [-OnlyOutputCoords] [-WhatIf] [-Confirm]
+    [<CommonParameters>]
 Set-WindowPosition [-Process <Process>] [-Monitor <int>]
     [-NoBorders] [-Width <int>] [-Height <int>] [-X <int>]
     [-Y <int>] [-Left] [-Right] [-Top] [-Bottom] [-Centered]
     [-Fullscreen] [-RestoreFocus] [-PassThru] [-SideBySide]
     [-FocusWindow] [-SetForeground] [-Minimize] [-Maximize]
-    [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SetRestored] [-KeysToSend <string[]>] [-SendKeyEscape]
     [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
     [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
-    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
-    [<CommonParameters>]
+    [-ClearSession] [-SkipSession] [-OnlyOutputCoords]
+    [-WhatIf] [-Confirm] [<CommonParameters>]
 Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
     <int>] [-NoBorders] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-Fullscreen] [-RestoreFocus] [-PassThru]
     [-SideBySide] [-FocusWindow] [-SetForeground]
-    [-Minimize] [-Maximize] [-KeysToSend <string[]>]
-    [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
+    [-Minimize] [-Maximize] [-SetRestored] [-KeysToSend
+    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
-    [-WhatIf] [-Confirm] [<CommonParameters>] 
+    [-OnlyOutputCoords] [-WhatIf] [-Confirm]
+    [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6210,6 +6243,15 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+    -OnlyOutputCoords  
+        Only output the calculated coordinates and size without actually positioning the window  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -PassThru  
         Returns the window helper for each process  
         Required?                    false  
@@ -6309,6 +6351,15 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+    -SetRestored  
+        Restore the window to normal state after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -6401,12 +6452,12 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
     [-Monitor <int>] [-Width <int>] [-Height <int>] [-X
     <int>] [-Y <int>] [-Left] [-Right] [-Top] [-Bottom]
     [-Centered] [-FullScreen] [-NoBorders] [-RestoreFocus]
-    [-FocusWindow] [-SetForeground] [-Maximize] [-KeysToSend
-    <string[]>] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
-    [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
-    <int>] [-PassThru] [-SideBySide] [-SessionOnly]
-    [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
-    [<CommonParameters>] 
+    [-FocusWindow] [-SetForeground] [-Maximize]
+    [-SetRestored] [-KeysToSend <string[]>] [-SendKeyEscape]
+    [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter]
+    [-SendKeyDelayMilliSeconds <int>] [-PassThru]
+    [-SideBySide] [-SessionOnly] [-ClearSession]
+    [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```` 
 
 ### PARAMETERS 
@@ -6605,6 +6656,15 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Accept pipeline input?       false  
         Parameter set name           (All)  
         Aliases                      fg  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+    -SetRestored  
+        Restore the window to normal state after positioning  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
     -SideBySide  

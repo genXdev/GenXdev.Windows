@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsureDockerDesktop.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.290.2025
+Version                   : 1.292.2025
 ################################################################################
 MIT License
 
@@ -105,7 +105,10 @@ Sets the Docker Desktop window to foreground after positioning and
 initialization.
 
 .PARAMETER Maximize
-Maximizes the Docker Desktop window after positioning.
+Maximize the window after positioning
+
+.PARAMETER SetRestored
+Restore the window to normal state after positioning
 
 .PARAMETER KeysToSend
 Keystrokes to send to the Docker Desktop window after positioning and
