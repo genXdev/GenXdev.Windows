@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Push-Window.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.292.2025
+Version                   : 1.296.2025
 ################################################################################
 MIT License
 
@@ -426,16 +426,22 @@ function Push-Window {
 
         Microsoft.PowerShell.Utility\Write-Verbose "Retrieved window handle: $($window.Handle)"
 
+        [int] $setDefaultMonitor = $Global:DefaultSecondaryMonitor -is [int] ?
+        (
+            $Global:DefaultSecondaryMonitor
+        ):
+        2;
+
         # move to specified monitor if requested
         if ($PSBoundParameters.ContainsKey('Monitor')) {
             # handle special case for secondary monitor (-2)
-            if ($Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and
-                $Global:DefaultSecondaryMonitor -ge 0) {
+            if ($Monitor -eq -2 -and $setDefaultMonitor -is [int] -and
+                $setDefaultMonitor -ge 0) {
                 Microsoft.PowerShell.Utility\Write-Verbose (
-                    "Using monitor from `$Global:DefaultSecondaryMonitor: " +
-                    "$Global:DefaultSecondaryMonitor"
+                    "Using monitor from `$setDefaultMonitor: " +
+                    "$setDefaultMonitor"
                 )
-                $targetMonitor = $Global:DefaultSecondaryMonitor
+                $targetMonitor = $setDefaultMonitor
             }
             else {
                 $targetMonitor = $Monitor

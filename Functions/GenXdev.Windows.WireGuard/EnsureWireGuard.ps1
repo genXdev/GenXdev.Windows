@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : EnsureWireGuard.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.292.2025
+Version                   : 1.296.2025
 ################################################################################
 MIT License
 

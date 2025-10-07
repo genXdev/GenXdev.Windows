@@ -1,9 +1,9 @@
-﻿################################################################################
+################################################################################
 <##############################################################################
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-WindowPosition.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.292.2025
+Version                   : 1.296.2025
 ################################################################################
 MIT License
 
@@ -405,6 +405,11 @@ function Set-WindowPosition {
 
         # initialize screen selection variable for monitor targeting
         $screen = $null
+        [int] $setDefaultMonitor = $Global:DefaultSecondaryMonitor -is [int] ?
+            (
+                $Global:DefaultSecondaryMonitor
+            ):
+            2;
 
         # retrieve all available monitors from the system
         $allScreens = @([WpfScreenHelper.Screen]::AllScreens |
@@ -460,7 +465,7 @@ function Set-WindowPosition {
         # determine if side-by-side mode should be forced due to monitor limitations
         $ForcedSideBySide = ($Monitor -eq -2) -and (
                ($allScreens.Count -lt 2)  -or
-               (-not ($Global:DefaultSecondaryMonitor -is [int] -and ($Global:DefaultSecondaryMonitor -gt 0)))
+               (-not ($setDefaultMonitor -is [int] -and ($setDefaultMonitor -gt 0)))
         )
 
         if ($ForcedSideBySide) {
@@ -468,7 +473,7 @@ function Set-WindowPosition {
             Microsoft.PowerShell.Utility\Write-Verbose ("Forcing side-by-side " +
                 "positioning: insufficient monitors ($($allScreens.Count)) or " +
                 "invalid DefaultSecondaryMonitor " +
-                "($Global:DefaultSecondaryMonitor)")
+                "($setDefaultMonitor)")
         }
 
         # Store side-by-side request for processing in the process block
@@ -794,18 +799,20 @@ function Set-WindowPosition {
                     "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
                     "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
-            elseif ((-not $SideBySide) -and ((GenXdev.Windows\Get-MonitorCount) -gt 1) -and $Monitor -eq -2 -and $Global:DefaultSecondaryMonitor -is [int] -and $Global:DefaultSecondaryMonitor -ge 0) {
+            elseif ((-not $SideBySide) -and ((GenXdev.Windows\Get-MonitorCount) -gt 1) -and $Monitor -eq -2 -and $setDefaultMonitor -is [int] -and $setDefaultMonitor -ge 0) {
 
                 # use global default secondary monitor when available and valid
-                $userMonitorNum = $Global:DefaultSecondaryMonitor
-                $screenIndex = ($Global:DefaultSecondaryMonitor) % $AllScreens.Length
+                $userMonitorNum = $setDefaultMonitor
+                # For monitor selection, convert 1-based monitor number to 0-based array index
+                # Monitor 1 = index 0, Monitor 2 = index 1, etc.
+                $screenIndex = ($setDefaultMonitor - 1) % $AllScreens.Length
                 Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' +
                     "#$userMonitorNum as secondary (requested with -monitor -2) " +
                     "set by `$Global:DefaultSecondaryMonitor")
 
                 # select the user-configured secondary monitor from available screens
                 $Screen = $AllScreens[$screenIndex];
-                $Monitor = $Global:DefaultSecondaryMonitor;
+                $Monitor = $setDefaultMonitor;
 
                 # log secondary monitor selection details for verification
                 Microsoft.PowerShell.Utility\Write-Verbose ("Secondary monitor " +
@@ -837,17 +844,18 @@ function Set-WindowPosition {
 
                 # log fallback to primary monitor when secondary not available
                 Microsoft.PowerShell.Utility\Write-Verbose ("Fallback to primary " +
-                    "monitor: $($Screen.DeviceName)) - " +
+                    "monitor: $($Screen.DeviceName) - " +
                     "$($Screen.WorkingArea.Width)x$($Screen.WorkingArea.Height) " +
                     "at ($($Screen.WorkingArea.X),$($Screen.WorkingArea.Y))")
             }
             elseif ((-not $SideBySide) -and $Monitor -ge 1) {
+
                 # select specific monitor by user-provided number (1-based indexing)
+                # Convert 1-based monitor number to 0-based array index
                 $selectedIndex = ($Monitor - 1) % $AllScreens.Length
 
                 Microsoft.PowerShell.Utility\Write-Verbose ('Picking monitor ' +
-                    "#$selectedIndex as requested by the -Monitor parameter " +
-                    "($Monitor)")
+                    "#$Monitor (array index $selectedIndex) as requested by the -Monitor parameter")
 
                 # select the specific monitor from available screens array
                 $Screen = $AllScreens[$selectedIndex]
