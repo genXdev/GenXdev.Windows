@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Send-Key.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.296.2025
+Version                   : 1.298.2025
 ################################################################################
 MIT License
 
@@ -214,7 +214,7 @@ function Send-Key {
         if ($null -eq $window) {
             try {
                 # copy relevant parameters for get-window cmdlet invocation
-                $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
+                $invocationArguments = GenXdev.FileSystem\Copy-IdenticalParamValues `
                     -FunctionName 'GenXdev.Windows\Get-Window' `
                     -BoundParameters $PSBoundParameters `
                     -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
@@ -244,10 +244,6 @@ function Send-Key {
 
             # allow time for window activation to complete
             Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500
-        }
-        else {
-            Microsoft.PowerShell.Utility\Write-Warning `
-                'No target window found - sending keys to the current window'
         }
     }
 

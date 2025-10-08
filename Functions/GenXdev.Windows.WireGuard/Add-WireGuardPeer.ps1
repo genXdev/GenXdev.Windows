@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : Add-WireGuardPeer.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.296.2025
+Version                   : 1.298.2025
 ################################################################################
 MIT License
 
@@ -429,7 +429,7 @@ function Add-WireGuardPeer {
                 'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to ensurewireguard function
-            $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
+            $ensureParams = GenXdev.FileSystem\Copy-IdenticalParamValues `
                 -BoundParameters $PSBoundParameters `
                 -FunctionName 'GenXdev.Windows\EnsureWireGuard' `
                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
@@ -795,7 +795,7 @@ AllowedIPs = $clientIP/32
                 # show qr code if requested by user
                 if ($ShowQRCode) {
 
-                   $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                   $params = GenXdev.FileSystem\Copy-IdenticalParamValues `
                     -BoundParameters $PSBoundParameters `
                     -FunctionName "GenXdev.Windows\Get-WireGuardPeerQRCode" `
                     -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `

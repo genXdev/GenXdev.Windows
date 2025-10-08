@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : Reset-WireGuardConfiguration.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.296.2025
+Version                   : 1.298.2025
 ################################################################################
 MIT License
 
@@ -206,7 +206,7 @@ function Reset-WireGuardConfiguration {
                 'Ensuring WireGuard service is available'
 
             # copy matching parameters to pass to EnsureWireGuard function
-            $ensureParams = GenXdev.Helpers\Copy-IdenticalParamValues `
+            $ensureParams = GenXdev.FileSystem\Copy-IdenticalParamValues `
                 -BoundParameters $PSBoundParameters `
                 -FunctionName 'GenXdev.Windows\EnsureWireGuard' `
                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `

@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-WindowPositionForSecondary.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.296.2025
+Version                   : 1.298.2025
 ################################################################################
 MIT License
 
@@ -388,7 +388,7 @@ function Set-WindowPositionForSecondary {
     process {
 
         # copy matching parameters to pass to Set-WindowPosition
-        $invocationArguments = GenXdev.Helpers\Copy-IdenticalParamValues `
+        $invocationArguments = GenXdev.FileSystem\Copy-IdenticalParamValues `
             -BoundParameters $PSBoundParameters `
             -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
             -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `

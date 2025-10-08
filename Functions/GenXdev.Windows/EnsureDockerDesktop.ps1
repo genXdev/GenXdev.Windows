@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsureDockerDesktop.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.296.2025
+Version                   : 1.298.2025
 ################################################################################
 MIT License
 
@@ -637,7 +637,7 @@ function EnsureDockerDesktop {
                         -PassThru
 
                     # copy identical parameters for window positioning
-                    $wpParams = GenXdev.Helpers\Copy-IdenticalParamValues `
+                    $wpParams = GenXdev.FileSystem\Copy-IdenticalParamValues `
                                     -BoundParameters $PSBoundParameters `
                                     -FunctionName 'GenXdev.Windows\Set-WindowPosition'
 
@@ -692,7 +692,7 @@ function EnsureDockerDesktop {
                                 -PassThru
 
                             # copy identical parameters for window positioning
-                            $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+                            $params = GenXdev.FileSystem\Copy-IdenticalParamValues `
                                             -BoundParameters $PSBoundParameters `
                                             -FunctionName 'GenXdev.Windows\Set-WindowPosition'
 
@@ -744,7 +744,7 @@ function EnsureDockerDesktop {
             Microsoft.PowerShell.Utility\Write-Verbose ('Bringing Docker ' +
                 'Desktop window to the foreground...')
 
-            $params = GenXdev.Helpers\Copy-IdenticalParamValues `
+            $params = GenXdev.FileSystem\Copy-IdenticalParamValues `
                                 -BoundParameters $PSBoundParameters `
                                 -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
                                 -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
