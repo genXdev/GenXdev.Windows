@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-ClipboardFiles.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.300.2025
+Version                   : 1.302.2025
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -18,6 +18,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ################################################################################>
+# Don't remove this line [dontrefactor]
+
 ###############################################################################
 <#
 .SYNOPSIS
@@ -169,16 +171,16 @@ function Set-ClipboardFiles {
 
             # create a temporary file to store the json data
             $tempFile = GenXdev.FileSystem\Expand-Path ([System.IO.Path]::GetTempFileName()) -DeleteExistingFile -CreateDirectory
-            $jsonFilePaths | Microsoft.PowerShell.Utility\Out-File  $tempFile
+            $jsonFilePaths | Microsoft.PowerShell.Utility\Out-File $tempFile
 
             # define the powershell command to execute in sta mode
             $command = (
-                'Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;'+
-                "`$InputObject = Microsoft.PowerShell.Management\Get-Content -LiteralPath '$tempFile' | "+
-                'Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;'+
-                "Microsoft.PowerShell.Management\Remove-Item -LiteralPath '$tempFile' -Force -ErrorAction SilentlyContinue;"+
-                "`$fileCollection = Microsoft.PowerShell.Utility\New-Object System.Collections.Specialized.StringCollection;"+
-                "`$InputObject | Microsoft.PowerShell.Core\ForEach-Object { `$null = `$fileCollection.Add(`$_) };"+
+                'Microsoft.PowerShell.Utility\Add-Type -AssemblyName System.Windows.Forms;' +
+                "`$InputObject = Microsoft.PowerShell.Management\Get-Content -LiteralPath '$tempFile' | " +
+                'Microsoft.PowerShell.Utility\ConvertFrom-Json -ErrorAction SilentlyContinue;' +
+                "Microsoft.PowerShell.Management\Remove-Item -LiteralPath '$tempFile' -Force -ErrorAction SilentlyContinue;" +
+                "`$fileCollection = Microsoft.PowerShell.Utility\New-Object System.Collections.Specialized.StringCollection;" +
+                "`$InputObject | Microsoft.PowerShell.Core\ForEach-Object { `$null = `$fileCollection.Add(`$_) };" +
                 "[System.Windows.Forms.Clipboard]::SetFileDropList(`$fileCollection);"
             );
 

@@ -55,9 +55,9 @@ Update-Module
 ### GenXdev.Windows
 | Command | Aliases | Description |
 | :--- | :--- | :--- |
-| [CurrentUserHasElevatedRights](#currentuserhaselevatedrights) | &nbsp; | Checks if the current user has elevated rights. |
-| [EnsureDockerDesktop](#ensuredockerdesktop) | &nbsp; | Checks if the WinGet PowerShell module is installed. |
-| [EnsurePSTools](#ensurepstools) | &nbsp; | Ensures Sysinternals tools (PSTools) are installed and available. |
+| [CurrentUserHasElevatedRights](#currentuserhaselevatedrights) | &nbsp; | &nbsp; |
+| [EnsureDockerDesktop](#ensuredockerdesktop) | &nbsp; | &nbsp; |
+| [EnsurePSTools](#ensurepstools) | &nbsp; | &nbsp; |
 | [Get-ActiveUser](#get-activeuser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
 | [Get-ChildProcesses](#get-childprocesses) | &nbsp; | Retrieves all processes that are descendants of the current PowerShell process. |
 | [Get-ClipboardFiles](#get-clipboardfiles) | getclipfiles | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
@@ -70,19 +70,21 @@ Update-Module
 | [Get-OpenedFileHandleProcesses](#get-openedfilehandleprocesses) | &nbsp; | Retrieves processes that have open file handles to specified files. |
 | [Get-PowershellMainWindow](#get-powershellmainwindow) | &nbsp; | Returns a window helper object for the PowerShell terminal's main window. |
 | [Get-PowershellMainWindowProcess](#get-powershellmainwindowprocess) | &nbsp; | Returns the process object for the window hosting the PowerShell terminal. |
-| [Get-Window](#get-window) | gwin, window | Gets window information for specified processes or window handles. |
+| [Get-Window](#get-window) | &nbsp; | Gets window information for specified processes or window handles. |
+| [Get-WindowPosition](#get-windowposition) | gwp | &nbsp; |
 | [Initialize-ScheduledTaskScripts](#initialize-scheduledtaskscripts) | &nbsp; | Creates scheduled tasks that run PowerShell scripts at specified intervals. |
-| [Invoke-WindowsUpdate](#invoke-windowsupdate) | updatewindows | Checks if Windows is up to date and optionally installs available updates. |
-| [Pop-Window](#pop-window) | popw | Pops the last active window helper from the stack with optional modifications. |
-| [Push-Window](#push-window) | pushw | Pushes the current window onto the window stack with optional modifications. |
-| [Send-Key](#send-key) | invokekeys, sendkeys | Sends simulated keystrokes to a window or process. |
+| [Invoke-WindowsUpdate](#invoke-windowsupdate) | updatewindows | &nbsp; |
+| [Pop-Window](#pop-window) | popw | &nbsp; |
+| [Push-Window](#push-window) | pushw | &nbsp; |
+| [Save-DesktopScreenShot](#save-desktopscreenshot) | &nbsp; | Captures a screenshot of the specified monitor and saves it to the specified path. |
+| [Send-Key](#send-key) | invokekeys, sendkeys | &nbsp; |
 | [Set-ClipboardFiles](#set-clipboardfiles) | setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
 | [Set-ForegroundWindow](#set-foregroundwindow) | &nbsp; | Brings the specified window to the foreground and makes it the active window. |
 | [Set-KnownFolderPath](#set-knownfolderpath) | &nbsp; | Modifies the physical path of a Windows known folder. |
 | [Set-TaskbarAlignment](#set-taskbaralignment) | &nbsp; | Configures Windows 11+ taskbar alignment between center and left positions. |
-| [Set-WindowPosition](#set-windowposition) | wp | Positions and resizes windows when explicit positioning parameters are provided. |
+| [Set-WindowPosition](#set-windowposition) | wp | &nbsp; |
 | [Set-WindowPositionForSecondary](#set-windowpositionforsecondary) | wps | Positions a window on the secondary monitor with specified layout options. |
-| [Set-WindowsWallpaper](#set-windowswallpaper) | setaswallpaper | Sets a random wallpaper from a specified directory. |
+| [Set-WindowsWallpaper](#set-windowswallpaper) | &nbsp; | Sets a random wallpaper from a specified directory. |
 | [Start-ProcessWithPriority](#start-processwithpriority) | nice | Starts a process with a specified priority level. |
 | [Test-PathUsingWindowsDefender](#test-pathusingwindowsdefender) | HasNoVirus, virusscan | Scans files or directories for malware using Windows Defender. |
 
@@ -90,12 +92,12 @@ Update-Module
 | Command | Aliases | Description |
 | :--- | :--- | :--- |
 | [Add-WireGuardPeer](#add-wireguardpeer) | &nbsp; | Adds a new WireGuard VPN peer (client) configuration to the server. |
-| [EnsureWireGuard](#ensurewireguard) | &nbsp; | Ensures WireGuard VPN service is installed and running via Docker container. |
+| [EnsureWireGuard](#ensurewireguard) | &nbsp; | &nbsp; |
 | [Get-WireGuardPeerQRCode](#get-wireguardpeerqrcode) | &nbsp; | Generates a QR code for a WireGuard VPN peer configuration. |
-| [Get-WireGuardPeers](#get-wireguardpeers) | &nbsp; | Gets information about all WireGuard VPN peers configured on the system. |
-| [Get-WireGuardStatus](#get-wireguardstatus) | &nbsp; | Gets detailed status information about the WireGuard VPN server. |
-| [Remove-WireGuardPeer](#remove-wireguardpeer) | &nbsp; | Removes a WireGuard VPN peer configuration. |
-| [Reset-WireGuardConfiguration](#reset-wireguardconfiguration) | &nbsp; | Resets the WireGuard VPN server configuration, removing all peers. |
+| [Get-WireGuardPeers](#get-wireguardpeers) | &nbsp; | &nbsp; |
+| [Get-WireGuardStatus](#get-wireguardstatus) | &nbsp; | &nbsp; |
+| [Remove-WireGuardPeer](#remove-wireguardpeer) | &nbsp; | &nbsp; |
+| [Reset-WireGuardConfiguration](#reset-wireguardconfiguration) | &nbsp; | &nbsp; |
 
 <br/><hr/><br/>
 
@@ -109,19 +111,24 @@ Update-Module
 ```PowerShell 
 
    CurrentUserHasElevatedRights  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -130,14 +137,18 @@ CurrentUserHasElevatedRights [<CommonParameters>]
 ```PowerShell 
 
    EnsureDockerDesktop  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] <int>] [[-Y] <int>] [[-KeysToSend] <string[]>] [[-SendKeyDelayMilliSeconds] <int>] [-ShowWindow] [-NoBorders] [-Force] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -147,6 +158,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -156,6 +169,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -165,6 +180,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -173,6 +190,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -182,6 +201,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Forces a docker desktop restart  
         Required?                    false  
@@ -191,6 +212,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -200,6 +223,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -209,6 +234,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
@@ -218,6 +245,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -227,6 +256,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         The monitor to use, 0 = default, -1 is discard  
         Required?                    false  
@@ -236,6 +267,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -245,6 +278,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialization  
         Skip Docker initialization and return immediately  
         Required?                    false  
@@ -254,6 +289,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -263,6 +300,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -272,6 +311,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -281,6 +322,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -290,6 +333,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -299,6 +344,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -308,6 +355,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -317,6 +366,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -326,6 +377,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -335,6 +388,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -344,6 +399,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -353,6 +410,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -362,6 +421,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -370,6 +431,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -379,6 +442,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         The initial X position of the window  
         Required?                    false  
@@ -388,6 +453,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         The initial Y position of the window  
         Required?                    false  
@@ -397,11 +464,14 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -410,14 +480,18 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
 ```PowerShell 
 
    EnsurePSTools  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Force  
         Force reinstallation of Sysinternals tools  
         Required?                    false  
@@ -427,6 +501,8 @@ EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PSExeName <string>  
         The executable name to verify installation  
         Required?                    false  
@@ -436,147 +512,14 @@ EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ActiveUser 
-```PowerShell 
-
-   Get-ActiveUser                       --> gusers  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ActiveUser [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ChildProcesses 
-```PowerShell 
-
-   Get-ChildProcesses  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ChildProcesses [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ClipboardFiles 
-```PowerShell 
-
-   Get-ClipboardFiles                   --> getclipfiles  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ClipboardFiles [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-CurrentFocusedProcess 
-```PowerShell 
-
-   Get-CurrentFocusedProcess  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-CurrentFocusedProcess [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-DesktopScalingFactor 
-```PowerShell 
-
-   Get-DesktopScalingFactor  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <int>]
-    [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Monitor <int>  
-        The monitor index to check (0 = primary monitor)  
-        Required?                    false  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      m, mon  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ForegroundWindow 
-```PowerShell 
-
-   Get-ForegroundWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ForegroundWindow [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -585,7 +528,7 @@ Get-ForegroundWindow [<CommonParameters>]
 ```PowerShell 
 
    Get-KnownFolderPath                  --> folder  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -615,9 +558,13 @@ Get-KnownFolderPath [-KnownFolder] {3DObjects |
     | SyncResultsFolder | SyncSetupFolder | System |
     SystemX86 | Templates | TreeProperties | UserProfiles |
     UsersFiles | Videos | Windows} [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KnownFolder <string>  
         The Windows known folder name to get the path for  
         Required?                    true  
@@ -627,175 +574,78 @@ Get-KnownFolderPath [-KnownFolder] {3DObjects |
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
 
-##	Get-MonitorCount 
+##	Get-WindowPosition 
 ```PowerShell 
 
-   Get-MonitorCount  
-```` 
+   Get-WindowPosition                   --> gwp  
+``` 
 
 ### SYNTAX 
 ```PowerShell 
-Get-MonitorCount [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-MpCmdRunPath 
-```PowerShell 
-
-   Get-MpCmdRunPath  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-MpCmdRunPath [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-OpenedFileHandleProcesses 
-```PowerShell 
-
-   Get-OpenedFileHandleProcesses  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+Get-WindowPosition [<CommonParameters>]
+Get-WindowPosition [[-ProcessName] <string>]
+    [<CommonParameters>]
+Get-WindowPosition [-Process <Process>] [<CommonParameters>]
+Get-WindowPosition [-WindowHelper <WindowObj[]>]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
-    -FilePath <string[]>  
-        The path to the file(s) to check for open handles  
-        Required?                    true  
-        Position?                    0  
+```yaml 
+ 
+``` 
+```yaml 
+    -Process <Process>  
+        The process of the window to get position for  
+        Required?                    false  
+        Position?                    Named  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
+        Parameter set name           Process  
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-PowershellMainWindow 
-```PowerShell 
-
-   Get-PowershellMainWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-PowershellMainWindow [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-PowershellMainWindowProcess 
-```PowerShell 
-
-   Get-PowershellMainWindowProcess  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-PowershellMainWindowProcess [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-Window 
-```PowerShell 
-
-   Get-Window                           --> gwin, window  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
-    [-WindowHandle <long>] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -ProcessId <int>  
-        ID of the process to get window information for  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Id, PID  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
-        Name of the process to get window information for  
+        The process name of the window to get position for  
         Required?                    false  
         Position?                    0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           ProcessName  
         Aliases                      Name  
         Dynamic?                     false  
         Accept wildcard characters?  true  
-    -WindowHandle <long>  
-        Window handle to get information for  
+``` 
+```yaml 
+    -WindowHelper <WindowObj[]>  
+        Get-Window helper object for direct window manipulation  
         Required?                    false  
         Position?                    Named  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Handle, hWnd  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           WindowHelper  
+        Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -804,16 +654,20 @@ Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
 ```PowerShell 
 
    Initialize-ScheduledTaskScripts  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 Initialize-ScheduledTaskScripts [[-FilePath] <string>]
     [[-Prefix] <string>] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -822,6 +676,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FilePath <string>  
         The directory path where task scripts will be created  
         Required?                    false  
@@ -831,6 +687,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Prefix <string>  
         Prefix for the scheduled task names  
         Required?                    false  
@@ -840,6 +698,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -848,11 +708,14 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -861,7 +724,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
 ```PowerShell 
 
    Invoke-WindowsUpdate                 --> updatewindows  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -869,9 +732,13 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
     [-AutoReboot] [-IncludeDrivers] [-GroupByCategory]
     [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AutoReboot  
         Automatically reboot if updates require a restart  
         Required?                    false  
@@ -881,6 +748,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -889,6 +758,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Criteria <string>  
         Custom Windows Update search criteria  
         Required?                    false  
@@ -898,6 +769,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -GroupByCategory  
         Group and color output by update category  
         Required?                    false  
@@ -907,6 +780,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -IncludeDrivers  
         Include drivers in update search  
         Required?                    false  
@@ -916,6 +791,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Install  
         Automatically install available Windows updates  
         Required?                    false  
@@ -925,6 +802,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBanner  
         Disable banner/status output  
         Required?                    false  
@@ -934,6 +813,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoRebootCheck  
         Skip reboot requirement check/reporting  
         Required?                    false  
@@ -943,6 +824,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -951,11 +834,14 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -964,7 +850,7 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
 ```PowerShell 
 
    Pop-Window                           --> popw  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -984,9 +870,13 @@ Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize]
     [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor
     <int>] [<CommonParameters>]
 Pop-Window [-NoModify] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AlwaysOnTop  
         Required?                    false  
         Position?                    Named  
@@ -995,6 +885,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom  
         Required?                    false  
         Position?                    Named  
@@ -1003,6 +895,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Required?                    false  
         Position?                    Named  
@@ -1011,6 +905,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FadeIn  
         Required?                    false  
         Position?                    Named  
@@ -1019,6 +915,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Focus  
         Required?                    false  
         Position?                    Named  
@@ -1027,6 +925,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Required?                    true  
         Position?                    Named  
@@ -1035,6 +935,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Hide  
         Required?                    false  
         Position?                    Named  
@@ -1043,6 +945,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Required?                    false  
         Position?                    Named  
@@ -1051,6 +955,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Required?                    false  
         Position?                    Named  
@@ -1059,6 +965,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Required?                    false  
         Position?                    Named  
@@ -1067,6 +975,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Required?                    false  
         Position?                    Named  
@@ -1075,6 +985,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Required?                    false  
         Position?                    Named  
@@ -1083,6 +995,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoModify  
         Required?                    false  
         Position?                    Named  
@@ -1091,6 +1005,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Opacity <byte>  
         Required?                    false  
         Position?                    Named  
@@ -1099,6 +1015,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Restore  
         Required?                    false  
         Position?                    Named  
@@ -1107,6 +1025,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Required?                    false  
         Position?                    Named  
@@ -1115,6 +1035,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Show  
         Required?                    false  
         Position?                    Named  
@@ -1123,6 +1045,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Required?                    false  
         Position?                    Named  
@@ -1131,6 +1055,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      sw  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Required?                    false  
         Position?                    Named  
@@ -1139,6 +1065,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Required?                    true  
         Position?                    Named  
@@ -1147,6 +1075,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Required?                    true  
         Position?                    Named  
@@ -1155,6 +1085,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Required?                    true  
         Position?                    Named  
@@ -1163,11 +1095,14 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -1176,7 +1111,7 @@ Pop-Window [-NoModify] [<CommonParameters>]
 ```PowerShell 
 
    Push-Window                          --> pushw  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -1196,9 +1131,13 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
     [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru]
     [-Left] [-Right] [-Top] [-Bottom] [-Centered]
     [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AlwaysOnTop  
         Required?                    false  
         Position?                    Named  
@@ -1207,6 +1146,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom  
         Required?                    false  
         Position?                    Named  
@@ -1215,6 +1156,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Required?                    false  
         Position?                    Named  
@@ -1223,6 +1166,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FadeOut  
         Required?                    false  
         Position?                    Named  
@@ -1231,6 +1176,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Focus  
         Required?                    false  
         Position?                    Named  
@@ -1239,6 +1186,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Required?                    true  
         Position?                    Named  
@@ -1247,6 +1196,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Hide  
         Required?                    false  
         Position?                    Named  
@@ -1255,6 +1206,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Required?                    false  
         Position?                    Named  
@@ -1263,6 +1216,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Required?                    false  
         Position?                    Named  
@@ -1271,6 +1226,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Required?                    false  
         Position?                    Named  
@@ -1279,6 +1236,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Required?                    false  
         Position?                    Named  
@@ -1287,6 +1246,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Required?                    false  
         Position?                    Named  
@@ -1295,6 +1256,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Opacity <byte>  
         Required?                    false  
         Position?                    Named  
@@ -1303,6 +1266,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Required?                    false  
         Position?                    Named  
@@ -1311,6 +1276,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Restore  
         Required?                    false  
         Position?                    Named  
@@ -1319,6 +1286,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Required?                    false  
         Position?                    Named  
@@ -1327,6 +1296,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Show  
         Required?                    false  
         Position?                    Named  
@@ -1335,6 +1306,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Required?                    false  
         Position?                    Named  
@@ -1343,6 +1316,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      sw  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Required?                    false  
         Position?                    Named  
@@ -1351,6 +1326,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Required?                    true  
         Position?                    Named  
@@ -1359,6 +1336,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Required?                    true  
         Position?                    Named  
@@ -1367,6 +1346,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Required?                    true  
         Position?                    Named  
@@ -1375,11 +1356,14 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -1388,7 +1372,7 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
 ```PowerShell 
 
    Send-Key                             --> invokekeys, sendkeys  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -1404,9 +1388,13 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KeysToSend <string[]>  
         The keyboard input to send as an array of strings  
         Required?                    true  
@@ -1416,6 +1404,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessId <int>  
         ID of the process to send keys to  
         Required?                    false  
@@ -1425,6 +1415,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Id, PID  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
         Name of the process to send keys to (supports wildcards)  
         Required?                    false  
@@ -1434,6 +1426,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  true  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds  
         Required?                    false  
@@ -1443,6 +1437,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers in input text  
         Required?                    false  
@@ -1452,6 +1448,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window after sending keys  
         Required?                    false  
@@ -1461,6 +1459,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter for newlines  
         Required?                    false  
@@ -1470,6 +1470,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WindowHandle <long>  
         Window handle to send keys to  
         Required?                    false  
@@ -1479,11 +1481,14 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Handle, hWnd  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -1492,92 +1497,64 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
 ```PowerShell 
 
    Set-ClipboardFiles                   --> setclipfiles  
-```` 
+``` 
+
+### SYNOPSIS 
+    Sets files to the Windows clipboard for file operations like copy/paste.  
 
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf]
+Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf]
     [-Confirm] [<CommonParameters>] 
-```` 
+``` 
+
+### DESCRIPTION 
+    This function copies one or more file paths to the Windows clipboard,  
+    enabling file operations like paste in Windows Explorer. It handles both  
+    STA and MTA threading modes automatically, ensuring compatibility across  
+    different PowerShell execution contexts. The function validates file  
+    existence before adding paths to the clipboard.  
 
 ### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -InputObject <string[]>  
-        Array of file paths to add to the clipboard  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Path, FullName, ImageFileName, FileName  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
+```yaml 
  
-
-##	Set-ForegroundWindow 
-```PowerShell 
-
-   Set-ForegroundWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
-    [-Confirm] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WindowHandle <IntPtr>  
-        Window handle to set as foreground window  
+``` 
+```yaml 
+    -InputObject <String[]>  
+        Array of file paths to add to the clipboard. Accepts pipeline input and  
+        supports various aliases for compatibility with different object properties.  
         Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
+        Position?                    1  
+        Default value                  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
+    -WhatIf [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Confirm [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -1586,7 +1563,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
 ```PowerShell 
 
    Set-KnownFolderPath  
-```` 
+``` 
 
 ### SYNOPSIS 
     Modifies the physical path of a Windows known folder.  
@@ -1595,7 +1572,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
 ```PowerShell 
 Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
     [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### DESCRIPTION 
     Uses the Windows Shell32 API to relocate system folders like Documents,  
@@ -1607,6 +1584,10 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
     moving system-critical folders as this may affect system stability.  
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KnownFolder <String>  
         The name of the known folder to relocate. Supports all Windows known folders  
         including user folders (Documents, Downloads, Desktop, Pictures, Videos,  
@@ -1619,6 +1600,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Path <String>  
         The new physical file system path where the known folder should be located.  
         The path must exist before attempting the move operation. The function will  
@@ -1629,6 +1612,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf [<SwitchParameter>]  
         Required?                    false  
         Position?                    named  
@@ -1636,6 +1621,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm [<SwitchParameter>]  
         Required?                    false  
         Position?                    named  
@@ -1643,58 +1630,14 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Set-TaskbarAlignment 
-```PowerShell 
-
-   Set-TaskbarAlignment  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
-    [-Confirm] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Justify <string>  
-        The taskbar alignment (Center or Left)  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -1703,7 +1646,7 @@ Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
 ```PowerShell 
 
    Set-WindowPosition                   --> wp  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -1749,9 +1692,13 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
     [-OnlyOutputCoords] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -1761,6 +1708,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -1770,6 +1719,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -1779,6 +1730,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -1787,6 +1740,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -1796,6 +1751,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -1805,6 +1762,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Window height in pixels  
         Required?                    false  
@@ -1814,6 +1773,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
@@ -1823,6 +1784,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -1832,6 +1795,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Maximize the window after positioning  
         Required?                    false  
@@ -1841,6 +1806,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Minimizes the window after positioning  
         Required?                    false  
@@ -1850,6 +1817,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
         Required?                    false  
@@ -1859,6 +1828,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -1868,6 +1839,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -OnlyOutputCoords  
         Only output the calculated coordinates and size without actually positioning the window  
         Required?                    false  
@@ -1877,6 +1850,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Returns the window helper for each process  
         Required?                    false  
@@ -1886,6 +1861,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Process <Process>  
         The process of the window to position  
         Required?                    false  
@@ -1895,6 +1872,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
         The process name of the window to position  
         Required?                    false  
@@ -1904,6 +1883,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      Name  
         Dynamic?                     false  
         Accept wildcard characters?  true  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -1913,6 +1894,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -1922,6 +1905,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -1931,6 +1916,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -1940,6 +1927,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -1949,6 +1938,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -1958,6 +1949,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -1967,6 +1960,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -1976,6 +1971,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetRestored  
         Restore the window to normal state after positioning  
         Required?                    false  
@@ -1985,6 +1982,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -1994,6 +1993,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -2003,6 +2004,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -2012,6 +2015,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -2020,6 +2025,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Window width in pixels  
         Required?                    false  
@@ -2029,6 +2036,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WindowHelper <WindowObj[]>  
         Get-Window helper object for direct window manipulation  
         Required?                    false  
@@ -2038,6 +2047,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Window horizontal position in pixels  
         Required?                    false  
@@ -2047,6 +2058,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Window vertical position in pixels  
         Required?                    false  
@@ -2056,11 +2069,14 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -2069,7 +2085,7 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
 ```PowerShell 
 
    Set-WindowPositionForSecondary       --> wps  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -2083,9 +2099,13 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
     [-SendKeyDelayMilliSeconds <int>] [-PassThru]
     [-SideBySide] [-SessionOnly] [-ClearSession]
     [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -2095,6 +2115,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -2104,6 +2126,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -2113,6 +2137,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -2121,6 +2147,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after positioning  
         Required?                    false  
@@ -2130,6 +2158,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FullScreen  
         Sends F11 to the window  
         Required?                    false  
@@ -2139,6 +2169,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -2148,6 +2180,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the window after positioning  
         Required?                    false  
@@ -2157,6 +2191,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -2166,6 +2202,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Maximize the window after positioning  
         Required?                    false  
@@ -2175,6 +2213,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         The monitor to use, 0=default, -1=discard, -2=configured  
         Required?                    false  
@@ -2184,6 +2224,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -2193,6 +2235,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Returns the process object after positioning  
         Required?                    false  
@@ -2202,6 +2246,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Process <Process[]>  
         The process of the window to position  
         Required?                    false  
@@ -2211,6 +2257,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -2220,6 +2268,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -2229,6 +2279,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -2238,6 +2290,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -2247,6 +2301,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -2256,6 +2312,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -2265,6 +2323,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -2274,6 +2334,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after positioning  
         Required?                    false  
@@ -2283,6 +2345,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetRestored  
         Restore the window to normal state after positioning  
         Required?                    false  
@@ -2292,6 +2356,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Place window side by side with PowerShell on the same monitor  
         Required?                    false  
@@ -2301,6 +2367,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -2310,6 +2378,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -2319,6 +2389,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -2327,6 +2399,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -2336,6 +2410,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         The initial X position of the window  
         Required?                    false  
@@ -2345,6 +2421,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         The initial Y position of the window  
         Required?                    false  
@@ -2354,202 +2432,14 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Set-WindowsWallpaper 
-```PowerShell 
-
-   Set-WindowsWallpaper                 --> setaswallpaper  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
-    [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -AllDrives  
-        Search across all available drives  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -InputObject <Object>  
-        Path to the directory containing the wallpaper images  
-        Required?                    false  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Path, FullName, FilePath, Input  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoRecurse  
-        Do not recurse into subdirectories  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Start-ProcessWithPriority 
-```PowerShell 
-
-   Start-ProcessWithPriority            --> nice  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Start-ProcessWithPriority [-FilePath] <string>
-    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
-    BelowNormal | Low | Normal | AboveNormal | High |
-    RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm]
-    [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -ArgumentList <string[]>  
-        Arguments to pass to the executable  
-        Required?                    false  
-        Position?                    1  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -FilePath <string>  
-        Path to the executable to run  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoWait  
-        Do not wait for process completion  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PassThru  
-        Return the process object  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Priority <string>  
-        Process priority level  
-        Required?                    false  
-        Position?                    2  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Test-PathUsingWindowsDefender 
-```PowerShell 
-
-   Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <string>
-    [-EnableRemediation] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -EnableRemediation  
-        Instructs Windows Defender to take action on threats  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -FilePath <string>  
-        The path to the file or directory to be scanned  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -2561,7 +2451,7 @@ Test-PathUsingWindowsDefender [-FilePath] <string>
 ```PowerShell 
 
    Add-WireGuardPeer  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -2581,9 +2471,13 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
     [-ClearSession] [-SkipSession] [-ShowQRCode]
     [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AllowedIPs <string>  
         The IP ranges that will be routed through the VPN  
         Required?                    false  
@@ -2593,6 +2487,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom <int>  
         Set the window bottom position when initializing the service  
         Required?                    false  
@@ -2602,6 +2498,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the window when initializing the service  
         Required?                    false  
@@ -2611,6 +2509,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session when initializing the service  
         Required?                    false  
@@ -2620,6 +2520,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -2628,6 +2530,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -2637,6 +2541,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -DNS <string>  
         DNS servers to use for this peer  
         Required?                    false  
@@ -2646,6 +2552,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after initializing the service  
         Required?                    false  
@@ -2655,6 +2563,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -2664,6 +2574,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Start the service in fullscreen mode  
         Required?                    false  
@@ -2673,6 +2585,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -2682,6 +2596,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -2691,6 +2607,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Set the window height when initializing the service  
         Required?                    false  
@@ -2700,6 +2618,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -2709,6 +2629,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Set the window left position when initializing the service  
         Required?                    false  
@@ -2718,6 +2640,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders when initializing the service  
         Required?                    false  
@@ -2727,6 +2651,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -2736,6 +2662,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -OutputPath <string>  
         The path where the peer configuration file should be saved  
         Required?                    false  
@@ -2745,6 +2673,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      outfile, OutputFile  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -2754,6 +2684,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -2763,6 +2695,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PeerName <string>  
         A unique name for the peer  
         Required?                    true  
@@ -2772,6 +2706,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to the window after initializing the service  
         Required?                    false  
@@ -2781,6 +2717,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Set the window right position when initializing the service  
         Required?                    false  
@@ -2790,6 +2728,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SaveConfig  
         Save the peer configuration to a file  
         Required?                    false  
@@ -2799,6 +2739,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds when sending keys after initializing the service  
         Required?                    false  
@@ -2808,6 +2750,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to the window after initializing the service  
         Required?                    false  
@@ -2817,6 +2761,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus when sending keys after initializing the service  
         Required?                    false  
@@ -2826,6 +2772,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys after initializing the service  
         Required?                    false  
@@ -2835,6 +2783,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -2844,6 +2794,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use session only for the WireGuard service  
         Required?                    false  
@@ -2853,6 +2805,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after initializing the service  
         Required?                    false  
@@ -2862,6 +2816,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowQRCode  
         Generate QR code for easy mobile setup  
         Required?                    false  
@@ -2871,6 +2827,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the WireGuard window when initializing the service  
         Required?                    false  
@@ -2880,6 +2838,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show the window side by side when initializing the service  
         Required?                    false  
@@ -2889,6 +2849,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session when initializing the service  
         Required?                    false  
@@ -2898,6 +2860,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -2907,6 +2871,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -2916,6 +2882,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -2924,6 +2892,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Set the window width when initializing the service  
         Required?                    false  
@@ -2933,11 +2903,14 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -2946,14 +2919,18 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
 ```PowerShell 
 
    EnsureWireGuard  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -2963,6 +2940,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -2972,6 +2951,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -2981,6 +2962,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -2990,6 +2973,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -2999,6 +2984,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -3008,6 +2995,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -3017,6 +3006,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -3026,6 +3017,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -3035,6 +3028,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -3044,6 +3039,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -3053,6 +3050,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -3062,6 +3061,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -3071,6 +3072,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -3080,6 +3083,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -3089,6 +3094,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -3098,6 +3105,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -3107,6 +3116,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -3116,6 +3127,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -3125,6 +3138,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -3134,6 +3149,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -3143,6 +3160,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -3152,6 +3171,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -3161,6 +3182,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -3170,6 +3193,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -3179,6 +3204,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -3188,6 +3215,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -3197,6 +3226,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -3206,6 +3237,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -3215,6 +3248,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -3224,145 +3259,14 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-WireGuardPeerQRCode 
-```PowerShell 
-
-   Get-WireGuardPeerQRCode  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <string>
-    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
-    [-VolumeName <string>] [-ServicePort <int>]
-    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
-    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
-    [-TimeZone <string>] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -ContainerName <string>  
-        The name for the Docker container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Force  
-        Force rebuild of Docker container and remove existing data  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      ForceRebuild  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <int>  
-        Interval in seconds between health check attempts  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <int>  
-        Maximum time in seconds to wait for service health check  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -ImageName <string>  
-        Custom Docker image name to use  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoDockerInitialize  
-        Skip Docker initialization (used when already called by parent function)  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PGID <string>  
-        Group ID for permissions in the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PUID <string>  
-        User ID for permissions in the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PeerName <string>  
-        The name of the peer to generate a QR code for  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -ServicePort <int>  
-        The port number for the WireGuard service  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -TimeZone <string>  
-        Timezone to use for the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -VolumeName <string>  
-        The name for the Docker volume for persistent storage  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -3371,7 +3275,7 @@ Get-WireGuardPeerQRCode [-PeerName] <string>
 ```PowerShell 
 
    Get-WireGuardPeers  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -3388,9 +3292,13 @@ Get-WireGuardPeers [[-ContainerName] <string>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
     [-SkipSession] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom <int>  
         Set the bottom position of the Docker window  
         Required?                    false  
@@ -3400,6 +3308,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the Docker window on the screen  
         Required?                    false  
@@ -3409,6 +3319,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session for Docker window before running  
         Required?                    false  
@@ -3418,6 +3330,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -3427,6 +3341,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the Docker window after launching  
         Required?                    false  
@@ -3436,6 +3352,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -3445,6 +3363,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Run the Docker window in fullscreen mode  
         Required?                    false  
@@ -3454,6 +3374,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -3463,6 +3385,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -3472,6 +3396,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Set the height of the Docker window  
         Required?                    false  
@@ -3481,6 +3407,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -3490,6 +3418,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Set the left position of the Docker window  
         Required?                    false  
@@ -3499,6 +3429,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders for the Docker window  
         Required?                    false  
@@ -3508,6 +3440,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -3517,6 +3451,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -3526,6 +3462,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -3535,6 +3473,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to the previous window after running Docker  
         Required?                    false  
@@ -3544,6 +3484,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Set the right position of the Docker window  
         Required?                    false  
@@ -3553,6 +3495,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds between sending keys to Docker window  
         Required?                    false  
@@ -3562,6 +3506,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to the Docker window after launch  
         Required?                    false  
@@ -3571,6 +3517,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus in the Docker window after launch  
         Required?                    false  
@@ -3580,6 +3528,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys to Docker window  
         Required?                    false  
@@ -3589,6 +3539,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -3598,6 +3550,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use session only for Docker window  
         Required?                    false  
@@ -3607,6 +3561,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the Docker window as foreground window  
         Required?                    false  
@@ -3616,6 +3572,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the Docker window when running WireGuard  
         Required?                    false  
@@ -3625,6 +3583,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show Docker window side by side with other windows  
         Required?                    false  
@@ -3634,6 +3594,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session for Docker window  
         Required?                    false  
@@ -3643,6 +3605,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -3652,6 +3616,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -3661,6 +3627,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Set the width of the Docker window  
         Required?                    false  
@@ -3670,11 +3638,14 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -3683,7 +3654,7 @@ Get-WireGuardPeers [[-ContainerName] <string>]
 ```PowerShell 
 
    Get-WireGuardStatus  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -3700,9 +3671,13 @@ Get-WireGuardStatus [[-ContainerName] <string>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
     [-SkipSession] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom <int>  
         Window bottom position (pass-through)  
         Required?                    false  
@@ -3712,6 +3687,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the window (pass-through)  
         Required?                    false  
@@ -3721,6 +3698,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session data (pass-through)  
         Required?                    false  
@@ -3730,6 +3709,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -3739,6 +3720,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening (pass-through)  
         Required?                    false  
@@ -3748,6 +3731,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -3757,6 +3742,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Open window in fullscreen mode (pass-through)  
         Required?                    false  
@@ -3766,6 +3753,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -3775,6 +3764,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -3784,6 +3775,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Window height in characters or pixels (pass-through)  
         Required?                    false  
@@ -3793,6 +3786,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -3802,6 +3797,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Window left position (pass-through)  
         Required?                    false  
@@ -3811,6 +3808,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders (pass-through)  
         Required?                    false  
@@ -3820,6 +3819,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -3829,6 +3830,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -3838,6 +3841,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -3847,6 +3852,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to window after operation (pass-through)  
         Required?                    false  
@@ -3856,6 +3863,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Window right position (pass-through)  
         Required?                    false  
@@ -3865,6 +3874,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds between sending keys (pass-through)  
         Required?                    false  
@@ -3874,6 +3885,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to window (pass-through)  
         Required?                    false  
@@ -3883,6 +3896,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus when sending keys (pass-through)  
         Required?                    false  
@@ -3892,6 +3907,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys (pass-through)  
         Required?                    false  
@@ -3901,6 +3918,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -3910,6 +3929,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Session only mode (pass-through)  
         Required?                    false  
@@ -3919,6 +3940,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set window to foreground (pass-through)  
         Required?                    false  
@@ -3928,6 +3951,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the window when running the container (pass-through)  
         Required?                    false  
@@ -3937,6 +3962,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show side-by-side window (pass-through)  
         Required?                    false  
@@ -3946,6 +3973,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session initialization (pass-through)  
         Required?                    false  
@@ -3955,6 +3984,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -3964,6 +3995,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -3973,6 +4006,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Window width in characters or pixels (pass-through)  
         Required?                    false  
@@ -3982,11 +4017,14 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -3995,7 +4033,7 @@ Get-WireGuardStatus [[-ContainerName] <string>]
 ```PowerShell 
 
    Remove-WireGuardPeer  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -4012,9 +4050,13 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
     [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
     [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -4024,6 +4066,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -4033,6 +4077,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -4042,6 +4088,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -4050,6 +4098,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -4059,6 +4109,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -4068,6 +4120,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force removal without confirmation  
         Required?                    false  
@@ -4077,6 +4131,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -4086,6 +4142,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -4095,6 +4153,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -4104,6 +4164,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -4113,6 +4175,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -4122,6 +4186,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -4131,6 +4197,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -4140,6 +4208,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization when called by parent function  
         Required?                    false  
@@ -4149,6 +4219,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -4158,6 +4230,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -4167,6 +4241,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PeerName <string>  
         The name of the peer to remove  
         Required?                    true  
@@ -4176,6 +4252,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -4185,6 +4263,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -4194,6 +4274,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -4203,6 +4285,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -4212,6 +4296,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -4221,6 +4307,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -4230,6 +4318,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -4239,6 +4329,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -4248,6 +4340,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -4257,6 +4351,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -4266,6 +4362,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -4275,6 +4373,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -4284,6 +4384,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -4293,6 +4395,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -4302,6 +4406,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -4310,6 +4416,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -4319,11 +4427,14 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -4332,7 +4443,7 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
 ```PowerShell 
 
    Reset-WireGuardConfiguration  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -4343,9 +4454,13 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
     [[-PGID] <string>] [[-TimeZone] <string>]
     [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -4354,6 +4469,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -4363,6 +4480,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force reset without confirmation  
         Required?                    false  
@@ -4372,6 +4491,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -4381,6 +4502,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -4390,6 +4513,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -4399,6 +4524,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -4408,6 +4535,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -4417,6 +4546,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -4426,6 +4557,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -4435,6 +4568,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -4444,6 +4579,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -4453,6 +4590,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -4461,11 +4600,457 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
+
+<br/><hr/><br/>
+ 
+
+&nbsp;<hr/>
+###	GenXdev.Windows<hr/> 
+
+##	Get-ActiveUser 
+```PowerShell 
+
+   Get-ActiveUser                       --> gusers  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ChildProcesses 
+```PowerShell 
+
+   Get-ChildProcesses  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ClipboardFiles 
+```PowerShell 
+
+   Get-ClipboardFiles                   --> getclipfiles  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-CurrentFocusedProcess 
+```PowerShell 
+
+   Get-CurrentFocusedProcess  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-DesktopScalingFactor 
+```PowerShell 
+
+   Get-DesktopScalingFactor  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ForegroundWindow 
+```PowerShell 
+
+   Get-ForegroundWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-MonitorCount 
+```PowerShell 
+
+   Get-MonitorCount  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-MpCmdRunPath 
+```PowerShell 
+
+   Get-MpCmdRunPath  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-OpenedFileHandleProcesses 
+```PowerShell 
+
+   Get-OpenedFileHandleProcesses  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-PowershellMainWindow 
+```PowerShell 
+
+   Get-PowershellMainWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-PowershellMainWindowProcess 
+```PowerShell 
+
+   Get-PowershellMainWindowProcess  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-Window 
+```PowerShell 
+
+   Get-Window  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Save-DesktopScreenShot 
+```PowerShell 
+
+   Save-DesktopScreenShot  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Set-ForegroundWindow 
+```PowerShell 
+
+   Set-ForegroundWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Set-TaskbarAlignment 
+```PowerShell 
+
+   Set-TaskbarAlignment  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Set-WindowsWallpaper 
+```PowerShell 
+
+   Set-WindowsWallpaper  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Start-ProcessWithPriority 
+```PowerShell 
+
+   Start-ProcessWithPriority            --> nice  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Test-PathUsingWindowsDefender 
+```PowerShell 
+
+   Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+&nbsp;<hr/>
+###	GenXdev.Windows.WireGuard<hr/> 
+
+##	Get-WireGuardPeerQRCode 
+```PowerShell 
+
+   Get-WireGuardPeerQRCode  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>
  
@@ -4477,19 +5062,24 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
 ```PowerShell 
 
    CurrentUserHasElevatedRights  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 CurrentUserHasElevatedRights [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -4498,14 +5088,18 @@ CurrentUserHasElevatedRights [<CommonParameters>]
 ```PowerShell 
 
    EnsureDockerDesktop  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] <int>] [[-Y] <int>] [[-KeysToSend] <string[]>] [[-SendKeyDelayMilliSeconds] <int>] [-ShowWindow] [-NoBorders] [-Force] [-Left] [-Right] [-Top] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession] [-SkipSession] [-NoDockerInitialization] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -4515,6 +5109,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -4524,6 +5120,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -4533,6 +5131,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -4541,6 +5141,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -4550,6 +5152,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Forces a docker desktop restart  
         Required?                    false  
@@ -4559,6 +5163,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -4568,6 +5174,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -4577,6 +5185,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
@@ -4586,6 +5196,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -4595,6 +5207,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         The monitor to use, 0 = default, -1 is discard  
         Required?                    false  
@@ -4604,6 +5218,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -4613,6 +5229,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialization  
         Skip Docker initialization and return immediately  
         Required?                    false  
@@ -4622,6 +5240,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -4631,6 +5251,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -4640,6 +5262,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -4649,6 +5273,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -4658,6 +5284,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -4667,6 +5295,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -4676,6 +5306,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -4685,6 +5317,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -4694,6 +5328,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -4703,6 +5339,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -4712,6 +5350,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -4721,6 +5361,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -4730,6 +5372,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -4738,6 +5382,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -4747,6 +5393,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         The initial X position of the window  
         Required?                    false  
@@ -4756,6 +5404,8 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         The initial Y position of the window  
         Required?                    false  
@@ -4765,11 +5415,14 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -4778,14 +5431,18 @@ EnsureDockerDesktop [[-Monitor] <int>] [[-Width] <int>] [[-Height] <int>] [[-X] 
 ```PowerShell 
 
    EnsurePSTools  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Force  
         Force reinstallation of Sysinternals tools  
         Required?                    false  
@@ -4795,6 +5452,8 @@ EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PSExeName <string>  
         The executable name to verify installation  
         Required?                    false  
@@ -4804,147 +5463,14 @@ EnsurePSTools [[-PSExeName] <string>] [-Force] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ActiveUser 
-```PowerShell 
-
-   Get-ActiveUser                       --> gusers  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ActiveUser [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ChildProcesses 
-```PowerShell 
-
-   Get-ChildProcesses  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ChildProcesses [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ClipboardFiles 
-```PowerShell 
-
-   Get-ClipboardFiles                   --> getclipfiles  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ClipboardFiles [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-CurrentFocusedProcess 
-```PowerShell 
-
-   Get-CurrentFocusedProcess  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-CurrentFocusedProcess [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-DesktopScalingFactor 
-```PowerShell 
-
-   Get-DesktopScalingFactor  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-DesktopScalingFactor [[-Monitor] <int>]
-    [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Monitor <int>  
-        The monitor index to check (0 = primary monitor)  
-        Required?                    false  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      m, mon  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-ForegroundWindow 
-```PowerShell 
-
-   Get-ForegroundWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-ForegroundWindow [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -4953,7 +5479,7 @@ Get-ForegroundWindow [<CommonParameters>]
 ```PowerShell 
 
    Get-KnownFolderPath                  --> folder  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -4983,9 +5509,13 @@ Get-KnownFolderPath [-KnownFolder] {3DObjects |
     | SyncResultsFolder | SyncSetupFolder | System |
     SystemX86 | Templates | TreeProperties | UserProfiles |
     UsersFiles | Videos | Windows} [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KnownFolder <string>  
         The Windows known folder name to get the path for  
         Required?                    true  
@@ -4995,175 +5525,78 @@ Get-KnownFolderPath [-KnownFolder] {3DObjects |
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
 
-##	Get-MonitorCount 
+##	Get-WindowPosition 
 ```PowerShell 
 
-   Get-MonitorCount  
-```` 
+   Get-WindowPosition                   --> gwp  
+``` 
 
 ### SYNTAX 
 ```PowerShell 
-Get-MonitorCount [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-MpCmdRunPath 
-```PowerShell 
-
-   Get-MpCmdRunPath  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-MpCmdRunPath [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-OpenedFileHandleProcesses 
-```PowerShell 
-
-   Get-OpenedFileHandleProcesses  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+Get-WindowPosition [<CommonParameters>]
+Get-WindowPosition [[-ProcessName] <string>]
+    [<CommonParameters>]
+Get-WindowPosition [-Process <Process>] [<CommonParameters>]
+Get-WindowPosition [-WindowHelper <WindowObj[]>]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
-    -FilePath <string[]>  
-        The path to the file(s) to check for open handles  
-        Required?                    true  
-        Position?                    0  
+```yaml 
+ 
+``` 
+```yaml 
+    -Process <Process>  
+        The process of the window to get position for  
+        Required?                    false  
+        Position?                    Named  
         Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
+        Parameter set name           Process  
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-PowershellMainWindow 
-```PowerShell 
-
-   Get-PowershellMainWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-PowershellMainWindow [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-PowershellMainWindowProcess 
-```PowerShell 
-
-   Get-PowershellMainWindowProcess  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-PowershellMainWindowProcess [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-Window 
-```PowerShell 
-
-   Get-Window                           --> gwin, window  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
-    [-WindowHandle <long>] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -ProcessId <int>  
-        ID of the process to get window information for  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Id, PID  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
-        Name of the process to get window information for  
+        The process name of the window to get position for  
         Required?                    false  
         Position?                    0  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           ProcessName  
         Aliases                      Name  
         Dynamic?                     false  
         Accept wildcard characters?  true  
-    -WindowHandle <long>  
-        Window handle to get information for  
+``` 
+```yaml 
+    -WindowHelper <WindowObj[]>  
+        Get-Window helper object for direct window manipulation  
         Required?                    false  
         Position?                    Named  
-        Accept pipeline input?       true (ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Handle, hWnd  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           WindowHelper  
+        Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5172,16 +5605,20 @@ Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
 ```PowerShell 
 
    Initialize-ScheduledTaskScripts  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 Initialize-ScheduledTaskScripts [[-FilePath] <string>]
     [[-Prefix] <string>] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -5190,6 +5627,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FilePath <string>  
         The directory path where task scripts will be created  
         Required?                    false  
@@ -5199,6 +5638,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Prefix <string>  
         Prefix for the scheduled task names  
         Required?                    false  
@@ -5208,6 +5649,8 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -5216,11 +5659,14 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5229,7 +5675,7 @@ Initialize-ScheduledTaskScripts [[-FilePath] <string>]
 ```PowerShell 
 
    Invoke-WindowsUpdate                 --> updatewindows  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -5237,9 +5683,13 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
     [-AutoReboot] [-IncludeDrivers] [-GroupByCategory]
     [-NoBanner] [-NoRebootCheck] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AutoReboot  
         Automatically reboot if updates require a restart  
         Required?                    false  
@@ -5249,6 +5699,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -5257,6 +5709,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Criteria <string>  
         Custom Windows Update search criteria  
         Required?                    false  
@@ -5266,6 +5720,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -GroupByCategory  
         Group and color output by update category  
         Required?                    false  
@@ -5275,6 +5731,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -IncludeDrivers  
         Include drivers in update search  
         Required?                    false  
@@ -5284,6 +5742,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Install  
         Automatically install available Windows updates  
         Required?                    false  
@@ -5293,6 +5753,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBanner  
         Disable banner/status output  
         Required?                    false  
@@ -5302,6 +5764,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoRebootCheck  
         Skip reboot requirement check/reporting  
         Required?                    false  
@@ -5311,6 +5775,8 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -5319,11 +5785,14 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5332,7 +5801,7 @@ Invoke-WindowsUpdate [[-Criteria] <string>] [-Install]
 ```PowerShell 
 
    Pop-Window                           --> popw  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -5352,9 +5821,13 @@ Pop-Window -X <int> -Y <int> [-Maximize] [-Minimize]
     [-Top] [-Bottom] [-Centered] [-ShowWindow] [-Monitor
     <int>] [<CommonParameters>]
 Pop-Window [-NoModify] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AlwaysOnTop  
         Required?                    false  
         Position?                    Named  
@@ -5363,6 +5836,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom  
         Required?                    false  
         Position?                    Named  
@@ -5371,6 +5846,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Required?                    false  
         Position?                    Named  
@@ -5379,6 +5856,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FadeIn  
         Required?                    false  
         Position?                    Named  
@@ -5387,6 +5866,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Focus  
         Required?                    false  
         Position?                    Named  
@@ -5395,6 +5876,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Required?                    true  
         Position?                    Named  
@@ -5403,6 +5886,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Hide  
         Required?                    false  
         Position?                    Named  
@@ -5411,6 +5896,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Required?                    false  
         Position?                    Named  
@@ -5419,6 +5906,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Required?                    false  
         Position?                    Named  
@@ -5427,6 +5916,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Required?                    false  
         Position?                    Named  
@@ -5435,6 +5926,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Required?                    false  
         Position?                    Named  
@@ -5443,6 +5936,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Required?                    false  
         Position?                    Named  
@@ -5451,6 +5946,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoModify  
         Required?                    false  
         Position?                    Named  
@@ -5459,6 +5956,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Opacity <byte>  
         Required?                    false  
         Position?                    Named  
@@ -5467,6 +5966,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Restore  
         Required?                    false  
         Position?                    Named  
@@ -5475,6 +5976,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Required?                    false  
         Position?                    Named  
@@ -5483,6 +5986,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Show  
         Required?                    false  
         Position?                    Named  
@@ -5491,6 +5996,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Required?                    false  
         Position?                    Named  
@@ -5499,6 +6006,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      sw  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Required?                    false  
         Position?                    Named  
@@ -5507,6 +6016,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Required?                    true  
         Position?                    Named  
@@ -5515,6 +6026,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Required?                    true  
         Position?                    Named  
@@ -5523,6 +6036,8 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Required?                    true  
         Position?                    Named  
@@ -5531,11 +6046,14 @@ Pop-Window [-NoModify] [<CommonParameters>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5544,7 +6062,7 @@ Pop-Window [-NoModify] [<CommonParameters>]
 ```PowerShell 
 
    Push-Window                          --> pushw  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -5564,9 +6082,13 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
     [-Opacity <byte>] [-Focus] [-FadeOut] [-PassThru]
     [-Left] [-Right] [-Top] [-Bottom] [-Centered]
     [-ShowWindow] [-Monitor <int>] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AlwaysOnTop  
         Required?                    false  
         Position?                    Named  
@@ -5575,6 +6097,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom  
         Required?                    false  
         Position?                    Named  
@@ -5583,6 +6107,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Required?                    false  
         Position?                    Named  
@@ -5591,6 +6117,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FadeOut  
         Required?                    false  
         Position?                    Named  
@@ -5599,6 +6127,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Focus  
         Required?                    false  
         Position?                    Named  
@@ -5607,6 +6137,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Required?                    true  
         Position?                    Named  
@@ -5615,6 +6147,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Hide  
         Required?                    false  
         Position?                    Named  
@@ -5623,6 +6157,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Required?                    false  
         Position?                    Named  
@@ -5631,6 +6167,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Required?                    false  
         Position?                    Named  
@@ -5639,6 +6177,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Required?                    false  
         Position?                    Named  
@@ -5647,6 +6187,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Required?                    false  
         Position?                    Named  
@@ -5655,6 +6197,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Required?                    false  
         Position?                    Named  
@@ -5663,6 +6207,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Opacity <byte>  
         Required?                    false  
         Position?                    Named  
@@ -5671,6 +6217,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Required?                    false  
         Position?                    Named  
@@ -5679,6 +6227,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Restore  
         Required?                    false  
         Position?                    Named  
@@ -5687,6 +6237,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Required?                    false  
         Position?                    Named  
@@ -5695,6 +6247,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Show  
         Required?                    false  
         Position?                    Named  
@@ -5703,6 +6257,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Required?                    false  
         Position?                    Named  
@@ -5711,6 +6267,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      sw  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Required?                    false  
         Position?                    Named  
@@ -5719,6 +6277,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Required?                    true  
         Position?                    Named  
@@ -5727,6 +6287,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Required?                    true  
         Position?                    Named  
@@ -5735,6 +6297,8 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Required?                    true  
         Position?                    Named  
@@ -5743,11 +6307,14 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5756,7 +6323,7 @@ Push-Window -X <int> -Y <int> [-Maximize] [-Minimize]
 ```PowerShell 
 
    Send-Key                             --> invokekeys, sendkeys  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -5772,9 +6339,13 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds
     <int>] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KeysToSend <string[]>  
         The keyboard input to send as an array of strings  
         Required?                    true  
@@ -5784,6 +6355,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessId <int>  
         ID of the process to send keys to  
         Required?                    false  
@@ -5793,6 +6366,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Id, PID  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
         Name of the process to send keys to (supports wildcards)  
         Required?                    false  
@@ -5802,6 +6377,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  true  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds  
         Required?                    false  
@@ -5811,6 +6388,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers in input text  
         Required?                    false  
@@ -5820,6 +6399,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window after sending keys  
         Required?                    false  
@@ -5829,6 +6410,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter for newlines  
         Required?                    false  
@@ -5838,6 +6421,8 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WindowHandle <long>  
         Window handle to send keys to  
         Required?                    false  
@@ -5847,11 +6432,14 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
         Aliases                      Handle, hWnd  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5860,92 +6448,64 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
 ```PowerShell 
 
    Set-ClipboardFiles                   --> setclipfiles  
-```` 
+``` 
+
+### SYNOPSIS 
+    Sets files to the Windows clipboard for file operations like copy/paste.  
 
 ### SYNTAX 
 ```PowerShell 
-Set-ClipboardFiles [-InputObject] <string[]> [-WhatIf]
+Set-ClipboardFiles [-InputObject] <String[]> [-WhatIf]
     [-Confirm] [<CommonParameters>] 
-```` 
+``` 
+
+### DESCRIPTION 
+    This function copies one or more file paths to the Windows clipboard,  
+    enabling file operations like paste in Windows Explorer. It handles both  
+    STA and MTA threading modes automatically, ensuring compatibility across  
+    different PowerShell execution contexts. The function validates file  
+    existence before adding paths to the clipboard.  
 
 ### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -InputObject <string[]>  
-        Array of file paths to add to the clipboard  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Path, FullName, ImageFileName, FileName  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
+```yaml 
  
-
-##	Set-ForegroundWindow 
-```PowerShell 
-
-   Set-ForegroundWindow  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
-    [-Confirm] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WindowHandle <IntPtr>  
-        Window handle to set as foreground window  
+``` 
+```yaml 
+    -InputObject <String[]>  
+        Array of file paths to add to the clipboard. Accepts pipeline input and  
+        supports various aliases for compatibility with different object properties.  
         Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
+        Position?                    1  
+        Default value                  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
+    -WhatIf [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Confirm [<SwitchParameter>]  
+        Required?                    false  
+        Position?                    named  
+        Default value                  
+        Accept pipeline input?       false  
+        Aliases                        
+        Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -5954,7 +6514,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
 ```PowerShell 
 
    Set-KnownFolderPath  
-```` 
+``` 
 
 ### SYNOPSIS 
     Modifies the physical path of a Windows known folder.  
@@ -5963,7 +6523,7 @@ Set-ForegroundWindow [-WindowHandle] <IntPtr> [-WhatIf]
 ```PowerShell 
 Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
     [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### DESCRIPTION 
     Uses the Windows Shell32 API to relocate system folders like Documents,  
@@ -5975,6 +6535,10 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
     moving system-critical folders as this may affect system stability.  
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -KnownFolder <String>  
         The name of the known folder to relocate. Supports all Windows known folders  
         including user folders (Documents, Downloads, Desktop, Pictures, Videos,  
@@ -5987,6 +6551,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Path <String>  
         The new physical file system path where the known folder should be located.  
         The path must exist before attempting the move operation. The function will  
@@ -5997,6 +6563,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf [<SwitchParameter>]  
         Required?                    false  
         Position?                    named  
@@ -6004,6 +6572,8 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm [<SwitchParameter>]  
         Required?                    false  
         Position?                    named  
@@ -6011,58 +6581,14 @@ Set-KnownFolderPath [-KnownFolder] <String> [-Path] <String>
         Accept pipeline input?       false  
         Aliases                        
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Set-TaskbarAlignment 
-```PowerShell 
-
-   Set-TaskbarAlignment  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
-    [-Confirm] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Justify <string>  
-        The taskbar alignment (Center or Left)  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -6071,7 +6597,7 @@ Set-TaskbarAlignment [-Justify] {Center | Left} [-WhatIf]
 ```PowerShell 
 
    Set-WindowPosition                   --> wp  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -6117,9 +6643,13 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
     <int>] [-SessionOnly] [-ClearSession] [-SkipSession]
     [-OnlyOutputCoords] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -6129,6 +6659,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -6138,6 +6670,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -6147,6 +6681,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -6155,6 +6691,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -6164,6 +6702,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -6173,6 +6713,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Window height in pixels  
         Required?                    false  
@@ -6182,6 +6724,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the Window, see documentation for cmdlet GenXdev.Windows\Send-Key  
         Required?                    false  
@@ -6191,6 +6735,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -6200,6 +6746,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Maximize the window after positioning  
         Required?                    false  
@@ -6209,6 +6757,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Minimize  
         Minimizes the window after positioning  
         Required?                    false  
@@ -6218,6 +6768,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         Monitor selection: 0=primary, 1+=specific monitor, -1=current, -2=secondary  
         Required?                    false  
@@ -6227,6 +6779,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -6236,6 +6790,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -OnlyOutputCoords  
         Only output the calculated coordinates and size without actually positioning the window  
         Required?                    false  
@@ -6245,6 +6801,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Returns the window helper for each process  
         Required?                    false  
@@ -6254,6 +6812,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Process <Process>  
         The process of the window to position  
         Required?                    false  
@@ -6263,6 +6823,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ProcessName <string>  
         The process name of the window to position  
         Required?                    false  
@@ -6272,6 +6834,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      Name  
         Dynamic?                     false  
         Accept wildcard characters?  true  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -6281,6 +6845,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -6290,6 +6856,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -6299,6 +6867,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -6308,6 +6878,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -6317,6 +6889,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -6326,6 +6900,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -6335,6 +6911,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -6344,6 +6922,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetRestored  
         Restore the window to normal state after positioning  
         Required?                    false  
@@ -6353,6 +6933,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -6362,6 +6944,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -6371,6 +6955,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -6380,6 +6966,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -6388,6 +6976,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Window width in pixels  
         Required?                    false  
@@ -6397,6 +6987,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WindowHelper <WindowObj[]>  
         Get-Window helper object for direct window manipulation  
         Required?                    false  
@@ -6406,6 +6998,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         Window horizontal position in pixels  
         Required?                    false  
@@ -6415,6 +7009,8 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         Window vertical position in pixels  
         Required?                    false  
@@ -6424,11 +7020,14 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -6437,7 +7036,7 @@ Set-WindowPosition [-WindowHelper <WindowObj[]>] [-Monitor
 ```PowerShell 
 
    Set-WindowPositionForSecondary       --> wps  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -6451,9 +7050,13 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
     [-SendKeyDelayMilliSeconds <int>] [-PassThru]
     [-SideBySide] [-SessionOnly] [-ClearSession]
     [-SkipSession] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -6463,6 +7066,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -6472,6 +7077,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -6481,6 +7088,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -6489,6 +7098,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after positioning  
         Required?                    false  
@@ -6498,6 +7109,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FullScreen  
         Sends F11 to the window  
         Required?                    false  
@@ -6507,6 +7120,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -6516,6 +7131,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -KeysToSend <string[]>  
         Keystrokes to send to the window after positioning  
         Required?                    false  
@@ -6525,6 +7142,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -6534,6 +7153,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Maximize  
         Maximize the window after positioning  
         Required?                    false  
@@ -6543,6 +7164,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Monitor <int>  
         The monitor to use, 0=default, -1=discard, -2=configured  
         Required?                    false  
@@ -6552,6 +7175,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      m, mon  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -6561,6 +7186,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PassThru  
         Returns the process object after positioning  
         Required?                    false  
@@ -6570,6 +7197,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      pt  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Process <Process[]>  
         The process of the window to position  
         Required?                    false  
@@ -6579,6 +7208,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -6588,6 +7219,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -6597,6 +7230,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -6606,6 +7241,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -6615,6 +7252,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -6624,6 +7263,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -6633,6 +7274,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -6642,6 +7285,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after positioning  
         Required?                    false  
@@ -6651,6 +7296,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetRestored  
         Restore the window to normal state after positioning  
         Required?                    false  
@@ -6660,6 +7307,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Place window side by side with PowerShell on the same monitor  
         Required?                    false  
@@ -6669,6 +7318,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -6678,6 +7329,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Top  
         Place window on the top side of the screen  
         Required?                    false  
@@ -6687,6 +7340,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -6695,6 +7350,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -6704,6 +7361,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -X <int>  
         The initial X position of the window  
         Required?                    false  
@@ -6713,6 +7372,8 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Y <int>  
         The initial Y position of the window  
         Required?                    false  
@@ -6722,11 +7383,359 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ActiveUser 
+```PowerShell 
+
+   Get-ActiveUser                       --> gusers  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ChildProcesses 
+```PowerShell 
+
+   Get-ChildProcesses  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ClipboardFiles 
+```PowerShell 
+
+   Get-ClipboardFiles                   --> getclipfiles  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-CurrentFocusedProcess 
+```PowerShell 
+
+   Get-CurrentFocusedProcess  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-DesktopScalingFactor 
+```PowerShell 
+
+   Get-DesktopScalingFactor  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-ForegroundWindow 
+```PowerShell 
+
+   Get-ForegroundWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-MonitorCount 
+```PowerShell 
+
+   Get-MonitorCount  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-MpCmdRunPath 
+```PowerShell 
+
+   Get-MpCmdRunPath  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-OpenedFileHandleProcesses 
+```PowerShell 
+
+   Get-OpenedFileHandleProcesses  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-PowershellMainWindow 
+```PowerShell 
+
+   Get-PowershellMainWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-PowershellMainWindowProcess 
+```PowerShell 
+
+   Get-PowershellMainWindowProcess  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-Window 
+```PowerShell 
+
+   Get-Window  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Save-DesktopScreenShot 
+```PowerShell 
+
+   Save-DesktopScreenShot  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Set-ForegroundWindow 
+```PowerShell 
+
+   Set-ForegroundWindow  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Set-TaskbarAlignment 
+```PowerShell 
+
+   Set-TaskbarAlignment  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>
  
@@ -6734,64 +7743,22 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
 ##	Set-WindowsWallpaper 
 ```PowerShell 
 
-   Set-WindowsWallpaper                 --> setaswallpaper  
-```` 
+   Set-WindowsWallpaper  
+``` 
+
+### SYNOPSIS 
 
 ### SYNTAX 
 ```PowerShell 
-Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
-    [-NoRecurse] [-WhatIf] [-Confirm] [<CommonParameters>] 
-```` 
+ 
+``` 
+
+### DESCRIPTION 
 
 ### PARAMETERS 
-    -AllDrives  
-        Search across all available drives  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -InputObject <Object>  
-        Path to the directory containing the wallpaper images  
-        Required?                    false  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      Path, FullName, FilePath, Input  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoRecurse  
-        Do not recurse into subdirectories  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>
  
@@ -6800,84 +7767,21 @@ Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
 ```PowerShell 
 
    Start-ProcessWithPriority            --> nice  
-```` 
+``` 
+
+### SYNOPSIS 
 
 ### SYNTAX 
 ```PowerShell 
-Start-ProcessWithPriority [-FilePath] <string>
-    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
-    BelowNormal | Low | Normal | AboveNormal | High |
-    RealTime}] [-NoWait] [-PassThru] [-WhatIf] [-Confirm]
-    [<CommonParameters>] 
-```` 
+ 
+``` 
+
+### DESCRIPTION 
 
 ### PARAMETERS 
-    -ArgumentList <string[]>  
-        Arguments to pass to the executable  
-        Required?                    false  
-        Position?                    1  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Confirm  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      cf  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -FilePath <string>  
-        Path to the executable to run  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoWait  
-        Do not wait for process completion  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PassThru  
-        Return the process object  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Priority <string>  
-        Process priority level  
-        Required?                    false  
-        Position?                    2  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -WhatIf  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      wi  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>
  
@@ -6886,38 +7790,21 @@ Start-ProcessWithPriority [-FilePath] <string>
 ```PowerShell 
 
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
-```` 
+``` 
+
+### SYNOPSIS 
 
 ### SYNTAX 
 ```PowerShell 
-Test-PathUsingWindowsDefender [-FilePath] <string>
-    [-EnableRemediation] [<CommonParameters>] 
-```` 
+ 
+``` 
+
+### DESCRIPTION 
 
 ### PARAMETERS 
-    -EnableRemediation  
-        Instructs Windows Defender to take action on threats  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -FilePath <string>  
-        The path to the file or directory to be scanned  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       true (ByValue, ByPropertyName)  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>
  
@@ -6929,7 +7816,7 @@ Test-PathUsingWindowsDefender [-FilePath] <string>
 ```PowerShell 
 
    Add-WireGuardPeer  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -6949,9 +7836,13 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
     [-ClearSession] [-SkipSession] [-ShowQRCode]
     [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -AllowedIPs <string>  
         The IP ranges that will be routed through the VPN  
         Required?                    false  
@@ -6961,6 +7852,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Bottom <int>  
         Set the window bottom position when initializing the service  
         Required?                    false  
@@ -6970,6 +7863,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the window when initializing the service  
         Required?                    false  
@@ -6979,6 +7874,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session when initializing the service  
         Required?                    false  
@@ -6988,6 +7885,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -6996,6 +7895,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -7005,6 +7906,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -DNS <string>  
         DNS servers to use for this peer  
         Required?                    false  
@@ -7014,6 +7917,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after initializing the service  
         Required?                    false  
@@ -7023,6 +7928,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -7032,6 +7939,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Start the service in fullscreen mode  
         Required?                    false  
@@ -7041,6 +7950,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -7050,6 +7961,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -7059,6 +7972,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Set the window height when initializing the service  
         Required?                    false  
@@ -7068,6 +7983,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -7077,6 +7994,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Set the window left position when initializing the service  
         Required?                    false  
@@ -7086,6 +8005,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders when initializing the service  
         Required?                    false  
@@ -7095,6 +8016,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -7104,6 +8027,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -OutputPath <string>  
         The path where the peer configuration file should be saved  
         Required?                    false  
@@ -7113,6 +8038,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      outfile, OutputFile  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -7122,6 +8049,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -7131,6 +8060,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PeerName <string>  
         A unique name for the peer  
         Required?                    true  
@@ -7140,6 +8071,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to the window after initializing the service  
         Required?                    false  
@@ -7149,6 +8082,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Set the window right position when initializing the service  
         Required?                    false  
@@ -7158,6 +8093,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SaveConfig  
         Save the peer configuration to a file  
         Required?                    false  
@@ -7167,6 +8104,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds when sending keys after initializing the service  
         Required?                    false  
@@ -7176,6 +8115,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to the window after initializing the service  
         Required?                    false  
@@ -7185,6 +8126,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus when sending keys after initializing the service  
         Required?                    false  
@@ -7194,6 +8137,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys after initializing the service  
         Required?                    false  
@@ -7203,6 +8148,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -7212,6 +8159,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use session only for the WireGuard service  
         Required?                    false  
@@ -7221,6 +8170,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after initializing the service  
         Required?                    false  
@@ -7230,6 +8181,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowQRCode  
         Generate QR code for easy mobile setup  
         Required?                    false  
@@ -7239,6 +8192,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the WireGuard window when initializing the service  
         Required?                    false  
@@ -7248,6 +8203,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show the window side by side when initializing the service  
         Required?                    false  
@@ -7257,6 +8214,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session when initializing the service  
         Required?                    false  
@@ -7266,6 +8225,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -7275,6 +8236,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -7284,6 +8247,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -7292,6 +8257,8 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Set the window width when initializing the service  
         Required?                    false  
@@ -7301,11 +8268,14 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -7314,14 +8284,18 @@ Add-WireGuardPeer [-PeerName] <string> [[-AllowedIPs]
 ```PowerShell 
 
    EnsureWireGuard  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
 EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServicePort] <int>] [[-HealthCheckTimeout] <int>] [[-HealthCheckInterval] <int>] [[-ImageName] <string>] [[-PUID] <string>] [[-PGID] <string>] [[-TimeZone] <string>] [-ShowWindow] [-NoBorders] [-Width <int>] [-Height <int>] [-Left] [-Right] [-Bottom] [-Centered] [-Fullscreen] [-RestoreFocus] [-SideBySide] [-FocusWindow] [-SetForeground] [-SendKeyEscape] [-SendKeyHoldKeyboardFocus] [-SendKeyUseShiftEnter] [-SendKeyDelayMilliSeconds <int>] [-SessionOnly] [-ClearSession] [-SkipSession] [-Force] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -7331,6 +8305,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -7340,6 +8316,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -7349,6 +8327,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -7358,6 +8338,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -7367,6 +8349,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -7376,6 +8360,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -7385,6 +8371,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -7394,6 +8382,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -7403,6 +8393,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -7412,6 +8404,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -7421,6 +8415,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -7430,6 +8426,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -7439,6 +8437,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -7448,6 +8448,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -7457,6 +8459,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -7466,6 +8470,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -7475,6 +8481,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -7484,6 +8492,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -7493,6 +8503,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -7502,6 +8514,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -7511,6 +8525,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -7520,6 +8536,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -7529,6 +8547,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -7538,6 +8558,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -7547,6 +8569,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -7556,6 +8580,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -7565,6 +8591,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -7574,6 +8602,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -7583,6 +8613,8 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -7592,145 +8624,14 @@ EnsureWireGuard [[-ContainerName] <string>] [[-VolumeName] <string>] [[-ServiceP
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
-
-<br/><hr/><br/>
- 
-
-##	Get-WireGuardPeerQRCode 
-```PowerShell 
-
-   Get-WireGuardPeerQRCode  
-```` 
-
-### SYNTAX 
-```PowerShell 
-Get-WireGuardPeerQRCode [-PeerName] <string>
-    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
-    [-VolumeName <string>] [-ServicePort <int>]
-    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
-    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
-    [-TimeZone <string>] [<CommonParameters>] 
-```` 
-
-### PARAMETERS 
-    -ContainerName <string>  
-        The name for the Docker container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -Force  
-        Force rebuild of Docker container and remove existing data  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      ForceRebuild  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -HealthCheckInterval <int>  
-        Interval in seconds between health check attempts  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -HealthCheckTimeout <int>  
-        Maximum time in seconds to wait for service health check  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -ImageName <string>  
-        Custom Docker image name to use  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -NoDockerInitialize  
-        Skip Docker initialization (used when already called by parent function)  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PGID <string>  
-        Group ID for permissions in the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PUID <string>  
-        User ID for permissions in the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -PeerName <string>  
-        The name of the peer to generate a QR code for  
-        Required?                    true  
-        Position?                    0  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -ServicePort <int>  
-        The port number for the WireGuard service  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -TimeZone <string>  
-        Timezone to use for the container  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    -VolumeName <string>  
-        The name for the Docker volume for persistent storage  
-        Required?                    false  
-        Position?                    Named  
-        Accept pipeline input?       false  
-        Parameter set name           (All)  
-        Aliases                      None  
-        Dynamic?                     false  
-        Accept wildcard characters?  false  
-    <CommonParameters>  
-        This cmdlet supports the common parameters: Verbose, Debug,  
-        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
-        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
-        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -7739,7 +8640,7 @@ Get-WireGuardPeerQRCode [-PeerName] <string>
 ```PowerShell 
 
    Get-WireGuardPeers  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -7756,9 +8657,13 @@ Get-WireGuardPeers [[-ContainerName] <string>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
     [-SkipSession] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom <int>  
         Set the bottom position of the Docker window  
         Required?                    false  
@@ -7768,6 +8673,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the Docker window on the screen  
         Required?                    false  
@@ -7777,6 +8684,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session for Docker window before running  
         Required?                    false  
@@ -7786,6 +8695,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -7795,6 +8706,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the Docker window after launching  
         Required?                    false  
@@ -7804,6 +8717,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -7813,6 +8728,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Run the Docker window in fullscreen mode  
         Required?                    false  
@@ -7822,6 +8739,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -7831,6 +8750,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -7840,6 +8761,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Set the height of the Docker window  
         Required?                    false  
@@ -7849,6 +8772,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -7858,6 +8783,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Set the left position of the Docker window  
         Required?                    false  
@@ -7867,6 +8794,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders for the Docker window  
         Required?                    false  
@@ -7876,6 +8805,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -7885,6 +8816,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -7894,6 +8827,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -7903,6 +8838,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to the previous window after running Docker  
         Required?                    false  
@@ -7912,6 +8849,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Set the right position of the Docker window  
         Required?                    false  
@@ -7921,6 +8860,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds between sending keys to Docker window  
         Required?                    false  
@@ -7930,6 +8871,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to the Docker window after launch  
         Required?                    false  
@@ -7939,6 +8882,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus in the Docker window after launch  
         Required?                    false  
@@ -7948,6 +8893,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys to Docker window  
         Required?                    false  
@@ -7957,6 +8904,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -7966,6 +8915,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use session only for Docker window  
         Required?                    false  
@@ -7975,6 +8926,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the Docker window as foreground window  
         Required?                    false  
@@ -7984,6 +8937,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the Docker window when running WireGuard  
         Required?                    false  
@@ -7993,6 +8948,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show Docker window side by side with other windows  
         Required?                    false  
@@ -8002,6 +8959,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session for Docker window  
         Required?                    false  
@@ -8011,6 +8970,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -8020,6 +8981,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -8029,6 +8992,8 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Set the width of the Docker window  
         Required?                    false  
@@ -8038,11 +9003,14 @@ Get-WireGuardPeers [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -8051,7 +9019,7 @@ Get-WireGuardPeers [[-ContainerName] <string>]
 ```PowerShell 
 
    Get-WireGuardStatus  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -8068,9 +9036,13 @@ Get-WireGuardStatus [[-ContainerName] <string>]
     [-SendKeyEscape] [-SendKeyHoldKeyboardFocus]
     [-SendKeyUseShiftEnter] [-SessionOnly] [-ClearSession]
     [-SkipSession] [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom <int>  
         Window bottom position (pass-through)  
         Required?                    false  
@@ -8080,6 +9052,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Center the window (pass-through)  
         Required?                    false  
@@ -8089,6 +9063,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear session data (pass-through)  
         Required?                    false  
@@ -8098,6 +9074,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -8107,6 +9085,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening (pass-through)  
         Required?                    false  
@@ -8116,6 +9096,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force rebuild of Docker container and remove existing data  
         Required?                    false  
@@ -8125,6 +9107,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Open window in fullscreen mode (pass-through)  
         Required?                    false  
@@ -8134,6 +9118,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -8143,6 +9129,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -8152,6 +9140,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         Window height in characters or pixels (pass-through)  
         Required?                    false  
@@ -8161,6 +9151,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -8170,6 +9162,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left <int>  
         Window left position (pass-through)  
         Required?                    false  
@@ -8179,6 +9173,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Remove window borders (pass-through)  
         Required?                    false  
@@ -8188,6 +9184,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -8197,6 +9195,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -8206,6 +9206,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -8215,6 +9217,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore focus to window after operation (pass-through)  
         Required?                    false  
@@ -8224,6 +9228,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right <int>  
         Window right position (pass-through)  
         Required?                    false  
@@ -8233,6 +9239,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay in milliseconds between sending keys (pass-through)  
         Required?                    false  
@@ -8242,6 +9250,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Send Escape key to window (pass-through)  
         Required?                    false  
@@ -8251,6 +9261,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus when sending keys (pass-through)  
         Required?                    false  
@@ -8260,6 +9272,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter when sending keys (pass-through)  
         Required?                    false  
@@ -8269,6 +9283,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -8278,6 +9294,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Session only mode (pass-through)  
         Required?                    false  
@@ -8287,6 +9305,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set window to foreground (pass-through)  
         Required?                    false  
@@ -8296,6 +9316,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show the window when running the container (pass-through)  
         Required?                    false  
@@ -8305,6 +9327,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Show side-by-side window (pass-through)  
         Required?                    false  
@@ -8314,6 +9338,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Skip session initialization (pass-through)  
         Required?                    false  
@@ -8323,6 +9349,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -8332,6 +9360,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -8341,6 +9371,8 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         Window width in characters or pixels (pass-through)  
         Required?                    false  
@@ -8350,11 +9382,14 @@ Get-WireGuardStatus [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -8363,7 +9398,7 @@ Get-WireGuardStatus [[-ContainerName] <string>]
 ```PowerShell 
 
    Remove-WireGuardPeer  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -8380,9 +9415,13 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
     [-SendKeyDelayMilliSeconds <int>] [-SessionOnly]
     [-ClearSession] [-SkipSession] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Bottom  
         Place window on the bottom side of the screen  
         Required?                    false  
@@ -8392,6 +9431,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Centered  
         Place window in the center of the screen  
         Required?                    false  
@@ -8401,6 +9442,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ClearSession  
         Clear alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -8410,6 +9453,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -8418,6 +9463,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -8427,6 +9474,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -FocusWindow  
         Focus the window after opening  
         Required?                    false  
@@ -8436,6 +9485,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fw, focus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force removal without confirmation  
         Required?                    false  
@@ -8445,6 +9496,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      ForceRebuild  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Fullscreen  
         Maximize the window  
         Required?                    false  
@@ -8454,6 +9507,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -8463,6 +9518,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -8472,6 +9529,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Height <int>  
         The initial height of the window  
         Required?                    false  
@@ -8481,6 +9540,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -8490,6 +9551,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Left  
         Place window on the left side of the screen  
         Required?                    false  
@@ -8499,6 +9562,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoBorders  
         Removes the borders of the window  
         Required?                    false  
@@ -8508,6 +9573,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      nb  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization when called by parent function  
         Required?                    false  
@@ -8517,6 +9584,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -8526,6 +9595,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -8535,6 +9606,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PeerName <string>  
         The name of the peer to remove  
         Required?                    true  
@@ -8544,6 +9617,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -RestoreFocus  
         Restore PowerShell window focus  
         Required?                    false  
@@ -8553,6 +9628,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      rf, bg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Right  
         Place window on the right side of the screen  
         Required?                    false  
@@ -8562,6 +9639,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyDelayMilliSeconds <int>  
         Delay between different input strings in milliseconds when sending keys  
         Required?                    false  
@@ -8571,6 +9650,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      DelayMilliSeconds  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyEscape  
         Escape control characters and modifiers when sending keys  
         Required?                    false  
@@ -8580,6 +9661,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      Escape  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyHoldKeyboardFocus  
         Hold keyboard focus on target window when sending keys  
         Required?                    false  
@@ -8589,6 +9672,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      HoldKeyboardFocus  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SendKeyUseShiftEnter  
         Use Shift+Enter instead of Enter when sending keys  
         Required?                    false  
@@ -8598,6 +9683,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      UseShiftEnter  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -8607,6 +9694,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SessionOnly  
         Use alternative settings stored in session for AI preferences  
         Required?                    false  
@@ -8616,6 +9705,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SetForeground  
         Set the window to foreground after opening  
         Required?                    false  
@@ -8625,6 +9716,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      fg  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ShowWindow  
         Show Docker Desktop window during initialization  
         Required?                    false  
@@ -8634,6 +9727,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SideBySide  
         Will either set the window fullscreen on a different monitor than Powershell, or side by side with Powershell on the same monitor  
         Required?                    false  
@@ -8643,6 +9738,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      sbs  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -SkipSession  
         Store settings only in persistent preferences without affecting session  
         Required?                    false  
@@ -8652,6 +9749,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      FromPreferences  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -8661,6 +9760,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -8670,6 +9771,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -8678,6 +9781,8 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Width <int>  
         The initial width of the window  
         Required?                    false  
@@ -8687,11 +9792,14 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
 
 <br/><hr/><br/>
  
@@ -8700,7 +9808,7 @@ Remove-WireGuardPeer [-PeerName] <string> [-ContainerName
 ```PowerShell 
 
    Reset-WireGuardConfiguration  
-```` 
+``` 
 
 ### SYNTAX 
 ```PowerShell 
@@ -8711,9 +9819,13 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
     [[-PGID] <string>] [[-TimeZone] <string>]
     [-NoDockerInitialize] [-Force] [-WhatIf] [-Confirm]
     [<CommonParameters>] 
-```` 
+``` 
 
 ### PARAMETERS 
+```yaml 
+ 
+``` 
+```yaml 
     -Confirm  
         Required?                    false  
         Position?                    Named  
@@ -8722,6 +9834,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      cf  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ContainerName <string>  
         The name for the Docker container  
         Required?                    false  
@@ -8731,6 +9845,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -Force  
         Force reset without confirmation  
         Required?                    false  
@@ -8740,6 +9856,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckInterval <int>  
         Interval in seconds between health check attempts  
         Required?                    false  
@@ -8749,6 +9867,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -HealthCheckTimeout <int>  
         Maximum time in seconds to wait for service health check  
         Required?                    false  
@@ -8758,6 +9878,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ImageName <string>  
         Custom Docker image name to use  
         Required?                    false  
@@ -8767,6 +9889,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -NoDockerInitialize  
         Skip Docker initialization (used when already called by parent function)  
         Required?                    false  
@@ -8776,6 +9900,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PGID <string>  
         Group ID for permissions in the container  
         Required?                    false  
@@ -8785,6 +9911,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -PUID <string>  
         User ID for permissions in the container  
         Required?                    false  
@@ -8794,6 +9922,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -ServicePort <int>  
         The port number for the WireGuard service  
         Required?                    false  
@@ -8803,6 +9933,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -TimeZone <string>  
         Timezone to use for the container  
         Required?                    false  
@@ -8812,6 +9944,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -VolumeName <string>  
         The name for the Docker volume for persistent storage  
         Required?                    false  
@@ -8821,6 +9955,8 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      None  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     -WhatIf  
         Required?                    false  
         Position?                    Named  
@@ -8829,10 +9965,36 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
         Aliases                      wi  
         Dynamic?                     false  
         Accept wildcard characters?  false  
+``` 
+```yaml 
     <CommonParameters>  
         This cmdlet supports the common parameters: Verbose, Debug,  
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
         OutBuffer, PipelineVariable, and OutVariable. For more information, see  
         about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
+``` 
+
+<br/><hr/><br/>
+ 
+
+##	Get-WireGuardPeerQRCode 
+```PowerShell 
+
+   Get-WireGuardPeerQRCode  
+``` 
+
+### SYNOPSIS 
+
+### SYNTAX 
+```PowerShell 
+ 
+``` 
+
+### DESCRIPTION 
+
+### PARAMETERS 
+```yaml 
+ 
+``` 
 
 <br/><hr/><br/>

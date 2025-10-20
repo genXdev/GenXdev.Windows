@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Boolean
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String
+System.Diagnostics.Process
+GenXdev.Helpers.WindowObj[]
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]
+System.String
+System.Int32
+System.Int64
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>This function copies one or more file paths to the Windows clipboard,
+enabling file operations like paste in Windows Explorer. It handles both
+STA and MTA threading modes automatically, ensuring compatibility across
+different PowerShell execution contexts. The function validates file
+existence before adding paths to the clipboard.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <command:name></command:name>
+        <command:parameter required="true" position="1">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" position="named">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" position="named">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter>
+        <maml:name></maml:name>
+        <maml:description>
+          <maml:para>Array of file paths to add to the clipboard. Accepts pipeline input and
+supports various aliases for compatibility with different object properties.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>true (ByValue, ByPropertyName)</dev:pipelineInput>
+        <dev:position>1</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+      <command:parameter>
+        <maml:name></maml:name>
+        <command:parameterValue required="false"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>named</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+      <command:parameter>
+        <maml:name></maml:name>
+        <command:parameterValue required="false"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>named</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+    </command:parameters>
+    <command:examples>
+      <command:example>
+        <maml:title></maml:title>
+        <dev:code></dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title></maml:title>
+        <dev:code></dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title></maml:title>
+        <dev:code></dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>Uses the Windows Shell32 API to relocate system folders like Documents,
+Downloads, Desktop, or other known Windows folders to a new location. The
+function validates the target path exists, looks up the folder&apos;s unique GUID
+from the comprehensive known folders registry, and uses the SHSetKnownFolderPath
+API to perform the relocation. Common use cases include moving user folders to
+a different drive for space management or organization. Exercise caution when
+moving system-critical folders as this may affect system stability.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <command:name></command:name>
+        <command:parameter required="true" position="1">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" position="2">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" position="named">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" position="named">
+          <maml:name></maml:name>
+          <command:parameterValue></command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter>
+        <maml:name></maml:name>
+        <maml:description>
+          <maml:para>The name of the known folder to relocate. Supports all Windows known folders
+including user folders (Documents, Downloads, Desktop, Pictures, Videos,
+Music), system folders (Windows, System, ProgramFiles), and special folders
+(Recent, Favorites, SendTo, etc.). Use with caution as moving certain system
+folders may cause instability.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>1</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+      <command:parameter>
+        <maml:name></maml:name>
+        <maml:description>
+          <maml:para>The new physical file system path where the known folder should be located.
+The path must exist before attempting the move operation. The function will
+throw an error if the path is invalid or inaccessible.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>2</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+      <command:parameter>
+        <maml:name></maml:name>
+        <command:parameterValue required="false"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>named</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+      <command:parameter>
+        <maml:name></maml:name>
+        <command:parameterValue required="false"></command:parameterValue>
+        <dev:defaultValue></dev:defaultValue>
+        <dev:variableLength>false</dev:variableLength>
+        <dev:globbing>false</dev:globbing>
+        <dev:pipelineInput>false</dev:pipelineInput>
+        <dev:position>named</dev:position>
+        <dev:aliases></dev:aliases>
+      </command:parameter>
+    </command:parameters>
+    <command:examples>
+      <command:example>
+        <maml:title></maml:title>
+        <dev:code></dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title></maml:title>
+        <dev:code></dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String
+System.Diagnostics.Process
+GenXdev.Helpers.WindowObj[]
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Diagnostics.Process[]
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Boolean
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>-</maml:name>
+      <command:verb></command:verb>
+      <command:noun></command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-ActiveUser</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ActiveUser</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-ChildProcesses</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ChildProcesses</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Diagnostics.Process
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-ClipboardFiles</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ClipboardFiles</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-CurrentFocusedProcess</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>CurrentFocusedProcess</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Diagnostics.Process
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-DesktopScalingFactor</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DesktopScalingFactor</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Single
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-ForegroundWindow</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ForegroundWindow</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.IntPtr
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-MonitorCount</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>MonitorCount</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Int32
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-MpCmdRunPath</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>MpCmdRunPath</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-OpenedFileHandleProcesses</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>OpenedFileHandleProcesses</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>GenXdev.Windows.FileHandleProcessInfo
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-PowershellMainWindow</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PowershellMainWindow</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>GenXdev.Helpers.WindowObj
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-PowershellMainWindowProcess</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PowershellMainWindowProcess</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Diagnostics.Process
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-Window</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>Window</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String
+System.Int32
+System.Int64
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>GenXdev.Helpers.WindowObj
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Save-DesktopScreenShot</maml:name>
+      <command:verb>Save</command:verb>
+      <command:noun>DesktopScreenShot</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Int32
+System.String
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.IO.FileInfo
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Set-ForegroundWindow</maml:name>
+      <command:verb>Set</command:verb>
+      <command:noun>ForegroundWindow</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Set-TaskbarAlignment</maml:name>
+      <command:verb>Set</command:verb>
+      <command:noun>TaskbarAlignment</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Void
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Set-WindowsWallpaper</maml:name>
+      <command:verb>Set</command:verb>
+      <command:noun>WindowsWallpaper</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Object
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Void
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Start-ProcessWithPriority</maml:name>
+      <command:verb>Start</command:verb>
+      <command:noun>ProcessWithPriority</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Diagnostics.Process
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Test-PathUsingWindowsDefender</maml:name>
+      <command:verb>Test</command:verb>
+      <command:noun>PathUsingWindowsDefender</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Boolean
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <maml:name>Get-WireGuardPeerQRCode</maml:name>
+      <command:verb>Get</command:verb>
+      <command:noun>WireGuardPeerQRCode</command:noun>
+    </command:details>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None
+</maml:name>
+        </dev:type>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Void
+</maml:name>
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>
