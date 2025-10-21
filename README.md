@@ -4621,18 +4621,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-ActiveUser                       --> gusers  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ActiveUser [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4644,18 +4647,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-ChildProcesses  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ChildProcesses [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4667,18 +4673,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-ClipboardFiles                   --> getclipfiles  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ClipboardFiles [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4690,18 +4699,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-CurrentFocusedProcess  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-CurrentFocusedProcess [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4713,18 +4725,33 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-DesktopScalingFactor  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-DesktopScalingFactor [[-Monitor] <int>]
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Monitor <int>  
+        The monitor index to check (0 = primary monitor)  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4736,18 +4763,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-ForegroundWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ForegroundWindow [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4759,18 +4789,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-MonitorCount  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-MonitorCount [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4782,18 +4815,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-MpCmdRunPath  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-MpCmdRunPath [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4805,18 +4841,33 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-OpenedFileHandleProcesses  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -FilePath <string[]>  
+        The path to the file(s) to check for open handles  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4828,18 +4879,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-PowershellMainWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-PowershellMainWindow [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4851,18 +4905,21 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-PowershellMainWindowProcess  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-PowershellMainWindowProcess [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4874,18 +4931,55 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-Window  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
+    [-WindowHandle <long>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ProcessId <int>  
+        ID of the process to get window information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ProcessName <string>  
+        Name of the process to get window information for  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+``` 
+```yaml 
+    -WindowHandle <long>  
+        Window handle to get information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4897,18 +4991,55 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Save-DesktopScreenShot  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Save-DesktopScreenShot [-Monitor] <int> [-OutputPath]
+    <string> [-Quality <int>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Monitor <int>  
+        Monitor index to capture (0=primary, 1+=specific monitor, -1=all monitors)  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -OutputPath <string>  
+        Full path where the screenshot will be saved  
+        Required?                    true  
+        Position?                    1  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Quality <int>  
+        JPEG quality level (1-100), only applies to JPEG format  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4920,18 +5051,33 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Set-ForegroundWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-ForegroundWindow [-WindowHandle] <IntPtr>
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -WindowHandle <IntPtr>  
+        Window handle to set as foreground window  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4943,18 +5089,33 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Set-TaskbarAlignment  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-TaskbarAlignment [-Justify] {Center | Left}
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Justify <string>  
+        The taskbar alignment (Center or Left)  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4966,18 +5127,55 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Set-WindowsWallpaper  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
+    [-NoRecurse] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -AllDrives  
+        Search across all available drives  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -InputObject <Object>  
+        Path to the directory containing the wallpaper images  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, FilePath, Input  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoRecurse  
+        Do not recurse into subdirectories  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -4989,18 +5187,79 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Start-ProcessWithPriority            --> nice  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Start-ProcessWithPriority [-FilePath] <string>
+    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
+    BelowNormal | Low | Normal | AboveNormal | High |
+    RealTime}] [-NoWait] [-PassThru] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ArgumentList <string[]>  
+        Arguments to pass to the executable  
+        Required?                    false  
+        Position?                    1  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -FilePath <string>  
+        Path to the executable to run  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoWait  
+        Do not wait for process completion  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PassThru  
+        Return the process object  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Priority <string>  
+        Process priority level  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -5012,18 +5271,44 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Test-PathUsingWindowsDefender [-FilePath] <string>
+    [-EnableRemediation] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -EnableRemediation  
+        Instructs Windows Defender to take action on threats  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -FilePath <string>  
+        The path to the file or directory to be scanned  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -5038,18 +5323,158 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-WireGuardPeerQRCode  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-WireGuardPeerQRCode [-PeerName] <string>
+    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
+    [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PeerName <string>  
+        The name of the peer to generate a QR code for  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -TimeZone <string>  
+        Timezone to use for the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7401,18 +7826,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-ActiveUser                       --> gusers  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ActiveUser [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7424,18 +7852,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-ChildProcesses  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ChildProcesses [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7447,18 +7878,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-ClipboardFiles                   --> getclipfiles  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ClipboardFiles [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7470,18 +7904,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-CurrentFocusedProcess  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-CurrentFocusedProcess [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7493,18 +7930,33 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-DesktopScalingFactor  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-DesktopScalingFactor [[-Monitor] <int>]
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Monitor <int>  
+        The monitor index to check (0 = primary monitor)  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      m, mon  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7516,18 +7968,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-ForegroundWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-ForegroundWindow [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7539,18 +7994,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-MonitorCount  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-MonitorCount [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7562,18 +8020,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-MpCmdRunPath  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-MpCmdRunPath [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7585,18 +8046,33 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-OpenedFileHandleProcesses  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-OpenedFileHandleProcesses [-FilePath] <string[]>
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -FilePath <string[]>  
+        The path to the file(s) to check for open handles  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7608,18 +8084,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-PowershellMainWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-PowershellMainWindow [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7631,18 +8110,21 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-PowershellMainWindowProcess  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-PowershellMainWindowProcess [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7654,18 +8136,55 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Get-Window  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-Window [[-ProcessName] <string>] [-ProcessId <int>]
+    [-WindowHandle <long>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ProcessId <int>  
+        ID of the process to get window information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Id, PID  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ProcessName <string>  
+        Name of the process to get window information for  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Name  
+        Dynamic?                     false  
+        Accept wildcard characters?  true  
+``` 
+```yaml 
+    -WindowHandle <long>  
+        Window handle to get information for  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Handle, hWnd  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7677,18 +8196,55 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Save-DesktopScreenShot  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Save-DesktopScreenShot [-Monitor] <int> [-OutputPath]
+    <string> [-Quality <int>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Monitor <int>  
+        Monitor index to capture (0=primary, 1+=specific monitor, -1=all monitors)  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -OutputPath <string>  
+        Full path where the screenshot will be saved  
+        Required?                    true  
+        Position?                    1  
+        Accept pipeline input?       true (ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Quality <int>  
+        JPEG quality level (1-100), only applies to JPEG format  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7700,18 +8256,33 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Set-ForegroundWindow  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-ForegroundWindow [-WindowHandle] <IntPtr>
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -WindowHandle <IntPtr>  
+        Window handle to set as foreground window  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7723,18 +8294,33 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Set-TaskbarAlignment  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-TaskbarAlignment [-Justify] {Center | Left}
+    [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -Justify <string>  
+        The taskbar alignment (Center or Left)  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7746,18 +8332,55 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Set-WindowsWallpaper  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Set-WindowsWallpaper [[-InputObject] <Object>] [-AllDrives]
+    [-NoRecurse] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -AllDrives  
+        Search across all available drives  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -InputObject <Object>  
+        Path to the directory containing the wallpaper images  
+        Required?                    false  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      Path, FullName, FilePath, Input  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoRecurse  
+        Do not recurse into subdirectories  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7769,18 +8392,79 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Start-ProcessWithPriority            --> nice  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Start-ProcessWithPriority [-FilePath] <string>
+    [[-ArgumentList] <string[]>] [[-Priority] {Idle |
+    BelowNormal | Low | Normal | AboveNormal | High |
+    RealTime}] [-NoWait] [-PassThru] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ArgumentList <string[]>  
+        Arguments to pass to the executable  
+        Required?                    false  
+        Position?                    1  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -FilePath <string>  
+        Path to the executable to run  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoWait  
+        Do not wait for process completion  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PassThru  
+        Return the process object  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Priority <string>  
+        Process priority level  
+        Required?                    false  
+        Position?                    2  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -7792,18 +8476,44 @@ Set-WindowPositionForSecondary [[-Process] <Process[]>]
    Test-PathUsingWindowsDefender        --> HasNoVirus, virusscan  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Test-PathUsingWindowsDefender [-FilePath] <string>
+    [-EnableRemediation] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -EnableRemediation  
+        Instructs Windows Defender to take action on threats  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -FilePath <string>  
+        The path to the file or directory to be scanned  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       true (ByValue, ByPropertyName)  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>
@@ -9983,18 +10693,158 @@ Reset-WireGuardConfiguration [[-ContainerName] <string>]
    Get-WireGuardPeerQRCode  
 ``` 
 
-### SYNOPSIS 
-
 ### SYNTAX 
 ```PowerShell 
- 
+Get-WireGuardPeerQRCode [-PeerName] <string>
+    [-NoDockerInitialize] [-Force] [-ContainerName <string>]
+    [-VolumeName <string>] [-ServicePort <int>]
+    [-HealthCheckTimeout <int>] [-HealthCheckInterval <int>]
+    [-ImageName <string>] [-PUID <string>] [-PGID <string>]
+    [-TimeZone <string>] [<CommonParameters>] 
 ``` 
-
-### DESCRIPTION 
 
 ### PARAMETERS 
 ```yaml 
  
+``` 
+```yaml 
+    -ContainerName <string>  
+        The name for the Docker container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -Force  
+        Force rebuild of Docker container and remove existing data  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      ForceRebuild  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -HealthCheckInterval <int>  
+        Interval in seconds between health check attempts  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -HealthCheckTimeout <int>  
+        Maximum time in seconds to wait for service health check  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ImageName <string>  
+        Custom Docker image name to use  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -NoDockerInitialize  
+        Skip Docker initialization (used when already called by parent function)  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PGID <string>  
+        Group ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PUID <string>  
+        User ID for permissions in the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -PeerName <string>  
+        The name of the peer to generate a QR code for  
+        Required?                    true  
+        Position?                    0  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -ServicePort <int>  
+        The port number for the WireGuard service  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -TimeZone <string>  
+        Timezone to use for the container  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    -VolumeName <string>  
+        The name for the Docker volume for persistent storage  
+        Required?                    false  
+        Position?                    Named  
+        Accept pipeline input?       false  
+        Parameter set name           (All)  
+        Aliases                      None  
+        Dynamic?                     false  
+        Accept wildcard characters?  false  
+``` 
+```yaml 
+    <CommonParameters>  
+        This cmdlet supports the common parameters: Verbose, Debug,  
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,  
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see  
+        about_CommonParameters     (https://go.microsoft.com/fwlink/?LinkID=113216).   
 ``` 
 
 <br/><hr/><br/>

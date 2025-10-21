@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Get-WindowPosition.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 1.302.2025
+Version                   : 1.304.2025
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -22,7 +22,7 @@ limitations under the License.
 # Part of PowerShell module : GenXdev.Windows
 # Original cmdlet filename  : Get-WindowPosition.ps1
 # Original author           : Ren� Vaessen / GenXdev
-# Version                   : 1.302.2025
+# Version                   : 1.304.2025
 ################################################################################
 # Copyright (c)  Ren� Vaessen / GenXdev
 #
