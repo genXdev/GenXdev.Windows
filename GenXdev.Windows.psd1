@@ -12,7 +12,7 @@
 RootModule = 'GenXdev.Windows.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.308.2025'
+ModuleVersion = '2.1.2025'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core'
@@ -33,7 +33,7 @@ Copyright = 'Copyright 2021-2025 GenXdev'
 Description = 'A Windows PowerShell module that provides UI Windows manipulation helpers'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.5.0'
+PowerShellVersion = '7.5.4'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -52,7 +52,7 @@ ProcessorArchitecture = 'Amd64'
 
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = @(@{ModuleName = 'Microsoft.WinGet.Client'; ModuleVersion = '1.11.410'; }, 
-               @{ModuleName = 'GenXdev.Data'; ModuleVersion = '1.308.2025'; })
+               @{ModuleName = 'GenXdev.Data'; ModuleVersion = '2.1.2025'; })
 
 # Assemblies that must be loaded prior to importing this module
 RequiredAssemblies = 'lib\GenXdev.Windows.dll'
@@ -140,29 +140,16 @@ FileList = '.gitignore', 'GenXdev.Windows.csproj', 'GenXdev.Windows.psd1',
                'Functions\GenXdev.Windows\Set-WindowPosition.ps1', 
                'Functions\GenXdev.Windows\Set-WindowPositionForSecondary.ps1', 
                'Functions\GenXdev.Windows\Set-WindowsWallpaper.cs', 
-               'Functions\GenXdev.Windows.WireGuard\Add-WireGuardPeer.ps1', 
                'Functions\GenXdev.Windows\Start-ProcessWithPriority.cs', 
-               'Functions\GenXdev.Windows.WireGuard\EnsureWireGuard.ps1', 
                'Functions\GenXdev.Windows\Test-PathUsingWindowsDefender.cs', 
+               'Functions\GenXdev.Windows.WireGuard\Add-WireGuardPeer.ps1', 
+               'Functions\GenXdev.Windows.WireGuard\EnsureWireGuard.ps1', 
                'Functions\GenXdev.Windows.WireGuard\Get-WireGuardPeerQRCode.cs', 
                'Functions\GenXdev.Windows.WireGuard\Get-WireGuardPeers.ps1', 
                'Functions\GenXdev.Windows.WireGuard\Get-WireGuardStatus.ps1', 
                'Functions\GenXdev.Windows.WireGuard\README.md', 
                'Functions\GenXdev.Windows.WireGuard\Remove-WireGuardPeer.ps1', 
-               'Functions\GenXdev.Windows.WireGuard\Reset-WireGuardConfiguration.ps1', 
-               'lib\lib\Microsoft.Extensions.Configuration.UserSecrets.dll', 
-               'lib\runtimes\win-x64\ggml-base-whisper.dll', 
-               'lib\runtimes\win-x64\ggml-cpu-whisper.dll', 
-               'lib\runtimes\win-x64\ggml-whisper.dll', 
-               'lib\runtimes\win-x64\whisper.dll', 
-               'lib\runtimes\win-arm64\ggml-base-whisper.dll', 
-               'lib\runtimes\win-arm64\ggml-cpu-whisper.dll', 
-               'lib\runtimes\win-arm64\ggml-whisper.dll', 
-               'lib\runtimes\win-arm64\whisper.dll', 
-               'lib\runtimes\win-x86\ggml-base-whisper.dll', 
-               'lib\runtimes\win-x86\ggml-cpu-whisper.dll', 
-               'lib\runtimes\win-x86\ggml-whisper.dll', 
-               'lib\runtimes\win-x86\whisper.dll'
+               'Functions\GenXdev.Windows.WireGuard\Reset-WireGuardConfiguration.ps1'
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
