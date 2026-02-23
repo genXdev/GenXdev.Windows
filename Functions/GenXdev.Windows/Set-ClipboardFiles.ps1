@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-ClipboardFiles.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -51,7 +51,7 @@ Sets files to clipboard using pipeline input, selecting the first 5 files
 function Set-ClipboardFiles {
 
     [CmdletBinding(SupportsShouldProcess)]
-    [Alias('setclipfiles')]
+    [Alias('setclipfiles', 'scbf')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     param (
         ###################################################################

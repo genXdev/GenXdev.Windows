@@ -2,7 +2,7 @@
 // Part of PowerShell module : GenXdev.Windows
 // Original cmdlet filename  : Get-ClipboardFiles.cs
 // Original author           : René Vaessen / GenXdev
-// Version                   : 2.1.2025
+// Version                   : 2.3.2026
 // ################################################################################
 // Copyright (c)  René Vaessen / GenXdev
 //
@@ -21,10 +21,7 @@
 
 
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Management.Automation;
 using System.Windows.Forms;
 
@@ -68,12 +65,12 @@ namespace GenXdev.Windows
     /// <example>
     /// <para>Get all files from the clipboard and lists them in a detailed format.</para>
     /// <code>
-    /// Get-ClipboardFiles | ls
+    /// Get-ClipboardFiles | Get-ChildItem
     /// </code>
     /// </example>
     /// </summary>
     [Cmdlet(VerbsCommon.Get, "ClipboardFiles")]
-    [Alias("getclipfiles")]
+    [Alias("getclipfiles", "gcbf")]
     [OutputType(typeof(PSObject))]
     public class GetClipboardFilesCommand : PSGenXdevCmdlet
     {

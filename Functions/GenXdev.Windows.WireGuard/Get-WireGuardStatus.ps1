@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : Get-WireGuardStatus.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -177,13 +177,13 @@ function Get-WireGuardStatus {
             Mandatory = $false,
             HelpMessage = 'Window width in characters or pixels (pass-through)'
         )]
-        [int] $Width,
+        [int] $Width = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Window height in characters or pixels (pass-through)'
         )]
-        [int] $Height,
+        [int] $Height = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,

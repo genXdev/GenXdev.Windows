@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Pop-Window.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -234,28 +234,28 @@ function Pop-Window {
             ParameterSetName = 'Position',
             Mandatory = $true
         )]
-        [int] $X,
+        [int] $X = -999999,
 
         ########################################################################
         [Parameter(
             ParameterSetName = 'Position',
             Mandatory = $true
         )]
-        [int] $Y,
+        [int] $Y = -999999,
 
         ########################################################################
         [Parameter(
             ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
-        [int] $Width,
+        [int] $Width = -1,
 
         ########################################################################
         [Parameter(
             ParameterSetName = 'Dimensions',
             Mandatory = $true
         )]
-        [int] $Height,
+        [int] $Height = -1,
 
         ########################################################################
         [Parameter(

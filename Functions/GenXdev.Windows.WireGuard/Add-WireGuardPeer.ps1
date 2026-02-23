@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : Add-WireGuardPeer.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -274,13 +274,13 @@ function Add-WireGuardPeer {
             Mandatory = $false,
             HelpMessage = 'Set the window width when initializing the service'
         )]
-        [int] $Width,
+        [int] $Width = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Set the window height when initializing the service'
         )]
-        [int] $Height,
+        [int] $Height = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,

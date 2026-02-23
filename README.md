@@ -60,7 +60,7 @@ Update-Module
 | [EnsurePSTools](#ensurepstools) | &nbsp; | &nbsp; |
 | [Get-ActiveUser](#get-activeuser) | gusers | Retrieves a list of unique usernames from currently active system processes. |
 | [Get-ChildProcesses](#get-childprocesses) | &nbsp; | Retrieves all processes that are descendants of the current PowerShell process. |
-| [Get-ClipboardFiles](#get-clipboardfiles) | getclipfiles | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
+| [Get-ClipboardFiles](#get-clipboardfiles) | gcbf, getclipfiles | Gets files from the Windows clipboard that were set for file operations like copy/paste. |
 | [Get-CurrentFocusedProcess](#get-currentfocusedprocess) | &nbsp; | Retrieves the process object of the window that currently has keyboard focus. |
 | [Get-DesktopScalingFactor](#get-desktopscalingfactor) | &nbsp; | Retrieves the Windows display scaling factor (DPI setting) for a specified monitor. |
 | [Get-ForegroundWindow](#get-foregroundwindow) | &nbsp; | Gets the handle of the currently active foreground window. |
@@ -78,7 +78,7 @@ Update-Module
 | [Push-Window](#push-window) | pushw | &nbsp; |
 | [Save-DesktopScreenShot](#save-desktopscreenshot) | &nbsp; | Captures a screenshot of the specified monitor and saves it to the specified path. |
 | [Send-Key](#send-key) | invokekeys, sendkeys | &nbsp; |
-| [Set-ClipboardFiles](#set-clipboardfiles) | setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
+| [Set-ClipboardFiles](#set-clipboardfiles) | scbf, setclipfiles | Sets files to the Windows clipboard for file operations like copy/paste. |
 | [Set-ForegroundWindow](#set-foregroundwindow) | &nbsp; | Brings the specified window to the foreground and makes it the active window. |
 | [Set-KnownFolderPath](#set-knownfolderpath) | &nbsp; | Modifies the physical path of a Windows known folder. |
 | [Set-TaskbarAlignment](#set-taskbaralignment) | &nbsp; | Configures Windows 11+ taskbar alignment between center and left positions. |
@@ -1496,7 +1496,7 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
 ##	Set-ClipboardFiles 
 ```PowerShell 
 
-   Set-ClipboardFiles                   --> setclipfiles  
+   Set-ClipboardFiles                   --> scbf, setclipfiles  
 ``` 
 
 ### SYNOPSIS 
@@ -4670,7 +4670,7 @@ Get-ChildProcesses [<CommonParameters>]
 ##	Get-ClipboardFiles 
 ```PowerShell 
 
-   Get-ClipboardFiles                   --> getclipfiles  
+   Get-ClipboardFiles                   --> gcbf, getclipfiles  
 ``` 
 
 ### SYNTAX 
@@ -6872,7 +6872,7 @@ Send-Key [-KeysToSend] <string[]> [-WindowHandle <long>]
 ##	Set-ClipboardFiles 
 ```PowerShell 
 
-   Set-ClipboardFiles                   --> setclipfiles  
+   Set-ClipboardFiles                   --> scbf, setclipfiles  
 ``` 
 
 ### SYNOPSIS 
@@ -7875,7 +7875,7 @@ Get-ChildProcesses [<CommonParameters>]
 ##	Get-ClipboardFiles 
 ```PowerShell 
 
-   Get-ClipboardFiles                   --> getclipfiles  
+   Get-ClipboardFiles                   --> gcbf, getclipfiles  
 ``` 
 
 ### SYNTAX 

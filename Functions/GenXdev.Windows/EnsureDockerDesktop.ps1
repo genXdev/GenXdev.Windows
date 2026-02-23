@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : EnsureDockerDesktop.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -156,7 +156,7 @@ function EnsureDockerDesktop {
             HelpMessage = 'The monitor to use, 0 = default, -1 is discard'
         )]
         [Alias('m', 'mon')]
-        [int] $Monitor,
+        [int] $Monitor = -1,
         #######################################################################
         [Parameter(
             Mandatory = $false,
@@ -252,7 +252,7 @@ function EnsureDockerDesktop {
             Mandatory = $false,
             HelpMessage = 'Focus the window after opening'
         )]
-        [Alias('fw','focus')]
+        [Alias('fw', 'focus')]
         [switch]$FocusWindow,
         #######################################################################
         [Parameter(
@@ -316,7 +316,7 @@ function EnsureDockerDesktop {
         [Parameter(
             Mandatory = $false,
             HelpMessage = ('Store settings only in persistent preferences ' +
-                          'without affecting session')
+                'without affecting session')
         )]
         [Alias('FromPreferences')]
         [switch]$SkipSession,
@@ -452,7 +452,7 @@ function EnsureDockerDesktop {
 
                 # check if docker executable exists in current path
                 if (Microsoft.PowerShell.Management\Test-Path `
-                    -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
+                        -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
                             'docker.exe')) {
 
                     # get current user PATH environment variable
@@ -489,12 +489,12 @@ function EnsureDockerDesktop {
             if (-not $dockerFound) {
                 if ($PSCmdlet.ShouldProcess('Docker Desktop',
                         ('Install Docker Desktop and required features, ' +
-                         'might need multiple reboots, just repeat your ' +
-                         'last command until fully installed.'))) {
+                        'might need multiple reboots, just repeat your ' +
+                        'last command until fully installed.'))) {
 
                     # install windows updates and handle auto-reboot
-                    GenXdev.Windows\Invoke-WindowsUpdate -Install -AutoReboot `
-                        -Verbose
+                    # GenXdev.Windows\Invoke-WindowsUpdate -Install -AutoReboot `
+                    #     -Verbose
 
                     # inform user about docker installation process
                     Microsoft.PowerShell.Utility\Write-Host ('Docker Desktop not ' +
@@ -558,7 +558,7 @@ function EnsureDockerDesktop {
                     foreach ($path in $dockerPaths) {
                         # verify docker executable exists in path after installation
                         if (Microsoft.PowerShell.Management\Test-Path `
-                            -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
+                                -LiteralPath (Microsoft.PowerShell.Management\Join-Path $path `
                                     'docker.exe')) {
 
                             # get current user PATH environment variable
@@ -630,8 +630,8 @@ function EnsureDockerDesktop {
 
                     # copy identical parameters for window positioning
                     $wpParams = GenXdev.FileSystem\Copy-IdenticalParamValues `
-                                    -BoundParameters $PSBoundParameters `
-                                    -FunctionName 'GenXdev.Windows\Set-WindowPosition'
+                        -BoundParameters $PSBoundParameters `
+                        -FunctionName 'GenXdev.Windows\Set-WindowPosition'
 
                     # set default monitor if not specified
                     if (-not $PSBoundParameters.ContainsKey('Monitor')) {
@@ -643,7 +643,8 @@ function EnsureDockerDesktop {
                         -Process $p -ErrorAction SilentlyContinue
 
                     $positioningDone = $true
-                } else {
+                }
+                else {
                     # start minimized by default (hidden in tray)
                     $p = Microsoft.PowerShell.Management\Start-Process `
                         $dockerExePath.Source `
@@ -685,8 +686,8 @@ function EnsureDockerDesktop {
 
                             # copy identical parameters for window positioning
                             $params = GenXdev.FileSystem\Copy-IdenticalParamValues `
-                                            -BoundParameters $PSBoundParameters `
-                                            -FunctionName 'GenXdev.Windows\Set-WindowPosition'
+                                -BoundParameters $PSBoundParameters `
+                                -FunctionName 'GenXdev.Windows\Set-WindowPosition'
 
                             if (-not $PSBoundParameters.ContainsKey('Monitor')) {
                                 $params['Monitor'] = -2
@@ -697,12 +698,14 @@ function EnsureDockerDesktop {
                                 $null = GenXdev.Windows\Set-WindowPosition -Process $p `
                                     -Minimize `
                                     -ErrorAction SilentlyContinue
-                            } catch {
+                            }
+                            catch {
                                 # ignore errors
                             }
 
-                           $positioningDone = $true
-                        } else {
+                            $positioningDone = $true
+                        }
+                        else {
 
                             # start minimized by default (hidden in tray)
                             $p = Microsoft.PowerShell.Management\Start-Process $path `
@@ -714,7 +717,8 @@ function EnsureDockerDesktop {
                                 $null = GenXdev.Windows\Set-WindowPosition -Process $p `
                                     -Minimize `
                                     -ErrorAction SilentlyContinue
-                            } catch {
+                            }
+                            catch {
                                 # ignore errors
                             }
 
@@ -737,10 +741,10 @@ function EnsureDockerDesktop {
                 'Desktop window to the foreground...')
 
             $params = GenXdev.FileSystem\Copy-IdenticalParamValues `
-                                -BoundParameters $PSBoundParameters `
-                                -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
-                                -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
-                                    -Scope Local -ErrorAction SilentlyContinue)
+                -BoundParameters $PSBoundParameters `
+                -FunctionName 'GenXdev.Windows\Set-WindowPosition' `
+                -DefaultValues (Microsoft.PowerShell.Utility\Get-Variable `
+                    -Scope Local -ErrorAction SilentlyContinue)
 
             $null = GenXdev.Windows\Set-WindowPosition @params -ProcessName "Docker Desktop" -ErrorAction SilentlyContinue
             $positioningDone = $true
@@ -791,7 +795,8 @@ function EnsureDockerDesktop {
                             'engine is running and ready for basic ' +
                             'operations.') -ForegroundColor Green
                         break
-                    } else {
+                    }
+                    else {
 
                         # either logged in or login check failed, assume docker
                         # is ready

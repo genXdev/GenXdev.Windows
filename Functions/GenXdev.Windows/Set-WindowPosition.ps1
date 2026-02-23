@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows
 Original cmdlet filename  : Set-WindowPosition.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -211,7 +211,7 @@ function Set-WindowPosition {
             Mandatory = $false,
             HelpMessage = 'Window width in pixels'
         )]
-        [int] $Width = -999999,
+        [int] $Width = -1,
         ########################################################################
         [parameter(
             Mandatory = $false,

@@ -2,7 +2,7 @@
 Part of PowerShell module : GenXdev.Windows.WireGuard
 Original cmdlet filename  : Get-WireGuardPeers.ps1
 Original author           : René Vaessen / GenXdev
-Version                   : 2.1.2025
+Version                   : 2.3.2026
 ################################################################################
 Copyright (c)  René Vaessen / GenXdev
 
@@ -193,13 +193,13 @@ function Get-WireGuardPeers {
             Mandatory = $false,
             HelpMessage = 'Set the width of the Docker window'
         )]
-        [int] $Width,
+        [int] $Width = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
             HelpMessage = 'Set the height of the Docker window'
         )]
-        [int] $Height,
+        [int] $Height = -1,
         ###############################################################################
         [Parameter(
             Mandatory = $false,
